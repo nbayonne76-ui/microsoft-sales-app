@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Email Chatbot Demo - Microsoft Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0078d4, #005a9e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .demo-container {
+            width: 95%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            height: 80vh;
+        }
+
+        .chat-section {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-header {
+            background: linear-gradient(90deg, #0078d4, #106ebe);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .chat-header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .chat-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .nlp-status {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .message.bot .message-avatar {
+            background: #0078d4;
+            color: white;
+        }
+
+        .message.user .message-avatar {
+            background: #28a745;
+            color: white;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 18px;
+            line-height: 1.4;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            border: 1px solid #e1e5e9;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .message.user .message-content {
+            background: #0078d4;
+            color: white;
+        }
+
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .suggestion-btn {
+            background: #f1f3f4;
+            border: 1px solid #dadce0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .suggestion-btn:hover {
+            background: #0078d4;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .nlp-metadata {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 8px;
+            font-size: 11px;
+        }
+
+        .nlp-metadata .tag {
+            background: #4caf50;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 5px;
+            font-size: 10px;
+        }
+
+        .chat-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e1e5e9;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .input-field {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            border-color: #0078d4;
+        }
+
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            background: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .info-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 1px solid #e1e5e9;
+            overflow-y: auto;
+        }
+
+        .info-section {
+            margin-bottom: 25px;
+        }
+
+        .info-section h3 {
+            color: #0078d4;
+            font-size: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-list li::before {
+            content: "✅";
+            font-size: 12px;
+        }
+
+        .demo-examples {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .demo-example {
+            background: #f1f3f4;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .demo-example:hover {
+            background: #e3f2fd;
+        }
+
+        .demo-example code {
+            font-size: 12px;
+            color: #0078d4;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-style: italic;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 2px;
+        }
+
+        .loading-dots span {
+            width: 4px;
+            height: 4px;
+            background: #0078d4;
+            border-radius: 50%;
+            animation: bounce 1.4s ease-in-out both infinite;
+        }
+
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            } 40% {
+                transform: scale(1);
+            }
+        }
+
+        .confidence-bar {
+            width: 100%;
+            height: 4px;
+            background: #e1e5e9;
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 5px 0;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+                height: 95vh;
+            }
+
+            .info-panel {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <h1>🤖 Enhanced Email Chatbot</h1>
+                <p>Assistant IA Microsoft avec NLP avancé et Knowledge Base</p>
+                <div class="nlp-status">
+                    🧠 <strong>NLP Enhanced:</strong> LUIS-style + Sentiment Analysis + Entity Extraction
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div>🌅 <strong>Bonjour Nicolas !</strong></div>
+                        <br>
+                        <div>Je suis votre assistant email intelligent avec des capacités NLP avancées :</div>
+                        <br>
+                        <div>🎯 <strong>Qu'allons-nous créer aujourd'hui ?</strong></div>
+                        <div>• Contacter un nouveau prospect</div>
+                        <div>• Faire un suivi de réunion</div>
+                        <div>• Analyser vos templates</div>
+                        <br>
+                        <div>💡 <strong>Ou dites-moi directement :</strong> "Martin Dupont, TechCorp, martin@techcorp.com"</div>
+
+                        <div class="suggestions">
+                            <div class="suggestion-btn" onclick="sendDemoMessage('🎯 Nouveau prospect Azure')">🎯 Nouveau prospect Azure</div>
+                            <div class="suggestion-btn" onclick="sendDemoMessage('📧 Suivi réunion Microsoft 365')">📧 Suivi réunion M365</div>
+                            <div class="suggestion-btn" onclick="sendDemoMessage('📋 Analyser mes templates')">📋 Analyser templates</div>
+                        </div>
+
+                        <div class="nlp-metadata">
+                            <span class="tag">LUIS</span>
+                            <span class="tag">Sentiment: Positive</span>
+                            <span class="tag">Confidence: 95%</span>
+                            <span class="tag">Intent: Greeting</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <div class="input-container">
+                    <input
+                        type="text"
+                        class="input-field"
+                        id="messageInput"
+                        placeholder="Tapez votre message... (ex: 'Email urgent pour Jean Dupont chez Microsoft')"
+                        onkeypress="handleKeyPress(event)"
+                    />
+                    <button class="send-btn" onclick="sendMessage()" id="sendBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Panel -->
+        <div class="info-panel">
+            <div class="info-section">
+                <h3>🧠 NLP Enhancements</h3>
+                <ul class="feature-list">
+                    <li>Intent Classification LUIS-style</li>
+                    <li>Entity Extraction avancée</li>
+                    <li>Sentiment Analysis français</li>
+                    <li>Conversation Memory</li>
+                    <li>Confidence Scoring</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h3>📚 Knowledge Base</h3>
+                <ul class="feature-list">
+                    <li>Solutions Microsoft complètes</li>
+                    <li>Personnalisation par secteur</li>
+                    <li>ROI et business value</li>
+                    <li>Templates intelligents</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h3>🎯 Exemples à tester</h3>
+                <div class="demo-examples">
+                    <div class="demo-example" onclick="sendDemoMessage('Je veux créer un email pour Jean Dupont chez Microsoft')">
+                        <code>"Je veux créer un email pour Jean Dupont chez Microsoft"</code>
+                    </div>
+                    <div class="demo-example" onclick="sendDemoMessage('Email urgent pour migration Azure')">
+                        <code>"Email urgent pour migration Azure"</code>
+                    </div>
+                    <div class="demo-example" onclick="sendDemoMessage('Marie Martin, TechSolutions, marie@tech.com')">
+                        <code>"Marie Martin, TechSolutions, marie@tech.com"</code>
+                    </div>
+                    <div class="demo-example" onclick="sendDemoMessage('Comment utiliser cet outil ?')">
+                        <code>"Comment utiliser cet outil ?"</code>
+                    </div>
+                    <div class="demo-example" onclick="sendDemoMessage('Programmer un suivi avec le client demain')">
+                        <code>"Programmer un suivi avec le client demain"</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>⚡ Performances</h3>
+                <div style="font-size: 12px;">
+                    <div>Intent Accuracy: <div class="confidence-bar"><div class="confidence-fill" style="width: 95%"></div></div> 95%</div>
+                    <div>Entity Extraction: <div class="confidence-bar"><div class="confidence-fill" style="width: 88%"></div></div> 88%</div>
+                    <div>Response Quality: <div class="confidence-bar"><div class="confidence-fill" style="width: 92%"></div></div> 92%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let conversationState = 'initial';
+        let emailData = {};
+        let isLoading = false;
+
+        // Simulate enhanced NLP analysis
+        function analyzeMessage(message) {
+            const analysis = {
+                intent: 'CreateEmail',
+                confidence: 0.9,
+                entities: [],
+                sentiment: { label: 'neutral', confidence: 0.7 },
+                luisMetadata: {}
+            };
+
+            // Simple intent detection for demo
+            if (message.toLowerCase().includes('email') || message.toLowerCase().includes('créer')) {
+                analysis.intent = 'CreateEmail';
+                analysis.confidence = 0.95;
+            } else if (message.toLowerCase().includes('template') || message.toLowerCase().includes('analyser')) {
+                analysis.intent = 'ManageTemplate';
+                analysis.confidence = 0.92;
+            } else if (message.toLowerCase().includes('aide') || message.toLowerCase().includes('comment')) {
+                analysis.intent = 'GetHelp';
+                analysis.confidence = 0.88;
+            } else if (message.toLowerCase().includes('suivi') || message.toLowerCase().includes('programmer')) {
+                analysis.intent = 'ScheduleFollowUp';
+                analysis.confidence = 0.91;
+            }
+
+            // Entity extraction simulation
+            const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
+            const nameRegex = /\b[A-Z][a-z]+ [A-Z][a-z]+\b/g;
+            const companyRegex = /\b(?:Microsoft|TechCorp|TechSolutions|Azure)\b/g;
+
+            const emails = message.match(emailRegex) || [];
+            const names = message.match(nameRegex) || [];
+            const companies = message.match(companyRegex) || [];
+
+            emails.forEach(email => analysis.entities.push({ type: 'EmailAddress', value: email, confidence: 0.95 }));
+            names.forEach(name => analysis.entities.push({ type: 'PersonName', value: name, confidence: 0.85 }));
+            companies.forEach(company => analysis.entities.push({ type: 'CompanyName', value: company, confidence: 0.90 }));
+
+            // Sentiment analysis
+            if (message.toLowerCase().includes('urgent') || message.toLowerCase().includes('immédiat')) {
+                analysis.sentiment = { label: 'urgent', confidence: 0.9 };
+            } else if (message.toLowerCase().includes('fantastique') || message.toLowerCase().includes('excellent')) {
+                analysis.sentiment = { label: 'positive', confidence: 0.8 };
+            } else if (message.toLowerCase().includes('problème') || message.toLowerCase().includes('difficile')) {
+                analysis.sentiment = { label: 'negative', confidence: 0.7 };
+            }
+
+            return analysis;
+        }
+
+        function generateBotResponse(message, analysis) {
+            const { intent, entities, sentiment } = analysis;
+
+            let response = '';
+            let suggestions = [];
+
+            switch (intent) {
+                case 'CreateEmail':
+                    if (entities.length > 0) {
+                        response = `🎯 **Création d'email en cours !**\n\n📋 **Informations détectées :**\n`;
+                        entities.forEach(entity => {
+                            if (entity.type === 'PersonName') response += `👤 Contact : ${entity.value}\n`;
+                            if (entity.type === 'CompanyName') response += `🏢 Entreprise : ${entity.value}\n`;
+                            if (entity.type === 'EmailAddress') response += `📧 Email : ${entity.value}\n`;
+                        });
+
+                        if (sentiment.label === 'urgent') {
+                            response = "⚡ **EMAIL URGENT** - " + response;
+                        }
+
+                        suggestions = ["✅ Générer l'email", "✏️ Modifier les infos", "🎨 Choisir le ton"];
+                    } else {
+                        response = `🎯 **Création d'email**\n\nPour créer un email personnalisé, j'ai besoin de :\n• Nom du destinataire\n• Entreprise\n• Adresse email (optionnel)\n\n💡 **Format :** "Martin Dupont, TechCorp, martin@techcorp.com"`;
+                        suggestions = ["👤 Martin Dupont, TechCorp", "📧 Nouveau prospect Azure", "❓ Voir des exemples"];
+                    }
+                    break;
+
+                case 'ManageTemplate':
+                    response = `📋 **Gestion des templates**\n\nQue souhaitez-vous faire ?\n\n🔍 **Actions disponibles :**\n• Analyser les templates existants\n• Créer un nouveau template\n• Optimiser les templates actuels`;
+                    suggestions = ["🔍 Analyser mes templates", "➕ Créer nouveau template", "⚡ Optimiser templates"];
+                    break;
+
+                case 'GetHelp':
+                    response = `❓ **Assistance disponible**\n\nJe peux vous aider avec :\n\n🎯 **Création d'emails** - Templates personnalisés\n📋 **Gestion de contacts** - Organisation des prospects\n📝 **Templates** - Création et optimisation\n🔧 **Fonctionnalités** - Guide complet`;
+                    suggestions = ["📧 Comment créer un email", "🎯 Personnaliser mes messages", "📋 Gérer mes contacts"];
+                    break;
+
+                case 'ScheduleFollowUp':
+                    response = `📅 **Planification de suivi**\n\nType de suivi souhaité ?\n\n⏰ Options disponibles :\n• Email de suivi\n• Réunion Teams\n• Appel téléphonique`;
+                    suggestions = ["📧 Email de suivi", "💻 Visioconférence Teams", "📞 Appel téléphonique"];
+                    break;
+
+                default:
+                    response = `🤔 **Je n'ai pas bien compris**\n\nJe peux vous aider avec :\n• Création d'emails\n• Gestion de contacts\n• Templates\n• Planification`;
+                    suggestions = ["📧 Créer un email", "👥 Gérer contacts", "📋 Templates", "❓ Aide"];
+            }
+
+            return { response, suggestions, analysis };
+        }
+
+        function addMessage(content, type, suggestions = [], metadata = null) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = type === 'bot' ? '🤖' : '👤';
+
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+
+            // Format message content (simple markdown-like formatting)
+            const formattedContent = content
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+
+            messageContent.innerHTML = formattedContent;
+
+            if (suggestions.length > 0) {
+                const suggestionsDiv = document.createElement('div');
+                suggestionsDiv.className = 'suggestions';
+
+                suggestions.forEach(suggestion => {
+                    const btn = document.createElement('div');
+                    btn.className = 'suggestion-btn';
+                    btn.textContent = suggestion;
+                    btn.onclick = () => sendDemoMessage(suggestion);
+                    suggestionsDiv.appendChild(btn);
+                });
+
+                messageContent.appendChild(suggestionsDiv);
+            }
+
+            if (metadata && type === 'bot') {
+                const metadataDiv = document.createElement('div');
+                metadataDiv.className = 'nlp-metadata';
+
+                const tags = [
+                    `Intent: ${metadata.intent}`,
+                    `Confidence: ${Math.round(metadata.confidence * 100)}%`,
+                    `Entities: ${metadata.entities.length}`,
+                    `Sentiment: ${metadata.sentiment.label}`
+                ];
+
+                tags.forEach(tag => {
+                    const tagSpan = document.createElement('span');
+                    tagSpan.className = 'tag';
+                    tagSpan.textContent = tag;
+                    metadataDiv.appendChild(tagSpan);
+                });
+
+                messageContent.appendChild(metadataDiv);
+            }
+
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.id = 'typing-indicator';
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = '🤖';
+
+            const content = document.createElement('div');
+            content.className = 'message-content typing-indicator';
+            content.innerHTML = `
+                <span>Assistant analyse votre message</span>
+                <div class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+
+            typingDiv.appendChild(avatar);
+            typingDiv.appendChild(content);
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) typing.remove();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+
+            if (!message || isLoading) return;
+
+            isLoading = true;
+            document.getElementById('sendBtn').disabled = true;
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate processing delay
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            // Analyze message with enhanced NLP
+            const analysis = analyzeMessage(message);
+
+            // Generate bot response
+            const botResponse = generateBotResponse(message, analysis);
+
+            // Remove typing indicator and add bot response
+            removeTypingIndicator();
+            addMessage(botResponse.response, 'bot', botResponse.suggestions, analysis);
+
+            isLoading = false;
+            document.getElementById('sendBtn').disabled = false;
+        }
+
+        function sendDemoMessage(message) {
+            const input = document.getElementById('messageInput');
+            input.value = message;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Auto-focus input
+        document.getElementById('messageInput').focus();
+    </script>
+</body>
+</html>

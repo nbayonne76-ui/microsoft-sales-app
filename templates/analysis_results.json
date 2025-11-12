@@ -1,0 +1,436 @@
+{
+  "timestamp": "2025-09-14T10:41:06.601Z",
+  "summary": {
+    "total_templates": 5,
+    "total_errors": 0,
+    "categories": 5
+  },
+  "categories": {
+    "co_sell": {
+      "category": "co_sell",
+      "analyzed": 1,
+      "errors": 0,
+      "templates": [
+        {
+          "id": "QzpcVXNlcnNcdi1u",
+          "fileName": "proposition_partenaire.md",
+          "filePath": "C:\\Users\\v-nbayonne\\my-app\\templates\\co_sell\\proposition_partenaire.md",
+          "category": "co_sell",
+          "extension": ".md",
+          "content": "# Template: Proposition Collaboration Partenaire\n\n**Objet:** Collaboration Microsoft & {nom_partenaire} - Optimisons notre partenariat\n\nBonjour {nom_contact_partenaire},\n\nMerci d'avoir accepté mon invitation.\n\nJe me présente, BAYONNE Nicolas, en charge de l'accompagnement des PME chez Microsoft. J'ai souhaité vous contacter car nous avons des clients en commun, notamment **{clients_communs}**, et je pense qu'il serait bénéfique d'échanger afin d'optimiser notre collaboration.\n\n## 🤝 Notre approche partenaire :\n\nNotre mission est d'accompagner les entreprises dans leur transformation numérique en travaillant **main dans la main** avec nos partenaires. Nous privilégions :\n\n• **Contrats CSP** - Maintien de vos relations clients\n• **Support conjoint** - Accompagnement technique partagé  \n• **Formations** - Montée en compétences de vos équipes\n• **Co-marketing** - Visibilité partagée sur nos actions\n\n## 🎯 Objectifs de collaboration :\n\nNous pourrions nous aligner pour **maximiser la valeur** que nous apportons ensemble à nos clients communs :\n\n- **Expertise technique** - Vous sur le terrain, nous en support\n- **Opportunités business** - Identification de nouveaux besoins\n- **Formation équipes** - Certification sur les nouvelles technologies\n\n## 💼 Prochaine étape :\n\nJ'aimerais organiser un échange avec notre **PCM (Partner Connection Manager)** pour discuter des synergies possibles et des opportunités de collaboration.\n\nSeriez-vous disponible pour un appel dans les prochains jours ?\n\nDans l'attente de votre retour,\n\nCordialement,\n\n**Nicolas BAYONNE**  \nMicrosoft - Accompagnement PME  \n📧 nicolas.bayonne@microsoft.com\n\n---\n*Variables à personnaliser :*\n- {nom_partenaire} : Nom du partenaire\n- {nom_contact_partenaire} : Contact principal\n- {clients_communs} : Clients en commun identifiés",
+          "metadata": {
+            "objective": "partenariat",
+            "targetAudience": "b2b",
+            "channel": "email",
+            "tone": "professionnel",
+            "language": "fr",
+            "urgency": "low",
+            "cta": null,
+            "keywords": [
+              "nous",
+              "collaboration",
+              "notre",
+              "microsoft",
+              "clients",
+              "partenaire",
+              "bayonne",
+              "nicolas",
+              "accompagnement",
+              "vous"
+            ]
+          },
+          "variables": [
+            "nom_partenaire",
+            "nom_contact_partenaire",
+            "clients_communs"
+          ],
+          "structure": {
+            "totalLines": 29,
+            "paragraphs": 18,
+            "hasSubject": true,
+            "hasSignature": true,
+            "hasCallToAction": false,
+            "structure_type": "email_complet"
+          },
+          "style": {
+            "wordCount": 242,
+            "characterCount": 1811,
+            "averageWordsPerSentence": 27,
+            "readabilityScore": "difficile",
+            "formalityLevel": "neutre"
+          },
+          "lastModified": "2025-09-14T10:37:29.901Z",
+          "createdAt": "2025-09-14T10:41:06.589Z"
+        }
+      ]
+    },
+    "email_prospection": {
+      "category": "email_prospection",
+      "analyzed": 1,
+      "errors": 0,
+      "templates": [
+        {
+          "id": "QzpcVXNlcnNcdi1u",
+          "fileName": "contact_froid_azure.md",
+          "filePath": "C:\\Users\\v-nbayonne\\my-app\\templates\\email_prospection\\contact_froid_azure.md",
+          "category": "email_prospection",
+          "extension": ".md",
+          "content": "# Template: Contact Froid Azure\n\n**Objet:** Introduction Microsoft - Solutions Azure pour {entreprise}\n\nBonjour {nom_contact},\n\nJe me présente, Nicolas BAYONNE, en charge de l'accompagnement des PME chez Microsoft.\n\nJ'ai découvert {entreprise} et je pense que nos solutions Azure pourraient vous intéresser, notamment :\n\n• **Migration Cloud** - Optimisation de vos infrastructures\n• **Sécurité renforcée** - Protection des données critiques  \n• **Outils collaboratifs** - Microsoft 365 & Teams\n• **Accompagnement personnalisé** - Support dédié PME\n\n🎯 **Objectif :** Comprendre vos défis actuels et voir comment Microsoft peut vous accompagner dans votre transformation digitale.\n\nSeriez-vous disponible pour un échange de 30 minutes dans les prochains jours ?\n\nJe peux me déplacer ou organiser une visioconférence selon votre préférence.\n\nCordialement,\n\n**Nicolas BAYONNE**  \nMicrosoft - Accompagnement PME  \n📧 nicolas.bayonne@microsoft.com  \n📱 +33 6 XX XX XX XX\n\n---\n*Variables à personnaliser :*\n- {nom_contact} : Prénom du contact\n- {entreprise} : Nom de l'entreprise",
+          "metadata": {
+            "objective": "prospection",
+            "targetAudience": "pme",
+            "channel": "email",
+            "tone": "professionnel",
+            "language": "fr",
+            "urgency": "low",
+            "cta": null,
+            "keywords": [
+              "microsoft",
+              "entreprise",
+              "azure",
+              "nicolas",
+              "bayonne",
+              "accompagnement",
+              "pme",
+              "vous",
+              "contact",
+              "solutions"
+            ]
+          },
+          "variables": [
+            "entreprise",
+            "nom_contact"
+          ],
+          "structure": {
+            "totalLines": 21,
+            "paragraphs": 12,
+            "hasSubject": true,
+            "hasSignature": true,
+            "hasCallToAction": false,
+            "structure_type": "email_complet"
+          },
+          "style": {
+            "wordCount": 149,
+            "characterCount": 1073,
+            "averageWordsPerSentence": 21,
+            "readabilityScore": "difficile",
+            "formalityLevel": "neutre"
+          },
+          "lastModified": "2025-09-14T10:36:55.887Z",
+          "createdAt": "2025-09-14T10:41:06.592Z"
+        }
+      ]
+    },
+    "newsletters": {
+      "category": "newsletters",
+      "analyzed": 1,
+      "errors": 0,
+      "templates": [
+        {
+          "id": "QzpcVXNlcnNcdi1u",
+          "fileName": "update_fy25.md",
+          "filePath": "C:\\Users\\v-nbayonne\\my-app\\templates\\newsletters\\update_fy25.md",
+          "category": "newsletters",
+          "extension": ".md",
+          "content": "# Template: Newsletter FY25/26\n\n**Objet:** 🚀 Microsoft FY25/26 - Vos nouveautés et opportunités\n\nBonjour {nom_contact},\n\nExcellente nouvelle ! L'année fiscale FY25/26 de Microsoft vient de démarrer avec de nombreuses innovations pour accompagner votre croissance.\n\n## 🎯 Nouveautés clés pour votre secteur :\n\n### ☁️ **Azure & Cloud**\n• **Azure Arc** - Gestion hybride simplifiée\n• **Cost Management** - Optimisation budgétaire automatique\n• **AI Services** - Intelligence artificielle accessible aux PME\n\n### 💼 **Microsoft 365 & Collaboration**  \n• **Copilot pour tous** - Assistant IA intégré\n• **Teams Premium** - Réunions intelligentes\n• **Viva Suite** - Expérience employé optimisée\n\n### 🔐 **Sécurité**\n• **Microsoft Sentinel** - Protection proactive\n• **Zero Trust** - Sécurité par défaut\n• **Compliance automatisée** - RGPD simplifié\n\n## 🎁 **Opportunités spéciales FY25/26 :**\n\n**Pour {entreprise} :**\n- [ ] **Audit gratuit** de votre infrastructure cloud\n- [ ] **Formation équipes** sur les nouveaux outils  \n- [ ] **Support migration** avec accompagnement personnalisé\n\n## 📅 **Prochaines étapes :**\n\nJe vous propose un **café découverte** de 30 minutes pour :\n✅ Comprendre vos défis actuels  \n✅ Identifier les opportunités FY25/26  \n✅ Personnaliser nos solutions selon vos besoins\n\n**Agenda ouvert :**\n• Semaine du {semaine_1} \n• Semaine du {semaine_2}\n• Semaine du {semaine_3}\n\nChoisissez le créneau qui vous convient !\n\n## 📊 **Témoignage client :**\n*\"{temoignage_client}\"*  \n**{nom_client_temoin}** - {poste_temoin}, {entreprise_temoin}\n\nExcellente journée et au plaisir de nos échanges,\n\n**Nicolas BAYONNE**  \nMicrosoft - Accompagnement PME  \n🌐 Votre partenaire digital de confiance\n\n---\n*Variables à personnaliser :*\n- {nom_contact}, {entreprise}\n- {semaine_1}, {semaine_2}, {semaine_3} : Créneaux proposés\n- {temoignage_client} : Témoignage pertinent",
+          "metadata": {
+            "objective": "information",
+            "targetAudience": "b2b",
+            "channel": "email",
+            "tone": "professionnel",
+            "language": "fr",
+            "urgency": "low",
+            "cta": null,
+            "keywords": [
+              "fy25",
+              "microsoft",
+              "votre",
+              "vos",
+              "opportunit",
+              "semaine",
+              "nouveaut",
+              "nom_contact",
+              "excellente",
+              "azure"
+            ]
+          },
+          "variables": [
+            "nom_contact",
+            "entreprise",
+            "semaine_1",
+            "semaine_2",
+            "semaine_3",
+            "temoignage_client",
+            "nom_client_temoin",
+            "poste_temoin",
+            "entreprise_temoin"
+          ],
+          "structure": {
+            "totalLines": 44,
+            "paragraphs": 18,
+            "hasSubject": true,
+            "hasSignature": false,
+            "hasCallToAction": false,
+            "structure_type": "email_complet"
+          },
+          "style": {
+            "wordCount": 259,
+            "characterCount": 1870,
+            "averageWordsPerSentence": 65,
+            "readabilityScore": "difficile",
+            "formalityLevel": "informel"
+          },
+          "lastModified": "2025-09-14T10:38:12.219Z",
+          "createdAt": "2025-09-14T10:41:06.596Z"
+        }
+      ]
+    },
+    "relance": {
+      "category": "relance",
+      "analyzed": 1,
+      "errors": 0,
+      "templates": [
+        {
+          "id": "QzpcVXNlcnNcdi1u",
+          "fileName": "relance_diplomatique.md",
+          "filePath": "C:\\Users\\v-nbayonne\\my-app\\templates\\relance\\relance_diplomatique.md",
+          "category": "relance",
+          "extension": ".md",
+          "content": "# Template: Relance Diplomatique\n\n**Objet:** Suivi - Solutions Microsoft pour {entreprise}\n\nBonjour {nom_contact},\n\nJ'espère que vous allez bien.\n\nIl y a {duree_ecoulee} (le {date_dernier_contact}), nous avions échangé concernant vos besoins en **{sujet_initial}**.\n\n## 🔄 Contexte :\nVous nous aviez fait part de votre intérêt pour :\n• {besoin_1}\n• {besoin_2}\n• {besoin_3}\n\n## 📈 Actualités Microsoft :\nDepuis notre dernier échange, plusieurs évolutions pourraient vous intéresser :\n- **{nouveaute_1}** - {benefice_1}\n- **{nouveaute_2}** - {benefice_2}\n\n## 🤔 Où en êtes-vous ?\n\nJe comprends que les priorités évoluent et que le timing n'était peut-être pas optimal.\n\n**Sans aucune pression**, j'aimerais simplement savoir où vous en êtes dans votre réflexion :\n\n✅ **Toujours d'actualité ?** - Reprogrammons un échange  \n⏸️ **Reporté ?** - Je vous recontacte dans {duree_report}  \n❌ **Plus d'actualité ?** - Merci de me l'indiquer, je comprendrai parfaitement\n\n## 💡 Alternative :\nSi ce n'est plus d'actualité pour {entreprise}, auriez-vous dans votre réseau une entreprise qui pourrait être intéressée ? Je serais ravi de lui présenter nos solutions.\n\nExcellente journée et au plaisir d'avoir de vos nouvelles,\n\n**Nicolas BAYONNE**  \nMicrosoft - Accompagnement PME\n\n---\n*Variables à personnaliser :*\n- {duree_ecoulee} : \"3 semaines\", \"2 mois\"\n- {date_dernier_contact} : Date du dernier contact\n- {sujet_initial} : Sujet de la discussion initiale\n- {duree_report} : Durée avant prochaine relance",
+          "metadata": {
+            "objective": "reactivation",
+            "targetAudience": "pme",
+            "channel": "email",
+            "tone": "professionnel",
+            "language": "fr",
+            "urgency": "low",
+            "cta": null,
+            "keywords": [
+              "vous",
+              "actualit",
+              "microsoft",
+              "entreprise",
+              "votre",
+              "int",
+              "relance",
+              "solutions",
+              "duree_ecoulee",
+              "date_dernier_contact"
+            ]
+          },
+          "variables": [
+            "entreprise",
+            "nom_contact",
+            "duree_ecoulee",
+            "date_dernier_contact",
+            "sujet_initial",
+            "besoin_1",
+            "besoin_2",
+            "besoin_3",
+            "nouveaute_1",
+            "benefice_1",
+            "nouveaute_2",
+            "benefice_2",
+            "duree_report"
+          ],
+          "structure": {
+            "totalLines": 31,
+            "paragraphs": 15,
+            "hasSubject": true,
+            "hasSignature": false,
+            "hasCallToAction": false,
+            "structure_type": "email_complet"
+          },
+          "style": {
+            "wordCount": 217,
+            "characterCount": 1495,
+            "averageWordsPerSentence": 22,
+            "readabilityScore": "difficile",
+            "formalityLevel": "informel"
+          },
+          "lastModified": "2025-09-14T10:37:48.634Z",
+          "createdAt": "2025-09-14T10:41:06.598Z"
+        }
+      ]
+    },
+    "suivi_clients": {
+      "category": "suivi_clients",
+      "analyzed": 1,
+      "errors": 0,
+      "templates": [
+        {
+          "id": "QzpcVXNlcnNcdi1u",
+          "fileName": "post_reunion_recap.md",
+          "filePath": "C:\\Users\\v-nbayonne\\my-app\\templates\\suivi_clients\\post_reunion_recap.md",
+          "category": "suivi_clients",
+          "extension": ".md",
+          "content": "# Template: Récapitulatif Post-Réunion\n\n**Objet:** Suivi réunion {entreprise} - Prochaines étapes\n\nBonjour {nom_contact},\n\nMerci pour nos échanges d'aujourd'hui concernant {sujet_reunion}.\n\n## 📝 Récapitulatif des points abordés :\n\n• **{point_1}** - {detail_1}\n• **{point_2}** - {detail_2}  \n• **{point_3}** - {detail_3}\n\n## ⏰ Actions et échéances :\n\n**De votre côté :**\n- [ ] {action_client_1} - Échéance : {date_1}\n- [ ] {action_client_2} - Échéance : {date_2}\n\n**De notre côté :**\n- [ ] {action_microsoft_1} - Échéance : {date_microsoft_1}\n- [ ] {action_microsoft_2} - Échéance : {date_microsoft_2}\n\n## 📎 Documents partagés :\n{liste_documents}\n\n## 🔄 Prochaine étape :\nJe vous propose de programmer notre prochain point dans {duree} ({date_proposition}) pour faire le bilan des avancées.\n\nN'hésitez pas si vous avez des questions d'ici là !\n\nExcellent après-midi,\n\n**Nicolas BAYONNE**  \nMicrosoft - Accompagnement PME\n\n---\n*Variables à personnaliser :*\n- {nom_contact}, {entreprise}, {sujet_reunion}\n- {point_1}, {point_2}, {point_3} : Points discutés\n- {action_client_1}, {action_microsoft_1} : Actions à réaliser\n- {liste_documents} : Documents échangés",
+          "metadata": {
+            "objective": "fidélisation",
+            "targetAudience": "pme",
+            "channel": "email",
+            "tone": "professionnel",
+            "language": "fr",
+            "urgency": "high",
+            "cta": null,
+            "keywords": [
+              "ance",
+              "capitulatif",
+              "union",
+              "entreprise",
+              "nom_contact",
+              "sujet_reunion",
+              "points",
+              "point_1",
+              "point_2",
+              "point_3"
+            ]
+          },
+          "variables": [
+            "entreprise",
+            "nom_contact",
+            "sujet_reunion",
+            "point_1",
+            "detail_1",
+            "point_2",
+            "detail_2",
+            "point_3",
+            "detail_3",
+            "action_client_1",
+            "date_1",
+            "action_client_2",
+            "date_2",
+            "action_microsoft_1",
+            "date_microsoft_1",
+            "action_microsoft_2",
+            "date_microsoft_2",
+            "liste_documents",
+            "duree",
+            "date_proposition"
+          ],
+          "structure": {
+            "totalLines": 29,
+            "paragraphs": 15,
+            "hasSubject": true,
+            "hasSignature": false,
+            "hasCallToAction": false,
+            "structure_type": "email_complet"
+          },
+          "style": {
+            "wordCount": 159,
+            "characterCount": 1159,
+            "averageWordsPerSentence": 40,
+            "readabilityScore": "difficile",
+            "formalityLevel": "informel"
+          },
+          "lastModified": "2025-09-14T10:37:09.957Z",
+          "createdAt": "2025-09-14T10:41:06.601Z"
+        }
+      ]
+    }
+  },
+  "templates": [
+    {
+      "id": "QzpcVXNlcnNcdi1u",
+      "fileName": "proposition_partenaire.md",
+      "category": "co_sell",
+      "objective": "partenariat",
+      "targetAudience": "b2b",
+      "tone": "professionnel",
+      "variables": [
+        "nom_partenaire",
+        "nom_contact_partenaire",
+        "clients_communs"
+      ],
+      "wordCount": 242
+    },
+    {
+      "id": "QzpcVXNlcnNcdi1u",
+      "fileName": "contact_froid_azure.md",
+      "category": "email_prospection",
+      "objective": "prospection",
+      "targetAudience": "pme",
+      "tone": "professionnel",
+      "variables": [
+        "entreprise",
+        "nom_contact"
+      ],
+      "wordCount": 149
+    },
+    {
+      "id": "QzpcVXNlcnNcdi1u",
+      "fileName": "update_fy25.md",
+      "category": "newsletters",
+      "objective": "information",
+      "targetAudience": "b2b",
+      "tone": "professionnel",
+      "variables": [
+        "nom_contact",
+        "entreprise",
+        "semaine_1",
+        "semaine_2",
+        "semaine_3",
+        "temoignage_client",
+        "nom_client_temoin",
+        "poste_temoin",
+        "entreprise_temoin"
+      ],
+      "wordCount": 259
+    },
+    {
+      "id": "QzpcVXNlcnNcdi1u",
+      "fileName": "relance_diplomatique.md",
+      "category": "relance",
+      "objective": "reactivation",
+      "targetAudience": "pme",
+      "tone": "professionnel",
+      "variables": [
+        "entreprise",
+        "nom_contact",
+        "duree_ecoulee",
+        "date_dernier_contact",
+        "sujet_initial",
+        "besoin_1",
+        "besoin_2",
+        "besoin_3",
+        "nouveaute_1",
+        "benefice_1",
+        "nouveaute_2",
+        "benefice_2",
+        "duree_report"
+      ],
+      "wordCount": 217
+    },
+    {
+      "id": "QzpcVXNlcnNcdi1u",
+      "fileName": "post_reunion_recap.md",
+      "category": "suivi_clients",
+      "objective": "fidélisation",
+      "targetAudience": "pme",
+      "tone": "professionnel",
+      "variables": [
+        "entreprise",
+        "nom_contact",
+        "sujet_reunion",
+        "point_1",
+        "detail_1",
+        "point_2",
+        "detail_2",
+        "point_3",
+        "detail_3",
+        "action_client_1",
+        "date_1",
+        "action_client_2",
+        "date_2",
+        "action_microsoft_1",
+        "date_microsoft_1",
+        "action_microsoft_2",
+        "date_microsoft_2",
+        "liste_documents",
+        "duree",
+        "date_proposition"
+      ],
+      "wordCount": 159
+    }
+  ]
+}

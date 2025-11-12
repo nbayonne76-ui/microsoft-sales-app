@@ -1,0 +1,1324 @@
+// Schema de base de données pour l'AI Agent Email Generator
+// Gestion des clients et historique des interactions
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Modèle Client avec profil complet
+model Client {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Informations entreprise
+  company            String
+  segment            String // enterprise, sme, startup
+  industry          String?
+  employeeCount     Int?
+  currentChallenges String?
+  
+  // Contact principal
+  contactName  String?
+  contactEmail String? @unique
+  contactRole  String?
+  
+  // Métadonnées business
+  priority          String @default("medium") // high, medium, low
+  status           String @default("active")  // active, inactive, converted
+  assignedManager  String @default("Nicolas BAYONNE")
+
+  // Relations
+  interactions ClientInteraction[]
+  hotLead      HotLead?
+
+  @@index([company])
+  @@index([segment])
+  @@index([status])
+  @@index([priority])
+  @@index([contactEmail])
+  // PERFORMANCE FIX: Added indexes for frequently queried/sorted fields
+  @@index([updatedAt])
+  @@index([status, priority])
+  @@index([createdAt])
+  @@map("clients")
+}
+
+// Modèle Interaction pour l'historique complet
+model ClientInteraction {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Relation client
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  // Type d'interaction
+  type         String // email, call, meeting, demo, proposal
+  direction    String // outbound, inbound
+  status       String // sent, delivered, opened, clicked, responded, no_response
+
+  // Contenu de l'interaction
+  subject      String?
+  content      String?
+  context      String? // Contexte business qui a motivé l'interaction
+  intent       String? // Intention de l'interaction
+
+  // Email tracking
+  messageId    String? // Email Message-ID for tracking events
+  jobId        String? // BullMQ job ID if scheduled
+
+  // Analyse de sentiment et réponse
+  sentiment         String @default("neutral") // positive, neutral, negative
+  responseReceived  Boolean @default(false)
+  responseContent   String?
+  responseSentiment String?
+
+  // Résultats et suivi
+  nextAction       String? // next_call, demo_scheduled, proposal_sent, etc.
+  nextActionDate   DateTime?
+  outcome          String? // interested, objection, not_interested, meeting_booked
+
+  // Métriques
+  openedAt    DateTime?
+  clickedAt   DateTime?
+  respondedAt DateTime?
+
+  // Relations
+  feedback    EmailFeedback[]
+
+  @@index([clientId])
+  @@index([messageId])
+  @@index([type])
+  @@index([status])
+  @@index([createdAt])
+  @@map("client_interactions")
+}
+
+// Modèle pour les templates d'emails générés (historique)
+model EmailTemplate {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  
+  // Métadonnées
+  name        String
+  category    String // migration, budget, change_management, follow_up
+  segment     String // enterprise, sme, startup
+  tone        String // formal, professional_friendly, casual_expert
+  
+  // Contenu
+  subject     String
+  content     String
+  reasoning   String? // Pourquoi ce template a été choisi
+  
+  // Métriques d'utilisation
+  useCount    Int @default(0)
+  successRate Float @default(0.0) // Taux de réponse positive
+
+  @@index([category])
+  @@index([segment])
+  @@index([tone])
+  @@map("email_templates")
+}
+
+// Modèle pour les métriques de performance globales
+model EmailMetric {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Période de mesure
+  date     DateTime
+  segment  String // enterprise, sme, startup, unknown
+
+  // Métriques d'envoi
+  emailsGenerated    Int @default(0) // Added: track generated emails
+  emailsSent         Int @default(0)
+  delivered          Int @default(0) // Renamed from emailsDelivered
+  opened             Int @default(0) // Renamed from emailsOpened
+  clicked            Int @default(0) // Renamed from emailsClicked
+  replied            Int @default(0) // Renamed from emailsReplied
+  bounced            Int @default(0) // Added: track bounces
+
+  // Métriques de sentiment
+  sentimentPositive  Int @default(0) // Renamed from positiveResponses
+  sentimentNeutral   Int @default(0) // Renamed from neutralResponses
+  sentimentNegative  Int @default(0) // Renamed from negativeResponses
+
+  // Taux calculés (mis à jour automatiquement)
+  deliveryRate      Float @default(0.0) // delivered/sent
+  openRate          Float @default(0.0) // opened/delivered
+  clickRate         Float @default(0.0) // clicked/opened
+  responseRate      Float @default(0.0) // replied/delivered
+
+  @@unique([date, segment])
+  @@map("email_metrics")
+}
+
+// Modèle pour tracker les événements individuels d'emails
+model EmailEvent {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Email identification
+  messageId     String // Message-ID from email header
+  jobId         String? // BullMQ job ID if scheduled
+
+  // Event details
+  eventType     String // sent, delivered, opened, clicked, bounced, replied, complained
+  eventData     Json? // Additional event data (link clicked, bounce reason, etc.)
+
+  // Recipient information
+  recipient     String
+  subject       String?
+
+  // Context
+  campaignId    String?
+  segment       String? // enterprise, sme, startup
+  source        String @default("queue") // queue, manual, api
+
+  // User agent (for opens/clicks)
+  userAgent     String?
+  ipAddress     String?
+
+  // Metadata
+  metadata      Json?
+
+  @@index([messageId])
+  @@index([eventType])
+  @@index([recipient])
+  @@index([createdAt])
+  @@map("email_events")
+}
+
+// Modèle pour les événements d'analytics généraux
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Event identification
+  eventType     String // email_generated, email_sent, ai_interaction, feedback_submitted, etc.
+  eventCategory String // email, ai, user, system
+
+  // Event data
+  eventData     Json // All event-specific data
+
+  // User/Session context
+  userId        String?
+  sessionId     String?
+
+  // Additional context
+  metadata      Json?
+
+  @@index([eventType])
+  @@index([eventCategory])
+  @@index([createdAt])
+  @@map("analytics_events")
+}
+
+// Modèle pour le feedback et apprentissage
+model EmailFeedback {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  
+  // Relation avec interaction
+  interactionId String
+  interaction   ClientInteraction @relation(fields: [interactionId], references: [id], onDelete: Cascade)
+  
+  // Feedback qualité email (1-5)
+  qualityRating     Int?    // 1 = très mauvais, 5 = excellent
+  relevanceRating   Int?    // 1 = pas pertinent, 5 = très pertinent 
+  toneRating        Int?    // 1 = ton inapproprié, 5 = ton parfait
+  
+  // Feedback textuel
+  feedbackText      String? // Commentaire libre
+  suggestedImprovement String? // Suggestion d'amélioration
+  
+  // Métadonnées feedback
+  feedbackSource    String @default("manual") // manual, automatic, client
+  feedbackType      String // positive, negative, suggestion, correction
+  
+  // Apprentissage automatique
+  wasUsedForTraining Boolean @default(false)
+  improvedVersion   String? // Version améliorée basée sur ce feedback
+  
+  @@map("email_feedback")
+}
+
+// Modèle pour les patterns d'apprentissage
+model LearningPattern {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Identification du pattern
+  patternType    String // subject_line, opening, closing, call_to_action, tone_adaptation
+  context        String // Contexte où ce pattern s'applique
+  segment        String? // Segment client concerné
+  
+  // Pattern identifié
+  pattern        String // Le pattern textuel/structurel identifié
+  description    String // Description du pattern
+  
+  // Métriques du pattern
+  occurrences    Int     @default(1) // Nombre de fois observé
+  successRate    Float   @default(0.0) // Taux de succès de ce pattern
+  confidenceScore Float  @default(0.0) // Confiance dans ce pattern (0-1)
+  
+  // Statut d'utilisation
+  isActive       Boolean @default(true)
+  lastUsed       DateTime?
+  
+  @@map("learning_patterns")
+}
+
+// Modèle pour les tests A/B automatisés
+model ABTest {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Configuration du test
+  name              String
+  description       String?
+  testType          String // subject_line, opening_paragraph, call_to_action, tone, length
+  status            String @default("active") // active, paused, completed, cancelled
+
+  // Timing
+  startDate         DateTime
+  endDate           DateTime?
+
+  // Configuration statistique
+  trafficSplit      Json // [50, 50] ou [33, 33, 34]
+  minSampleSize     Int @default(20)
+  confidenceLevel   Float @default(0.95)
+
+  // Relations
+  baseTemplateId    String?
+  variants          TestVariant[]
+
+  // Résultats
+  winningVariantId  String?
+  confidence        Float @default(0.0)
+
+  @@map("ab_tests")
+}
+
+// Modèle pour les variants de test
+model TestVariant {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Relation avec le test
+  abTestId  String
+  abTest    ABTest @relation(fields: [abTestId], references: [id], onDelete: Cascade)
+
+  // Configuration du variant
+  name              String // A, B, C...
+  isControl         Boolean @default(false)
+  trafficPercentage Int @default(50)
+
+  // Contenu du variant
+  subject           String
+  content           String
+  changes           Json // Détails des modifications appliquées
+
+  // Métriques
+  totalAssigned     Int @default(0)
+
+  // Relations
+  assignments       VariantAssignment[]
+  results           TestResult[]
+
+  @@map("test_variants")
+}
+
+// Modèle pour l'assignation des variants
+model VariantAssignment {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Relation avec le variant
+  variantId String
+  variant   TestVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  // Information utilisateur
+  userId    String? // Peut être null pour les utilisateurs anonymes
+  sessionId String?
+
+  // Contexte
+  timestamp DateTime
+  metadata  Json? // Contexte supplémentaire (segment, role, etc.)
+
+  @@map("variant_assignments")
+}
+
+// Modèle pour les résultats des tests
+model TestResult {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Relation avec le variant
+  variantId String
+  variant   TestVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  // Métrique mesurée
+  metric    String // sent, opened, clicked, responded, converted
+  value     Float @default(1.0) // Généralement 1 ou 0, mais peut être une valeur
+
+  // Contexte
+  timestamp DateTime
+  metadata  Json? // Informations supplémentaires
+
+  @@map("test_results")
+}
+
+// Modèle Hot Lead avec toutes les informations détaillées
+model HotLead {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Informations générales entreprise
+  companyName        String
+  description        String?
+  address            String?
+  phone              String?
+  email              String?
+  website            String?
+  employeeCount      Int?
+
+  // Informations légales et financières
+  legalForm          String? // SARL, SAS, etc.
+  capitalSocial      String?
+  siret              String?
+  tvaNumber          String?
+  nafCode            String?
+  creationDate       String?
+  closingDate        String?
+  turnover           String?
+
+  // Statut et priorité
+  isOpportunity      Boolean @default(false)
+  priority           String @default("MOYENNE") // HAUTE, MOYENNE, BASSE
+  status             String @default("active")
+
+  // Source et enrichissement
+  source             String? // campaign, manual, import
+  campaignName       String? // Nom de la campagne d'origine
+  enrichmentStatus   String @default("pending") // pending, enriched, failed
+  enrichedAt         DateTime?
+  enrichmentSource   String? // web, api, manual
+
+  // Connexion au Client (pour historique emails)
+  clientId           String? @unique
+  client             Client? @relation(fields: [clientId], references: [id])
+
+  // Relations
+  managers           Manager[]
+  teamMembers        TeamMember[]
+  services           Service[]
+  specialties        Specialty[]
+  solutions          MicrosoftSolution[]
+  interactions       LeadInteraction[]
+  actions            LeadAction[]
+
+  // Phase 2 Relations
+  sequenceEnrollments SequenceEnrollment[]
+  emailTracking      EmailTracking[]
+  dealRooms          DealRoom[]
+  roiCalculations    ROICalculation[]
+
+  @@index([companyName])
+  @@index([status])
+  @@index([priority])
+  @@index([enrichmentStatus])
+  @@index([siret])
+  @@index([createdAt])
+  @@map("hot_leads")
+}
+
+// Dirigeants de l'entreprise
+model Manager {
+  id        String   @id @default(cuid())
+
+  hotLeadId String
+  hotLead   HotLead @relation(fields: [hotLeadId], references: [id], onDelete: Cascade)
+
+  name      String
+  role      String
+  email     String?
+  phone     String?
+
+  @@map("managers")
+}
+
+// Membres de l'équipe
+model TeamMember {
+  id        String   @id @default(cuid())
+
+  hotLeadId String
+  hotLead   HotLead @relation(fields: [hotLeadId], references: [id], onDelete: Cascade)
+
+  name      String
+  role      String
+  expertise String?
+
+  @@map("team_members")
+}
+
+// Services de l'entreprise
+model Service {
+  id        String   @id @default(cuid())
+
+  hotLeadId String
+  hotLead   HotLead @relation(fields: [hotLeadId], references: [id], onDelete: Cascade)
+
+  name      String
+  description String?
+
+  @@map("services")
+}
+
+// Spécialités et expertises
+model Specialty {
+  id        String   @id @default(cuid())
+
+  hotLeadId String
+  hotLead   HotLead @relation(fields: [hotLeadId], references: [id], onDelete: Cascade)
+
+  name      String
+  domain    String? // technique, métier, secteur
+
+  @@map("specialties")
+}
+
+// Solutions Microsoft recommandées
+model MicrosoftSolution {
+  id        String   @id @default(cuid())
+
+  hotLeadId String
+  hotLead   HotLead @relation(fields: [hotLeadId], references: [id], onDelete: Cascade)
+
+  name          String
+  priority      String // HAUTE, MOYENNE, BASSE
+  price         String?
+  benefits      Json // Array de bénéfices
+  useCases      Json // Array de cas d'usage
+  implementation String? // Timeline d'implémentation
+
+  @@map("microsoft_solutions")
+}
+
+// Interactions et timeline du lead
+model LeadInteraction {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  hotLeadId String
+  hotLead   HotLead @relation(fields: [hotLeadId], references: [id], onDelete: Cascade)
+
+  date      String // Date au format texte
+  type      String // meeting, call, email, conversion, note
+  title     String
+  notes     String?
+  participants String? // Liste des participants
+
+  @@map("lead_interactions")
+}
+
+// Actions à suivre pour le lead
+model LeadAction {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  hotLeadId String
+  hotLead   HotLead @relation(fields: [hotLeadId], references: [id], onDelete: Cascade)
+
+  action      String
+  priority    String // HAUTE, MOYENNE, BASSE
+  deadline    String?
+  status      String @default("pending") // pending, completed
+  assignedTo  String?
+
+  @@map("lead_actions")
+}
+
+// ============================================
+// WORKFLOW ENGINE MODELS
+// ============================================
+
+// Modèle Workflow - Définition d'une séquence automatisée
+model Workflow {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Informations générales
+  name          String
+  description   String?
+  category      String // welcome, follow_up, nurture, re_engagement, conversion
+
+  // Configuration
+  status        String @default("active") // active, paused, archived
+  isTemplate    Boolean @default(false) // Est-ce un template prédéfini?
+
+  // Triggers (conditions de déclenchement)
+  triggerType   String // manual, lead_created, lead_enriched, email_opened, email_clicked, no_response
+  triggerConfig Json? // Configuration du trigger (délais, conditions, etc.)
+
+  // Targeting
+  targetSegment String? // enterprise, sme, startup, all
+  targetPriority String? // HAUTE, MOYENNE, BASSE, all
+
+  // Statistiques
+  totalExecutions Int @default(0)
+  activeExecutions Int @default(0)
+  completedExecutions Int @default(0)
+  successRate Float @default(0.0)
+
+  // Relations
+  steps         WorkflowStep[]
+  executions    WorkflowExecution[]
+
+  @@index([status])
+  @@index([category])
+  @@index([triggerType])
+  @@map("workflows")
+}
+
+// Modèle WorkflowStep - Étape individuelle d'un workflow
+model WorkflowStep {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Relation avec workflow
+  workflowId String
+  workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  // Configuration de l'étape
+  stepOrder     Int // Ordre dans la séquence (0, 1, 2...)
+  name          String
+  description   String?
+  stepType      String // email, wait, condition, action
+
+  // Configuration spécifique selon le type
+  config        Json // Configuration détaillée de l'étape
+  // Pour email: { templateId, subject, content }
+  // Pour wait: { delay, unit: 'hours|days|weeks' }
+  // Pour condition: { field, operator, value, trueBranch, falseBranch }
+  // Pour action: { actionType, params }
+
+  // Conditions d'exécution
+  executeIf     Json? // Conditions pour exécuter cette étape
+
+  // Relations
+  executions    StepExecution[]
+
+  @@index([workflowId])
+  @@index([stepOrder])
+  @@map("workflow_steps")
+}
+
+// Modèle WorkflowExecution - Instance d'exécution d'un workflow
+model WorkflowExecution {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation avec workflow
+  workflowId String
+  workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  // Lead concerné
+  leadId String
+  leadName String // Nom de l'entreprise pour faciliter les requêtes
+
+  // État de l'exécution
+  status String @default("active") // active, paused, completed, failed, cancelled
+  currentStepOrder Int @default(0) // Étape actuelle
+
+  // Timing
+  startedAt DateTime @default(now())
+  completedAt DateTime?
+  pausedAt DateTime?
+
+  // Résultats
+  totalSteps Int @default(0)
+  completedSteps Int @default(0)
+  failedSteps Int @default(0)
+
+  // Métriques de succès
+  emailsSent Int @default(0)
+  emailsOpened Int @default(0)
+  emailsClicked Int @default(0)
+  emailsReplied Int @default(0)
+
+  // Données contextuelles
+  context Json? // Données partagées entre les étapes
+
+  // Relations
+  stepExecutions StepExecution[]
+
+  @@index([leadId])
+  @@index([status])
+  @@map("workflow_executions")
+}
+
+// Modèle StepExecution - Exécution d'une étape spécifique
+model StepExecution {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  executionId String
+  execution   WorkflowExecution @relation(fields: [executionId], references: [id], onDelete: Cascade)
+
+  stepId String
+  step   WorkflowStep @relation(fields: [stepId], references: [id], onDelete: Cascade)
+
+  // État
+  status String @default("pending") // pending, scheduled, running, completed, failed, skipped
+
+  // Timing
+  scheduledFor DateTime? // Quand cette étape doit s'exécuter
+  startedAt DateTime?
+  completedAt DateTime?
+
+  // Résultats
+  result Json? // Résultat de l'exécution (ID email envoyé, résultat de condition, etc.)
+  error String? // Message d'erreur si échec
+
+  // Job tracking
+  jobId String? // BullMQ job ID si étape asynchrone
+
+  // Retry
+  retryCount Int @default(0)
+  maxRetries Int @default(3)
+
+  @@index([status])
+  @@index([scheduledFor])
+  @@map("step_executions")
+}
+
+// Modèle WorkflowTemplate - Templates prédéfinis de workflows
+model WorkflowTemplate {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Informations template
+  name String @unique
+  displayName String
+  description String
+  category String // welcome, follow_up, nurture, re_engagement
+  icon String?
+
+  // Configuration du template
+  templateData Json // Structure complète du workflow à créer
+
+  // Métriques d'utilisation
+  timesUsed Int @default(0)
+  averageSuccessRate Float @default(0.0)
+
+  // Recommandations
+  recommendedFor String? // "Nouveaux leads", "Leads sans réponse", etc.
+
+  @@map("workflow_templates")
+}
+
+// ============================================
+// INTEGRATION / CRM SYNC MODELS
+// ============================================
+
+// Modèle IntegrationSync - Track synchronization avec systèmes externes
+model IntegrationSync {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Identification
+  localId      String // ID de l'entité locale (HotLead, Contact, etc.)
+  externalId   String // ID dans le système externe (Dynamics 365 Lead ID, etc.)
+  externalSystem String // dynamics365, salesforce, hubspot, etc.
+  entityType   String // lead, contact, account, opportunity
+
+  // Direction de sync
+  direction    String // inbound, outbound, bidirectional
+
+  // État de sync
+  syncStatus   String @default("pending") // pending, synced, failed
+  lastSyncedAt DateTime?
+  lastSyncError String?
+  lastSyncData Json? // Last data synced
+
+  // Metadata
+  syncConfig Json? // Configuration spécifique au sync
+
+  @@unique([localId, externalSystem, entityType])
+  @@index([externalId])
+  @@index([externalSystem])
+  @@index([syncStatus])
+  @@map("integration_syncs")
+}
+
+// Modèle IntegrationConfig - Configuration des intégrations
+model IntegrationConfig {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Système externe
+  system    String @unique // dynamics365, salesforce, hubspot
+
+  // Credentials (encrypted in production!)
+  credentials Json // { clientId, clientSecret, tenantId, etc. }
+
+  // Configuration
+  config      Json // System-specific config
+  fieldMapping Json? // Mapping des champs
+
+  // État
+  isActive    Boolean @default(true)
+  lastSyncedAt DateTime?
+
+  @@map("integration_configs")
+}
+
+// ============================================
+// AZURE KNOWLEDGE BASE MODELS
+// ============================================
+
+// Modèle AzureSolution - Solutions et workloads Azure
+model AzureSolution {
+  id                String   @id @default(cuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Identification
+  name              String   @unique // azure-virtual-machines
+  officialName      String // Azure Virtual Machines
+  category          String // compute, storage, networking, ai, etc.
+  subcategory       String? // virtual-machines, container-services, etc.
+
+  // Description
+  shortDescription  String
+  fullDescription   String
+
+  // Features et avantages
+  keyFeatures       Json // Array of feature strings
+  benefits          Json // Array of benefit strings
+  useCases          Json // Array of use case objects
+
+  // Target customers
+  targetIndustries  Json // Array of industry strings
+  idealCustomerSize String // SME, Enterprise, Startup, All
+  targetPersonas    Json // Array of persona strings (CTO, IT Manager, etc.)
+
+  // Pricing
+  pricingModel      String // pay-as-you-go, subscription, reserved, spot
+  pricingTiers      Json // Array of tier objects
+  estimatedCost     String? // e.g., "Starting from $X/month"
+
+  // Implementation
+  implementationTime String? // e.g., "1-2 weeks", "1 month"
+  complexity        String // low, medium, high
+  prerequisites     Json? // Array of prerequisite strings
+  integrations      Json? // Array of compatible Azure services
+
+  // Sales intelligence
+  competitorComparison Json? // Array of competitor comparison objects
+  salesPriority     Int      @default(0) // 0-10, higher = more priority
+  isActive          Boolean  @default(true)
+  isFeatured        Boolean  @default(false)
+
+  // Search and categorization
+  keywords          Json // Array of search keywords
+  tags              Json // Array of tags
+  relatedSolutions  Json? // Array of related solution IDs
+
+  // Content
+  technicalSpecs    Json? // Detailed technical specifications
+  securityFeatures  Json? // Security-related features
+  complianceCerts   Json? // Compliance certifications (ISO, GDPR, etc.)
+
+  // Resources
+  documentationUrl  String?
+  pricingUrl        String?
+  demoUrl           String?
+  caseStudyUrls     Json? // Array of case study URLs
+
+  // Relations
+  pitches           AzurePitch[]
+  battleCards       BattleCard[]
+
+  @@index([category])
+  @@index([salesPriority])
+  @@index([isActive])
+  @@map("azure_solutions")
+}
+
+// Modèle AzurePitch - Sales pitches pour chaque solution
+model AzurePitch {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation avec solution
+  solutionId String
+  solution   AzureSolution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+
+  // Type de pitch
+  pitchType String // elevator, technical, executive, roi-focused
+  audience  String // CTO, CFO, IT Manager, Developer, etc.
+  duration  String // 30s, 2min, 5min, 10min
+
+  // Contenu du pitch
+  hook          String // Opening hook
+  problem       String // Problem statement
+  solutionText  String // Solution description
+  benefits      String // Key benefits
+  socialProof   String? // Customer success stories
+  callToAction  String // CTA
+
+  // Objection handling
+  commonObjections Json // Array of objection/response pairs
+
+  // Performance
+  useCount      Int @default(0)
+  successRate   Float @default(0.0)
+
+  @@index([solutionId])
+  @@index([pitchType])
+  @@map("azure_pitches")
+}
+
+// Modèle BattleCard - Competitive battle cards
+model BattleCard {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation avec solution
+  solutionId String
+  solution   AzureSolution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+
+  // Competitor
+  competitorName String // AWS EC2, Google Compute Engine, etc.
+  competitorSolution String
+
+  // Comparison
+  ourStrengths      Json // Array of strength strings
+  theirWeaknesses   Json // Array of weakness strings
+  keyDifferentiators Json // Array of differentiator strings
+  pricingComparison String
+
+  // Trap questions
+  trapQuestions     Json // Questions that highlight competitor weaknesses
+
+  // Landmines (what to avoid)
+  landmines         Json // Things NOT to say
+
+  // Win stories
+  winStories        Json? // Array of stories where we won against this competitor
+
+  @@index([solutionId])
+  @@index([competitorName])
+  @@map("battle_cards")
+}
+
+// Modèle SolutionRecommendation - AI-generated recommendations
+model SolutionRecommendation {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Lead association
+  leadId    String
+  leadName  String
+
+  // Recommended solution
+  solutionId String
+  solutionName String
+
+  // Recommendation reasoning
+  matchScore    Float // 0-100
+  reasoning     Json // Array of reason objects
+  confidence    Float // 0-1
+
+  // Context
+  leadContext   Json // Lead characteristics that led to this recommendation
+
+  // Status
+  status        String @default("pending") // pending, accepted, rejected, presented
+  feedback      String? // User feedback on recommendation
+  converted     Boolean @default(false)
+
+  @@index([leadId])
+  @@index([solutionId])
+  @@index([status])
+  @@map("solution_recommendations")
+}
+
+// ============================================
+// NEXTAUTH AUTHENTICATION MODELS
+// ============================================
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?   // Hashed password for email/password auth (optional for OAuth)
+  role          String    @default("user") // user, manager, admin
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts Account[]
+  sessions Session[]
+
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ============================================
+// PHASE 2: Multi-Touch Sequences & Deal Rooms
+// ============================================
+
+// Email Sequence - Multi-touch campaigns
+model EmailSequence {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Sequence info
+  name        String
+  description String?
+  goal        String // lead_gen, nurture, re_engage, demo_booking
+
+  // Targeting
+  targetIndustry     String?
+  targetCompanySize  String? // startup, sme, enterprise
+  targetRole         String? // DSI, CEO, CFO, etc.
+
+  // Settings
+  isActive    Boolean @default(true)
+  isTemplate  Boolean @default(false)
+
+  // Performance tracking
+  enrolledCount   Int @default(0)
+  completedCount  Int @default(0)
+  responseRate    Float @default(0.0)
+  meetingRate     Float @default(0.0)
+
+  // AI Learning
+  aiInsights      Json? // Learnings about what works
+
+  // Relations
+  steps       SequenceStep[]
+  enrollments SequenceEnrollment[]
+
+  @@index([isActive])
+  @@index([goal])
+  @@map("email_sequences")
+}
+
+// Individual steps in a sequence
+model SequenceStep {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Sequence relation
+  sequenceId  String
+  sequence    EmailSequence @relation(fields: [sequenceId], references: [id], onDelete: Cascade)
+
+  // Step configuration
+  stepNumber  Int // 1, 2, 3, etc.
+  delayDays   Int // Days after previous step (0 for first step)
+  delayHours  Int @default(0) // Additional hours delay
+
+  // Email content
+  subject     String
+  bodyTemplate String
+  emailType   String // prospection, follow_up, value_add, breakup
+
+  // Conditions
+  sendOnlyIf  Json? // Conditions: no_open, no_click, no_reply
+
+  // A/B Testing
+  hasVariants Boolean @default(false)
+  variants    Json? // Alternative subject/body versions
+
+  // Performance
+  sentCount     Int @default(0)
+  openRate      Float @default(0.0)
+  replyRate     Float @default(0.0)
+
+  @@index([sequenceId])
+  @@index([stepNumber])
+  @@map("sequence_steps")
+}
+
+// Enrollment tracking - which leads are in which sequences
+model SequenceEnrollment {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  sequenceId  String
+  sequence    EmailSequence @relation(fields: [sequenceId], references: [id], onDelete: Cascade)
+
+  leadId      String
+  lead        HotLead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  // Enrollment state
+  status      String @default("active") // active, paused, completed, exited
+  currentStep Int @default(1)
+
+  // Exit conditions
+  exitReason  String? // responded, booked_meeting, unsubscribed, manual
+  exitedAt    DateTime?
+
+  // Next action
+  nextStepDueAt DateTime?
+
+  // Performance
+  emailsSent  Int @default(0)
+  emailsOpened Int @default(0)
+  emailsClicked Int @default(0)
+  responded   Boolean @default(false)
+
+  @@index([sequenceId])
+  @@index([leadId])
+  @@index([status])
+  @@index([nextStepDueAt])
+  @@unique([sequenceId, leadId])
+  @@map("sequence_enrollments")
+}
+
+// Enhanced email tracking with AI analysis
+model EmailTracking {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+
+  // Email identification
+  emailId     String @unique // Generated when email sent
+  leadId      String?
+  lead        HotLead? @relation(fields: [leadId], references: [id], onDelete: SetNull)
+
+  // Email details
+  subject     String
+  sentTo      String
+  sentAt      DateTime @default(now())
+
+  // Sequence context
+  sequenceId  String?
+  stepNumber  Int?
+
+  // Tracking events
+  opened      Boolean @default(false)
+  openedAt    DateTime?
+  openCount   Int @default(0)
+
+  clicked     Boolean @default(false)
+  clickedAt   DateTime?
+  clickCount  Int @default(0)
+
+  replied     Boolean @default(false)
+  repliedAt   DateTime?
+
+  bounced     Boolean @default(false)
+  unsubscribed Boolean @default(false)
+
+  // Response content
+  responseText String?
+
+  // AI Analysis
+  sentimentScore    Float? // -1 to 1
+  sentiment         String? // positive, neutral, negative
+  intentDetected    String? // interested, not_interested, request_info, objection
+  aiSummary         String?
+  extractedSignals  Json? // Buying signals, objections, questions
+
+  // Engagement scoring
+  engagementScore Int @default(0) // 0-100
+
+  @@index([leadId])
+  @@index([sentAt])
+  @@index([opened])
+  @@index([replied])
+  @@map("email_tracking")
+}
+
+// Deal Room - Interactive proposals and ROI calculators
+model DealRoom {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Lead relation
+  leadId      String
+  lead        HotLead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  // Deal room details
+  title       String
+  status      String @default("draft") // draft, sent, viewed, won, lost
+
+  // Proposal content
+  executiveSummary String
+  proposedSolutions Json // Array of solution IDs and descriptions
+
+  // Pricing
+  pricingModel    String // subscription, one-time, custom
+  totalMonthly    Float?
+  totalAnnual     Float?
+  discountPercent Float @default(0.0)
+
+  // ROI Calculator results
+  roiCalculation  Json? // Saved ROI calculation
+
+  // Implementation
+  implementationTimeline String?
+  keyMilestones         Json?
+
+  // Social proof
+  caseStudies     Json? // Relevant case studies
+  testimonials    Json? // Customer testimonials
+
+  // Tracking
+  viewCount       Int @default(0)
+  lastViewedAt    DateTime?
+  timeSpentSeconds Int @default(0)
+
+  // Interactions
+  questionsAsked  Json? // Questions from prospect
+
+  // Expiration
+  expiresAt       DateTime?
+
+  @@index([leadId])
+  @@index([status])
+  @@map("deal_rooms")
+}
+
+// ROI Calculation saved results
+model ROICalculation {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+
+  // Lead relation
+  leadId      String?
+  lead        HotLead? @relation(fields: [leadId], references: [id], onDelete: SetNull)
+
+  // Company inputs
+  companySize     String
+  industry        String
+  currentCosts    Json // Current IT/operation costs
+
+  // Solution inputs
+  solutions       Json // Array of proposed solutions
+
+  // Calculated outputs
+  monthlySavings  Float
+  annualSavings   Float
+  paybackMonths   Int
+  threeYearROI    Float
+
+  // Breakdown
+  costBreakdown   Json
+  savingsBreakdown Json
+
+  // Comparison
+  vsCompetitor    Json?
+
+  @@index([leadId])
+  @@map("roi_calculations")
+}
+
+// Response Intelligence - AI learning from all responses
+model ResponseIntelligence {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+
+  // Email context
+  emailTrackingId String?
+
+  // Response classification
+  responseType    String // positive, objection, question, not_interested, out_of_office
+  primaryIntent   String // book_meeting, request_info, pricing_inquiry, competitor_mention
+
+  // Content analysis
+  responseText    String
+  keyPhrases      Json // Extracted key phrases
+  mentionedCompetitors Json?
+  mentionedBudget Boolean @default(false)
+  mentionedTimeline String?
+
+  // Sentiment
+  sentiment       String
+  sentimentScore  Float
+  urgencyLevel    String // high, medium, low
+
+  // Pattern matching
+  industryPattern String?
+  rolePattern     String?
+  companySizePattern String?
+
+  // Success indicators
+  ledToMeeting    Boolean @default(false)
+  ledToDeal       Boolean @default(false)
+
+  // AI recommendations
+  suggestedResponse String?
+  suggestedNextStep String?
+
+  @@index([responseType])
+  @@index([sentiment])
+  @@index([createdAt])
+  @@map("response_intelligence")
+}
