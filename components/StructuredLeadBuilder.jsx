@@ -176,22 +176,69 @@ export default function StructuredLeadBuilder() {
     setCurrentLead(prev => ({ ...prev, calculated_score: Math.round(score) }));
   }
 
-  function addOrUpdateLead() {
+  async function addOrUpdateLead() {
     if (!currentLead.name || !currentLead.company || !currentLead.email) {
       alert('Veuillez remplir au minimum: Nom, Entreprise et Email');
       return;
     }
 
-    if (editingIndex !== null) {
-      const updatedLeads = [...leads];
-      updatedLeads[editingIndex] = { ...currentLead };
-      setLeads(updatedLeads);
-      setEditingIndex(null);
-    } else {
-      setLeads([...leads, { ...currentLead }]);
-    }
+    try {
+      // Convert StructuredLead format to HotLead format
+      const hotLeadData = {
+        companyName: currentLead.company || currentLead.account_name,
+        description: currentLead.notes || currentLead.comments || '',
+        address: currentLead.address || currentLead.location,
+        phone: currentLead.phone,
+        email: currentLead.email,
+        website: currentLead.website,
+        employeeCount: parseInt(currentLead.company_size) || null,
 
-    setCurrentLead(getEmptyLead());
+        // Additional fields from structured lead
+        priority: currentLead.priority === 'high' ? 'HAUTE' :
+                 currentLead.priority === 'medium' ? 'MOYENNE' : 'BASSE',
+        status: currentLead.status === 'cold' ? 'active' : 'active',
+        isOpportunity: currentLead.status === 'hot' || currentLead.status === 'warm',
+
+        // Create managers array from contact info
+        managers: [{
+          name: currentLead.name,
+          role: currentLead.position || 'Contact Principal',
+          email: currentLead.email,
+          phone: currentLead.phone
+        }]
+      };
+
+      // Save to database via API
+      const response = await fetch('/api/hot-leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(hotLeadData)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Erreur lors de la sauvegarde');
+      }
+
+      alert('✅ Lead sauvegardé dans la base de données!');
+
+      // Also update local state for UI
+      if (editingIndex !== null) {
+        const updatedLeads = [...leads];
+        updatedLeads[editingIndex] = { ...currentLead };
+        setLeads(updatedLeads);
+        setEditingIndex(null);
+      } else {
+        setLeads([...leads, { ...currentLead }]);
+      }
+
+      setCurrentLead(getEmptyLead());
+
+    } catch (error) {
+      console.error('Erreur sauvegarde:', error);
+      alert('❌ Erreur lors de la sauvegarde: ' + error.message);
+    }
   }
 
   function editLead(index) {

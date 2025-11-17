@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { PlusCircle, Trash2, Save, X } from 'lucide-react';
 
-export default function HotLeadForm({ onSuccess, onCancel, initialData = null }) {
+export default function HotLeadForm({ onSuccess, onCancel, initialData = null, leadId = null }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     // Informations générales
@@ -72,7 +72,7 @@ export default function HotLeadForm({ onSuccess, onCancel, initialData = null })
     }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async () {
     if (!formData.companyName) {
       alert('Le nom de l\'entreprise est requis');
       return;
@@ -81,23 +81,28 @@ export default function HotLeadForm({ onSuccess, onCancel, initialData = null })
     setLoading(true);
 
     try {
-      const response = await fetch('/api/hot-leads', {
-        method: 'POST',
+      const isUpdating = leadId || initialData?.id;
+      const url = '/api/hot-leads';
+      const method = isUpdating ? 'PUT' : 'POST';
+      const payload = isUpdating ? { ...formData, id: leadId || initialData.id } : formData;
+
+      const response = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        alert('Lead créé avec succès !');
+        alert(isUpdating ? 'Lead mis à jour avec succès !' : 'Lead créé avec succès !');
         if (onSuccess) onSuccess(result.lead);
       } else {
         alert('Erreur: ' + (result.error || 'Erreur inconnue'));
       }
     } catch (error) {
       console.error('Erreur:', error);
-      alert('Erreur lors de la création du lead');
+      alert('Erreur lors de ' + (leadId || initialData?.id ? 'la mise à jour' : 'la création') + ' du lead');
     } finally {
       setLoading(false);
     }

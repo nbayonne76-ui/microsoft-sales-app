@@ -22,7 +22,7 @@ async function handlePOST(request) {
   let requestBody;
   try {
     requestBody = await request.json();
-    const { leadId, companyName, forceRefresh = false } = requestBody;
+    const { leadId, companyName, forceRefresh = false, forceUpdate = false } = requestBody;
 
     if (!leadId && !companyName) {
       return NextResponse.json(
@@ -97,22 +97,24 @@ async function handlePOST(request) {
 
     if (lead) {
       // Mise à jour du lead existant
+      // Si forceUpdate=true, on écrase les données existantes
+      // Sinon, on garde les valeurs existantes (comportement par défaut)
       enrichedLead = await prisma.hotLead.update({
         where: { id: leadId },
         data: {
-          // Mise à jour infos générales (si vides)
-          description: lead.description || webData.description,
-          address: lead.address || webData.address,
-          phone: lead.phone || webData.phone,
-          email: lead.email || webData.email,
-          website: lead.website || webData.website,
-          employeeCount: lead.employeeCount || webData.employeeCount,
+          // Mise à jour infos générales
+          description: forceUpdate ? (webData.description || lead.description) : (lead.description || webData.description),
+          address: forceUpdate ? (webData.address || lead.address) : (lead.address || webData.address),
+          phone: forceUpdate ? (webData.phone || lead.phone) : (lead.phone || webData.phone),
+          email: forceUpdate ? (webData.email || lead.email) : (lead.email || webData.email),
+          website: forceUpdate ? (webData.website || lead.website) : (lead.website || webData.website),
+          employeeCount: forceUpdate ? (webData.employeeCount || lead.employeeCount) : (lead.employeeCount || webData.employeeCount),
 
           // Mise à jour infos légales
-          legalForm: lead.legalForm || webData.legalForm,
-          siret: lead.siret || webData.siret,
-          nafCode: lead.nafCode || webData.nafCode,
-          turnover: lead.turnover || webData.turnover,
+          legalForm: forceUpdate ? (webData.legalForm || lead.legalForm) : (lead.legalForm || webData.legalForm),
+          siret: forceUpdate ? (webData.siret || lead.siret) : (lead.siret || webData.siret),
+          nafCode: forceUpdate ? (webData.nafCode || lead.nafCode) : (lead.nafCode || webData.nafCode),
+          turnover: forceUpdate ? (webData.turnover || lead.turnover) : (lead.turnover || webData.turnover),
 
           // Statut enrichissement
           enrichmentStatus: 'enriched',
