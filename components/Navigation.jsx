@@ -6,13 +6,7 @@ import {
   Home,
   Mail,
   Users,
-  TrendingUp,
-  Briefcase,
-  MessageSquare,
-  FileSpreadsheet,
-  Flame,
   BookOpen,
-  Rocket,
   Sparkles,
 } from 'lucide-react';
 
@@ -20,13 +14,7 @@ const navItems = [
   { href: '/', label: 'Dashboard', icon: Home },
   { href: '/account', label: 'Account Intel', icon: Sparkles, highlight: true },
   { href: '/email-generator', label: 'Email Generator', icon: Mail },
-  { href: '/ai-agent', label: 'AI Agent', icon: MessageSquare },
-  { href: '/hot-leads', label: 'Hot Leads', icon: Flame },
-  { href: '/lead-builder', label: 'Lead Builder', icon: FileSpreadsheet },
-  { href: '/knowledge', label: 'Knowledge Base', icon: BookOpen },
-  { href: '/collaboration-tools', label: 'Collaboration Tools', icon: Briefcase },
-  { href: '/deal-room', label: 'Deal Room', icon: Rocket },
-  { href: '/email-analytics', label: 'Email Analytics', icon: TrendingUp },
+  { href: '/knowledge-base', label: 'Knowledge Base', icon: BookOpen },
   { href: '/clients', label: 'Clients', icon: Users },
 ];
 
