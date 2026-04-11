@@ -1,11 +1,11 @@
-import NicolasEmailGenerator from '../../components/NicolasEmailGenerator';
+import KBEmailGenerator from '../../components/KBEmailGenerator';
 import { Toaster } from "@/components/ui/sonner";
 
 export default function EmailGeneratorPage() {
   return (
-    <div className="container mx-auto py-8">
-      <NicolasEmailGenerator />
+    <>
+      <KBEmailGenerator />
       <Toaster />
-    </div>
+    </>
   );
 }

@@ -12,11 +12,13 @@ import {
   FileSpreadsheet,
   Flame,
   BookOpen,
-  Rocket
+  Rocket,
+  Sparkles,
 } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: Home },
+  { href: '/account', label: 'Account Intel', icon: Sparkles, highlight: true },
   { href: '/email-generator', label: 'Email Generator', icon: Mail },
   { href: '/ai-agent', label: 'AI Agent', icon: MessageSquare },
   { href: '/hot-leads', label: 'Hot Leads', icon: Flame },
@@ -60,6 +62,8 @@ export default function Navigation() {
                     flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200
                     ${isActive
                       ? 'bg-white text-blue-700 shadow-md font-semibold'
+                      : item.highlight
+                      ? 'bg-gradient-to-r from-indigo-500/40 to-purple-500/40 text-white border border-white/20 hover:from-indigo-500/60 hover:to-purple-500/60'
                       : 'text-blue-50 hover:bg-blue-500/30 hover:text-white'
                     }
                   `}
