@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 function readAllKb() {
   const dir = path.join(process.cwd(), 'templates', 'knowledge-base');
@@ -27,7 +27,7 @@ export async function POST(request) {
 
     const kbContent = readAllKb();
 
-    const systemPrompt = `You are an expert Microsoft Partner sales advisor at H'appi.
+    const systemText = `You are an expert Microsoft Partner sales advisor at H'appi.
 Given a company name, provide a structured account intelligence brief.
 Base ALL product recommendations, pricing, and features ONLY on the knowledge base provided.
 Return a valid JSON object only — no markdown, no code fences.
@@ -73,23 +73,28 @@ Return ONLY a JSON object with this exact structure:
 
 Provide 3 topSolutions, 3 emailAngles, 4 keyQuestions.`;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      temperature: 0.6,
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-6',
       max_tokens: 1500,
-      response_format: { type: 'json_object' },
+      system: [
+        {
+          type: 'text',
+          text: systemText,
+          cache_control: { type: 'ephemeral' },
+        },
+      ],
+      messages: [{ role: 'user', content: userPrompt }],
     });
 
-    const intel = JSON.parse(response.choices[0].message.content);
+    const raw = response.content[0].text.trim();
+    const jsonStart = raw.indexOf('{');
+    const jsonEnd = raw.lastIndexOf('}');
+    const intel = JSON.parse(raw.slice(jsonStart, jsonEnd + 1));
 
     return NextResponse.json({
       success: true,
       intel,
-      tokensUsed: response.usage?.total_tokens || 0,
+      tokensUsed: (response.usage?.input_tokens ?? 0) + (response.usage?.output_tokens ?? 0),
     });
   } catch (error) {
     console.error('Account intel error:', error);

@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const KB_FILES = {
   m365: ['m365-pricing-2025.md', 'm365-e3-vs-e5-decision-guide.md', 'microsoft-365-collaboration.md', 'microsoft-licensing-contracts-guide.md', 'csp-vs-mca-decision-guide.md'],
@@ -66,7 +66,7 @@ export async function POST(request) {
       direct: 'Short, punchy, get straight to value. No fluff. Max 150 words body.',
     }[tone] || 'Professional and clear.';
 
-    const systemPrompt = `You are Nicolas BAYONNE, a Microsoft Partner Account Manager at H'appi.
+    const systemText = `You are Nicolas BAYONNE, a Microsoft Partner Account Manager at H'appi.
 You write highly personalized B2B sales emails in French.
 You MUST ONLY use information, pricing, and data from the KNOWLEDGE BASE provided below.
 Never invent pricing or features not found in the knowledge base.
@@ -95,18 +95,23 @@ Return ONLY a JSON object (no markdown, no code fence) with:
   "price": "the price of that plan from the KB"
 }`;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      temperature: 0.7,
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-6',
       max_tokens: 1200,
-      response_format: { type: 'json_object' },
+      system: [
+        {
+          type: 'text',
+          text: systemText,
+          cache_control: { type: 'ephemeral' },
+        },
+      ],
+      messages: [{ role: 'user', content: userPrompt }],
     });
 
-    const result = JSON.parse(response.choices[0].message.content);
+    const raw = response.content[0].text.trim();
+    const jsonStart = raw.indexOf('{');
+    const jsonEnd = raw.lastIndexOf('}');
+    const result = JSON.parse(raw.slice(jsonStart, jsonEnd + 1));
 
     return NextResponse.json({
       success: true,
@@ -116,7 +121,7 @@ Return ONLY a JSON object (no markdown, no code fence) with:
       recommendedPlan: result.recommendedPlan || '',
       price: result.price || '',
       solution: solutionLabel,
-      tokensUsed: response.usage?.total_tokens || 0,
+      tokensUsed: (response.usage?.input_tokens ?? 0) + (response.usage?.output_tokens ?? 0),
     });
   } catch (error) {
     console.error('KB email generation error:', error);

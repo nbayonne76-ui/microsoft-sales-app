@@ -3,13 +3,14 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import {
-  Search, Building2, Sparkles, Target, Mail, MessageSquare,
+  Search, Building2, Sparkles, Mail, MessageSquare,
   TrendingUp, Shield, Zap, ChevronRight, RotateCcw,
-  Lightbulb, AlertCircle, CheckCircle, BookOpen, Star
+  Lightbulb, Star
 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { Toaster } from '@/components/ui/sonner';
+import { useLang, t } from '@/contexts/LanguageContext';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 const fadeUp = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -10 } };
@@ -52,10 +53,12 @@ const SIZE_LABELS = { startup: 'Startup', sme: 'SME', enterprise: 'Enterprise' }
 
 // ── Main component ───────────────────────────────────────────────────────────
 export default function AccountIntelPage() {
+  const { lang } = useLang();
+  const tr = t[lang].account;
   const [query, setQuery]   = useState('');
   const [intel, setIntel]   = useState(null);
   const [loading, setLoading] = useState(false);
-  const [searched, setSearched] = useState('');
+  const [, setSearched] = useState('');
 
   const handleSearch = async (e) => {
     e?.preventDefault();
@@ -101,12 +104,12 @@ export default function AccountIntelPage() {
 
           <motion.h1 {...fadeUp} transition={{ delay: 0.07 }}
             className="text-4xl md:text-5xl font-bold mb-4">
-            Account Intelligence
+            {tr.title}
           </motion.h1>
 
           <motion.p {...fadeUp} transition={{ delay: 0.14 }}
             className="text-blue-200 text-lg mb-10">
-            Type any company name — get a full Microsoft opportunity brief in seconds.
+            {tr.subtitle}
           </motion.p>
 
           {/* Search bar */}
@@ -119,7 +122,7 @@ export default function AccountIntelPage() {
                 type="text"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
-                placeholder="e.g. Bouygues, Carrefour, Schneider Electric…"
+                placeholder={tr.placeholder}
                 className="flex-1 bg-transparent px-4 py-4 text-white placeholder-blue-300 focus:outline-none text-lg"
               />
               <motion.button
@@ -132,7 +135,7 @@ export default function AccountIntelPage() {
                 {loading
                   ? <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}><Zap className="w-4 h-4" /></motion.div>
                   : <Search className="w-4 h-4" />}
-                {loading ? 'Analysing…' : 'Analyse'}
+                {loading ? tr.analysing : tr.analyse}
               </motion.button>
             </div>
           </motion.form>
@@ -194,7 +197,7 @@ export default function AccountIntelPage() {
               <TiltCard>
                 <div className="gradient-border-green">
                   <div className="bg-white rounded-[calc(1rem-1px)] p-6 text-center h-full flex flex-col justify-center">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Microsoft Fit</p>
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{tr.score}</p>
                     <div className={`text-6xl font-black ${scoreColor} mb-1`}>
                       <AnimatedScore value={intel.microsoftFit?.score || 0} />
                       <span className="text-2xl">%</span>
@@ -207,7 +210,7 @@ export default function AccountIntelPage() {
 
             {/* ── Row 2 — top solutions ────────────────────────────────────── */}
             <div>
-              <SectionTitle icon={<Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />} label="Top Solutions from Knowledge Base" />
+              <SectionTitle icon={<Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />} label={tr.topSolutions} />
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-4">
                 {intel.topSolutions?.map((sol, i) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
@@ -239,7 +242,7 @@ export default function AccountIntelPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Email angles */}
               <div>
-                <SectionTitle icon={<Mail className="w-5 h-5 text-blue-500" />} label="Email Angles" />
+                <SectionTitle icon={<Mail className="w-5 h-5 text-blue-500" />} label={tr.emailAngles} />
                 <div className="space-y-3 mt-4">
                   {intel.emailAngles?.map((angle, i) => (
                     <motion.div key={i} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.09 }}>
@@ -268,7 +271,7 @@ export default function AccountIntelPage() {
               {/* Discovery questions + quick win */}
               <div className="space-y-5">
                 <div>
-                  <SectionTitle icon={<MessageSquare className="w-5 h-5 text-purple-500" />} label="Discovery Questions" />
+                  <SectionTitle icon={<MessageSquare className="w-5 h-5 text-purple-500" />} label={tr.keyQuestions} />
                   <div className="mt-4 glass-card-white rounded-2xl p-5 space-y-3">
                     {intel.keyQuestions?.map((q, i) => (
                       <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 + i * 0.08 }}
@@ -282,7 +285,7 @@ export default function AccountIntelPage() {
 
                 {intel.quickWin && (
                   <div>
-                    <SectionTitle icon={<Zap className="w-5 h-5 text-yellow-500" />} label="Quick Win" />
+                    <SectionTitle icon={<Zap className="w-5 h-5 text-yellow-500" />} label={tr.quickWin} />
                     <div className="mt-4 gradient-border-green">
                       <div className="bg-white rounded-[calc(1rem-1px)] p-5 flex gap-3">
                         <Lightbulb className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
@@ -297,7 +300,7 @@ export default function AccountIntelPage() {
                     <div className="bg-white rounded-[calc(1rem-1px)] p-4 flex items-center gap-3">
                       <Shield className="w-5 h-5 text-orange-500 shrink-0" />
                       <div>
-                        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Competitor risk</p>
+                        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{tr.competitor}</p>
                         <p className="text-sm font-bold text-gray-900">{intel.competitorRisk}</p>
                       </div>
                     </div>
@@ -314,8 +317,8 @@ export default function AccountIntelPage() {
                     <Mail className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-bold text-gray-900">Ready to write the email?</p>
-                    <p className="text-sm text-gray-500">Use the KB Email Generator with these insights pre-filled</p>
+                    <p className="font-bold text-gray-900">{lang === 'fr' ? 'Prêt à rédiger l\'email ?' : 'Ready to write the email?'}</p>
+                    <p className="text-sm text-gray-500">{lang === 'fr' ? 'Utilisez le générateur email avec ces insights' : 'Use the KB Email Generator with these insights pre-filled'}</p>
                   </div>
                 </div>
                 <Link href="/email-generator">
@@ -323,7 +326,7 @@ export default function AccountIntelPage() {
                     whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                     className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold shadow-lg shadow-blue-200 flex items-center gap-2 whitespace-nowrap"
                   >
-                    <Sparkles className="w-4 h-4" /> Generate email
+                    <Sparkles className="w-4 h-4" /> {lang === 'fr' ? 'Générer l\'email' : 'Generate email'}
                   </motion.button>
                 </Link>
               </div>
@@ -338,10 +341,12 @@ export default function AccountIntelPage() {
         <div className="max-w-3xl mx-auto px-6 py-16 text-center">
           <motion.div {...fadeUp} className="text-6xl mb-4">🔍</motion.div>
           <motion.h3 {...fadeUp} transition={{ delay: 0.07 }} className="text-xl font-bold text-gray-700 mb-2">
-            Search any account to get started
+            {lang === 'fr' ? 'Recherchez un compte pour démarrer' : 'Search any account to get started'}
           </motion.h3>
           <motion.p {...fadeUp} transition={{ delay: 0.14 }} className="text-gray-500">
-            You'll get a structured brief with recommended Microsoft solutions, pricing from the KB, email angles, and discovery questions — all in seconds.
+            {lang === 'fr'
+              ? 'Obtenez un brief structuré avec les solutions Microsoft recommandées, les prix de la KB, les angles d\'email et les questions de découverte — en quelques secondes.'
+              : 'You\'ll get a structured brief with recommended Microsoft solutions, pricing from the KB, email angles, and discovery questions — all in seconds.'}
           </motion.p>
 
           {/* Example chips */}

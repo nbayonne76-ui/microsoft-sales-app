@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { useLang, t } from '@/contexts/LanguageContext';
 
 const fadeUp = { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } };
 
@@ -179,6 +180,8 @@ const ASSESSMENTS_DATA = [
 ];
 
 export default function KnowledgeBasePage() {
+  const { lang } = useLang();
+  const tr = t[lang].kb;
   const [tab, setTab]             = useState('azure');
   const [solutions, setSolutions] = useState([]);
   const [loading, setLoading]     = useState(true);
@@ -231,8 +234,8 @@ export default function KnowledgeBasePage() {
           <motion.div {...fadeUp} className="flex items-center gap-3 mb-4">
             <div className="p-3 bg-white/10 backdrop-blur-sm rounded-2xl"><BookOpen className="w-7 h-7" /></div>
             <div>
-              <h1 className="text-3xl font-bold">Knowledge Base</h1>
-              <p className="text-blue-200 text-sm">Microsoft solutions · pricing · strategies</p>
+              <h1 className="text-3xl font-bold">{tr.title}</h1>
+              <p className="text-blue-200 text-sm">{tr.subtitle}</p>
             </div>
           </motion.div>
 
@@ -248,13 +251,13 @@ export default function KnowledgeBasePage() {
           <motion.div {...fadeUp} transition={{delay:0.12}} className="relative max-w-xl mb-6">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-300" />
             <input type="text" value={search} onChange={e => setSearch(e.target.value)}
-              placeholder="Search solutions, pricing, features…"
+              placeholder={tr.searchPlaceholder}
               className="w-full pl-12 pr-10 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-blue-300 focus:outline-none focus:border-blue-300 transition-colors" />
             {search && <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-300 hover:text-white"><X className="w-4 h-4" /></button>}
           </motion.div>
 
           <motion.div {...fadeUp} transition={{delay:0.16}} className="flex gap-2">
-            {[['azure','☁️ Azure Solutions'],['docs','📄 Pricing Guides'],['assessments','🎯 Assessments']].map(([t,label]) => (
+            {[['azure', `☁️ ${tr.solutions}`],['docs', `📄 ${tr.documents}`],['assessments', `🎯 ${tr.assessments}`]].map(([t,label]) => (
               <button key={t} onClick={() => setTab(t)}
                 className={'px-5 py-2.5 rounded-xl font-semibold text-sm transition-all ' + (tab===t ? 'bg-white text-blue-700 shadow-lg' : 'bg-white/10 text-blue-100 hover:bg-white/20')}>
                 {label}

@@ -8,6 +8,7 @@ import {
   Zap, RotateCcw, Send, ExternalLink
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useLang, t } from '@/contexts/LanguageContext';
 
 // ── Happi Brain: solution cards ──────────────────────────────────────────────
 const SOLUTIONS = [
@@ -103,6 +104,26 @@ function TiltCard({ children, className = '' }) {
 
 // ── Main component ───────────────────────────────────────────────────────────
 export default function KBEmailGenerator() {
+  const { lang } = useLang();
+  const tr = t[lang].email;
+
+  const EMAIL_TYPES_I18N = [
+    { id: 'prospection', label: tr.types.prospection },
+    { id: 'relance',     label: tr.types.relance },
+    { id: 'demo',        label: tr.types.demo },
+    { id: 'proposal',    label: tr.types.proposal },
+  ];
+  const TONES_I18N = [
+    { id: 'professional', label: tr.tones.professional, icon: '🤝' },
+    { id: 'friendly',     label: tr.tones.friendly,     icon: '😊' },
+    { id: 'direct',       label: tr.tones.direct,       icon: '⚡' },
+  ];
+  const SIZE_OPTIONS_I18N = [
+    ['startup', tr.sizes.startup],
+    ['sme',     tr.sizes.sme],
+    ['enterprise', tr.sizes.enterprise],
+  ];
+
   const [step, setStep]             = useState(1); // 1=solution, 2=details, 3=result
   const [solution, setSolution]     = useState(null);
   const [tone, setTone]             = useState('professional');
@@ -167,11 +188,11 @@ export default function KBEmailGenerator() {
           </motion.div>
           <motion.h1 {...fadeUp} transition={{ delay: 0.07 }}
             className="text-4xl md:text-5xl font-bold mb-3">
-            Email Generator
+            {tr.title}
           </motion.h1>
           <motion.p {...fadeUp} transition={{ delay: 0.14 }}
             className="text-blue-200 text-lg">
-            Every word sourced from your Microsoft knowledge base — no hallucinations, just facts.
+            {tr.subtitle}
           </motion.p>
 
           {/* Steps pill */}
@@ -200,8 +221,8 @@ export default function KBEmailGenerator() {
           {/* STEP 1 — Choose solution */}
           {step === 1 && (
             <motion.div key="step1" {...fadeUp} variants={stagger} initial="initial" animate="animate" exit="exit">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Which solution are you pitching?</h2>
-              <p className="text-gray-500 mb-8">The email will be generated exclusively from that solution's knowledge base docs.</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">{lang === 'fr' ? 'Quelle solution pitchez-vous ?' : 'Which solution are you pitching?'}</h2>
+              <p className="text-gray-500 mb-8">{lang === 'fr' ? 'L\'email sera généré exclusivement depuis les docs KB de cette solution.' : "The email will be generated exclusively from that solution's knowledge base docs."}</p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
                 {SOLUTIONS.map((sol) => (
@@ -249,20 +270,20 @@ export default function KBEmailGenerator() {
                     <Building2 className="w-4 h-4 text-blue-500" /> Account
                   </h3>
 
-                  <Field icon={<Building2 className="w-4 h-4" />} label="Company name *" value={form.companyName}
-                    onChange={v => handleField('companyName', v)} placeholder="e.g. Groupe Bouygues" />
-                  <Field icon={<User className="w-4 h-4" />} label="Contact name" value={form.contactName}
-                    onChange={v => handleField('contactName', v)} placeholder="e.g. Jean Dupont" />
-                  <Field icon={<Briefcase className="w-4 h-4" />} label="Role / Title" value={form.contactRole}
-                    onChange={v => handleField('contactRole', v)} placeholder="e.g. DSI, DRH, DG" />
-                  <Field icon={<Building2 className="w-4 h-4" />} label="Industry" value={form.industry}
-                    onChange={v => handleField('industry', v)} placeholder="e.g. Manufacturing, Retail, BTP" />
+                  <Field icon={<Building2 className="w-4 h-4" />} label={`${tr.company} *`} value={form.companyName}
+                    onChange={v => handleField('companyName', v)} placeholder={tr.companyPlaceholder} />
+                  <Field icon={<User className="w-4 h-4" />} label={tr.contact} value={form.contactName}
+                    onChange={v => handleField('contactName', v)} placeholder={tr.contactPlaceholder} />
+                  <Field icon={<Briefcase className="w-4 h-4" />} label={tr.role} value={form.contactRole}
+                    onChange={v => handleField('contactRole', v)} placeholder={tr.rolePlaceholder} />
+                  <Field icon={<Building2 className="w-4 h-4" />} label={tr.industry} value={form.industry}
+                    onChange={v => handleField('industry', v)} placeholder={tr.industryPlaceholder} />
 
                   {/* Company size */}
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Company size</label>
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{tr.size}</label>
                     <div className="flex gap-2">
-                      {[['startup','Startup'],['sme','SME'],['enterprise','Enterprise']].map(([val, lbl]) => (
+                      {SIZE_OPTIONS_I18N.map(([val, lbl]) => (
                         <button key={val} onClick={() => handleField('companySize', val)}
                           className={`flex-1 py-2 rounded-lg text-sm font-medium border transition-all ${
                             form.companySize === val
@@ -282,21 +303,21 @@ export default function KBEmailGenerator() {
 
                   {/* Challenge */}
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Main business challenge</label>
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">{tr.challenge}</label>
                     <textarea
                       rows={3}
                       value={form.challenge}
                       onChange={e => handleField('challenge', e.target.value)}
-                      placeholder="e.g. High IT costs, remote work issues, outdated CRM..."
+                      placeholder={tr.challengePlaceholder}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
                     />
                   </div>
 
                   {/* Email type */}
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Email type</label>
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{tr.type}</label>
                     <div className="grid grid-cols-2 gap-2">
-                      {EMAIL_TYPES.map(t => (
+                      {EMAIL_TYPES_I18N.map(t => (
                         <button key={t.id} onClick={() => setEmailType(t.id)}
                           className={`py-2 rounded-lg text-sm font-medium border transition-all ${
                             emailType === t.id
@@ -309,9 +330,9 @@ export default function KBEmailGenerator() {
 
                   {/* Tone */}
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Tone</label>
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{tr.tone}</label>
                     <div className="flex gap-2">
-                      {TONES.map(t => (
+                      {TONES_I18N.map(t => (
                         <button key={t.id} onClick={() => setTone(t.id)}
                           className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-medium border transition-all ${
                             tone === t.id
@@ -350,12 +371,12 @@ export default function KBEmailGenerator() {
                     <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}>
                       <Zap className="w-5 h-5" />
                     </motion.div>
-                    Reading KB & generating…
+                    {tr.generating}
                   </>
                 ) : (
                   <>
                     <Sparkles className="w-5 h-5" />
-                    Generate from Knowledge Base
+                    {tr.generate}
                   </>
                 )}
               </motion.button>
@@ -387,7 +408,7 @@ export default function KBEmailGenerator() {
                   {/* Subject */}
                   <div className="gradient-border">
                     <div className="bg-white rounded-[calc(1rem-1px)] p-5">
-                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Subject</p>
+                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">{tr.subject}</p>
                       <p className="text-gray-900 font-semibold text-base">{result.subject}</p>
                     </div>
                   </div>
@@ -412,7 +433,7 @@ export default function KBEmailGenerator() {
                       }`}
                     >
                       {copied ? <CheckCircle className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
-                      {copied ? 'Copied!' : 'Copy full email'}
+                      {copied ? tr.copied : tr.copy}
                     </motion.button>
                     <button
                       onClick={() => setStep(2)}
@@ -431,7 +452,7 @@ export default function KBEmailGenerator() {
                       <div className="gradient-border-green">
                         <div className="bg-white rounded-[calc(1rem-1px)] p-5">
                           <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-2 flex items-center gap-1">
-                            <Lightbulb className="w-3.5 h-3.5" /> Recommended
+                            <Lightbulb className="w-3.5 h-3.5" /> {tr.plan}
                           </p>
                           <p className="font-bold text-gray-900">{result.recommendedPlan}</p>
                           {result.price && <p className="text-emerald-600 font-semibold text-sm mt-1">{result.price}</p>}
@@ -444,7 +465,7 @@ export default function KBEmailGenerator() {
                   {result.kbSources?.length > 0 && (
                     <div className="bg-white rounded-2xl border border-gray-100 p-5">
                       <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1">
-                        <BookOpen className="w-3.5 h-3.5" /> KB Sources used
+                        <BookOpen className="w-3.5 h-3.5" /> {tr.sources}
                       </p>
                       <ul className="space-y-2">
                         {result.kbSources.map((src, i) => (

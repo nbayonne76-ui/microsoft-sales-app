@@ -16,8 +16,11 @@ import {
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useLang, t } from '@/contexts/LanguageContext';
 
 export default function DashboardHome() {
+  const { lang } = useLang();
+  const tr = t[lang].dashboard;
   const [stats, setStats] = useState({
     totalClients: 0,
     hotLeads: 0,
@@ -27,15 +30,29 @@ export default function DashboardHome() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch stats from APIs
     const fetchStats = async () => {
       try {
-        // You can add actual API calls here
+        const [clientsRes, leadsRes, interactionsRes, sequencesRes] = await Promise.allSettled([
+          fetch('/api/clients?limit=1'),
+          fetch('/api/hot-leads?limit=1'),
+          fetch('/api/interactions?limit=1'),
+          fetch('/api/sequences'),
+        ]);
+
+        const clients = clientsRes.status === 'fulfilled' && clientsRes.value.ok
+          ? await clientsRes.value.json() : null;
+        const leads = leadsRes.status === 'fulfilled' && leadsRes.value.ok
+          ? await leadsRes.value.json() : null;
+        const interactions = interactionsRes.status === 'fulfilled' && interactionsRes.value.ok
+          ? await interactionsRes.value.json() : null;
+        const sequences = sequencesRes.status === 'fulfilled' && sequencesRes.value.ok
+          ? await sequencesRes.value.json() : null;
+
         setStats({
-          totalClients: 15,
-          hotLeads: 8,
-          emailsSent: 142,
-          campaigns: 3
+          totalClients: clients?.total ?? clients?.clients?.length ?? 0,
+          hotLeads: leads?.total ?? leads?.leads?.length ?? 0,
+          emailsSent: interactions?.total ?? interactions?.interactions?.length ?? 0,
+          campaigns: sequences?.sequences?.length ?? sequences?.length ?? 0,
         });
       } catch (error) {
         console.error('Error fetching stats:', error);
@@ -49,32 +66,32 @@ export default function DashboardHome() {
 
   const quickActions = [
     {
-      title: 'Generate Email',
-      description: 'Create AI-powered professional emails',
+      title: t[lang].nav.emailGenerator,
+      description: lang === 'fr' ? 'Créez des emails B2B IA ultra-personnalisés' : 'Create AI-powered professional emails',
       icon: Mail,
-      href: '/',
+      href: '/email-generator',
       color: 'from-blue-500 to-blue-600',
       hoverColor: 'hover:from-blue-600 hover:to-blue-700'
     },
     {
-      title: 'Hot Leads',
-      description: 'View and manage your hottest prospects',
+      title: lang === 'fr' ? 'Leads chauds' : 'Hot Leads',
+      description: lang === 'fr' ? 'Gérez vos prospects les plus chauds' : 'View and manage your hottest prospects',
       icon: Flame,
       href: '/hot-leads',
       color: 'from-orange-500 to-red-600',
       hoverColor: 'hover:from-orange-600 hover:to-red-700'
     },
     {
-      title: 'Build Leads',
-      description: 'Import and organize campaign leads',
+      title: lang === 'fr' ? 'Importer des leads' : 'Build Leads',
+      description: lang === 'fr' ? 'Importez et organisez vos leads campagne' : 'Import and organize campaign leads',
       icon: FileSpreadsheet,
       href: '/lead-builder',
       color: 'from-green-500 to-emerald-600',
       hoverColor: 'hover:from-green-600 hover:to-emerald-700'
     },
     {
-      title: 'AI Agent',
-      description: 'Chat with your intelligent email assistant',
+      title: lang === 'fr' ? 'Agent IA' : 'AI Agent',
+      description: lang === 'fr' ? 'Discutez avec votre assistant email intelligent' : 'Chat with your intelligent email assistant',
       icon: MessageSquare,
       href: '/ai-agent',
       color: 'from-purple-500 to-purple-600',
@@ -83,38 +100,10 @@ export default function DashboardHome() {
   ];
 
   const statsCards = [
-    {
-      label: 'Total Clients',
-      value: stats.totalClients,
-      icon: Users,
-      color: 'bg-blue-500',
-      textColor: 'text-blue-600',
-      bgColor: 'bg-blue-50'
-    },
-    {
-      label: 'Hot Leads',
-      value: stats.hotLeads,
-      icon: Flame,
-      color: 'bg-orange-500',
-      textColor: 'text-orange-600',
-      bgColor: 'bg-orange-50'
-    },
-    {
-      label: 'Emails Sent',
-      value: stats.emailsSent,
-      icon: Mail,
-      color: 'bg-green-500',
-      textColor: 'text-green-600',
-      bgColor: 'bg-green-50'
-    },
-    {
-      label: 'Active Campaigns',
-      value: stats.campaigns,
-      icon: Briefcase,
-      color: 'bg-purple-500',
-      textColor: 'text-purple-600',
-      bgColor: 'bg-purple-50'
-    }
+    { label: tr.stats.clients,   value: stats.totalClients, icon: Users,    color: 'bg-blue-500',   textColor: 'text-blue-600',   bgColor: 'bg-blue-50' },
+    { label: tr.stats.hotLeads,  value: stats.hotLeads,     icon: Flame,    color: 'bg-orange-500', textColor: 'text-orange-600', bgColor: 'bg-orange-50' },
+    { label: tr.stats.emails,    value: stats.emailsSent,   icon: Mail,     color: 'bg-green-500',  textColor: 'text-green-600',  bgColor: 'bg-green-50' },
+    { label: tr.stats.campaigns, value: stats.campaigns,    icon: Briefcase,color: 'bg-purple-500', textColor: 'text-purple-600', bgColor: 'bg-purple-50' },
   ];
 
   return (
@@ -127,12 +116,8 @@ export default function DashboardHome() {
               <Sparkles className="h-8 w-8 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-gray-900">
-                Welcome Back, Nicolas
-              </h1>
-              <p className="text-lg text-gray-600 mt-1">
-                Your Microsoft Campaign Management Hub
-              </p>
+              <h1 className="text-4xl font-bold text-gray-900">{tr.welcome}</h1>
+              <p className="text-lg text-gray-600 mt-1">{tr.subtitle}</p>
             </div>
           </div>
         </div>
@@ -168,7 +153,7 @@ export default function DashboardHome() {
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
             <ArrowRight className="h-6 w-6 mr-2 text-blue-600" />
-            Quick Actions
+            {tr.quickActions}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {quickActions.map((action, index) => {
@@ -192,7 +177,7 @@ export default function DashboardHome() {
                         {action.description}
                       </p>
                       <div className="mt-4 flex items-center text-sm font-semibold">
-                        Get Started
+                        {tr.getStarted}
                         <ArrowRight className="h-4 w-4 ml-2" />
                       </div>
                     </div>
@@ -207,7 +192,7 @@ export default function DashboardHome() {
         <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
             <BarChart3 className="h-6 w-6 mr-2 text-blue-600" />
-            Recent Activity
+            {tr.recentActivity}
           </h2>
           <Card className="p-6 shadow-md border-0">
             <div className="space-y-4">
@@ -251,7 +236,7 @@ export default function DashboardHome() {
             <div className="mt-6">
               <Link href="/analytics">
                 <Button variant="outline" className="w-full">
-                  View All Activity
+                  {tr.viewAll}
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
               </Link>
