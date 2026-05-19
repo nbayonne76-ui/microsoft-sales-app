@@ -28,6 +28,15 @@ export default function DashboardHome() {
     campaigns: 0
   });
   const [loading, setLoading] = useState(true);
+  const [recentActivity, setRecentActivity] = useState([]);
+
+  function timeAgo(dateStr, lang) {
+    const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000);
+    if (diff < 60)   return lang === 'fr' ? "à l'instant" : 'just now';
+    if (diff < 3600) return lang === 'fr' ? `il y a ${Math.floor(diff/60)} min` : `${Math.floor(diff/60)}m ago`;
+    if (diff < 86400) return lang === 'fr' ? `il y a ${Math.floor(diff/3600)}h` : `${Math.floor(diff/3600)}h ago`;
+    return lang === 'fr' ? `il y a ${Math.floor(diff/86400)}j` : `${Math.floor(diff/86400)}d ago`;
+  }
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -47,6 +56,23 @@ export default function DashboardHome() {
           ? await interactionsRes.value.json() : null;
         const sequences = sequencesRes.status === 'fulfilled' && sequencesRes.value.ok
           ? await sequencesRes.value.json() : null;
+
+        // Build recent activity from real data
+        const activityItems = [];
+        if (clients?.clients?.length) {
+          clients.clients.slice(0, 2).forEach(c => activityItems.push({
+            type: 'client', icon: 'users', label: c.company,
+            sub: c.segment, date: c.createdAt,
+          }));
+        }
+        if (leads?.leads?.length) {
+          leads.leads.slice(0, 2).forEach(l => activityItems.push({
+            type: 'lead', icon: 'flame', label: l.companyName || l.company,
+            sub: l.segment || l.priority, date: l.createdAt,
+          }));
+        }
+        activityItems.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setRecentActivity(activityItems.slice(0, 5));
 
         setStats({
           totalClients: clients?.total ?? clients?.clients?.length ?? 0,
@@ -195,43 +221,40 @@ export default function DashboardHome() {
             {tr.recentActivity}
           </h2>
           <Card className="p-6 shadow-md border-0">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                <div className="flex items-center space-x-3">
-                  <div className="bg-blue-100 p-2 rounded-lg">
-                    <Mail className="h-5 w-5 text-blue-600" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900">Email Generated</p>
-                    <p className="text-sm text-gray-500">Copilot follow-up campaign</p>
-                  </div>
+            <div className="space-y-1">
+              {loading ? (
+                <div className="flex items-center justify-center py-8">
+                  <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
                 </div>
-                <span className="text-sm text-gray-500">2 hours ago</span>
-              </div>
-              <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                <div className="flex items-center space-x-3">
-                  <div className="bg-orange-100 p-2 rounded-lg">
-                    <Flame className="h-5 w-5 text-orange-600" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900">New Hot Lead Added</p>
-                    <p className="text-sm text-gray-500">ACPPAV - Enterprise segment</p>
-                  </div>
-                </div>
-                <span className="text-sm text-gray-500">5 hours ago</span>
-              </div>
-              <div className="flex items-center justify-between py-3">
-                <div className="flex items-center space-x-3">
-                  <div className="bg-green-100 p-2 rounded-lg">
-                    <FileSpreadsheet className="h-5 w-5 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900">Campaign Imported</p>
-                    <p className="text-sm text-gray-500">41 leads processed</p>
-                  </div>
-                </div>
-                <span className="text-sm text-gray-500">1 day ago</span>
-              </div>
+              ) : recentActivity.length === 0 ? (
+                <p className="text-center text-gray-400 py-8 text-sm">
+                  {lang === 'fr' ? 'Aucune activité récente' : 'No recent activity yet'}
+                </p>
+              ) : (
+                recentActivity.map((item, i) => {
+                  const isLead   = item.type === 'lead';
+                  const iconCls  = isLead ? 'bg-orange-100' : 'bg-blue-100';
+                  const Icon     = isLead ? Flame : Users;
+                  const iconColor = isLead ? 'text-orange-600' : 'text-blue-600';
+                  const actionLabel = isLead
+                    ? (lang === 'fr' ? 'Lead ajouté' : 'Lead added')
+                    : (lang === 'fr' ? 'Client créé' : 'Client created');
+                  return (
+                    <div key={i} className={`flex items-center justify-between py-3 ${i < recentActivity.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                      <div className="flex items-center space-x-3">
+                        <div className={`${iconCls} p-2 rounded-lg`}>
+                          <Icon className={`h-5 w-5 ${iconColor}`} />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-900">{actionLabel}</p>
+                          <p className="text-sm text-gray-500">{item.label}{item.sub ? ` · ${item.sub}` : ''}</p>
+                        </div>
+                      </div>
+                      <span className="text-sm text-gray-400 whitespace-nowrap ml-4">{timeAgo(item.date, lang)}</span>
+                    </div>
+                  );
+                })
+              )}
             </div>
             <div className="mt-6">
               <Link href="/analytics">

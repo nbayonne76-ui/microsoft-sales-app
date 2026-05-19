@@ -1,367 +1,354 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Users, Building, Calendar, TrendingUp, MessageCircle, ArrowLeft } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Users, Building2, Search, X, ArrowLeft, Mail, MessageCircle,
+  TrendingUp, Flame, Zap, ChevronRight, RotateCcw, Sparkles,
+  Star, Clock, Activity, Filter
+} from 'lucide-react';
 import Link from 'next/link';
+import { useLang, t } from '@/contexts/LanguageContext';
+
+const fadeUp = { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } };
+
+const SEGMENT_CFG = {
+  enterprise: { label: 'Enterprise', color: 'bg-purple-100 text-purple-700 border-purple-200' },
+  sme:        { label: 'SME',        color: 'bg-blue-100 text-blue-700 border-blue-200' },
+  startup:    { label: 'Startup',    color: 'bg-green-100 text-green-700 border-green-200' },
+};
+const STATUS_CFG = {
+  active:    { color: 'bg-emerald-100 text-emerald-700', dot: 'bg-emerald-500' },
+  inactive:  { color: 'bg-gray-100 text-gray-600',       dot: 'bg-gray-400' },
+  converted: { color: 'bg-yellow-100 text-yellow-700',   dot: 'bg-yellow-500' },
+};
+const PRIORITY_CFG = {
+  high:   { color: 'text-red-600',    icon: '🔴' },
+  medium: { color: 'text-yellow-600', icon: '🟡' },
+  low:    { color: 'text-green-600',  icon: '🟢' },
+};
+
+function timeAgo(dateStr, lang) {
+  const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000);
+  if (diff < 3600)  return lang === 'fr' ? `${Math.floor(diff/60)} min` : `${Math.floor(diff/60)}m`;
+  if (diff < 86400) return lang === 'fr' ? `${Math.floor(diff/3600)}h` : `${Math.floor(diff/3600)}h`;
+  return lang === 'fr' ? `${Math.floor(diff/86400)}j` : `${Math.floor(diff/86400)}d`;
+}
 
 export default function ClientsPage() {
-  const [clients, setClients] = useState([]);
-  const [selectedClient, setSelectedClient] = useState(null);
-  const [clientHistory, setClientHistory] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { lang } = useLang();
+  const [clients, setClients]               = useState([]);
+  const [selected, setSelected]             = useState(null);
+  const [history, setHistory]               = useState(null);
+  const [loading, setLoading]               = useState(true);
   const [loadingHistory, setLoadingHistory] = useState(false);
+  const [search, setSearch]                 = useState('');
+  const [segFilter, setSegFilter]           = useState('all');
 
-  useEffect(() => {
-    loadClients();
-  }, []);
+  useEffect(() => { loadClients(); }, []);
 
   const loadClients = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/clients');
-      if (response.ok) {
-        const result = await response.json();
-        if (result.success) {
-          setClients(result.data);
-        }
+      const res = await fetch('/api/clients?limit=100');
+      if (res.ok) {
+        const data = await res.json();
+        setClients(data.clients || data.data || []);
       }
-    } catch (error) {
-      console.error('Erreur chargement clients:', error);
-    } finally {
-      setLoading(false);
-    }
+    } catch (e) { console.error(e); }
+    finally { setLoading(false); }
   };
 
-  const loadClientHistory = async (clientId) => {
+  const openClient = async (client) => {
+    setSelected(client);
+    setHistory(null);
+    setLoadingHistory(true);
     try {
-      setLoadingHistory(true);
-      const response = await fetch(`/api/interactions?clientId=${clientId}&limit=50`);
-      if (response.ok) {
-        const result = await response.json();
-        if (result.success) {
-          setClientHistory(result.data);
-        }
+      const res = await fetch(`/api/interactions?clientId=${client.id}&limit=50`);
+      if (res.ok) {
+        const data = await res.json();
+        setHistory(data);
       }
-    } catch (error) {
-      console.error('Erreur chargement historique:', error);
-    } finally {
-      setLoadingHistory(false);
-    }
+    } catch (e) { console.error(e); }
+    finally { setLoadingHistory(false); }
   };
 
-  const selectClient = (client) => {
-    setSelectedClient(client);
-    loadClientHistory(client.id);
-  };
+  const filtered = clients.filter(c => {
+    const matchSeg  = segFilter === 'all' || c.segment === segFilter;
+    const q = search.toLowerCase();
+    const matchSearch = !q || c.company?.toLowerCase().includes(q) || c.industry?.toLowerCase().includes(q) || c.contactName?.toLowerCase().includes(q);
+    return matchSeg && matchSearch;
+  });
 
-  const getSegmentBadge = (segment) => {
-    const styles = {
-      enterprise: 'bg-purple-100 text-purple-800',
-      sme: 'bg-blue-100 text-blue-800',
-      startup: 'bg-green-100 text-green-800'
-    };
-    return styles[segment] || 'bg-gray-100 text-gray-800';
-  };
+  const totalInteractions = clients.reduce((s, c) => s + (c._count?.interactions || 0), 0);
+  const highPriority = clients.filter(c => c.priority === 'high').length;
+  const activeCount  = clients.filter(c => c.status === 'active').length;
 
-  const getStatusBadge = (status) => {
-    const styles = {
-      active: 'bg-green-100 text-green-800',
-      inactive: 'bg-gray-100 text-gray-800',
-      converted: 'bg-yellow-100 text-yellow-800'
-    };
-    return styles[status] || 'bg-gray-100 text-gray-800';
-  };
+  // ── Detail view ─────────────────────────────────────────────────────────────
+  if (selected) {
+    const seg  = SEGMENT_CFG[selected.segment] || SEGMENT_CFG.sme;
+    const stat = STATUS_CFG[selected.status]   || STATUS_CFG.inactive;
+    const prio = PRIORITY_CFG[selected.priority] || PRIORITY_CFG.medium;
+    const patterns = history?.patterns || history?.data?.patterns;
+    const interactions = history?.interactions || history?.data?.interactions || [];
 
-  const getPriorityBadge = (priority) => {
-    const styles = {
-      high: 'bg-red-100 text-red-800',
-      medium: 'bg-yellow-100 text-yellow-800',
-      low: 'bg-green-100 text-green-800'
-    };
-    return styles[priority] || 'bg-gray-100 text-gray-800';
-  };
-
-  if (selectedClient) {
     return (
-      <div className="min-h-screen bg-gray-50 p-4">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => {
-                    setSelectedClient(null);
-                    setClientHistory(null);
-                  }}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <ArrowLeft className="w-5 h-5" />
-                </button>
-                <div>
-                  <h1 className="text-2xl font-bold text-gray-900">
-                    {selectedClient.company}
-                  </h1>
-                  <p className="text-gray-600">
-                    {selectedClient.industry} • {selectedClient.employeeCount || 'N/A'} employés
-                  </p>
+      <div className="min-h-screen happi-surface">
+        {/* Hero */}
+        <div className="relative overflow-hidden happi-hero-bg text-white py-12 px-8">
+          <div className="orb orb-blue w-60 h-60 -top-10 -left-10" />
+          <div className="orb orb-purple w-48 h-48 top-0 right-8" style={{animationDelay:'2s'}} />
+          <div className="relative z-10 max-w-5xl mx-auto">
+            <button onClick={() => { setSelected(null); setHistory(null); }}
+              className="flex items-center gap-2 text-blue-200 hover:text-white mb-6 transition-colors text-sm">
+              <ArrowLeft className="w-4 h-4" />
+              {lang === 'fr' ? 'Retour aux clients' : 'Back to clients'}
+            </button>
+            <div className="flex items-start gap-5">
+              <div className="p-4 bg-white/10 backdrop-blur-sm rounded-2xl">
+                <Building2 className="w-8 h-8" />
+              </div>
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center gap-3 mb-2">
+                  <h1 className="text-3xl font-bold">{selected.company}</h1>
+                  <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${seg.color}`}>{seg.label}</span>
+                  <span className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${stat.color}`}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${stat.dot}`} />
+                    {selected.status}
+                  </span>
                 </div>
+                <p className="text-blue-200 text-sm">{selected.industry}{selected.employeeCount ? ` · ${selected.employeeCount} emp.` : ''}</p>
+                {selected.contactName && (
+                  <p className="text-blue-300 text-sm mt-1">👤 {selected.contactName}{selected.contactRole ? ` — ${selected.contactRole}` : ''}</p>
+                )}
               </div>
               <div className="flex gap-2">
-                <span className={`px-3 py-1 text-sm font-medium rounded-full ${getSegmentBadge(selectedClient.segment)}`}>
-                  {selectedClient.segment}
-                </span>
-                <span className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusBadge(selectedClient.status)}`}>
-                  {selectedClient.status}
-                </span>
-                <span className={`px-3 py-1 text-sm font-medium rounded-full ${getPriorityBadge(selectedClient.priority)}`}>
-                  {selectedClient.priority}
-                </span>
+                <Link href={`/email-generator`}>
+                  <motion.button whileHover={{scale:1.03}} whileTap={{scale:0.97}}
+                    className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 rounded-xl text-sm font-semibold border border-white/20 transition-all">
+                    <Mail className="w-4 h-4" />
+                    {lang === 'fr' ? 'Email' : 'Email'}
+                  </motion.button>
+                </Link>
+                <Link href={`/account?q=${encodeURIComponent(selected.company)}`}>
+                  <motion.button whileHover={{scale:1.03}} whileTap={{scale:0.97}}
+                    className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl text-sm font-semibold shadow-lg transition-all">
+                    <Sparkles className="w-4 h-4" />
+                    {lang === 'fr' ? 'Intel' : 'Intel'}
+                  </motion.button>
+                </Link>
               </div>
             </div>
-            
-            {selectedClient.currentChallenges && (
-              <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-                <h3 className="font-medium text-blue-900 mb-2">Défis identifiés :</h3>
-                <p className="text-blue-800">{selectedClient.currentChallenges}</p>
-              </div>
-            )}
           </div>
+        </div>
 
-          {/* Historique des interactions */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center gap-2 mb-6">
-              <MessageCircle className="w-5 h-5 text-green-600" />
-              <h2 className="text-xl font-semibold">Historique des interactions</h2>
-              {loadingHistory && (
-                <div className="w-4 h-4 border-2 border-green-600 border-t-transparent rounded-full animate-spin"></div>
-              )}
+        <div className="max-w-5xl mx-auto px-6 py-8 space-y-6">
+          {/* KPI row */}
+          {patterns && (
+            <motion.div {...fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { label: lang === 'fr' ? 'Interactions' : 'Interactions', value: patterns.totalInteractions, color: 'text-blue-600', bg: 'bg-blue-50' },
+                { label: lang === 'fr' ? 'Taux réponse' : 'Response rate', value: `${patterns.responseRate || 0}%`, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+                { label: lang === 'fr' ? 'Positifs' : 'Positive', value: patterns.sentimentDistribution?.positive || 0, color: 'text-purple-600', bg: 'bg-purple-50' },
+                { label: lang === 'fr' ? 'Dernière int.' : 'Last contact', value: patterns.lastInteraction?.daysSince != null ? `${patterns.lastInteraction.daysSince}j` : '—', color: 'text-orange-600', bg: 'bg-orange-50' },
+              ].map(({ label, value, color, bg }) => (
+                <div key={label} className={`${bg} rounded-2xl p-5`}>
+                  <p className={`text-2xl font-black ${color}`}>{value}</p>
+                  <p className="text-xs text-gray-500 mt-1">{label}</p>
+                </div>
+              ))}
+            </motion.div>
+          )}
+
+          {/* Challenges */}
+          {selected.currentChallenges && (
+            <motion.div {...fadeUp} transition={{delay:0.05}}
+              className="bg-white rounded-2xl border border-blue-100 p-5 flex gap-3">
+              <Zap className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
+                  {lang === 'fr' ? 'Défis identifiés' : 'Identified challenges'}
+                </p>
+                <p className="text-gray-700 text-sm leading-relaxed">{selected.currentChallenges}</p>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Interactions */}
+          <motion.div {...fadeUp} transition={{delay:0.1}} className="bg-white rounded-2xl border border-gray-100 p-6">
+            <div className="flex items-center gap-2 mb-5">
+              <Activity className="w-5 h-5 text-blue-500" />
+              <h2 className="font-bold text-gray-900">
+                {lang === 'fr' ? 'Historique des interactions' : 'Interaction history'}
+              </h2>
+              {loadingHistory && <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin ml-2" />}
             </div>
 
-            {clientHistory && clientHistory.patterns && (
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                <div className="p-4 bg-blue-50 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600">
-                    {clientHistory.patterns.totalInteractions}
-                  </div>
-                  <div className="text-sm text-blue-800">Total interactions</div>
-                </div>
-                <div className="p-4 bg-green-50 rounded-lg">
-                  <div className="text-2xl font-bold text-green-600">
-                    {clientHistory.patterns.responseRate}%
-                  </div>
-                  <div className="text-sm text-green-800">Taux de réponse</div>
-                </div>
-                <div className="p-4 bg-purple-50 rounded-lg">
-                  <div className="text-2xl font-bold text-purple-600">
-                    {clientHistory.patterns.sentimentDistribution.positive || 0}
-                  </div>
-                  <div className="text-sm text-purple-800">Réponses positives</div>
-                </div>
-                <div className="p-4 bg-yellow-50 rounded-lg">
-                  <div className="text-2xl font-bold text-yellow-600">
-                    {clientHistory.patterns.lastInteraction?.daysSince || 'N/A'}
-                  </div>
-                  <div className="text-sm text-yellow-800">Jours depuis dernière</div>
-                </div>
-              </div>
-            )}
-
-            {clientHistory && clientHistory.interactions ? (
-              <div className="space-y-4">
-                {clientHistory.interactions.map((interaction) => (
-                  <div key={interaction.id} className="border border-gray-200 rounded-lg p-4">
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex items-center gap-3">
-                        <span className={`px-2 py-1 text-xs font-medium rounded ${
-                          interaction.type === 'email' ? 'bg-blue-100 text-blue-800' :
-                          interaction.type === 'call' ? 'bg-green-100 text-green-800' :
-                          interaction.type === 'meeting' ? 'bg-purple-100 text-purple-800' :
-                          'bg-gray-100 text-gray-800'
-                        }`}>
-                          {interaction.type}
+            {interactions.length === 0 && !loadingHistory ? (
+              <p className="text-center text-gray-400 py-8 text-sm">
+                {lang === 'fr' ? 'Aucune interaction' : 'No interactions yet'}
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {interactions.map((inter) => (
+                  <div key={inter.id} className="flex items-start gap-4 p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
+                    <div className={`shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold ${
+                      inter.type === 'email'   ? 'bg-blue-100 text-blue-700' :
+                      inter.type === 'call'    ? 'bg-green-100 text-green-700' :
+                      inter.type === 'meeting' ? 'bg-purple-100 text-purple-700' :
+                      'bg-gray-200 text-gray-700'
+                    }`}>{inter.type}</div>
+                    <div className="flex-1 min-w-0">
+                      {inter.subject && <p className="font-medium text-gray-900 text-sm truncate">{inter.subject}</p>}
+                      {inter.intent && <p className="text-xs text-gray-500 mt-0.5">{inter.intent}</p>}
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      {inter.responseSentiment && (
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${
+                          inter.responseSentiment === 'positive' ? 'bg-green-100 text-green-700' :
+                          inter.responseSentiment === 'negative' ? 'bg-red-100 text-red-700' :
+                          'bg-gray-100 text-gray-600'}`}>
+                          {inter.responseSentiment}
                         </span>
-                        <span className={`px-2 py-1 text-xs font-medium rounded ${
-                          interaction.status === 'responded' ? 'bg-green-100 text-green-800' :
-                          interaction.status === 'sent' ? 'bg-yellow-100 text-yellow-800' :
-                          interaction.status === 'opened' ? 'bg-blue-100 text-blue-800' :
-                          'bg-gray-100 text-gray-800'
-                        }`}>
-                          {interaction.status}
-                        </span>
-                        {interaction.responseSentiment && (
-                          <span className={`px-2 py-1 text-xs font-medium rounded ${
-                            interaction.responseSentiment === 'positive' ? 'bg-green-100 text-green-800' :
-                            interaction.responseSentiment === 'negative' ? 'bg-red-100 text-red-800' :
-                            'bg-gray-100 text-gray-800'
-                          }`}>
-                            {interaction.responseSentiment}
-                          </span>
-                        )}
-                      </div>
-                      <span className="text-sm text-gray-500">
-                        {new Date(interaction.createdAt).toLocaleDateString('fr-FR')}
+                      )}
+                      <span className="text-xs text-gray-400">
+                        {new Date(inter.createdAt).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB')}
                       </span>
                     </div>
-                    
-                    {interaction.subject && (
-                      <h4 className="font-medium text-gray-900 mb-2">{interaction.subject}</h4>
-                    )}
-                    
-                    {interaction.context && (
-                      <p className="text-sm text-gray-600 mb-2">
-                        <span className="font-medium">Contexte :</span> {interaction.context}
-                      </p>
-                    )}
-                    
-                    {interaction.intent && (
-                      <p className="text-sm text-gray-600">
-                        <span className="font-medium">Intention :</span> {interaction.intent}
-                      </p>
-                    )}
                   </div>
                 ))}
               </div>
-            ) : (
-              <p className="text-gray-500 text-center py-8">
-                Aucune interaction trouvée pour ce client
-              </p>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     );
   }
 
+  // ── List view ────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
+    <div className="min-h-screen happi-surface">
+      {/* Hero */}
+      <div className="relative overflow-hidden happi-hero-bg text-white py-12 px-8">
+        <div className="orb orb-blue   w-64 h-64 -top-12 -left-12" />
+        <div className="orb orb-purple w-48 h-48 top-0 right-12" style={{animationDelay:'2s'}} />
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <motion.div {...fadeUp} className="flex items-center gap-3 mb-4">
+            <div className="p-3 bg-white/10 backdrop-blur-sm rounded-2xl"><Users className="w-7 h-7" /></div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Gestion Clients</h1>
-              <p className="text-gray-600">Base de données des clients et historique des interactions</p>
+              <h1 className="text-3xl font-bold">{lang === 'fr' ? 'Clients' : 'Clients'}</h1>
+              <p className="text-blue-200 text-sm">{lang === 'fr' ? 'Base de données & historique des interactions' : 'Database & interaction history'}</p>
             </div>
-            <Link 
-              href="/ai-agent"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
-            >
-              Retour AI Agent
-            </Link>
-          </div>
+          </motion.div>
+
+          {/* KPI chips */}
+          <motion.div {...fadeUp} transition={{delay:0.08}} className="flex gap-3 mb-6 flex-wrap text-sm">
+            {[
+              ['👥', clients.length, lang === 'fr' ? 'Clients' : 'Clients'],
+              ['✅', activeCount, lang === 'fr' ? 'Actifs' : 'Active'],
+              ['🔴', highPriority, lang === 'fr' ? 'Haute priorité' : 'High priority'],
+              ['💬', totalInteractions, lang === 'fr' ? 'Interactions' : 'Interactions'],
+            ].map(([icon, n, label]) => (
+              <div key={label} className="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-2">
+                <span className="mr-1">{icon}</span>
+                <span className="font-bold text-lg">{n}</span>
+                <span className="text-blue-200 ml-2 text-xs">{label}</span>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Search */}
+          <motion.div {...fadeUp} transition={{delay:0.12}} className="relative max-w-lg mb-4">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-300" />
+            <input type="text" value={search} onChange={e => setSearch(e.target.value)}
+              placeholder={lang === 'fr' ? 'Rechercher un client…' : 'Search clients…'}
+              className="w-full pl-12 pr-10 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-blue-300 focus:outline-none focus:border-blue-300 transition-colors" />
+            {search && <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-300 hover:text-white"><X className="w-4 h-4" /></button>}
+          </motion.div>
+
+          {/* Segment filters */}
+          <motion.div {...fadeUp} transition={{delay:0.16}} className="flex gap-2 flex-wrap">
+            {[['all', lang === 'fr' ? 'Tous' : 'All'], ['enterprise','Enterprise'], ['sme','SME'], ['startup','Startup']].map(([val, label]) => (
+              <button key={val} onClick={() => setSegFilter(val)}
+                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${segFilter === val ? 'bg-white text-blue-700 shadow-lg' : 'bg-white/10 text-blue-100 hover:bg-white/20'}`}>
+                {label}
+              </button>
+            ))}
+          </motion.div>
         </div>
+      </div>
 
-        {/* Statistiques */}
-        {clients.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="flex items-center">
-                <Users className="w-8 h-8 text-blue-600" />
-                <div className="ml-4">
-                  <div className="text-2xl font-bold text-gray-900">{clients.length}</div>
-                  <div className="text-gray-600">Clients total</div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="flex items-center">
-                <Building className="w-8 h-8 text-green-600" />
-                <div className="ml-4">
-                  <div className="text-2xl font-bold text-gray-900">
-                    {clients.filter(c => c.status === 'active').length}
-                  </div>
-                  <div className="text-gray-600">Actifs</div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="flex items-center">
-                <TrendingUp className="w-8 h-8 text-purple-600" />
-                <div className="ml-4">
-                  <div className="text-2xl font-bold text-gray-900">
-                    {clients.filter(c => c.priority === 'high').length}
-                  </div>
-                  <div className="text-gray-600">Priorité haute</div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="flex items-center">
-                <MessageCircle className="w-8 h-8 text-yellow-600" />
-                <div className="ml-4">
-                  <div className="text-2xl font-bold text-gray-900">
-                    {clients.reduce((sum, c) => sum + (c._count?.interactions || 0), 0)}
-                  </div>
-                  <div className="text-gray-600">Interactions</div>
-                </div>
-              </div>
-            </div>
+      {/* Grid */}
+      <div className="max-w-6xl mx-auto px-6 py-8">
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[...Array(6)].map((_, i) => <div key={i} className="shimmer h-44 rounded-2xl" style={{animationDelay:`${i*0.1}s`}} />)}
           </div>
-        )}
+        ) : filtered.length === 0 ? (
+          <motion.div {...fadeUp} className="text-center py-20">
+            <div className="text-5xl mb-4">🔍</div>
+            <p className="text-gray-500">{lang === 'fr' ? 'Aucun client trouvé' : 'No clients found'}</p>
+          </motion.div>
+        ) : (
+          <>
+            <p className="text-sm text-gray-500 mb-5">{filtered.length} {lang === 'fr' ? 'clients' : 'clients'}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {filtered.map((client, i) => {
+                const seg  = SEGMENT_CFG[client.segment] || SEGMENT_CFG.sme;
+                const stat = STATUS_CFG[client.status]   || STATUS_CFG.inactive;
+                const prio = PRIORITY_CFG[client.priority] || PRIORITY_CFG.medium;
+                return (
+                  <motion.button key={client.id}
+                    initial={{opacity:0, y:12}} animate={{opacity:1, y:0}} transition={{delay: Math.min(i*0.04, 0.4)}}
+                    onClick={() => openClient(client)}
+                    className="text-left bg-white rounded-2xl p-5 border border-gray-100 hover:shadow-xl hover:border-blue-200 transition-all group">
 
-        {/* Liste des clients */}
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">Clients</h2>
-          </div>
-          
-          <div className="p-6">
-            {loading ? (
-              <div className="flex items-center justify-center py-8">
-                <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-              </div>
-            ) : clients.length === 0 ? (
-              <div className="text-center py-8">
-                <p className="text-gray-500 mb-4">Aucun client dans la base de données</p>
-                <p className="text-sm text-gray-400">
-                  Les clients seront créés automatiquement lors de l'utilisation de l'AI Agent
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                {clients.map((client) => (
-                  <div 
-                    key={client.id}
-                    onClick={() => selectClient(client)}
-                    className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer"
-                  >
+                    {/* Top row */}
                     <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="font-medium text-gray-900">{client.company}</h3>
-                        <p className="text-sm text-gray-600">{client.industry}</p>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-gray-900 truncate group-hover:text-blue-600 transition-colors">{client.company}</h3>
+                        <p className="text-xs text-gray-500 mt-0.5 truncate">{client.industry || '—'}</p>
                       </div>
-                      <span className={`px-2 py-1 text-xs font-medium rounded ${getSegmentBadge(client.segment)}`}>
-                        {client.segment}
+                      <span className={`ml-2 shrink-0 px-2.5 py-1 rounded-full text-xs font-semibold border ${seg.color}`}>
+                        {seg.label}
                       </span>
                     </div>
-                    
-                    <div className="flex items-center justify-between text-sm">
-                      <div className="flex items-center gap-4">
-                        <span className={`px-2 py-1 text-xs font-medium rounded ${getStatusBadge(client.status)}`}>
-                          {client.status}
-                        </span>
-                        <span className={`px-2 py-1 text-xs font-medium rounded ${getPriorityBadge(client.priority)}`}>
-                          {client.priority}
-                        </span>
-                      </div>
-                      <span className="text-gray-500">
-                        {client._count?.interactions || 0} interactions
-                      </span>
-                    </div>
-                    
-                    {client.currentChallenges && (
-                      <div className="mt-3 p-2 bg-gray-50 rounded text-xs text-gray-600">
-                        {client.currentChallenges.substring(0, 100)}
-                        {client.currentChallenges.length > 100 && '...'}
-                      </div>
+
+                    {/* Contact */}
+                    {client.contactName && (
+                      <p className="text-xs text-gray-500 mb-3 flex items-center gap-1">
+                        <span className="w-4 h-4 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 text-[10px]">👤</span>
+                        {client.contactName}{client.contactRole ? ` · ${client.contactRole}` : ''}
+                      </p>
                     )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+
+                    {/* Status + priority */}
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${stat.color}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${stat.dot}`} />
+                        {client.status}
+                      </span>
+                      <span className={`text-xs font-medium ${prio.color}`}>{prio.icon} {client.priority}</span>
+                    </div>
+
+                    {/* Bottom row */}
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                      <span className="text-xs text-gray-400 flex items-center gap-1">
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        {client._count?.interactions || 0} {lang === 'fr' ? 'interact.' : 'interact.'}
+                      </span>
+                      <span className="text-xs text-gray-400 flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5" />
+                        {timeAgo(client.updatedAt || client.createdAt, lang)}
+                      </span>
+                      <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all" />
+                    </div>
+                  </motion.button>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
