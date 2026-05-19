@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navigation from "@/components/Navigation";
+import SidebarLayout from "@/components/SidebarLayout";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const geistSans = Geist({
@@ -38,10 +38,9 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <LanguageProvider>
-          <Navigation />
-          <main className="min-h-screen">
+          <SidebarLayout>
             {children}
-          </main>
+          </SidebarLayout>
         </LanguageProvider>
       </body>
     </html>
