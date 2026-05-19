@@ -3,32 +3,19 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import {
-  Search, Building2, Sparkles, Mail, MessageSquare,
-  TrendingUp, Shield, Zap, ChevronRight, RotateCcw,
-  Lightbulb, Star
+  Search, Building2, Sparkles, Mail, Globe, Wifi,
+  TrendingUp, TrendingDown, Shield, Zap, ChevronRight,
+  RotateCcw, Lightbulb, Star, AlertTriangle, CheckCircle,
+  Target, Users, DollarSign, Cpu, Leaf, Scale, BarChart3,
+  Flame, Eye, ArrowRight, Info, RadioTower
 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { Toaster } from '@/components/ui/sonner';
 import { useLang, t } from '@/contexts/LanguageContext';
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
-const fadeUp = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -10 } };
-
-function TiltCard({ children, className = '' }) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const handleMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setTilt({ x: (e.clientY - rect.top - rect.height / 2) / 16, y: -(e.clientX - rect.left - rect.width / 2) / 16 });
-  };
-  return (
-    <motion.div className={`tilt-card ${className}`} style={{ rotateX: tilt.x, rotateY: tilt.y }}
-      onMouseMove={handleMove} onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}>
-      {children}
-    </motion.div>
-  );
-}
+const fadeUp = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
+const stagger = { animate: { transition: { staggerChildren: 0.07 } } };
 
 function AnimatedScore({ value }) {
   const ref = useRef(null);
@@ -40,28 +27,62 @@ function AnimatedScore({ value }) {
   return <motion.span ref={ref}>{display}</motion.span>;
 }
 
-const CATEGORY_COLORS = {
+const CAT_COLORS = {
   m365:     'from-blue-500 to-indigo-600',
   azure:    'from-sky-500 to-blue-600',
   dynamics: 'from-orange-500 to-red-500',
   power:    'from-yellow-500 to-orange-500',
   security: 'from-red-500 to-rose-600',
 };
-const CATEGORY_EMOJI = { m365: '💼', azure: '☁️', dynamics: '🎯', power: '⚡', security: '🛡️' };
+const CAT_EMOJI = { m365: '💼', azure: '☁️', dynamics: '🎯', power: '⚡', security: '🛡️' };
 
-const SIZE_LABELS = { startup: 'Startup', sme: 'SME', enterprise: 'Enterprise' };
+const PRIORITY_COLORS = {
+  'must-have': 'bg-red-100 text-red-700 border-red-200',
+  'high':      'bg-orange-100 text-orange-700 border-orange-200',
+  'medium':    'bg-blue-100 text-blue-700 border-blue-200',
+};
 
-// ── Main component ───────────────────────────────────────────────────────────
+const PESTEL_CONFIG = [
+  { key: 'political',    label: 'Politique',      icon: Scale,      color: 'border-purple-300 bg-purple-50',  text: 'text-purple-700', iconColor: 'text-purple-500' },
+  { key: 'economic',     label: 'Économique',     icon: DollarSign, color: 'border-blue-300 bg-blue-50',      text: 'text-blue-700',   iconColor: 'text-blue-500'   },
+  { key: 'social',       label: 'Social',         icon: Users,      color: 'border-green-300 bg-green-50',    text: 'text-green-700',  iconColor: 'text-green-500'  },
+  { key: 'technological',label: 'Technologique',  icon: Cpu,        color: 'border-indigo-300 bg-indigo-50',  text: 'text-indigo-700', iconColor: 'text-indigo-500' },
+  { key: 'environmental',label: 'Environnemental',icon: Leaf,       color: 'border-emerald-300 bg-emerald-50',text: 'text-emerald-700',iconColor: 'text-emerald-500'},
+  { key: 'legal',        label: 'Légal',          icon: Shield,     color: 'border-rose-300 bg-rose-50',      text: 'text-rose-700',   iconColor: 'text-rose-500'   },
+];
+
+const SWOT_CONFIG = [
+  { key: 'strengths',    label: 'Forces',        icon: TrendingUp,   color: 'border-green-300 bg-green-50/60',   header: 'bg-green-100',  text: 'text-green-800',  dot: 'bg-green-500'  },
+  { key: 'weaknesses',   label: 'Faiblesses',    icon: TrendingDown, color: 'border-red-300 bg-red-50/60',       header: 'bg-red-100',    text: 'text-red-800',    dot: 'bg-red-500'    },
+  { key: 'opportunities',label: 'Opportunités',  icon: Lightbulb,    color: 'border-blue-300 bg-blue-50/60',     header: 'bg-blue-100',   text: 'text-blue-800',   dot: 'bg-blue-500'   },
+  { key: 'threats',      label: 'Menaces',       icon: AlertTriangle,color: 'border-orange-300 bg-orange-50/60', header: 'bg-orange-100', text: 'text-orange-800', dot: 'bg-orange-500' },
+];
+
+// ── Section wrapper ────────────────────────────────────────────────────────────
+function Section({ title, icon: Icon, color = 'text-gray-700', children, badge }) {
+  return (
+    <motion.div variants={fadeUp} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="flex items-center gap-2">
+          <Icon className={`h-5 w-5 ${color}`} />
+          <h3 className="font-semibold text-gray-800 text-sm">{title}</h3>
+        </div>
+        {badge && <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">{badge}</span>}
+      </div>
+      <div className="p-6">{children}</div>
+    </motion.div>
+  );
+}
+
+// ── Main page ──────────────────────────────────────────────────────────────────
 export default function AccountIntelPage() {
   const { lang } = useLang();
-  const tr = t[lang].account;
-  const [query, setQuery]   = useState('');
-  const [intel, setIntel]   = useState(null);
+  const [query, setQuery]     = useState('');
+  const [intel, setIntel]     = useState(null);
   const [loading, setLoading] = useState(false);
-  const [, setSearched] = useState('');
+  const [webUsed, setWebUsed] = useState(false);
 
-  const handleSearch = async (e) => {
-    e?.preventDefault();
+  async function handleAnalyse() {
     if (!query.trim()) return;
     setLoading(true);
     setIntel(null);
@@ -72,316 +93,367 @@ export default function AccountIntelPage() {
         body: JSON.stringify({ accountName: query.trim() }),
       });
       const data = await res.json();
-      if (!data.success) throw new Error(data.error);
+      if (!res.ok || !data.success) throw new Error(data.error || 'Erreur API');
       setIntel(data.intel);
-      setSearched(query.trim());
-    } catch (err) {
-      toast.error(err.message || 'Analysis failed');
+      setWebUsed(data.webDataUsed || false);
+      toast.success(`Dossier généré — ${data.tokensUsed} tokens`);
+    } catch (e) {
+      toast.error(e.message);
     } finally {
       setLoading(false);
     }
-  };
+  }
 
-  const reset = () => { setIntel(null); setQuery(''); setSearched(''); };
-
-  const scoreColor = intel?.microsoftFit?.score >= 80 ? 'text-emerald-600' :
-                     intel?.microsoftFit?.score >= 60 ? 'text-yellow-600' : 'text-red-500';
+  const scoreColor = (s) => s >= 75 ? 'text-green-600' : s >= 50 ? 'text-orange-500' : 'text-red-500';
+  const scoreRing  = (s) => s >= 75 ? 'from-green-400 to-emerald-500' : s >= 50 ? 'from-orange-400 to-amber-500' : 'from-red-400 to-rose-500';
 
   return (
-    <div className="min-h-screen happi-surface">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-slate-50 to-indigo-50">
       <Toaster />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
 
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <div className="relative overflow-hidden happi-hero-bg text-white py-16 px-8">
-        <div className="orb orb-blue   w-72 h-72 -top-16 -left-16" />
-        <div className="orb orb-purple w-56 h-56 top-0 right-8" style={{ animationDelay: '2s' }} />
-        <div className="orb orb-green  w-40 h-40 bottom-0 left-1/3" style={{ animationDelay: '4s' }} />
+        {/* ── Header ─────────────────────────────────────────── */}
+        <motion.div {...fadeUp} className="mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="bg-gradient-to-br from-indigo-600 to-purple-600 p-3 rounded-xl shadow-lg">
+              <Sparkles className="h-7 w-7 text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">
+                {lang === 'fr' ? 'Intelligence Compte' : 'Account Intelligence'}
+              </h1>
+              <p className="text-gray-500 text-sm mt-0.5">
+                {lang === 'fr'
+                  ? 'Dossier commercial complet — SWOT · PESTEL · Signaux digitaux · Stratégie Microsoft'
+                  : 'Full commercial dossier — SWOT · PESTEL · Digital signals · Microsoft strategy'}
+              </p>
+            </div>
+          </div>
+        </motion.div>
 
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <motion.div {...fadeUp} className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-blue-200 text-sm font-medium mb-6">
-            <Sparkles className="w-4 h-4" /> KB-powered account intelligence
-          </motion.div>
-
-          <motion.h1 {...fadeUp} transition={{ delay: 0.07 }}
-            className="text-4xl md:text-5xl font-bold mb-4">
-            {tr.title}
-          </motion.h1>
-
-          <motion.p {...fadeUp} transition={{ delay: 0.14 }}
-            className="text-blue-200 text-lg mb-10">
-            {tr.subtitle}
-          </motion.p>
-
-          {/* Search bar */}
-          <motion.form {...fadeUp} transition={{ delay: 0.2 }}
-            onSubmit={handleSearch}
-            className="relative max-w-xl mx-auto">
-            <div className="flex items-center bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 overflow-hidden shadow-2xl focus-within:border-blue-300 transition-colors">
-              <Building2 className="w-5 h-5 text-blue-300 ml-5 shrink-0" />
+        {/* ── Search bar ─────────────────────────────────────── */}
+        <motion.div {...fadeUp} transition={{ delay: 0.1 }} className="mb-10">
+          <div className="flex gap-3 max-w-2xl">
+            <div className="flex-1 relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
               <input
-                type="text"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
-                placeholder={tr.placeholder}
-                className="flex-1 bg-transparent px-4 py-4 text-white placeholder-blue-300 focus:outline-none text-lg"
+                onKeyDown={e => e.key === 'Enter' && handleAnalyse()}
+                placeholder={lang === 'fr' ? 'Nom de l\'entreprise… ex: TotalEnergies, Airbus, SNCF' : 'Company name… e.g. TotalEnergies, Airbus, SNCF'}
+                className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-800 placeholder-gray-400"
               />
-              <motion.button
-                type="submit"
-                disabled={loading || !query.trim()}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="m-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl font-semibold text-sm shadow-lg disabled:opacity-50 flex items-center gap-2"
-              >
-                {loading
-                  ? <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}><Zap className="w-4 h-4" /></motion.div>
-                  : <Search className="w-4 h-4" />}
-                {loading ? tr.analysing : tr.analyse}
-              </motion.button>
             </div>
-          </motion.form>
-        </div>
-      </div>
+            <button
+              onClick={handleAnalyse}
+              disabled={loading || !query.trim()}
+              className="px-6 py-3.5 rounded-xl font-semibold text-white shadow-md transition-all
+                bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700
+                disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
+              {loading
+                ? <><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />{lang === 'fr' ? 'Analyse…' : 'Analysing…'}</>
+                : <><Sparkles className="h-4 w-4" />{lang === 'fr' ? 'Analyser' : 'Analyse'}</>
+              }
+            </button>
+          </div>
+          {!process.env.NEXT_PUBLIC_HAS_TAVILY && (
+            <p className="mt-2 text-xs text-amber-600 flex items-center gap-1">
+              <Info className="h-3 w-3" />
+              {lang === 'fr'
+                ? 'Ajoutez TAVILY_API_KEY dans .env pour activer le scraping web en temps réel'
+                : 'Add TAVILY_API_KEY to .env to enable real-time web scraping'}
+            </p>
+          )}
+        </motion.div>
 
-      {/* ── Loading skeleton ──────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {loading && (
-          <motion.div {...fadeUp} className="max-w-5xl mx-auto px-6 py-10 space-y-6">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="shimmer h-32 rounded-2xl" style={{ animationDelay: `${i * 0.15}s` }} />
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* ── Results ────────────────────────────────────────── */}
+        <AnimatePresence mode="wait">
+          {intel && (
+            <motion.div key="results" variants={stagger} initial="initial" animate="animate" className="space-y-6">
 
-      {/* ── Results ───────────────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {intel && !loading && (
-          <motion.div key="results" {...fadeUp} className="max-w-5xl mx-auto px-6 py-10 space-y-8">
-
-            {/* Header row */}
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900">{intel.company?.name}</h2>
-                <p className="text-gray-500 text-sm">{intel.company?.likelySegment}</p>
-              </div>
-              <button onClick={reset} className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700">
-                <RotateCcw className="w-4 h-4" /> New search
-              </button>
-            </div>
-
-            {/* ── Row 1 — company + fit score ─────────────────────────────── */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {/* Company card */}
-              <TiltCard className="md:col-span-2">
-                <div className="gradient-border">
-                  <div className="bg-white rounded-[calc(1rem-1px)] p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="p-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl text-white text-2xl shrink-0">
-                        <Building2 className="w-7 h-7" />
+              {/* ── Company header card ───────────────── */}
+              <motion.div variants={fadeUp}
+                className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-6 text-white shadow-xl">
+                <div className="flex items-start justify-between gap-4 flex-wrap">
+                  <div className="flex items-center gap-4">
+                    <div className="bg-white/10 border border-white/20 rounded-xl p-3 shrink-0">
+                      <Building2 className="h-7 w-7 text-white" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h2 className="text-2xl font-bold">{intel.company?.name}</h2>
+                        {webUsed && (
+                          <span className="flex items-center gap-1 text-xs bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 px-2 py-0.5 rounded-full">
+                            <Wifi className="h-3 w-3" /> {lang === 'fr' ? 'Données web' : 'Web data'}
+                          </span>
+                        )}
                       </div>
-                      <div className="flex-1">
-                        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Company Profile</p>
-                        <h3 className="text-xl font-bold text-gray-900 mb-3">{intel.company?.name}</h3>
-                        <div className="flex flex-wrap gap-2">
-                          <Pill color="blue">{intel.company?.likelyIndustry}</Pill>
-                          <Pill color="purple">{SIZE_LABELS[intel.company?.likelySize] || intel.company?.likelySize}</Pill>
-                        </div>
-                        <p className="text-gray-600 text-sm mt-3">{intel.company?.likelySegment}</p>
-                      </div>
+                      <p className="text-slate-300 text-sm mt-0.5">{intel.company?.industry} · {intel.company?.headquarters}</p>
+                      <p className="text-slate-400 text-xs mt-1">{intel.company?.description}</p>
                     </div>
                   </div>
-                </div>
-              </TiltCard>
-
-              {/* Fit score */}
-              <TiltCard>
-                <div className="gradient-border-green">
-                  <div className="bg-white rounded-[calc(1rem-1px)] p-6 text-center h-full flex flex-col justify-center">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{tr.score}</p>
-                    <div className={`text-6xl font-black ${scoreColor} mb-1`}>
-                      <AnimatedScore value={intel.microsoftFit?.score || 0} />
-                      <span className="text-2xl">%</span>
-                    </div>
-                    <p className="text-xs text-gray-500 leading-relaxed mt-3">{intel.microsoftFit?.rationale}</p>
-                  </div>
-                </div>
-              </TiltCard>
-            </div>
-
-            {/* ── Row 2 — top solutions ────────────────────────────────────── */}
-            <div>
-              <SectionTitle icon={<Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />} label={tr.topSolutions} />
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-4">
-                {intel.topSolutions?.map((sol, i) => (
-                  <motion.div key={i} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                    <TiltCard className="h-full">
-                      <div className={`gradient-border${sol.category === 'security' || sol.category === 'power' || sol.category === 'dynamics' ? '-orange' : ''}`}>
-                        <div className="bg-white rounded-[calc(1rem-1px)] p-5 h-full flex flex-col">
-                          <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r ${CATEGORY_COLORS[sol.category] || 'from-gray-400 to-gray-600'} text-white text-xs font-semibold mb-3 self-start`}>
-                            <span>{CATEGORY_EMOJI[sol.category]}</span>
-                            {sol.category?.toUpperCase()}
-                          </div>
-                          <p className="font-bold text-gray-900 mb-1">{sol.product}</p>
-                          <p className="text-xs text-gray-500 mb-2">{sol.plan}</p>
-                          <p className="text-emerald-600 font-bold text-sm mb-3">{sol.price}</p>
-                          <p className="text-gray-600 text-xs leading-relaxed flex-1">{sol.whyFit}</p>
-                          {sol.roi && (
-                            <div className="mt-3 pt-3 border-t border-gray-100 flex items-center gap-1.5 text-xs text-blue-600">
-                              <TrendingUp className="w-3.5 h-3.5" /> {sol.roi}
-                            </div>
-                          )}
-                        </div>
+                  <div className="flex gap-4 flex-wrap">
+                    {[
+                      { label: lang === 'fr' ? 'Taille' : 'Size',      value: intel.company?.size?.toUpperCase() },
+                      { label: lang === 'fr' ? 'Effectif' : 'Employees',value: intel.company?.employees },
+                      { label: 'CA estimé',                              value: intel.company?.estimatedRevenue },
+                    ].map(i => (
+                      <div key={i.label} className="bg-white/10 rounded-xl px-4 py-2 text-center min-w-[80px]">
+                        <p className="text-slate-400 text-[10px] uppercase tracking-wider">{i.label}</p>
+                        <p className="text-white font-semibold text-sm mt-0.5">{i.value || '—'}</p>
                       </div>
-                    </TiltCard>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* ── Row 3 — email angles + quick win ─────────────────────────── */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Email angles */}
-              <div>
-                <SectionTitle icon={<Mail className="w-5 h-5 text-blue-500" />} label={tr.emailAngles} />
-                <div className="space-y-3 mt-4">
-                  {intel.emailAngles?.map((angle, i) => (
-                    <motion.div key={i} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.09 }}>
-                      <div className="glass-card-white rounded-2xl p-4 flex gap-4 group hover:shadow-md transition-all">
-                        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-xs font-bold flex items-center justify-center shrink-0">
-                          {i + 1}
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-semibold text-gray-900 text-sm mb-1">{angle.angle}</p>
-                          <p className="text-gray-500 text-xs leading-relaxed">{angle.hook}</p>
-                          <p className="text-blue-500 text-xs font-medium mt-1">{angle.solution}</p>
-                        </div>
-                        <Link
-                          href={`/email-generator`}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity self-center p-2 rounded-lg hover:bg-blue-50"
-                          title="Open email generator"
-                        >
-                          <ChevronRight className="w-4 h-4 text-blue-500" />
-                        </Link>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Discovery questions + quick win */}
-              <div className="space-y-5">
-                <div>
-                  <SectionTitle icon={<MessageSquare className="w-5 h-5 text-purple-500" />} label={tr.keyQuestions} />
-                  <div className="mt-4 glass-card-white rounded-2xl p-5 space-y-3">
-                    {intel.keyQuestions?.map((q, i) => (
-                      <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 + i * 0.08 }}
-                        className="flex items-start gap-2.5 text-sm text-gray-700">
-                        <span className="w-5 h-5 rounded-full bg-purple-100 text-purple-600 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
-                        {q}
-                      </motion.div>
                     ))}
                   </div>
                 </div>
+              </motion.div>
 
-                {intel.quickWin && (
-                  <div>
-                    <SectionTitle icon={<Zap className="w-5 h-5 text-yellow-500" />} label={tr.quickWin} />
-                    <div className="mt-4 gradient-border-green">
-                      <div className="bg-white rounded-[calc(1rem-1px)] p-5 flex gap-3">
-                        <Lightbulb className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                        <p className="text-sm text-gray-700 leading-relaxed">{intel.quickWin}</p>
-                      </div>
+              {/* ── Score + Digital Signals ──────────── */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                {/* Score card */}
+                <motion.div variants={fadeUp}
+                  className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col items-center justify-center">
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                    {lang === 'fr' ? 'Score adéquation Microsoft' : 'Microsoft Fit Score'}
+                  </p>
+                  <div className={`relative w-28 h-28 rounded-full bg-gradient-to-br ${scoreRing(intel.microsoftFit?.score)} p-1 shadow-lg mb-3`}>
+                    <div className="w-full h-full rounded-full bg-white flex flex-col items-center justify-center">
+                      <span className={`text-4xl font-black ${scoreColor(intel.microsoftFit?.score)}`}>
+                        <AnimatedScore value={intel.microsoftFit?.score || 0} />
+                      </span>
+                      <span className="text-[10px] text-gray-400">/100</span>
                     </div>
                   </div>
-                )}
-
-                {intel.competitorRisk && (
-                  <div className="gradient-border-orange">
-                    <div className="bg-white rounded-[calc(1rem-1px)] p-4 flex items-center gap-3">
-                      <Shield className="w-5 h-5 text-orange-500 shrink-0" />
-                      <div>
-                        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{tr.competitor}</p>
-                        <p className="text-sm font-bold text-gray-900">{intel.competitorRisk}</p>
-                      </div>
-                    </div>
+                  <div className={`text-xs font-semibold px-3 py-1 rounded-full mb-3 ${
+                    intel.microsoftFit?.urgencyLevel === 'high'
+                      ? 'bg-red-100 text-red-700'
+                      : intel.microsoftFit?.urgencyLevel === 'medium'
+                      ? 'bg-orange-100 text-orange-700'
+                      : 'bg-green-100 text-green-700'
+                  }`}>
+                    {intel.microsoftFit?.urgencyLevel === 'high' ? '🔥 Urgence élevée'
+                      : intel.microsoftFit?.urgencyLevel === 'medium' ? '⚡ Urgence moyenne'
+                      : '✅ Pipeline long terme'}
                   </div>
-                )}
+                  <p className="text-xs text-gray-500 text-center leading-relaxed">{intel.microsoftFit?.rationale}</p>
+                  {intel.microsoftFit?.buyingSignals?.length > 0 && (
+                    <div className="mt-3 w-full space-y-1">
+                      {intel.microsoftFit.buyingSignals.map((s, i) => (
+                        <div key={i} className="flex items-start gap-2 text-xs text-green-700 bg-green-50 rounded-lg px-2 py-1.5">
+                          <CheckCircle className="h-3 w-3 mt-0.5 shrink-0 text-green-500" />
+                          {s}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
+
+                {/* Digital signals */}
+                <motion.div variants={fadeUp}
+                  className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <RadioTower className="h-5 w-5 text-indigo-500" />
+                    <h3 className="font-semibold text-gray-800 text-sm">
+                      {lang === 'fr' ? 'Signaux digitaux détectés' : 'Digital signals detected'}
+                    </h3>
+                    {webUsed && <span className="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Live</span>}
+                  </div>
+                  <div className="space-y-2.5">
+                    {(intel.digitalSignals || []).map((sig, i) => (
+                      <div key={i} className="flex items-start gap-3 p-3 bg-indigo-50/60 border border-indigo-100 rounded-xl">
+                        <span className="mt-0.5 w-5 h-5 rounded-full bg-indigo-500 text-white text-[10px] font-bold flex items-center justify-center shrink-0">{i + 1}</span>
+                        <p className="text-sm text-gray-700">{sig}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 flex gap-2 flex-wrap">
+                    <Link href={`/email-generator?company=${encodeURIComponent(intel.company?.name || query)}`}
+                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                      <Mail className="h-3 w-3" /> {lang === 'fr' ? 'Générer un email' : 'Generate email'}
+                    </Link>
+                    <button className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                      <RotateCcw className="h-3 w-3" /> {lang === 'fr' ? 'Réanalyser' : 'Re-analyse'}
+                    </button>
+                  </div>
+                </motion.div>
               </div>
-            </div>
 
-            {/* ── CTA row ──────────────────────────────────────────────────── */}
-            <div className="gradient-border">
-              <div className="bg-white rounded-[calc(1rem-1px)] p-6 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 bg-blue-100 rounded-xl">
-                    <Mail className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900">{lang === 'fr' ? 'Prêt à rédiger l\'email ?' : 'Ready to write the email?'}</p>
-                    <p className="text-sm text-gray-500">{lang === 'fr' ? 'Utilisez le générateur email avec ces insights' : 'Use the KB Email Generator with these insights pre-filled'}</p>
-                  </div>
+              {/* ── SWOT ─────────────────────────────── */}
+              <motion.div variants={fadeUp} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5 text-gray-600" />
+                  <h3 className="font-semibold text-gray-800 text-sm">Analyse SWOT</h3>
+                  <span className="text-xs text-gray-400 ml-auto">Contextualisée pour un pitch Microsoft</span>
                 </div>
-                <Link href="/email-generator">
-                  <motion.button
-                    whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                    className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold shadow-lg shadow-blue-200 flex items-center gap-2 whitespace-nowrap"
-                  >
-                    <Sparkles className="w-4 h-4" /> {lang === 'fr' ? 'Générer l\'email' : 'Generate email'}
-                  </motion.button>
-                </Link>
-              </div>
-            </div>
+                <div className="grid grid-cols-2">
+                  {SWOT_CONFIG.map((cell, idx) => {
+                    const Icon = cell.icon;
+                    const items = intel.swot?.[cell.key] || [];
+                    return (
+                      <div key={cell.key} className={`p-5 border-gray-100 ${idx % 2 === 0 ? 'border-r' : ''} ${idx < 2 ? 'border-b' : ''}`}>
+                        <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg ${cell.header} mb-3`}>
+                          <Icon className={`h-3.5 w-3.5 ${cell.text}`} />
+                          <span className={`text-xs font-bold uppercase tracking-wider ${cell.text}`}>{cell.label}</span>
+                        </div>
+                        <ul className="space-y-2">
+                          {items.map((item, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                              <span className={`mt-1.5 w-2 h-2 rounded-full ${cell.dot} shrink-0`} />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
 
+              {/* ── PESTEL ───────────────────────────── */}
+              <motion.div variants={fadeUp} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+                  <Globe className="h-5 w-5 text-gray-600" />
+                  <h3 className="font-semibold text-gray-800 text-sm">Analyse PESTEL</h3>
+                  <span className="text-xs text-gray-400 ml-auto">Impact sur la stratégie IT</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
+                  {PESTEL_CONFIG.map(item => {
+                    const Icon = item.icon;
+                    return (
+                      <div key={item.key} className={`rounded-xl border p-4 ${item.color}`}>
+                        <div className={`flex items-center gap-2 mb-2`}>
+                          <Icon className={`h-4 w-4 ${item.iconColor}`} />
+                          <span className={`text-xs font-bold uppercase tracking-wider ${item.text}`}>{item.label}</span>
+                        </div>
+                        <p className="text-xs text-gray-600 leading-relaxed">
+                          {intel.pestel?.[item.key] || '—'}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+
+              {/* ── Decision makers ──────────────────── */}
+              <Section title={lang === 'fr' ? 'Interlocuteurs décisionnels' : 'Decision makers'} icon={Users} color="text-violet-600">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {(intel.decisionMakers || []).map((dm, i) => (
+                    <div key={i} className="rounded-xl border border-violet-100 bg-violet-50/40 p-4">
+                      <p className="font-semibold text-violet-800 text-sm mb-2">{dm.role}</p>
+                      <p className="text-xs text-gray-600 mb-1"><span className="font-medium text-red-600">Pain :</span> {dm.painPoints}</p>
+                      <p className="text-xs text-gray-600"><span className="font-medium text-blue-600">Angle :</span> {dm.microsoftAngle}</p>
+                    </div>
+                  ))}
+                </div>
+              </Section>
+
+              {/* ── Top solutions ────────────────────── */}
+              <Section title={lang === 'fr' ? 'Solutions Microsoft recommandées' : 'Recommended Microsoft solutions'} icon={Sparkles} color="text-blue-600">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {(intel.topSolutions || []).map((sol, i) => (
+                    <div key={i} className="rounded-xl border border-gray-100 bg-gray-50 overflow-hidden">
+                      <div className={`bg-gradient-to-r ${CAT_COLORS[sol.category] || 'from-gray-500 to-gray-600'} p-3 text-white`}>
+                        <div className="flex items-center justify-between">
+                          <span className="text-lg">{CAT_EMOJI[sol.category] || '🔷'}</span>
+                          {sol.priority && (
+                            <span className={`text-[10px] px-2 py-0.5 rounded-full border font-semibold ${PRIORITY_COLORS[sol.priority] || 'bg-gray-100 text-gray-600'}`}>
+                              {sol.priority}
+                            </span>
+                          )}
+                        </div>
+                        <p className="font-bold text-sm mt-1">{sol.product}</p>
+                        <p className="text-white/80 text-[11px]">{sol.plan}</p>
+                      </div>
+                      <div className="p-3 space-y-1.5">
+                        <p className="text-xs text-gray-500">{sol.whyFit}</p>
+                        <div className="flex justify-between text-xs">
+                          <span className="font-semibold text-gray-800">{sol.price}</span>
+                          <span className="text-green-600">{sol.roi}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Section>
+
+              {/* ── Email angles ─────────────────────── */}
+              <Section title={lang === 'fr' ? 'Angles d\'approche email' : 'Email angles'} icon={Mail} color="text-green-600">
+                <div className="space-y-3">
+                  {(intel.emailAngles || []).map((angle, i) => (
+                    <div key={i} className="flex items-start gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-blue-50/40 hover:border-blue-200 transition-colors group">
+                      <div className="bg-blue-100 text-blue-700 rounded-lg w-7 h-7 flex items-center justify-center text-xs font-bold shrink-0">{i + 1}</div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <p className="font-semibold text-gray-800 text-sm">{angle.angle}</p>
+                          {angle.persona && (
+                            <span className="text-[10px] bg-violet-100 text-violet-700 px-1.5 py-0.5 rounded-full">→ {angle.persona}</span>
+                          )}
+                        </div>
+                        <p className="text-xs text-gray-600 italic">"{angle.hook}"</p>
+                        <p className="text-xs text-blue-600 mt-1">💡 {angle.solution}</p>
+                      </div>
+                      <Link href={`/email-generator?company=${encodeURIComponent(intel.company?.name || query)}&angle=${encodeURIComponent(angle.angle)}`}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+                        <ArrowRight className="h-4 w-4 text-blue-500" />
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </Section>
+
+              {/* ── Discovery questions ──────────────── */}
+              <Section title={lang === 'fr' ? 'Questions de découverte' : 'Discovery questions'} icon={Lightbulb} color="text-amber-500" badge={`${(intel.keyQuestions || []).length} questions`}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {(intel.keyQuestions || []).map((q, i) => (
+                    <div key={i} className="flex items-start gap-2.5 p-3 bg-amber-50 border border-amber-100 rounded-xl">
+                      <span className="text-amber-500 font-bold text-xs mt-0.5">Q{i + 1}</span>
+                      <p className="text-sm text-gray-700">{q}</p>
+                    </div>
+                  ))}
+                </div>
+              </Section>
+
+              {/* ── Quick win + competitor ───────────── */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <motion.div variants={fadeUp} className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Flame className="h-5 w-5 text-green-600" />
+                    <h4 className="font-semibold text-green-800 text-sm">{lang === 'fr' ? 'Quick Win' : 'Quick Win'}</h4>
+                  </div>
+                  <p className="text-sm text-gray-700 leading-relaxed">{intel.quickWin}</p>
+                </motion.div>
+                <motion.div variants={fadeUp} className="bg-gradient-to-br from-red-50 to-rose-50 border border-red-200 rounded-2xl p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Shield className="h-5 w-5 text-red-600" />
+                    <h4 className="font-semibold text-red-800 text-sm">{lang === 'fr' ? 'Risque concurrent' : 'Competitor risk'}</h4>
+                  </div>
+                  <p className="text-sm text-gray-700 leading-relaxed">{intel.competitorRisk}</p>
+                </motion.div>
+              </div>
+
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Empty state ────────────────────────────────────── */}
+        {!intel && !loading && (
+          <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="text-center py-20">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-2xl mb-4">
+              <Building2 className="h-8 w-8 text-indigo-500" />
+            </div>
+            <p className="text-gray-500 text-sm">
+              {lang === 'fr'
+                ? 'Entrez un nom d\'entreprise pour générer un dossier commercial complet'
+                : 'Enter a company name to generate a full commercial dossier'}
+            </p>
+            <p className="text-gray-400 text-xs mt-1">
+              {lang === 'fr' ? 'SWOT · PESTEL · Signaux digitaux · Solutions Microsoft · Angles email' : 'SWOT · PESTEL · Digital signals · Microsoft solutions · Email angles'}
+            </p>
           </motion.div>
         )}
-      </AnimatePresence>
 
-      {/* ── Empty state ───────────────────────────────────────────────────── */}
-      {!intel && !loading && (
-        <div className="max-w-3xl mx-auto px-6 py-16 text-center">
-          <motion.div {...fadeUp} className="text-6xl mb-4">🔍</motion.div>
-          <motion.h3 {...fadeUp} transition={{ delay: 0.07 }} className="text-xl font-bold text-gray-700 mb-2">
-            {lang === 'fr' ? 'Recherchez un compte pour démarrer' : 'Search any account to get started'}
-          </motion.h3>
-          <motion.p {...fadeUp} transition={{ delay: 0.14 }} className="text-gray-500">
-            {lang === 'fr'
-              ? 'Obtenez un brief structuré avec les solutions Microsoft recommandées, les prix de la KB, les angles d\'email et les questions de découverte — en quelques secondes.'
-              : 'You\'ll get a structured brief with recommended Microsoft solutions, pricing from the KB, email angles, and discovery questions — all in seconds.'}
-          </motion.p>
-
-          {/* Example chips */}
-          <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="flex flex-wrap justify-center gap-2 mt-8">
-            {['Bouygues Construction', 'Carrefour', 'Air France', 'BNP Paribas', 'TotalEnergies'].map(ex => (
-              <button key={ex} onClick={() => { setQuery(ex); }}
-                className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-blue-400 hover:text-blue-600 transition-all shadow-sm">
-                {ex}
-              </button>
-            ))}
-          </motion.div>
-        </div>
-      )}
+      </div>
     </div>
-  );
-}
-
-// ── Small reusable pieces ────────────────────────────────────────────────────
-function SectionTitle({ icon, label }) {
-  return (
-    <div className="flex items-center gap-2">
-      {icon}
-      <h3 className="font-bold text-gray-800 text-base">{label}</h3>
-    </div>
-  );
-}
-
-function Pill({ children, color = 'blue' }) {
-  const colors = {
-    blue:   'bg-blue-100 text-blue-700',
-    purple: 'bg-purple-100 text-purple-700',
-    green:  'bg-emerald-100 text-emerald-700',
-    orange: 'bg-orange-100 text-orange-700',
-  };
-  return (
-    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${colors[color]}`}>{children}</span>
   );
 }

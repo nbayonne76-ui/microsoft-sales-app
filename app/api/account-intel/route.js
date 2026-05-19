@@ -5,18 +5,64 @@ import OpenAI from 'openai';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
+// ── KB loader ─────────────────────────────────────────────────────────────────
 function readAllKb() {
   const dir = path.join(process.cwd(), 'templates', 'knowledge-base');
   return fs.readdirSync(dir)
     .filter(f => f.endsWith('.md') && f !== 'README.md')
     .map(f => {
       const content = fs.readFileSync(path.join(dir, f), 'utf-8');
-      return `=== ${f} ===\n${content.slice(0, 2000)}`; // cap per file
+      return `=== ${f} ===\n${content.slice(0, 1800)}`;
     })
     .join('\n\n')
-    .slice(0, 15000);
+    .slice(0, 12000);
 }
 
+// ── Tavily web search (optional — graceful fallback if no key) ────────────────
+async function webSearch(companyName) {
+  const apiKey = process.env.TAVILY_API_KEY;
+  if (!apiKey) return null;
+
+  try {
+    const queries = [
+      `${companyName} projet digital transformation numérique 2024 2025`,
+      `${companyName} cloud IA innovation technologie actualité`,
+      `${companyName} recrutement DSI informatique`,
+    ];
+
+    const results = await Promise.allSettled(
+      queries.map(q =>
+        fetch('https://api.tavily.com/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            api_key: apiKey,
+            query: q,
+            search_depth: 'basic',
+            max_results: 3,
+            include_answer: true,
+          }),
+        }).then(r => r.json())
+      )
+    );
+
+    const snippets = [];
+    for (const r of results) {
+      if (r.status === 'fulfilled' && r.value?.results) {
+        for (const item of r.value.results) {
+          if (item.content) {
+            snippets.push(`[${item.title}] ${item.content.slice(0, 400)}`);
+          }
+        }
+      }
+    }
+    return snippets.length ? snippets.join('\n\n') : null;
+  } catch {
+    return null;
+  }
+}
+
+// ── Main handler ──────────────────────────────────────────────────────────────
 export async function POST(request) {
   try {
     const { accountName } = await request.json();
@@ -25,62 +71,143 @@ export async function POST(request) {
       return NextResponse.json({ error: 'accountName is required' }, { status: 400 });
     }
 
-    const kbContent = readAllKb();
+    // Run KB read + web search in parallel
+    const [kbContent, webData] = await Promise.all([
+      Promise.resolve(readAllKb()),
+      webSearch(accountName),
+    ]);
 
-    const systemText = `You are an expert Microsoft Partner sales advisor at H'appi.
-Given a company name, provide a structured account intelligence brief.
-Base ALL product recommendations, pricing, and features ONLY on the knowledge base provided.
-Return a valid JSON object only — no markdown, no code fences.
+    const webSection = webData
+      ? `\n\n## DONNÉES WEB EN TEMPS RÉEL (scraping)\n${webData}`
+      : '\n\n## DONNÉES WEB : non disponibles (clé Tavily non configurée — utilise tes connaissances)';
 
-KNOWLEDGE BASE:
-${kbContent}`;
+    const systemPrompt = `Tu es un expert en intelligence commerciale et stratégie d'entreprise pour un Account Manager Microsoft.
+Ton rôle : produire un dossier de prospection complet et structuré sur une entreprise cible.
 
-    const userPrompt = `Company to analyse: "${accountName}"
+RÈGLES :
+- Toutes les recommandations de solutions/prix doivent venir EXCLUSIVEMENT de la KNOWLEDGE BASE ci-dessous
+- Pour le SWOT et PESTEL : raisonne à partir des données web ET de ta connaissance générale de l'entreprise/secteur
+- Sois factuel, précis, commercial — évite le remplissage
 
-Return ONLY a JSON object with this exact structure:
+KNOWLEDGE BASE MICROSOFT :
+${kbContent}
+${webSection}`;
+
+    const userPrompt = `Entreprise à analyser : "${accountName}"
+
+Retourne UNIQUEMENT un objet JSON valide (pas de markdown, pas de code fence) avec cette structure exacte :
+
 {
   "company": {
-    "name": "company name",
-    "likelyIndustry": "educated guess based on name",
-    "likelySize": "startup | sme | enterprise",
-    "likelySegment": "short description of what this company probably does"
+    "name": "nom officiel",
+    "industry": "secteur précis",
+    "size": "startup | sme | enterprise",
+    "estimatedRevenue": "fourchette estimée ex: 50–200M€",
+    "headquarters": "ville, pays",
+    "description": "2 phrases sur ce que fait l'entreprise",
+    "website": "domaine probable ex: airbus.com",
+    "employees": "fourchette estimée ex: 5 000–10 000"
+  },
+  "digitalSignals": [
+    "Signal concret trouvé sur internet ou connu — ex: Déploiement SAP S/4HANA annoncé Q1 2025",
+    "Ex: 12 postes d'ingénieur cloud ouverts sur LinkedIn",
+    "Ex: Budget IT augmenté de 15% selon rapport annuel 2024"
+  ],
+  "swot": {
+    "strengths": [
+      "Force 1 — avec impact sur l'adoption Microsoft",
+      "Force 2",
+      "Force 3"
+    ],
+    "weaknesses": [
+      "Faiblesse 1 — angle d'attaque pour le commercial",
+      "Faiblesse 2",
+      "Faiblesse 3"
+    ],
+    "opportunities": [
+      "Opportunité 1 — comment Microsoft peut y répondre",
+      "Opportunité 2",
+      "Opportunité 3"
+    ],
+    "threats": [
+      "Menace 1 — et comment Microsoft atténue ce risque",
+      "Menace 2",
+      "Menace 3"
+    ]
+  },
+  "pestel": {
+    "political": "Facteurs politiques/réglementaires impactant leur stratégie IT (ex: directives NIS2, souveraineté cloud)",
+    "economic": "Contexte économique — pression sur les coûts IT, investissement numérique prévu",
+    "social": "Facteurs sociaux — télétravail, recrutement tech, culture digitale",
+    "technological": "Maturité technologique actuelle + enjeux de modernisation",
+    "environmental": "Enjeux RSE/Green IT — engagement Net Zéro, reporting carbone",
+    "legal": "Contraintes légales — RGPD, conformité sectorielle, audit"
   },
   "microsoftFit": {
     "score": 85,
-    "rationale": "2-3 sentence explanation of why Microsoft solutions fit this company"
+    "rationale": "2-3 phrases expliquant pourquoi Microsoft est pertinent pour cette entreprise maintenant",
+    "urgencyLevel": "high | medium | low",
+    "buyingSignals": [
+      "Signal 1 qui indique une fenêtre d'opportunité",
+      "Signal 2"
+    ]
   },
+  "decisionMakers": [
+    {
+      "role": "DSI / CTO",
+      "painPoints": "Ses problèmes principaux",
+      "microsoftAngle": "Comment l'adresser avec Microsoft"
+    },
+    {
+      "role": "DG / CEO",
+      "painPoints": "Vision ROI et croissance",
+      "microsoftAngle": "Angle business value"
+    },
+    {
+      "role": "CFO / DAF",
+      "painPoints": "Réduction des coûts, prévisibilité",
+      "microsoftAngle": "Argument TCO et licences"
+    }
+  ],
   "topSolutions": [
     {
-      "product": "product name from KB",
-      "plan": "specific plan/tier from KB",
-      "price": "exact price from KB",
-      "whyFit": "1 sentence specific to this company",
-      "roi": "estimated ROI or saving from KB data",
-      "category": "m365 | azure | dynamics | power | security"
+      "product": "nom produit depuis KB",
+      "plan": "plan spécifique depuis KB",
+      "price": "prix exact depuis KB",
+      "whyFit": "1 phrase liée au contexte SWOT/PESTEL de cette entreprise",
+      "roi": "ROI ou économie estimée depuis KB",
+      "category": "m365 | azure | dynamics | power | security",
+      "priority": "must-have | high | medium"
     }
   ],
   "emailAngles": [
     {
-      "angle": "short angle title",
-      "hook": "1-sentence hook you would open the email with",
-      "solution": "which Microsoft product to pitch"
+      "angle": "titre court",
+      "hook": "1ère phrase d'accroche basée sur un fait PESTEL ou signal digital trouvé",
+      "solution": "produit Microsoft à pitcher",
+      "persona": "DSI | DG | CFO"
     }
   ],
-  "keyQuestions": ["Question to ask the prospect in a discovery call"],
-  "competitorRisk": "AWS | Google Workspace | SAP | other — most likely competitor to watch",
-  "quickWin": "The single fastest/easiest deal to close with this account and why"
+  "keyQuestions": [
+    "Question de découverte liée au SWOT",
+    "Question liée au PESTEL",
+    "Question sur le budget/timeline",
+    "Question sur les concurrents internes au projet"
+  ],
+  "competitorRisk": "AWS | Google Workspace | SAP | Salesforce | autre — avec justification",
+  "quickWin": "Deal le plus rapide à fermer, pourquoi maintenant, quel interlocuteur cibler"
 }
 
-Provide 3 topSolutions, 3 emailAngles, 4 keyQuestions.`;
+Fournis 3 digitalSignals, 3 éléments dans chaque branche SWOT, 3 topSolutions (triées par priorité), 3 emailAngles, 4 keyQuestions.`;
 
     const response = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: [
-        { role: 'system', content: systemText },
+        { role: 'system', content: systemPrompt },
         { role: 'user',   content: userPrompt },
       ],
-      temperature: 0.5,
-      max_tokens: 1500,
+      temperature: 0.4,
+      max_tokens: 2500,
       response_format: { type: 'json_object' },
     });
 
@@ -89,6 +216,7 @@ Provide 3 topSolutions, 3 emailAngles, 4 keyQuestions.`;
     return NextResponse.json({
       success: true,
       intel,
+      webDataUsed: !!webData,
       tokensUsed: response.usage?.total_tokens || 0,
     });
   } catch (error) {
