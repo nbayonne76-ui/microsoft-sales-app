@@ -1,132 +1,143 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const KB_FILES = {
-  m365: ['m365-pricing-2025.md', 'm365-e3-vs-e5-decision-guide.md', 'microsoft-365-collaboration.md', 'microsoft-licensing-contracts-guide.md', 'csp-vs-mca-decision-guide.md'],
-  azure: ['azure-pricing-2025.md', 'azure-migration.md'],
+  m365:     ['m365-pricing-2025.md', 'm365-e3-vs-e5-decision-guide.md', 'microsoft-365-collaboration.md', 'microsoft-licensing-contracts-guide.md', 'csp-vs-mca-decision-guide.md'],
+  azure:    ['azure-pricing-2025.md', 'azure-migration.md'],
   dynamics: ['dynamics-365-pricing-2025.md'],
-  power: ['power-platform-digital.md'],
+  power:    ['power-platform-digital.md'],
   security: ['security-compliance.md'],
-  bundles: ['solution-bundles-pricing.md'],
+  bundles:  ['solution-bundles-pricing.md', 'microsoft-pricing-guide-2025.md'],
 };
 
 function readKbFile(filename) {
   try {
-    const filePath = path.join(process.cwd(), 'templates', 'knowledge-base', filename);
-    return fs.readFileSync(filePath, 'utf-8');
-  } catch {
-    return '';
-  }
+    return fs.readFileSync(path.join(process.cwd(), 'templates', 'knowledge-base', filename), 'utf-8');
+  } catch { return ''; }
 }
 
 function loadKbForSolution(solution) {
-  const files = KB_FILES[solution] || [...KB_FILES.m365, ...KB_FILES.azure];
+  const files = KB_FILES[solution] || KB_FILES.m365;
   return files
-    .map(f => `=== ${f} ===\n${readKbFile(f)}`)
-    .join('\n\n')
-    .slice(0, 12000); // keep within token budget
+    .map(f => `\n\n### ${f}\n${readKbFile(f)}`)
+    .join('')
+    .slice(0, 16000);
 }
 
 export async function POST(request) {
   try {
     const {
-      companyName,
-      contactName,
-      contactRole,
-      industry,
-      companySize,
-      solution,
-      challenge,
-      emailType = 'prospection',
-      tone = 'professional',
+      companyName, contactName, contactRole,
+      industry, companySize, solution, challenge,
+      emailType = 'prospection', tone = 'professional',
     } = await request.json();
 
-    if (!companyName) {
+    if (!companyName?.trim()) {
       return NextResponse.json({ error: 'companyName is required' }, { status: 400 });
     }
 
-    const kbContent = loadKbForSolution(solution || 'm365');
+    const kbContent  = loadKbForSolution(solution || 'm365');
+    const kbFiles    = KB_FILES[solution] || KB_FILES.m365;
 
-    const solutionLabel = {
-      m365: 'Microsoft 365',
-      azure: 'Microsoft Azure',
-      dynamics: 'Dynamics 365',
-      power: 'Power Platform',
-      security: 'Microsoft Security',
-      bundles: 'Microsoft Solution Bundles',
-    }[solution] || 'Microsoft solutions';
+    const SOLUTION_LABELS = {
+      m365: 'Microsoft 365', azure: 'Microsoft Azure',
+      dynamics: 'Dynamics 365', power: 'Power Platform',
+      security: 'Microsoft Security & Compliance', bundles: 'Microsoft Solution Bundles',
+    };
+    const solutionLabel = SOLUTION_LABELS[solution] || 'Microsoft solutions';
 
-    const toneGuide = {
-      professional: 'Formal, executive-level, data-driven, structured with clear sections.',
-      friendly: 'Warm and approachable, use light emojis sparingly, conversational but professional.',
-      direct: 'Short, punchy, get straight to value. No fluff. Max 150 words body.',
-    }[tone] || 'Professional and clear.';
+    const TONE_GUIDES = {
+      professional: 'Formel, niveau exécutif. Structuré avec des sections claires. Données chiffrées obligatoires. Longueur : 200-280 mots.',
+      friendly:     'Chaleureux et accessible. Conversationnel mais professionnel. 1-2 emojis max. Longueur : 180-250 mots.',
+      direct:       'Court, percutant, aller droit au but. Zéro remplissage. Maximum 150 mots dans le corps.',
+    };
+    const toneGuide = TONE_GUIDES[tone] || TONE_GUIDES.professional;
 
-    const systemText = `You are Nicolas BAYONNE, a Microsoft Partner Account Manager at H'appi.
-You write highly personalized B2B sales emails in French.
-You MUST ONLY use information, pricing, and data from the KNOWLEDGE BASE provided below.
-Never invent pricing or features not found in the knowledge base.
-Write a complete email with subject line and body.
+    const TYPE_GUIDES = {
+      prospection: 'Premier contact froid. Ouvre avec un hook contextuel lié à leur secteur. Identifie une douleur probable. Propose une valeur immédiate.',
+      relance:     'Relance après silence. Référence le premier contact. Apporte un élément nouveau (statistique, cas client, offre limitée).',
+      demo:        'Invitation à une démo de 30 min. Met en avant 2-3 bénéfices concrets. Propose 2 créneaux précis. Urgence douce.',
+      proposal:    'Proposition formelle après découverte. Structure : contexte → solution → ROI → prochaines étapes. Inclut les prix KB.',
+    };
+    const typeGuide = TYPE_GUIDES[emailType] || TYPE_GUIDES.prospection;
 
-TONE: ${toneGuide}
+    const systemPrompt = `Tu es Nicolas BAYONNE, Account Manager Microsoft expert avec 10 ans d'expérience en vente consultative B2B.
 
-KNOWLEDGE BASE:
+# RÈGLE ABSOLUE
+Tu dois EXCLUSIVEMENT utiliser les données, prix et fonctionnalités présents dans la KNOWLEDGE BASE ci-dessous.
+N'invente JAMAIS un prix ou une fonctionnalité absente de la KB.
+
+# STYLE D'EMAIL
+${toneGuide}
+
+# TYPE D'EMAIL
+${typeGuide}
+
+# STRUCTURE OBLIGATOIRE
+1. OBJET : accrocheur, personnalisé, <60 caractères
+2. SALUTATION : avec prénom si disponible
+3. HOOK (1 phrase) : fait sectoriel ou question provocante lié à ${industry || 'leur secteur'}
+4. PROBLÈME : reformuler leur défi principal "${challenge || 'transformation digitale'}" avec empathie
+5. SOLUTION : présenter ${solutionLabel} avec données EXACTES de la KB (fonctionnalités + prix)
+6. ROI / PREUVE SOCIALE : chiffre concret tiré de la KB (ex: -40% coûts, 99.99% SLA)
+7. CTA : une seule action claire et facile (15 min d'appel, demo, PDF)
+8. SIGNATURE : Nicolas BAYONNE | Microsoft Partner Account Manager | H'appi
+
+# KNOWLEDGE BASE — ${solutionLabel}
+Fichiers consultés : ${kbFiles.join(', ')}
 ${kbContent}`;
 
-    const userPrompt = `Write a ${emailType} email in French for:
-- Company: ${companyName}
-- Contact: ${contactName || 'the decision maker'}
-- Role: ${contactRole || 'Directeur Général'}
-- Industry: ${industry || 'not specified'}
-- Company size: ${companySize || 'SME'}
-- Main challenge: ${challenge || 'digital transformation'}
-- Solution to pitch: ${solutionLabel}
+    const userPrompt = `Rédige un email de ${emailType} en FRANÇAIS pour :
 
-Return ONLY a JSON object (no markdown, no code fence) with:
+**Entreprise :** ${companyName}
+**Contact :** ${contactName || 'le décideur'}
+**Poste :** ${contactRole || 'Directeur Général / DSI'}
+**Secteur :** ${industry || 'non précisé'}
+**Taille :** ${companySize === 'enterprise' ? 'Grand compte (300+ employés)' : companySize === 'startup' ? 'Startup (<50)' : 'PME (50-300 employés)'}
+**Défi principal :** ${challenge || 'transformation digitale et optimisation IT'}
+**Solution à pitcher :** ${solutionLabel}
+
+Retourne UNIQUEMENT un objet JSON valide (pas de markdown, pas de code fence) :
 {
-  "subject": "the email subject",
-  "body": "the full email body with line breaks as \\n",
-  "kbSources": ["list of specific KB sections you used, e.g. 'M365 Business Standard pricing'"],
-  "recommendedPlan": "the single most relevant plan/product name from the KB",
-  "price": "the price of that plan from the KB"
+  "subject": "objet de l'email",
+  "body": "corps complet de l'email avec sauts de ligne \\n",
+  "kbSources": ["source KB utilisée 1", "source KB utilisée 2"],
+  "recommendedPlan": "nom exact du plan recommandé depuis la KB",
+  "price": "prix exact depuis la KB"
 }`;
 
-    const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 1200,
-      system: [
-        {
-          type: 'text',
-          text: systemText,
-          cache_control: { type: 'ephemeral' },
-        },
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user',   content: userPrompt },
       ],
-      messages: [{ role: 'user', content: userPrompt }],
+      temperature: 0.65,
+      max_tokens: 1400,
+      response_format: { type: 'json_object' },
     });
 
-    const raw = response.content[0].text.trim();
-    const jsonStart = raw.indexOf('{');
-    const jsonEnd = raw.lastIndexOf('}');
-    const result = JSON.parse(raw.slice(jsonStart, jsonEnd + 1));
+    const result = JSON.parse(response.choices[0].message.content);
 
     return NextResponse.json({
       success: true,
-      subject: result.subject,
-      body: result.body,
-      kbSources: result.kbSources || [],
+      subject:         result.subject         || '',
+      body:            result.body            || '',
+      kbSources:       result.kbSources       || [],
       recommendedPlan: result.recommendedPlan || '',
-      price: result.price || '',
-      solution: solutionLabel,
-      tokensUsed: (response.usage?.input_tokens ?? 0) + (response.usage?.output_tokens ?? 0),
+      price:           result.price           || '',
+      solution:        solutionLabel,
+      kbFiles,
+      tokensUsed:      response.usage?.total_tokens || 0,
     });
   } catch (error) {
     console.error('KB email generation error:', error);
     return NextResponse.json(
-      { error: 'Failed to generate email', details: error.message },
+      { error: 'Échec de la génération', details: error.message },
       { status: 500 }
     );
   }

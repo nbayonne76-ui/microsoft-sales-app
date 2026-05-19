@@ -10,6 +10,16 @@ import {
 import { toast } from 'sonner';
 import { useLang, t } from '@/contexts/LanguageContext';
 
+// ── KB files per solution (mirrors route) ────────────────────────────────────
+const KB_FILES = {
+  m365:     ['m365-pricing-2025.md','m365-e3-vs-e5-decision-guide.md','microsoft-365-collaboration.md','microsoft-licensing-contracts-guide.md','csp-vs-mca-decision-guide.md'],
+  azure:    ['azure-pricing-2025.md','azure-migration.md'],
+  dynamics: ['dynamics-365-pricing-2025.md'],
+  power:    ['power-platform-digital.md'],
+  security: ['security-compliance.md'],
+  bundles:  ['solution-bundles-pricing.md','microsoft-pricing-guide-2025.md'],
+};
+
 // ── Happi Brain: solution cards ──────────────────────────────────────────────
 const SOLUTIONS = [
   {
@@ -251,132 +261,155 @@ export default function KBEmailGenerator() {
 
           {/* STEP 2 — Details form */}
           {step === 2 && (
-            <motion.div key="step2" {...fadeUp} initial="initial" animate="animate" exit="exit">
-              {/* Selected solution badge */}
-              <div className="flex items-center gap-3 mb-8">
-                <button onClick={() => setStep(1)} className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1">
-                  ← Back
+            <motion.div key="step2" {...fadeUp} initial="initial" animate="animate" exit="exit" className="space-y-6">
+
+              {/* Top nav */}
+              <div className="flex items-center gap-3">
+                <button onClick={() => setStep(1)}
+                  className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-blue-600 transition-colors">
+                  ← {lang === 'fr' ? 'Retour' : 'Back'}
                 </button>
-                <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${selectedSolution?.color} text-white text-sm font-semibold`}>
+                <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${selectedSolution?.color} text-white text-sm font-semibold shadow-md`}>
                   <span>{selectedSolution?.emoji}</span>
                   {selectedSolution?.label}
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Left — account info */}
-                <div className="space-y-4">
-                  <h3 className="font-bold text-gray-800 flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-blue-500" /> Account
-                  </h3>
+              {/* ── Main 2-col grid ─────────────────────────────────────────── */}
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-                  <Field icon={<Building2 className="w-4 h-4" />} label={`${tr.company} *`} value={form.companyName}
-                    onChange={v => handleField('companyName', v)} placeholder={tr.companyPlaceholder} />
-                  <Field icon={<User className="w-4 h-4" />} label={tr.contact} value={form.contactName}
-                    onChange={v => handleField('contactName', v)} placeholder={tr.contactPlaceholder} />
-                  <Field icon={<Briefcase className="w-4 h-4" />} label={tr.role} value={form.contactRole}
-                    onChange={v => handleField('contactRole', v)} placeholder={tr.rolePlaceholder} />
-                  <Field icon={<Building2 className="w-4 h-4" />} label={tr.industry} value={form.industry}
-                    onChange={v => handleField('industry', v)} placeholder={tr.industryPlaceholder} />
+                {/* LEFT col (3/5) — Account + Challenge */}
+                <div className="lg:col-span-3 space-y-5">
 
-                  {/* Company size */}
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{tr.size}</label>
-                    <div className="flex gap-2">
-                      {SIZE_OPTIONS_I18N.map(([val, lbl]) => (
-                        <button key={val} onClick={() => handleField('companySize', val)}
-                          className={`flex-1 py-2 rounded-lg text-sm font-medium border transition-all ${
-                            form.companySize === val
-                              ? 'bg-blue-600 text-white border-blue-600 shadow'
-                              : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300'
-                          }`}>{lbl}</button>
-                      ))}
+                  {/* Account card */}
+                  <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm space-y-4">
+                    <h3 className="font-semibold text-gray-500 flex items-center gap-2 text-sm uppercase tracking-wider">
+                      <Building2 className="w-4 h-4 text-blue-500" />
+                      {lang === 'fr' ? 'Informations compte' : 'Account info'}
+                    </h3>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <Field required icon={<Building2 className="w-4 h-4" />} label={tr.company}
+                        value={form.companyName} onChange={v => handleField('companyName', v)}
+                        placeholder={tr.companyPlaceholder} />
+                      <Field icon={<User className="w-4 h-4" />} label={tr.contact}
+                        value={form.contactName} onChange={v => handleField('contactName', v)}
+                        placeholder={tr.contactPlaceholder} />
+                      <Field icon={<Briefcase className="w-4 h-4" />} label={tr.role}
+                        value={form.contactRole} onChange={v => handleField('contactRole', v)}
+                        placeholder={tr.rolePlaceholder} />
+                      <Field icon={<Building2 className="w-4 h-4" />} label={tr.industry}
+                        value={form.industry} onChange={v => handleField('industry', v)}
+                        placeholder={tr.industryPlaceholder} />
                     </div>
+
+                    {/* Company size */}
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{tr.size}</label>
+                      <div className="flex gap-2">
+                        {SIZE_OPTIONS_I18N.map(([val, lbl]) => (
+                          <button key={val} onClick={() => handleField('companySize', val)}
+                            className={`flex-1 py-2.5 rounded-xl text-sm font-semibold border transition-all ${
+                              form.companySize === val
+                                ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                                : 'bg-gray-50 text-gray-600 border-gray-200 hover:border-blue-300 hover:bg-blue-50'
+                            }`}>{lbl}</button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Challenge card */}
+                  <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+                    <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{tr.challenge}</label>
+                    <textarea rows={4} value={form.challenge}
+                      onChange={e => handleField('challenge', e.target.value)}
+                      placeholder={tr.challengePlaceholder}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none bg-gray-50 focus:bg-white transition-colors" />
+                    <p className="text-xs text-gray-400 mt-1.5 text-right">{form.challenge.length}/300</p>
                   </div>
                 </div>
 
-                {/* Right — email settings */}
-                <div className="space-y-4">
-                  <h3 className="font-bold text-gray-800 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-purple-500" /> Email settings
-                  </h3>
-
-                  {/* Challenge */}
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">{tr.challenge}</label>
-                    <textarea
-                      rows={3}
-                      value={form.challenge}
-                      onChange={e => handleField('challenge', e.target.value)}
-                      placeholder={tr.challengePlaceholder}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
-                    />
-                  </div>
+                {/* RIGHT col (2/5) — Email settings */}
+                <div className="lg:col-span-2 space-y-5">
 
                   {/* Email type */}
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{tr.type}</label>
+                  <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+                    <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{tr.type}</label>
                     <div className="grid grid-cols-2 gap-2">
-                      {EMAIL_TYPES_I18N.map(t => (
-                        <button key={t.id} onClick={() => setEmailType(t.id)}
-                          className={`py-2 rounded-lg text-sm font-medium border transition-all ${
-                            emailType === t.id
-                              ? 'bg-indigo-600 text-white border-indigo-600 shadow'
-                              : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300'
-                          }`}>{t.label}</button>
+                      {EMAIL_TYPES_I18N.map(item => (
+                        <button key={item.id} onClick={() => setEmailType(item.id)}
+                          className={`py-2.5 rounded-xl text-sm font-semibold border transition-all ${
+                            emailType === item.id
+                              ? 'bg-indigo-600 text-white border-indigo-600 shadow-md'
+                              : 'bg-gray-50 text-gray-600 border-gray-200 hover:border-indigo-300 hover:bg-indigo-50'
+                          }`}>{item.label}</button>
                       ))}
                     </div>
                   </div>
 
                   {/* Tone */}
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{tr.tone}</label>
-                    <div className="flex gap-2">
-                      {TONES_I18N.map(t => (
-                        <button key={t.id} onClick={() => setTone(t.id)}
-                          className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-medium border transition-all ${
-                            tone === t.id
-                              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-transparent shadow-lg shadow-blue-200'
-                              : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300'
+                  <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+                    <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{tr.tone}</label>
+                    <div className="flex flex-col gap-2">
+                      {TONES_I18N.map(item => (
+                        <button key={item.id} onClick={() => setTone(item.id)}
+                          className={`flex items-center gap-2.5 px-4 py-3 rounded-xl text-sm font-semibold border transition-all ${
+                            tone === item.id
+                              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-transparent shadow-md'
+                              : 'bg-gray-50 text-gray-600 border-gray-200 hover:border-blue-300 hover:bg-blue-50'
                           }`}>
-                          <span>{t.icon}</span>{t.label}
+                          <span className="text-base">{item.icon}</span>{item.label}
                         </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* KB files preview */}
+                  <div className="bg-emerald-50 rounded-2xl border border-emerald-200 p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <BookOpen className="w-4 h-4 text-emerald-600" />
+                      <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider">
+                        {lang === 'fr' ? 'Fichiers KB chargés' : 'KB files loaded'}
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {(KB_FILES[solution] || []).map(f => (
+                        <span key={f} className="px-2 py-1 bg-white border border-emerald-200 rounded-lg text-xs text-emerald-700 font-medium">
+                          📄 {f.replace('.md','').replace(/-/g,' ')}
+                        </span>
                       ))}
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* KB notice */}
-              <div className="gradient-border-green mt-6">
-                <div className="bg-white rounded-[calc(1rem-1px)] p-4 flex items-start gap-3">
-                  <BookOpen className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
-                  <p className="text-sm text-gray-600">
-                    <strong className="text-emerald-700">KB-only mode:</strong> The AI will read your{' '}
-                    <strong>{selectedSolution?.label}</strong> knowledge base docs and generate an email
-                    using <em>only</em> the pricing, features, and data found in those files.
-                  </p>
-                </div>
-              </div>
-
+              {/* Generate button */}
               <motion.button
                 onClick={generate}
                 disabled={loading || !form.companyName.trim()}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="mt-6 w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-lg shadow-blue-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.015 }}
+                whileTap={{ scale: 0.985 }}
+                className="w-full py-5 rounded-2xl font-bold text-lg shadow-xl shadow-blue-200/60 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-3 relative overflow-hidden"
+                style={{ background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #7c3aed 100%)' }}
               >
                 {loading ? (
                   <>
-                    <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}>
-                      <Zap className="w-5 h-5" />
+                    <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.8, ease: 'linear' }}>
+                      <Zap className="w-5 h-5 text-white" />
                     </motion.div>
-                    {tr.generating}
+                    <span className="text-white">{tr.generating}</span>
+                    <span className="text-blue-200 text-sm font-normal">
+                      {lang === 'fr' ? '— lecture de la KB…' : '— reading KB…'}
+                    </span>
                   </>
                 ) : (
                   <>
-                    <Sparkles className="w-5 h-5" />
-                    {tr.generate}
+                    <Sparkles className="w-5 h-5 text-white" />
+                    <span className="text-white">{tr.generate}</span>
+                    <span className="text-blue-200 text-sm font-normal ml-1">
+                      ({(KB_FILES[solution] || []).length} {lang === 'fr' ? 'docs KB' : 'KB docs'})
+                    </span>
                   </>
                 )}
               </motion.button>

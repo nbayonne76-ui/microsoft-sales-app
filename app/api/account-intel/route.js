@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 function readAllKb() {
   const dir = path.join(process.cwd(), 'templates', 'knowledge-base');
@@ -73,28 +73,23 @@ Return ONLY a JSON object with this exact structure:
 
 Provide 3 topSolutions, 3 emailAngles, 4 keyQuestions.`;
 
-    const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 1500,
-      system: [
-        {
-          type: 'text',
-          text: systemText,
-          cache_control: { type: 'ephemeral' },
-        },
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [
+        { role: 'system', content: systemText },
+        { role: 'user',   content: userPrompt },
       ],
-      messages: [{ role: 'user', content: userPrompt }],
+      temperature: 0.5,
+      max_tokens: 1500,
+      response_format: { type: 'json_object' },
     });
 
-    const raw = response.content[0].text.trim();
-    const jsonStart = raw.indexOf('{');
-    const jsonEnd = raw.lastIndexOf('}');
-    const intel = JSON.parse(raw.slice(jsonStart, jsonEnd + 1));
+    const intel = JSON.parse(response.choices[0].message.content);
 
     return NextResponse.json({
       success: true,
       intel,
-      tokensUsed: (response.usage?.input_tokens ?? 0) + (response.usage?.output_tokens ?? 0),
+      tokensUsed: response.usage?.total_tokens || 0,
     });
   } catch (error) {
     console.error('Account intel error:', error);
