@@ -194,11 +194,12 @@ export default function KnowledgeBasePage() {
   const [pillarFilter, setPillarFilter] = useState('All');
 
   useEffect(() => {
-    fetch('/api/azure-solutions')
+    setLoading(true);
+    fetch(`/api/azure-solutions?lang=${lang}`)
       .then(r => r.json())
       .then(d => { setSolutions(d.solutions || []); setLoading(false); })
       .catch(() => setLoading(false));
-  }, []);
+  }, [lang]);
 
   useEffect(() => {
     if (!selectedDoc) return;

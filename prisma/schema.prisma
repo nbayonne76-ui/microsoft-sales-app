@@ -809,6 +809,8 @@ model AzureSolution {
   // Description
   shortDescription  String
   fullDescription   String
+  shortDescriptionFr String?
+  fullDescriptionFr  String?
 
   // Features et avantages
   keyFeatures       Json // Array of feature strings

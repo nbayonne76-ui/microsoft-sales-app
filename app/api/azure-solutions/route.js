@@ -36,6 +36,8 @@ async function getCachedSolutions() {
       subcategory: true,
       shortDescription: true,
       fullDescription: true,
+      shortDescriptionFr: true,
+      fullDescriptionFr: true,
       keyFeatures: true,
       benefits: true,
       useCases: true,
@@ -95,17 +97,28 @@ function filterSolutions(solutions, category, search) {
   return filtered;
 }
 
+// Apply language-specific descriptions (FR or EN)
+function applyLang(solutions, lang) {
+  if (lang !== 'fr') return solutions;
+  return solutions.map(s => ({
+    ...s,
+    shortDescription: s.shortDescriptionFr || s.shortDescription,
+    fullDescription:  s.fullDescriptionFr  || s.fullDescription,
+  }));
+}
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
-    const search = searchParams.get('search');
+    const search   = searchParams.get('search');
+    const lang     = searchParams.get('lang') || 'en';
 
     // Get cached solutions (or fetch if cache expired)
     const allSolutions = await getCachedSolutions();
 
-    // Apply filters in-memory (instant)
-    const solutions = filterSolutions(allSolutions, category, search);
+    // Apply filters then language
+    const solutions = applyLang(filterSolutions(allSolutions, category, search), lang);
 
     // Add cache headers
     const response = NextResponse.json({
