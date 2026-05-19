@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  Home, Mail, Users, BookOpen, Sparkles, Globe,
-  Flame, MessageSquare, BarChart3, Zap, FileSpreadsheet,
+  Home, Mail, BookOpen, Sparkles, Globe,
+  MessageSquare, Zap,
   ChevronLeft, ChevronRight, Bot
 } from 'lucide-react';
 import { useLang, t } from '@/contexts/LanguageContext';
@@ -19,27 +19,17 @@ export default function Navigation({ collapsed = false, setCollapsed = () => {} 
       key: 'overview',
       label: tr.groups.overview,
       items: [
-        { href: '/',          label: tr.dashboard,  icon: Home        },
-        { href: '/analytics', label: tr.analytics,  icon: BarChart3   },
+        { href: '/', label: tr.dashboard, icon: Home },
       ],
     },
     {
       key: 'aiTools',
       label: tr.groups.aiTools,
       items: [
-        { href: '/account',         label: tr.accountIntel,   icon: Sparkles,       highlight: true },
-        { href: '/email-generator', label: tr.emailGenerator, icon: Mail            },
-        { href: '/ai-agent',        label: tr.aiAgent,        icon: MessageSquare   },
-      ],
-    },
-    {
-      key: 'pipeline',
-      label: tr.groups.pipeline,
-      items: [
-        { href: '/clients',       label: tr.clients,      icon: Users           },
-        { href: '/hot-leads',     label: tr.hotLeads,     icon: Flame           },
-        { href: '/lead-builder',  label: tr.leadBuilder,  icon: FileSpreadsheet },
-        { href: '/sequences',     label: tr.sequences,    icon: Zap             },
+        { href: '/account',         label: tr.accountIntel,   icon: Sparkles,     highlight: true },
+        { href: '/email-generator', label: tr.emailGenerator, icon: Mail          },
+        { href: '/ai-agent',        label: tr.aiAgent,        icon: MessageSquare },
+        { href: '/sequences',       label: tr.sequences,      icon: Zap           },
       ],
     },
     {
