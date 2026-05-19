@@ -55,11 +55,22 @@ async function getCachedSolutions() {
     }
   });
 
+  const JSON_FIELDS = ['keyFeatures','benefits','useCases','targetIndustries','targetPersonas','pricingTiers','keywords','tags'];
+  const parsed = solutions.map(s => {
+    const out = { ...s };
+    for (const f of JSON_FIELDS) {
+      if (typeof out[f] === 'string') {
+        try { out[f] = JSON.parse(out[f]); } catch { out[f] = []; }
+      }
+    }
+    return out;
+  });
+
   // Update cache
-  solutionsCache = solutions;
+  solutionsCache = parsed;
   cacheTimestamp = Date.now();
 
-  return solutions;
+  return parsed;
 }
 
 // Helper function to filter solutions in-memory
