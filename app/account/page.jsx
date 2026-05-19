@@ -58,6 +58,17 @@ const SWOT_CONFIG = [
   { key: 'threats',      label: 'Menaces',       icon: AlertTriangle,color: 'border-orange-300 bg-orange-50/60', header: 'bg-orange-100', text: 'text-orange-800', dot: 'bg-orange-500' },
 ];
 
+// Map free-text solution description → KB category id
+function guessCategory(text) {
+  const t = (text || '').toLowerCase();
+  if (t.includes('azure') || t.includes('cloud') || t.includes('vm') || t.includes('migration')) return 'azure';
+  if (t.includes('dynamics') || t.includes('crm') || t.includes('erp') || t.includes('business central')) return 'dynamics';
+  if (t.includes('power bi') || t.includes('power apps') || t.includes('power automate') || t.includes('power platform')) return 'power';
+  if (t.includes('security') || t.includes('defender') || t.includes('sentinel') || t.includes('purview')) return 'security';
+  if (t.includes('bundle') || t.includes('roi') || t.includes('tco')) return 'bundles';
+  return 'm365';
+}
+
 // ── Section wrapper ────────────────────────────────────────────────────────────
 function Section({ title, icon: Icon, color = 'text-gray-700', children, badge }) {
   return (
@@ -268,11 +279,12 @@ export default function AccountIntelPage() {
                     ))}
                   </div>
                   <div className="mt-4 flex gap-2 flex-wrap">
-                    <Link href={`/email-generator?company=${encodeURIComponent(intel.company?.name || query)}`}
+                    <Link href={`/email-generator?company=${encodeURIComponent(intel.company?.name || query)}&solution=${intel.topSolutions?.[0]?.category || 'm365'}&industry=${encodeURIComponent(intel.company?.industry || '')}&size=${intel.company?.size || 'sme'}&challenge=${encodeURIComponent(intel.quickWin || '')}`}
                       className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                      <Mail className="h-3 w-3" /> {lang === 'fr' ? 'Générer un email' : 'Generate email'}
+                      <Mail className="h-3 w-3" /> {lang === 'fr' ? 'Générer un email complet' : 'Generate full email'}
                     </Link>
-                    <button className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                    <button onClick={handleAnalyse} disabled={loading}
+                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50">
                       <RotateCcw className="h-3 w-3" /> {lang === 'fr' ? 'Réanalyser' : 'Re-analyse'}
                     </button>
                   </div>
@@ -371,6 +383,13 @@ export default function AccountIntelPage() {
                           <span className="font-semibold text-gray-800">{sol.price}</span>
                           <span className="text-green-600">{sol.roi}</span>
                         </div>
+                        <Link
+                          href={`/email-generator?company=${encodeURIComponent(intel.company?.name || query)}&solution=${sol.category || 'm365'}&industry=${encodeURIComponent(intel.company?.industry || '')}&size=${intel.company?.size || 'sme'}&challenge=${encodeURIComponent(sol.whyFit || '')}`}
+                          className="mt-1 w-full flex items-center justify-center gap-1 text-[10px] py-1.5 rounded-lg bg-white border border-gray-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 transition-colors font-medium"
+                        >
+                          <Mail className="h-3 w-3" />
+                          {lang === 'fr' ? 'Générer email' : 'Generate email'}
+                        </Link>
                       </div>
                     </div>
                   ))}
@@ -393,9 +412,9 @@ export default function AccountIntelPage() {
                         <p className="text-xs text-gray-600 italic">"{angle.hook}"</p>
                         <p className="text-xs text-blue-600 mt-1">💡 {angle.solution}</p>
                       </div>
-                      <Link href={`/email-generator?company=${encodeURIComponent(intel.company?.name || query)}&angle=${encodeURIComponent(angle.angle)}`}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
-                        <ArrowRight className="h-4 w-4 text-blue-500" />
+                      <Link href={`/email-generator?company=${encodeURIComponent(intel.company?.name || query)}&solution=${guessCategory(angle.solution)}&industry=${encodeURIComponent(intel.company?.industry || '')}&size=${intel.company?.size || 'sme'}&challenge=${encodeURIComponent(angle.hook || angle.angle)}&type=prospection`}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0 flex items-center gap-1 text-xs text-blue-500 hover:text-blue-700 font-medium whitespace-nowrap">
+                        {lang === 'fr' ? 'Générer' : 'Generate'} <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
                     </div>
                   ))}

@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mail, Sparkles, Copy, CheckCircle, ChevronRight,
   Building2, User, Briefcase, Lightbulb, BookOpen,
-  Zap, RotateCcw, Send, ExternalLink
+  Zap, RotateCcw, Send, ExternalLink, ArrowLeft
 } from 'lucide-react';
+import Link from 'next/link';
 import { toast } from 'sonner';
 import { useLang, t } from '@/contexts/LanguageContext';
 
@@ -116,6 +118,7 @@ function TiltCard({ children, className = '' }) {
 export default function KBEmailGenerator() {
   const { lang } = useLang();
   const tr = t[lang].email;
+  const searchParams = useSearchParams();
 
   const EMAIL_TYPES_I18N = [
     { id: 'prospection', label: tr.types.prospection },
@@ -145,8 +148,40 @@ export default function KBEmailGenerator() {
   const [result, setResult]         = useState(null);
   const [loading, setLoading]       = useState(false);
   const [copied, setCopied]         = useState(false);
+  const [fromIntel, setFromIntel]   = useState(false);
 
   const handleField = (k, v) => setForm(f => ({ ...f, [k]: v }));
+
+  // Read URL params from Account Intelligence and pre-fill the form
+  useEffect(() => {
+    const company   = searchParams.get('company');
+    const sol       = searchParams.get('solution');
+    const challenge = searchParams.get('challenge');
+    const industry  = searchParams.get('industry');
+    const size      = searchParams.get('size');
+    const angle     = searchParams.get('angle');
+    const type      = searchParams.get('type');
+
+    const hasParams = company || sol || challenge || industry || size || angle || type;
+    if (!hasParams) return;
+
+    setFromIntel(true);
+    setForm(f => ({
+      ...f,
+      ...(company   && { companyName: company }),
+      ...(industry  && { industry }),
+      ...(size && ['startup','sme','enterprise'].includes(size) && { companySize: size }),
+      ...(challenge && { challenge }),
+      ...(!challenge && angle && { challenge: angle }),
+    }));
+    if (type && ['prospection','relance','demo','proposal'].includes(type)) {
+      setEmailType(type);
+    }
+    if (sol && SOLUTIONS.find(s => s.id === sol)) {
+      setSolution(sol);
+      setStep(2);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const generate = async () => {
     if (!form.companyName.trim()) { toast.error('Please enter the company name'); return; }
@@ -226,6 +261,23 @@ export default function KBEmailGenerator() {
 
       {/* ── Content ───────────────────────────────────────────────────────── */}
       <div className="max-w-4xl mx-auto px-6 py-10">
+
+        {/* Banner — pré-rempli depuis Account Intelligence */}
+        {fromIntel && (
+          <motion.div {...fadeUp}
+            className="mb-6 flex items-center gap-3 px-4 py-3 bg-indigo-50 border border-indigo-200 rounded-xl text-sm text-indigo-700">
+            <span className="text-lg">✨</span>
+            <span className="flex-1">
+              {lang === 'fr'
+                ? <>Formulaire pré-rempli depuis <strong>Account Intelligence</strong>{form.companyName ? ` — ${form.companyName}` : ''}</>
+                : <>Form pre-filled from <strong>Account Intelligence</strong>{form.companyName ? ` — ${form.companyName}` : ''}</>}
+            </span>
+            <Link href="/account" className="flex items-center gap-1 text-xs text-indigo-500 hover:text-indigo-700 shrink-0">
+              <ArrowLeft className="w-3 h-3" />
+              {lang === 'fr' ? 'Retour au dossier' : 'Back to dossier'}
+            </Link>
+          </motion.div>
+        )}
         <AnimatePresence mode="wait">
 
           {/* STEP 1 — Choose solution */}

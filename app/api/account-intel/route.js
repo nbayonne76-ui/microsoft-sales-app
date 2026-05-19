@@ -1,22 +1,8 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 import OpenAI from 'openai';
+import { getFullKb } from '@/lib/kb-service';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-// ── KB loader ─────────────────────────────────────────────────────────────────
-function readAllKb() {
-  const dir = path.join(process.cwd(), 'templates', 'knowledge-base');
-  return fs.readdirSync(dir)
-    .filter(f => f.endsWith('.md') && f !== 'README.md')
-    .map(f => {
-      const content = fs.readFileSync(path.join(dir, f), 'utf-8');
-      return `=== ${f} ===\n${content.slice(0, 1800)}`;
-    })
-    .join('\n\n')
-    .slice(0, 12000);
-}
 
 // ── Tavily web search (optional — graceful fallback if no key) ────────────────
 async function webSearch(companyName) {
@@ -73,7 +59,7 @@ export async function POST(request) {
 
     // Run KB read + web search in parallel
     const [kbContent, webData] = await Promise.all([
-      Promise.resolve(readAllKb()),
+      Promise.resolve(getFullKb(14000)),
       webSearch(accountName),
     ]);
 

@@ -1,32 +1,8 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 import OpenAI from 'openai';
+import { getKbByTopic, getKbFiles } from '@/lib/kb-service';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-const KB_FILES = {
-  m365:     ['m365-pricing-2025.md', 'm365-e3-vs-e5-decision-guide.md', 'microsoft-365-collaboration.md', 'microsoft-licensing-contracts-guide.md', 'csp-vs-mca-decision-guide.md'],
-  azure:    ['azure-pricing-2025.md', 'azure-migration.md'],
-  dynamics: ['dynamics-365-pricing-2025.md'],
-  power:    ['power-platform-digital.md'],
-  security: ['security-compliance.md'],
-  bundles:  ['solution-bundles-pricing.md', 'microsoft-pricing-guide-2025.md'],
-};
-
-function readKbFile(filename) {
-  try {
-    return fs.readFileSync(path.join(process.cwd(), 'templates', 'knowledge-base', filename), 'utf-8');
-  } catch { return ''; }
-}
-
-function loadKbForSolution(solution) {
-  const files = KB_FILES[solution] || KB_FILES.m365;
-  return files
-    .map(f => `\n\n### ${f}\n${readKbFile(f)}`)
-    .join('')
-    .slice(0, 16000);
-}
 
 export async function POST(request) {
   try {
@@ -40,8 +16,8 @@ export async function POST(request) {
       return NextResponse.json({ error: 'companyName is required' }, { status: 400 });
     }
 
-    const kbContent  = loadKbForSolution(solution || 'm365');
-    const kbFiles    = KB_FILES[solution] || KB_FILES.m365;
+    const kbContent  = getKbByTopic(solution || 'm365');
+    const kbFiles    = getKbFiles(solution || 'm365');
 
     const SOLUTION_LABELS = {
       m365: 'Microsoft 365', azure: 'Microsoft Azure',
