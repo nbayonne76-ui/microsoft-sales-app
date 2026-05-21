@@ -6,7 +6,7 @@ import {
   BookOpen, Search, X, ChevronRight, Home, Download,
   Brain, Shield, Database, Server, LineChart, Cog, Network,
   Building2, DollarSign, Zap, Star, CheckCircle, TrendingUp, Award,
-  Briefcase, Bot, Wrench,
+  Briefcase, Bot, Wrench, Users, Globe, Layers,
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -595,9 +595,12 @@ export default function KnowledgeBasePage() {
                   <button onClick={() => setSelectedSol(null)}
                     className="flex items-center gap-1.5 text-blue-600 hover:text-blue-800 text-sm mb-6">
                     <Home className="w-4 h-4" />
-                    {solTab === 'dynamics' ? 'Retour Dynamics 365' : 'Back to Azure'}
+                    {solTab === 'dynamics' ? '← Retour Dynamics 365' : '← Back to Azure'}
                   </button>
-                  <SolutionDetail sol={selectedSol} catConfig={AZURE_CAT} />
+                  {selectedSol.category === 'business'
+                    ? <DynamicsSolutionDetail sol={selectedSol} />
+                    : <SolutionDetail sol={selectedSol} catConfig={AZURE_CAT} />
+                  }
                 </motion.div>
               )}
 
@@ -916,6 +919,477 @@ function SolutionDetail({ sol, catConfig }) {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+// ── Helper ─────────────────────────────────────────────────────────────
+const pf = (val) => {
+  if (!val) return null;
+  if (typeof val === 'object') return val;
+  try { return JSON.parse(val); } catch { return null; }
+};
+
+// ── Dynamics 365 rich detail ────────────────────────────────────────────
+function DynamicsSolutionDetail({ sol }) {
+  const cfg = AZURE_CAT['business'];
+  const Icon = cfg.icon;
+
+  const salesCtx   = pf(sol.salesContext)          || {};
+  const agile      = pf(sol.frameworkAGILE)         || {};
+  const cases      = pf(sol.customerCases)          || [];
+  const market     = pf(sol.marketPosition)         || {};
+  const competitors= pf(sol.competitorComparison)   || [];
+  const compliance = pf(sol.complianceCerts)        || [];
+  const integrations = pf(sol.integrations)         || [];
+  const e2e        = pf(sol.e2eProcesses)           || [];
+  const scenarios  = pf(sol.modernizationScenarios);
+
+  const AGILE_COLORS = {
+    A: { bg:'bg-blue-50',   border:'border-blue-200',   text:'text-blue-700',   grad:'from-blue-500 to-blue-600'    },
+    G: { bg:'bg-green-50',  border:'border-green-200',  text:'text-green-700',  grad:'from-green-500 to-green-600'  },
+    I: { bg:'bg-indigo-50', border:'border-indigo-200', text:'text-indigo-700', grad:'from-indigo-500 to-indigo-600'},
+    L: { bg:'bg-orange-50', border:'border-orange-200', text:'text-orange-700', grad:'from-orange-500 to-orange-600'},
+    E: { bg:'bg-purple-50', border:'border-purple-200', text:'text-purple-700', grad:'from-purple-500 to-purple-600'},
+  };
+
+  const SCENARIO_COLORS = [
+    { header:'bg-blue-600',   light:'bg-blue-50',   border:'border-blue-200',   text:'text-blue-700',   dot:'bg-blue-600'   },
+    { header:'bg-orange-600', light:'bg-orange-50', border:'border-orange-200', text:'text-orange-700', dot:'bg-orange-600' },
+    { header:'bg-purple-600', light:'bg-purple-50', border:'border-purple-200', text:'text-purple-700', dot:'bg-purple-600' },
+  ];
+
+  return (
+    <div className="space-y-6">
+
+      {/* ── 1. HERO ──────────────────────────────────────────── */}
+      <div className="bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 rounded-2xl p-8 text-white shadow-xl">
+        <div className="flex items-start gap-5">
+          <div className="p-4 bg-white/15 rounded-2xl shrink-0">
+            <Icon className="w-9 h-9" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex gap-2 mb-3 flex-wrap">
+              <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold">Business Apps</span>
+              {sol.isFeatured && <span className="px-3 py-1 bg-yellow-300/30 text-yellow-200 rounded-full text-xs font-semibold">⭐ Featured</span>}
+              {sol.salesPriority >= 9 && <span className="px-3 py-1 bg-green-400/30 text-green-200 rounded-full text-xs font-semibold">🔥 Priorité {sol.salesPriority}/10</span>}
+              {salesCtx.salesMotion && <span className="px-3 py-1 bg-white/15 rounded-full text-xs">{salesCtx.salesMotion}</span>}
+            </div>
+            <h2 className="text-3xl font-bold mb-3">{sol.officialName || sol.name}</h2>
+            <p className="text-white/85 leading-relaxed text-sm max-w-3xl">{sol.fullDescription || sol.shortDescription}</p>
+            {/* Quick stats */}
+            <div className="flex flex-wrap gap-3 mt-5">
+              {[
+                sol.estimatedCost && { label: 'Tarif', value: sol.estimatedCost.split('—')[0].trim() },
+                sol.implementationTime && { label: 'Implémentation', value: sol.implementationTime.split('—')[0].trim() },
+                sol.idealCustomerSize && { label: 'Cible', value: sol.idealCustomerSize.split('(')[0].trim() },
+                sol.complexity && { label: 'Complexité', value: sol.complexity.charAt(0).toUpperCase() + sol.complexity.slice(1) },
+              ].filter(Boolean).map((item, i) => (
+                <div key={i} className="bg-white/15 rounded-xl px-4 py-2.5 min-w-0">
+                  <p className="text-white/55 text-xs mb-0.5">{item.label}</p>
+                  <p className="font-bold text-sm truncate">{item.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── 2. WHY NOW ─────────────────────────────────────────── */}
+      {salesCtx.whyNow?.length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+            <TrendingUp className="w-4 h-4 text-orange-500" /> Pourquoi maintenant — Arguments marché
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            {salesCtx.whyNow.map((stat, i) => (
+              <div key={i} className="flex items-start gap-2.5 bg-orange-50 border border-orange-100 rounded-xl p-3">
+                <span className="text-base shrink-0">📊</span>
+                <p className="text-xs text-gray-700 leading-relaxed">{stat}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── 3. FRAMEWORK AGILE ─────────────────────────────────── */}
+      {Object.keys(agile).length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+            <Layers className="w-4 h-4 text-indigo-500" /> Framework AGILE — Proposition de valeur
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+            {Object.entries(agile).map(([letter, data]) => {
+              const c = AGILE_COLORS[letter] || AGILE_COLORS.A;
+              return (
+                <div key={letter} className={`rounded-xl border-2 p-4 text-center ${c.bg} ${c.border}`}>
+                  <div className={`text-3xl font-black mb-1 bg-gradient-to-br ${c.grad} bg-clip-text text-transparent`}>{letter}</div>
+                  <p className={`text-xs font-bold mb-1.5 ${c.text}`}>{data.label}</p>
+                  <p className="text-[10px] text-gray-600 leading-tight">{data.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ── 4. KEY FEATURES + BENEFITS ─────────────────────────── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {sol.keyFeatures?.length > 0 && (
+          <div className="bg-white rounded-2xl border border-gray-100 p-6">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+              <Zap className="w-4 h-4 text-yellow-500" /> Fonctionnalités clés <span className="text-gray-300 font-normal">({sol.keyFeatures.length})</span>
+            </p>
+            <ul className="space-y-2 max-h-96 overflow-y-auto pr-1">
+              {sol.keyFeatures.map((f, i) => {
+                const text = typeof f === 'string' ? f : String(f);
+                const [title, ...rest] = text.split(' : ');
+                return (
+                  <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                    <span><strong>{title}</strong>{rest.length ? ' : ' + rest.join(' : ').split('.')[0] : ''}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+        {sol.benefits?.length > 0 && (
+          <div className="bg-white rounded-2xl border border-gray-100 p-6">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+              <Award className="w-4 h-4 text-blue-500" /> Bénéfices métier <span className="text-gray-300 font-normal">({sol.benefits.length})</span>
+            </p>
+            <ul className="space-y-2">
+              {sol.benefits.map((b, i) => (
+                <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
+                  <TrendingUp className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />{b}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      {/* ── 5. USE CASES ───────────────────────────────────────── */}
+      {sol.useCases?.length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+            <Building2 className="w-4 h-4 text-purple-500" /> Cas d'usage <span className="text-gray-300 font-normal">({sol.useCases.length})</span>
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {sol.useCases.map((u, i) => {
+              const uc = typeof u === 'object' ? u : { title: u };
+              return (
+                <div key={i} className="bg-purple-50 border border-purple-100 rounded-xl p-4">
+                  <p className="font-semibold text-gray-900 text-sm mb-1">{uc.title}</p>
+                  {uc.description && <p className="text-xs text-gray-600 mb-2 leading-relaxed">{uc.description}</p>}
+                  {uc.industries?.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {uc.industries.map((ind, ii) => <span key={ii} className="px-1.5 py-0.5 bg-white text-purple-700 text-[10px] rounded-full border border-purple-200">{ind}</span>)}
+                    </div>
+                  )}
+                  {uc.businessImpact && (
+                    <div className="flex items-start gap-1.5 bg-white rounded-lg px-2.5 py-1.5">
+                      <TrendingUp className="w-3 h-3 text-green-500 shrink-0 mt-0.5" />
+                      <p className="text-xs text-green-700 font-medium">{uc.businessImpact}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ── 6. CUSTOMER CASES ──────────────────────────────────── */}
+      {cases.length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+            <Star className="w-4 h-4 text-yellow-500" /> Cas clients <span className="text-gray-300 font-normal">({cases.length})</span>
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {cases.map((c, i) => (
+              <div key={i} className="border border-gray-100 rounded-xl p-4 hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-2.5 mb-2">
+                  <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center shrink-0">
+                    <Building2 className="w-4 h-4 text-indigo-600" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-bold text-gray-900 text-sm leading-tight">{c.company}</p>
+                    {c.module && <span className="text-[10px] text-indigo-600 font-medium">{c.module}</span>}
+                    {c.contact && <p className="text-[10px] text-gray-400 mt-0.5">{c.contact}</p>}
+                  </div>
+                </div>
+                {c.quote && (
+                  <blockquote className="text-xs text-gray-600 italic bg-gray-50 rounded-lg px-3 py-2 mb-2 leading-relaxed border-l-2 border-indigo-200">
+                    "{c.quote}"
+                  </blockquote>
+                )}
+                {c.results?.length > 0 && (
+                  <ul className="space-y-1">
+                    {c.results.map((r, ri) => (
+                      <li key={ri} className="flex items-start gap-1.5 text-xs text-gray-700">
+                        <CheckCircle className="w-3 h-3 text-emerald-500 shrink-0 mt-0.5" />{r}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── 7. MODERNIZATION SCENARIOS (SCM only) ──────────────── */}
+      {scenarios && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+            <Layers className="w-4 h-4 text-indigo-500" /> 3 Scénarios de modernisation Supply Chain
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {Object.values(scenarios).map((sc, i) => {
+              const c = SCENARIO_COLORS[i];
+              const example = Array.isArray(sc.customerExamples) ? sc.customerExamples[0] : sc.customerExample;
+              return (
+                <div key={i} className={`rounded-xl border-2 overflow-hidden ${c.border}`}>
+                  <div className={`${c.header} text-white p-4`}>
+                    <div className="text-3xl font-black opacity-25 mb-1">{i + 1}</div>
+                    <p className="font-bold text-sm leading-tight">{sc.name}</p>
+                    {sc.keyMetric && <p className="text-white/70 text-xs mt-1 font-medium">📊 {sc.keyMetric}</p>}
+                  </div>
+                  <div className={`${c.light} p-4 space-y-3`}>
+                    <div>
+                      <p className={`text-xs font-bold mb-1 ${c.text}`}>Challenge métier</p>
+                      <p className="text-xs text-gray-600 leading-relaxed">{sc.businessChallenge}</p>
+                    </div>
+                    <div>
+                      <p className={`text-xs font-bold mb-1 ${c.text}`}>Solutions Microsoft</p>
+                      <ul className="space-y-0.5">
+                        {sc.solutions?.slice(0, 4).map((s, si) => (
+                          <li key={si} className="flex items-start gap-1.5 text-xs text-gray-700">
+                            <span className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 ${c.dot}`} />
+                            {s.split(' (')[0].split(' :')[0]}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    {example && (
+                      <div className={`rounded-lg p-2.5 bg-white border ${c.border}`}>
+                        <p className={`text-xs font-semibold ${c.text}`}>📌 {example}</p>
+                      </div>
+                    )}
+                    {sc.audience && (
+                      <div className="flex flex-wrap gap-1">
+                        {sc.audience.slice(0, 3).map((a, ai) => (
+                          <span key={ai} className={`text-[10px] px-1.5 py-0.5 rounded-full bg-white border ${c.border} ${c.text}`}>{a}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ── 8. PRICING TIERS ───────────────────────────────────── */}
+      {sol.pricingTiers?.length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+            <DollarSign className="w-4 h-4 text-emerald-500" /> Tarification
+          </p>
+          <div className={`grid gap-4 ${sol.pricingTiers.length <= 2 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-3'}`}>
+            {sol.pricingTiers.map((tier, i) => (
+              <div key={i} className="border-2 border-emerald-100 rounded-xl p-5 bg-emerald-50/40 flex flex-col">
+                <p className="font-bold text-gray-900 mb-1">{tier.tier}</p>
+                {tier.price && (
+                  <p className="text-2xl font-black text-emerald-700 mb-2">
+                    {tier.price}
+                    {tier.perUser && <span className="text-xs font-normal text-gray-500"> /user/mois</span>}
+                  </p>
+                )}
+                {tier.description && <p className="text-xs text-gray-600 leading-relaxed flex-1">{tier.description}</p>}
+                {tier.includedApps && Array.isArray(tier.includedApps) && (
+                  <div className="mt-3 flex flex-wrap gap-1">
+                    {tier.includedApps.map((app, ai) => (
+                      <span key={ai} className="px-2 py-0.5 bg-white text-indigo-600 text-xs rounded-lg border border-indigo-100">{app}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          {sol.estimatedCost && (
+            <p className="text-xs text-gray-500 mt-3 bg-gray-50 rounded-lg px-3 py-2">ℹ️ {sol.estimatedCost}</p>
+          )}
+        </div>
+      )}
+
+      {/* ── 9. PERSONAS & INDUSTRIES ───────────────────────────── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {sol.targetPersonas?.length > 0 && (
+          <div className="bg-white rounded-2xl border border-gray-100 p-6">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+              <Users className="w-4 h-4 text-blue-500" /> Personas cibles <span className="text-gray-300 font-normal">({sol.targetPersonas.length})</span>
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {sol.targetPersonas.map((p, i) => (
+                <span key={i} className="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-full border border-blue-100">{p}</span>
+              ))}
+            </div>
+          </div>
+        )}
+        {sol.targetIndustries?.length > 0 && (
+          <div className="bg-white rounded-2xl border border-gray-100 p-6">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+              <Globe className="w-4 h-4 text-teal-500" /> Industries cibles <span className="text-gray-300 font-normal">({sol.targetIndustries.length})</span>
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {sol.targetIndustries.map((ind, i) => (
+                <span key={i} className="px-2.5 py-1 bg-teal-50 text-teal-700 text-xs rounded-full border border-teal-100">{ind}</span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ── 10. INTEGRATIONS ───────────────────────────────────── */}
+      {integrations.length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+            <Network className="w-4 h-4 text-cyan-500" /> Intégrations <span className="text-gray-300 font-normal">({integrations.length})</span>
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {integrations.map((int, i) => (
+              <span key={i} className="px-3 py-1 bg-cyan-50 text-cyan-700 text-xs rounded-full border border-cyan-100">
+                {int.split(' :')[0].split(' (')[0]}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── 11. COMPETITOR COMPARISON ──────────────────────────── */}
+      {competitors.length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+            <Shield className="w-4 h-4 text-red-500" /> Comparatif concurrentiel
+          </p>
+          <div className="space-y-3">
+            {competitors.map((comp, i) => (
+              <div key={i} className="border border-gray-100 rounded-xl p-4">
+                <p className="font-bold text-gray-900 text-sm mb-3">vs {comp.competitor}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div className="bg-green-50 border border-green-100 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-green-700 mb-1.5">✅ Nos avantages</p>
+                    <p className="text-xs text-gray-700 leading-relaxed">{comp.ourAdvantage}</p>
+                  </div>
+                  {comp.weaknesses && (
+                    <div className="bg-red-50 border border-red-100 rounded-lg p-3">
+                      <p className="text-xs font-semibold text-red-700 mb-1.5">⚠️ Points de vigilance</p>
+                      <p className="text-xs text-gray-700 leading-relaxed">{comp.weaknesses}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── 12. MARKET POSITION ────────────────────────────────── */}
+      {Object.keys(market).length > 0 && (
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 text-white">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+            <Award className="w-4 h-4" /> Position marché & reconnaissance analyste
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {[
+              market.forresterTEI   && { label: 'Forrester TEI',           icon: '📈', value: market.forresterTEI },
+              market.customerROI    && { label: 'ROI Clients',             icon: '💰', value: market.customerROI },
+              market.globalCustomers&& { label: 'Clients globaux',         icon: '🌍', value: market.globalCustomers },
+              market.fortuneShare   && { label: 'Fortune 500',             icon: '🏆', value: market.fortuneShare },
+              market.analystRecognition && { label: 'Analyste',            icon: '⭐', value: Array.isArray(market.analystRecognition) ? market.analystRecognition.join(' · ') : market.analystRecognition },
+              market.heritage       && { label: 'Héritage',                icon: '📅', value: market.heritage },
+              market.rapidDeployment&& { label: 'Rapid Deployment',        icon: '🚀', value: market.rapidDeployment },
+            ].filter(Boolean).map((item, i) => (
+              <div key={i} className="bg-white/10 rounded-xl p-3">
+                <p className="text-xs text-slate-400 mb-1">{item.icon} {item.label}</p>
+                <p className="text-xs text-white leading-relaxed">{item.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── 13. COMPLIANCE ─────────────────────────────────────── */}
+      {compliance.length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+            <Shield className="w-4 h-4 text-green-600" /> Conformité & certifications <span className="text-gray-300 font-normal">({compliance.length})</span>
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {compliance.map((cert, i) => (
+              <span key={i} className="px-2.5 py-1 bg-green-50 text-green-700 text-xs rounded-full border border-green-100">
+                ✓ {cert.split(' (')[0]}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── 14. E2E PROCESSES ──────────────────────────────────── */}
+      {e2e.length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+            <ChevronRight className="w-4 h-4 text-teal-500" /> Processus End-to-End couverts
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {e2e.map((proc, i) => (
+              <span key={i} className="px-3 py-1.5 bg-teal-50 text-teal-700 text-xs rounded-lg border border-teal-100 font-medium">
+                {proc.split(' —')[0].split(' :')[0]}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── 15. AIM PROGRAM + NEXT STEPS ───────────────────────── */}
+      {salesCtx.aimProgram && (
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl p-6 text-white">
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-white/15 rounded-xl shrink-0"><Zap className="w-6 h-6" /></div>
+            <div className="flex-1">
+              <p className="font-bold text-lg mb-1">{salesCtx.aimProgram.name}</p>
+              <p className="text-indigo-200 text-sm mb-3">{salesCtx.aimProgram.description}</p>
+              {salesCtx.aimProgram.steps && (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-3">
+                  {salesCtx.aimProgram.steps.map((step, i) => (
+                    <div key={i} className="bg-white/15 rounded-xl p-3">
+                      <p className="text-xs text-white/90 leading-relaxed">{step}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {salesCtx.aimProgram.link && (
+                <p className="text-indigo-200 text-xs">🔗 {salesCtx.aimProgram.link}</p>
+              )}
+            </div>
+          </div>
+          {salesCtx.nextSteps && (
+            <div className="mt-4 pt-4 border-t border-white/20">
+              <p className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-2">Prochaines étapes commerciales</p>
+              <div className="flex flex-wrap gap-2">
+                {salesCtx.nextSteps.map((step, i) => (
+                  <span key={i} className="px-3 py-1.5 bg-white/15 rounded-xl text-xs text-white">{step}</span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
     </div>
   );
 }
