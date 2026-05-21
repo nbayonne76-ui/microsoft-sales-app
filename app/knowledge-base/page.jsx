@@ -290,6 +290,14 @@ export default function KnowledgeBasePage() {
       .catch(() => setLoading(false));
   }, [lang]);
 
+  // Sync selectedSol with re-fetched language-aware version
+  useEffect(() => {
+    if (!selectedSol || solutions.length === 0) return;
+    const updated = solutions.find(s => s.id === selectedSol.id);
+    if (updated) setSelectedSol(updated);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [solutions]);
+
   useEffect(() => {
     if (!selectedDoc) return;
     setDocContent('');
@@ -1053,7 +1061,7 @@ function DynamicsSolutionDetail({ sol, lang: langProp }) {
               {salesCtx.salesMotion && <span className="px-3 py-1 bg-white/15 rounded-full text-xs">{salesCtx.salesMotion}</span>}
             </div>
             <h2 className="text-2xl font-bold mb-2">{sol.officialName || sol.name}</h2>
-            <p className="text-white/85 text-sm leading-relaxed max-w-3xl">{sol.fullDescription || sol.shortDescription}</p>
+            <p className="text-white/85 text-sm leading-relaxed max-w-3xl">{(sol.fullDescription || sol.shortDescription || '').replace(/ [—–] /g, ': ')}</p>
             <div className="flex flex-wrap gap-3 mt-4">
               {[
                 sol.estimatedCost    && { l: tr.pricingInfo,     v: sol.estimatedCost.split('—')[0].split(' — ')[0].trim() },

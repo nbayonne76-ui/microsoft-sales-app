@@ -10,7 +10,7 @@ function loadSolutions() {
   const raw = readFileSync(join(process.cwd(), 'data', 'azure-solutions.json'), 'utf-8');
   const solutions = JSON.parse(raw);
 
-  const JSON_FIELDS = ['keyFeatures','benefits','useCases','targetIndustries','targetPersonas','pricingTiers','keywords','tags'];
+  const JSON_FIELDS = ['keyFeatures','benefits','useCases','targetIndustries','targetPersonas','pricingTiers','keywords','tags','keyFeaturesEn','benefitsEn','useCasesEn','keyFeaturesFr','benefitsFr','useCasesFr'];
   _cache = solutions.map(s => {
     const out = { ...s };
     for (const f of JSON_FIELDS) {
@@ -23,13 +23,17 @@ function loadSolutions() {
   return _cache;
 }
 
+const LANG_FIELDS = ['shortDescription','fullDescription','keyFeatures','benefits','useCases','estimatedCost','implementationTime','idealCustomerSize'];
+
 function applyLang(solutions, lang) {
-  if (lang !== 'fr') return solutions;
-  return solutions.map(s => ({
-    ...s,
-    shortDescription: s.shortDescriptionFr || s.shortDescription,
-    fullDescription:  s.fullDescriptionFr  || s.fullDescription,
-  }));
+  return solutions.map(s => {
+    const out = { ...s };
+    for (const field of LANG_FIELDS) {
+      const variant = s[field + (lang === 'fr' ? 'Fr' : 'En')];
+      if (variant !== undefined) out[field] = variant;
+    }
+    return out;
+  });
 }
 
 export async function GET(request) {
