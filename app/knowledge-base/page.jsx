@@ -399,8 +399,8 @@ export default function KnowledgeBasePage() {
               {/* Sub-tab bar */}
               <div className="flex gap-2 flex-wrap mb-6 border-b border-gray-200 pb-4">
                 {[
-                  ['azure',    '☁️', 'Azure',              `${azureSolutions.length} solutions cloud`],
-                  ['dynamics', '🎯', 'Dynamics 365',       `${dynamicsSolutions.length} solutions Business Apps`],
+                  ['azure',    '☁️', 'Azure',              `${azureSolutions.length} ${tr.cloudSolutions}`],
+                  ['dynamics', '🎯', 'Dynamics 365',       `${dynamicsSolutions.length} ${tr.businessApps}`],
                   ['m365',     '💼', 'Modern Work / M365', `${M365_PLANS.length} plans`],
                 ].map(([key, emoji, label, sub]) => (
                   <button key={key} onClick={() => switchSolTab(key)}
@@ -452,6 +452,7 @@ export default function KnowledgeBasePage() {
                   <div className="flex flex-wrap gap-2 mb-5">
                     {Object.entries(D365_GROUP).map(([key, cfg]) => {
                       const Icon = cfg.icon;
+                      const d365Labels = { all: tr.allDynamics, erp: 'ERP & Finance', crm: tr.crmSales, marketing: 'Marketing & Data', copilot: tr.copilotAi, field: tr.fieldOps };
                       return (
                         <button key={key} onClick={() => setD365Filter(key)}
                           className={'flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium border transition-all ' +
@@ -459,7 +460,7 @@ export default function KnowledgeBasePage() {
                               ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-transparent shadow-md'
                               : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300')}>
                           <Icon className="w-3.5 h-3.5" />
-                          {cfg.label}
+                          {d365Labels[key] || cfg.label}
                         </button>
                       );
                     })}
@@ -480,26 +481,29 @@ export default function KnowledgeBasePage() {
                   <div className="mb-5 bg-gradient-to-r from-violet-600 to-purple-700 rounded-2xl p-4 text-white flex items-center gap-4">
                     <div className="p-2 bg-white/15 rounded-xl shrink-0"><Bot className="w-6 h-6" /></div>
                     <div>
-                      <p className="font-bold text-sm">Microsoft 365 Copilot — Add-on disponible sur tous les plans Enterprise & Business Standard/Premium</p>
-                      <p className="text-violet-200 text-xs">IA générative dans Teams, Outlook, Word, Excel, PowerPoint, OneNote + Microsoft 365 Chat — voir Pricing Guides pour les tarifs</p>
+                      <p className="font-bold text-sm">{tr.copilotBannerTitle}</p>
+                      <p className="text-violet-200 text-xs">{tr.copilotBannerDesc}</p>
                     </div>
                   </div>
 
                   {/* Segment filters */}
                   <div className="flex flex-wrap gap-2 mb-5">
-                    {M365_SEGMENTS.map(seg => (
+                    {M365_SEGMENTS.map(seg => {
+                      const m365Labels = { all: tr.allPlans, business: 'Business ≤300', enterprise: 'Enterprise', frontline: tr.frontlinePlans };
+                      return (
                       <button key={seg.id} onClick={() => setM365Seg(seg.id)}
                         className={'flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium border transition-all ' +
                           (m365Seg === seg.id
                             ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-transparent shadow-md'
                             : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300')}>
                         <span>{seg.emoji}</span>
-                        {seg.label}
+                        {m365Labels[seg.id] || seg.label}
                       </button>
-                    ))}
+                      );
+                    })}
                   </div>
 
-                  <p className="text-sm text-gray-500 mb-4">{filteredM365.length} plan{filteredM365.length > 1 ? 's' : ''} — tarifs disponibles dans l'onglet <strong>Pricing Guides & Docs</strong></p>
+                  <p className="text-sm text-gray-500 mb-4">{filteredM365.length} {tr.pricingNoteCount}{filteredM365.length > 1 ? 's' : ''} — {tr.pricingNoteIn} <strong>{tr.documents}</strong></p>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {filteredM365.map((plan, i) => (
@@ -514,7 +518,7 @@ export default function KnowledgeBasePage() {
                             <div>
                               <div className="flex items-center gap-2 flex-wrap">
                                 <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full font-medium uppercase tracking-wide">
-                                  {plan.segment === 'business' ? 'Business ≤300' : plan.segment === 'enterprise' ? 'Enterprise' : 'Frontline'}
+                                  {plan.segment === 'business' ? tr.segBusiness : plan.segment === 'enterprise' ? tr.segEnterprise : tr.segFrontline}
                                 </span>
                                 {plan.badge && (
                                   <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold ${plan.badgeColor}`}>{plan.badge}</span>
@@ -540,7 +544,7 @@ export default function KnowledgeBasePage() {
                           {plan.apps.length > 0 && (
                             <div>
                               <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1.5 flex items-center gap-1">
-                                <Briefcase className="w-3 h-3" /> Applications incluses
+                                <Briefcase className="w-3 h-3" /> {tr.includedApps}
                               </p>
                               <div className="flex flex-wrap gap-1">
                                 {plan.apps.map((a, ai) => (
@@ -553,7 +557,7 @@ export default function KnowledgeBasePage() {
                           {/* Services inclus */}
                           <div>
                             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1.5 flex items-center gap-1">
-                              <CheckCircle className="w-3 h-3 text-emerald-500" /> Services inclus
+                              <CheckCircle className="w-3 h-3 text-emerald-500" /> {tr.includedServices}
                             </p>
                             <ul className="space-y-1">
                               {plan.services.slice(0, 6).map((s, si) => (
@@ -568,7 +572,7 @@ export default function KnowledgeBasePage() {
                           {plan.notIncluded.length > 0 && (
                             <div>
                               <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1.5 flex items-center gap-1">
-                                <X className="w-3 h-3 text-gray-400" /> Non inclus
+                                <X className="w-3 h-3 text-gray-400" /> {tr.notIncluded}
                               </p>
                               <div className="flex flex-wrap gap-1">
                                 {plan.notIncluded.map((n, ni) => (
@@ -581,7 +585,7 @@ export default function KnowledgeBasePage() {
 
                         {/* Best for */}
                         <div className="mt-4 pt-3 border-t border-gray-100">
-                          <p className="text-xs text-gray-500"><strong className="text-gray-700">Idéal pour :</strong> {plan.bestFor}</p>
+                          <p className="text-xs text-gray-500"><strong className="text-gray-700">{tr.bestForColon}</strong> {plan.bestFor}</p>
                         </div>
                       </motion.div>
                     ))}
@@ -595,7 +599,7 @@ export default function KnowledgeBasePage() {
                   <button onClick={() => setSelectedSol(null)}
                     className="flex items-center gap-1.5 text-blue-600 hover:text-blue-800 text-sm mb-6">
                     <Home className="w-4 h-4" />
-                    {solTab === 'dynamics' ? '← Retour Dynamics 365' : '← Back to Azure'}
+                    ← {solTab === 'dynamics' ? tr.backToDynamics : tr.backToAzure}
                   </button>
                   {selectedSol.category === 'business'
                     ? <DynamicsSolutionDetail sol={selectedSol} />
@@ -806,10 +810,12 @@ export default function KnowledgeBasePage() {
 
 // ── Shared solution grid ────────────────────────────────────────────────
 function SolutionGrid({ solutions, catConfig, onSelect }) {
+  const { lang } = useLang();
+  const tr = t[lang].kb;
   if (solutions.length === 0) return (
     <div className="text-center py-16 text-gray-400">
       <Search className="w-10 h-10 mx-auto mb-3 opacity-30" />
-      <p className="text-sm">Aucune solution trouvée</p>
+      <p className="text-sm">{tr.noSolutions}</p>
     </div>
   );
   return (
@@ -868,14 +874,16 @@ function TabBar({ tabs, active, onChange, accent = 'indigo' }) {
 
 // ── Azure solution detail (tabbed) ──────────────────────────────────────
 function SolutionDetail({ sol, catConfig }) {
+  const { lang } = useLang();
+  const tr = t[lang].kb;
   const [tab, setTab] = useState('overview');
   const cfg = catConfig[sol.category] || catConfig.business || catConfig.compute;
   const Icon = cfg.icon;
 
   const TABS = [
-    { key: 'overview',  emoji: '🏠', label: 'Vue d\'ensemble' },
+    { key: 'overview',  emoji: '🏠', label: tr.tabOverview },
     ...(sol.keyFeatures?.length > 0 || sol.benefits?.length > 0
-      ? [{ key: 'features', emoji: '⚡', label: 'Fonctionnalités', count: sol.keyFeatures?.length }]
+      ? [{ key: 'features', emoji: '⚡', label: tr.tabFeatures, count: sol.keyFeatures?.length }]
       : []),
   ];
 
@@ -912,7 +920,7 @@ function SolutionDetail({ sol, catConfig }) {
                   <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><DollarSign className="w-4 h-4 text-emerald-500" /> Pricing</p>
                   <p className="text-sm font-semibold text-emerald-700 mb-2">{sol.pricingModel}</p>
                   <p className="text-sm text-gray-600">{sol.estimatedCost}</p>
-                  {sol.implementationTime && <p className="text-xs text-gray-400 mt-2">Setup : {sol.implementationTime}</p>}
+                  {sol.implementationTime && <p className="text-xs text-gray-400 mt-2">{tr.setupLabel} {sol.implementationTime}</p>}
                 </div>
               </div>
               <div className="bg-white rounded-2xl border border-gray-100 p-5">
@@ -928,7 +936,7 @@ function SolutionDetail({ sol, catConfig }) {
               </div>
               <div className="bg-white rounded-2xl border border-gray-100 p-5">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><Building2 className="w-4 h-4 text-purple-500" /> Target</p>
-                {sol.idealCustomerSize && <p className="text-xs text-gray-600 mb-2"><strong>Taille :</strong> {sol.idealCustomerSize}</p>}
+                {sol.idealCustomerSize && <p className="text-xs text-gray-600 mb-2"><strong>{tr.targetSize}</strong> {sol.idealCustomerSize}</p>}
                 <div className="flex flex-wrap gap-1">
                   {(sol.targetIndustries || []).slice(0, 6).map((ind, i) => (
                     <span key={i} className="px-2 py-0.5 bg-purple-50 text-purple-700 text-xs rounded-full">{ind}</span>
@@ -956,7 +964,7 @@ function SolutionDetail({ sol, catConfig }) {
                   {sol.keyFeatures.map((f, i) => (
                     <div key={i} className="flex items-start gap-2 text-sm text-gray-700">
                       <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                      <span>{typeof f === 'string' ? f.split(' - ')[0] : f}</span>
+                      <span>{typeof f === 'string' ? f.replace(/ [—–] /g, ': ') : String(f)}</span>
                     </div>
                   ))}
                 </div>
@@ -990,6 +998,8 @@ const pf = (val) => {
 
 // ── Dynamics 365 rich detail (tabbed) ──────────────────────────────────
 function DynamicsSolutionDetail({ sol }) {
+  const { lang } = useLang();
+  const tr = t[lang].kb;
   const [tab, setTab] = useState('overview');
   const cfg = AZURE_CAT['business'];
   const Icon = cfg.icon;
@@ -1018,13 +1028,13 @@ function DynamicsSolutionDetail({ sol }) {
   ];
 
   const TABS = [
-    { key:'overview',     emoji:'🏠', label:'Vue d\'ensemble' },
-    { key:'features',     emoji:'⚡', label:'Fonctionnalités', count: sol.keyFeatures?.length },
-    { key:'cases',        emoji:'🏆', label:'Cas clients',     count: cases.length },
-    { key:'scenarios',    emoji:'📋', label:'Scénarios',       count: sol.useCases?.length },
-    { key:'pricing',      emoji:'💰', label:'Tarifs & Cibles' },
-    { key:'integrations', emoji:'🔗', label:'Intégrations',    count: integrations.length },
-    { key:'competition',  emoji:'🎯', label:'Concurrence & Marché' },
+    { key:'overview',     emoji:'🏠', label: tr.tabOverview },
+    { key:'features',     emoji:'⚡', label: tr.tabFeatures,     count: sol.keyFeatures?.length },
+    { key:'cases',        emoji:'🏆', label: tr.tabCases,        count: cases.length },
+    { key:'scenarios',    emoji:'📋', label: tr.tabScenarios,    count: sol.useCases?.length },
+    { key:'pricing',      emoji:'💰', label: tr.tabPricing },
+    { key:'integrations', emoji:'🔗', label: tr.tabIntegrations, count: integrations.length },
+    { key:'competition',  emoji:'🎯', label: tr.tabCompetition },
   ];
 
   return (
@@ -1037,17 +1047,17 @@ function DynamicsSolutionDetail({ sol }) {
             <div className="flex gap-2 mb-3 flex-wrap">
               <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold">Business Apps</span>
               {sol.isFeatured && <span className="px-3 py-1 bg-yellow-300/30 text-yellow-200 rounded-full text-xs font-semibold">⭐ Featured</span>}
-              {sol.salesPriority >= 9 && <span className="px-3 py-1 bg-green-400/30 text-green-200 rounded-full text-xs font-semibold">🔥 Priorité {sol.salesPriority}/10</span>}
+              {sol.salesPriority >= 9 && <span className="px-3 py-1 bg-green-400/30 text-green-200 rounded-full text-xs font-semibold">🔥 {tr.priorityLabel} {sol.salesPriority}/10</span>}
               {salesCtx.salesMotion && <span className="px-3 py-1 bg-white/15 rounded-full text-xs">{salesCtx.salesMotion}</span>}
             </div>
             <h2 className="text-2xl font-bold mb-2">{sol.officialName || sol.name}</h2>
             <p className="text-white/85 text-sm leading-relaxed max-w-3xl">{sol.fullDescription || sol.shortDescription}</p>
             <div className="flex flex-wrap gap-3 mt-4">
               {[
-                sol.estimatedCost    && { l:'Tarif',           v: sol.estimatedCost.split('—')[0].trim() },
-                sol.implementationTime&&{ l:'Implémentation',  v: sol.implementationTime.split('—')[0].trim() },
-                sol.idealCustomerSize&&{ l:'Cible',            v: sol.idealCustomerSize.split('(')[0].trim() },
-                sol.complexity       &&{ l:'Complexité',       v: sol.complexity.charAt(0).toUpperCase()+sol.complexity.slice(1) },
+                sol.estimatedCost    && { l: tr.pricingInfo,     v: sol.estimatedCost.split('—')[0].split(' — ')[0].trim() },
+                sol.implementationTime&&{ l: tr.implementation,  v: sol.implementationTime.split('—')[0].split(' — ')[0].trim() },
+                sol.idealCustomerSize&&{ l: tr.target,           v: sol.idealCustomerSize.split('(')[0].trim() },
+                sol.complexity       &&{ l: tr.complexity,       v: sol.complexity.charAt(0).toUpperCase()+sol.complexity.slice(1) },
               ].filter(Boolean).map((item, i) => (
                 <div key={i} className="bg-white/15 rounded-xl px-3 py-2">
                   <p className="text-white/50 text-[10px] mb-0.5">{item.l}</p>
@@ -1091,7 +1101,7 @@ function DynamicsSolutionDetail({ sol }) {
               </div>
               <div className="bg-white rounded-2xl border border-gray-100 p-5">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><Building2 className="w-4 h-4 text-purple-500" /> Target</p>
-                {sol.idealCustomerSize && <p className="text-xs text-gray-600 mb-2"><strong>Taille :</strong> {sol.idealCustomerSize}</p>}
+                {sol.idealCustomerSize && <p className="text-xs text-gray-600 mb-2"><strong>{tr.targetSize}</strong> {sol.idealCustomerSize}</p>}
                 <div className="flex flex-wrap gap-1">
                   {(sol.targetIndustries || []).slice(0, 6).map((ind, i) => (
                     <span key={i} className="px-2 py-0.5 bg-purple-50 text-purple-700 text-xs rounded-full">{ind}</span>
@@ -1103,7 +1113,7 @@ function DynamicsSolutionDetail({ sol }) {
             {salesCtx.whyNow?.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-5">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                  <TrendingUp className="w-4 h-4 text-orange-500" /> Pourquoi maintenant
+                  <TrendingUp className="w-4 h-4 text-orange-500" /> {tr.whyNow}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {salesCtx.whyNow.map((stat, i) => (
@@ -1119,7 +1129,7 @@ function DynamicsSolutionDetail({ sol }) {
             {Object.keys(agile).length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-5">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                  <Layers className="w-4 h-4 text-indigo-500" /> Framework AGILE
+                  <Layers className="w-4 h-4 text-indigo-500" /> {tr.agileFramework}
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                   {Object.entries(agile).map(([letter, data]) => {
@@ -1145,12 +1155,13 @@ function DynamicsSolutionDetail({ sol }) {
               {sol.keyFeatures?.length > 0 && (
                 <div className="bg-white rounded-2xl border border-gray-100 p-6">
                   <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                    <Zap className="w-4 h-4 text-yellow-500" /> Fonctionnalités clés <span className="text-gray-300 font-normal ml-1">({sol.keyFeatures.length})</span>
+                    <Zap className="w-4 h-4 text-yellow-500" /> {tr.keyFeaturesLabel} <span className="text-gray-300 font-normal ml-1">({sol.keyFeatures.length})</span>
                   </p>
                   <ul className="space-y-2 max-h-[520px] overflow-y-auto pr-1">
                     {sol.keyFeatures.map((f, i) => {
                       const text = typeof f === 'string' ? f : String(f);
-                      const [title, ...rest] = text.split(' : ');
+                      const [rawTitle, ...rest] = text.split(' : ');
+                      const title = rawTitle.replace(/ [—–] /g, ': ');
                       return (
                         <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
                           <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
@@ -1164,7 +1175,7 @@ function DynamicsSolutionDetail({ sol }) {
               {sol.benefits?.length > 0 && (
                 <div className="bg-white rounded-2xl border border-gray-100 p-6">
                   <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                    <Award className="w-4 h-4 text-blue-500" /> Bénéfices métier <span className="text-gray-300 font-normal ml-1">({sol.benefits.length})</span>
+                    <Award className="w-4 h-4 text-blue-500" /> {tr.businessBenefits} <span className="text-gray-300 font-normal ml-1">({sol.benefits.length})</span>
                   </p>
                   <ul className="space-y-2">
                     {sol.benefits.map((b, i) => (
@@ -1222,7 +1233,7 @@ function DynamicsSolutionDetail({ sol }) {
             {sol.useCases?.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                  <Building2 className="w-4 h-4 text-purple-500" /> Cas d'usage détaillés
+                  <Building2 className="w-4 h-4 text-purple-500" /> {tr.detailedUseCases}
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {sol.useCases.map((u, i) => {
@@ -1252,7 +1263,7 @@ function DynamicsSolutionDetail({ sol }) {
             {scenarios && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                  <Layers className="w-4 h-4 text-indigo-500" /> 3 Scénarios de modernisation Supply Chain
+                  <Layers className="w-4 h-4 text-indigo-500" /> {tr.scmScenarios}
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {Object.values(scenarios).map((sc, i) => {
@@ -1309,13 +1320,13 @@ function DynamicsSolutionDetail({ sol }) {
             {sol.pricingTiers?.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                  <DollarSign className="w-4 h-4 text-emerald-500" /> Plans tarifaires
+                  <DollarSign className="w-4 h-4 text-emerald-500" /> {tr.pricingPlans}
                 </p>
                 <div className={`grid gap-4 ${sol.pricingTiers.length <= 2 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-3'}`}>
                   {sol.pricingTiers.map((tier, i) => (
                     <div key={i} className="border-2 border-emerald-100 rounded-xl p-5 bg-emerald-50/40">
                       <p className="font-bold text-gray-900 mb-1">{tier.tier}</p>
-                      {tier.price && <p className="text-2xl font-black text-emerald-700 mb-2">{tier.price}{tier.perUser && <span className="text-xs font-normal text-gray-500"> /user/mois</span>}</p>}
+                      {tier.price && <p className="text-2xl font-black text-emerald-700 mb-2">{tier.price}{tier.perUser && <span className="text-xs font-normal text-gray-500"> {tr.perUserMonth}</span>}</p>}
                       {tier.description && <p className="text-xs text-gray-600 leading-relaxed">{tier.description}</p>}
                       {tier.includedApps && Array.isArray(tier.includedApps) && (
                         <div className="mt-3 flex flex-wrap gap-1">
@@ -1332,7 +1343,7 @@ function DynamicsSolutionDetail({ sol }) {
               {sol.targetPersonas?.length > 0 && (
                 <div className="bg-white rounded-2xl border border-gray-100 p-6">
                   <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                    <Users className="w-4 h-4 text-blue-500" /> Personas cibles <span className="text-gray-300 font-normal ml-1">({sol.targetPersonas.length})</span>
+                    <Users className="w-4 h-4 text-blue-500" /> {tr.targetPersonas} <span className="text-gray-300 font-normal ml-1">({sol.targetPersonas.length})</span>
                   </p>
                   <div className="flex flex-wrap gap-1.5">
                     {sol.targetPersonas.map((p, i) => <span key={i} className="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-full border border-blue-100">{p}</span>)}
@@ -1342,7 +1353,7 @@ function DynamicsSolutionDetail({ sol }) {
               {sol.targetIndustries?.length > 0 && (
                 <div className="bg-white rounded-2xl border border-gray-100 p-6">
                   <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                    <Globe className="w-4 h-4 text-teal-500" /> Industries cibles <span className="text-gray-300 font-normal ml-1">({sol.targetIndustries.length})</span>
+                    <Globe className="w-4 h-4 text-teal-500" /> {tr.targetIndustries} <span className="text-gray-300 font-normal ml-1">({sol.targetIndustries.length})</span>
                   </p>
                   <div className="flex flex-wrap gap-1.5">
                     {sol.targetIndustries.map((ind, i) => <span key={i} className="px-2.5 py-1 bg-teal-50 text-teal-700 text-xs rounded-full border border-teal-100">{ind}</span>)}
@@ -1359,7 +1370,7 @@ function DynamicsSolutionDetail({ sol }) {
             {integrations.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                  <Network className="w-4 h-4 text-cyan-500" /> Intégrations <span className="text-gray-300 font-normal ml-1">({integrations.length})</span>
+                  <Network className="w-4 h-4 text-cyan-500" /> {tr.integrationsLabel} <span className="text-gray-300 font-normal ml-1">({integrations.length})</span>
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {integrations.map((int, i) => (
@@ -1373,7 +1384,7 @@ function DynamicsSolutionDetail({ sol }) {
             {e2e.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                  <ChevronRight className="w-4 h-4 text-teal-500" /> Processus End-to-End couverts
+                  <ChevronRight className="w-4 h-4 text-teal-500" /> {tr.e2eProcesses}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {e2e.map((proc, i) => (
@@ -1387,7 +1398,7 @@ function DynamicsSolutionDetail({ sol }) {
             {compliance.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                  <Shield className="w-4 h-4 text-green-600" /> Conformité & certifications <span className="text-gray-300 font-normal ml-1">({compliance.length})</span>
+                  <Shield className="w-4 h-4 text-green-600" /> {tr.complianceCertsLabel} <span className="text-gray-300 font-normal ml-1">({compliance.length})</span>
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {compliance.map((cert, i) => (
@@ -1405,7 +1416,7 @@ function DynamicsSolutionDetail({ sol }) {
             {competitors.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                  <Shield className="w-4 h-4 text-red-500" /> Comparatif concurrentiel
+                  <Shield className="w-4 h-4 text-red-500" /> {tr.competitiveComparison}
                 </p>
                 <div className="space-y-3">
                   {competitors.map((comp, i) => (
@@ -1413,12 +1424,12 @@ function DynamicsSolutionDetail({ sol }) {
                       <p className="font-bold text-gray-900 text-sm mb-3">vs {comp.competitor}</p>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                         <div className="bg-green-50 border border-green-100 rounded-lg p-3">
-                          <p className="text-xs font-semibold text-green-700 mb-1.5">✅ Nos avantages</p>
+                          <p className="text-xs font-semibold text-green-700 mb-1.5">✅ {tr.ourAdvantages}</p>
                           <p className="text-xs text-gray-700 leading-relaxed">{comp.ourAdvantage}</p>
                         </div>
                         {comp.weaknesses && (
                           <div className="bg-red-50 border border-red-100 rounded-lg p-3">
-                            <p className="text-xs font-semibold text-red-700 mb-1.5">⚠️ Points de vigilance</p>
+                            <p className="text-xs font-semibold text-red-700 mb-1.5">⚠️ {tr.watchPoints}</p>
                             <p className="text-xs text-gray-700 leading-relaxed">{comp.weaknesses}</p>
                           </div>
                         )}
@@ -1431,16 +1442,16 @@ function DynamicsSolutionDetail({ sol }) {
             {Object.keys(market).length > 0 && (
               <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 text-white">
                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                  <Award className="w-4 h-4" /> Position marché & reconnaissance analyste
+                  <Award className="w-4 h-4" /> {tr.marketPositionLabel}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {[
                     market.forresterTEI      && { l:'Forrester TEI',       i:'📈', v: market.forresterTEI },
-                    market.customerROI       && { l:'ROI Clients',         i:'💰', v: market.customerROI },
-                    market.globalCustomers   && { l:'Clients globaux',     i:'🌍', v: market.globalCustomers },
+                    market.customerROI       && { l: tr.clientROI,          i:'💰', v: market.customerROI },
+                    market.globalCustomers   && { l: tr.globalCustomers,   i:'🌍', v: market.globalCustomers },
                     market.fortuneShare      && { l:'Fortune 500',         i:'🏆', v: market.fortuneShare },
                     market.analystRecognition&& { l:'Analyste',            i:'⭐', v: Array.isArray(market.analystRecognition) ? market.analystRecognition.join(' · ') : market.analystRecognition },
-                    market.heritage          && { l:'Héritage',            i:'📅', v: market.heritage },
+                    market.heritage          && { l: tr.heritageLabel,     i:'📅', v: market.heritage },
                     market.rapidDeployment   && { l:'Rapid Deployment',    i:'🚀', v: market.rapidDeployment },
                   ].filter(Boolean).map((item, idx) => (
                     <div key={idx} className="bg-white/10 rounded-xl p-3">
@@ -1470,7 +1481,7 @@ function DynamicsSolutionDetail({ sol }) {
                 </div>
                 {salesCtx.nextSteps && (
                   <div className="mt-4 pt-4 border-t border-white/20">
-                    <p className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-2">Prochaines étapes commerciales</p>
+                    <p className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-2">{tr.nextSalesSteps}</p>
                     <div className="flex flex-wrap gap-2">
                       {salesCtx.nextSteps.map((step, i) => (
                         <span key={i} className="px-3 py-1.5 bg-white/15 rounded-xl text-xs text-white">{step}</span>
