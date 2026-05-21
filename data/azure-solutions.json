@@ -591,7 +591,7 @@
   {
     "id": "cmpck8vv20000vquueqso1mk1",
     "createdAt": "2026-05-19T11:39:29.486Z",
-    "updatedAt": "2026-05-19T19:22:29.375Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "dynamics-365-customer-voice",
     "officialName": "Dynamics 365 Customer Voice",
     "category": "business",
@@ -626,12 +626,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Survey Builder: Drag-and-drop builder with branching, scoring, multilingual support\", \"Automated Triggers: Send surveys after case closure, purchase, event completion\", \"CSAT/NPS/CES: Standard metrics with AI sentiment analysis\", \"Real-time Analytics: Dashboards tracking satisfaction over time by segment\", \"D365 Integration: Satisfaction scores embedded directly in CRM records\", \"Power Automate Workflows: Automatic alerts on negative responses\"]",
+    "benefitsEn": "[\"Continuous satisfaction measurement without manual effort\", \"Negative responses actioned automatically via alerts and workflows\", \"360° customer view: survey data integrated in CRM alongside transaction history\", \"Compliance: GDPR-compliant consent and data management\"]",
+    "estimatedCostEn": "Included with D365 Customer Service / Sales (2,000 responses/month included)",
+    "implementationTimeEn": "1–2 weeks",
+    "idealCustomerSizeEn": "Any size — B2B and B2C"
   },
   {
     "id": "cmpck8vvv0001vquump333v32",
     "createdAt": "2026-05-19T11:39:29.515Z",
-    "updatedAt": "2026-05-19T19:22:29.408Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "dynamics-365-guides",
     "officialName": "Dynamics 365 Guides",
     "category": "business",
@@ -666,12 +671,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Step-by-step Holographic Guides: Hands-free work instructions on HoloLens 2\", \"PC/Tablet Authoring: Create guides without 3D skills using the Guides PC app\", \"Power Apps + Teams: Guides accessible from tablet, smartphone or Teams\", \"Analytics: Step completion time, error rate, process time per operator\", \"Dynamics 365 Integration: Guides triggered directly from work orders (Field Service, Supply Chain)\", \"IoT & Azure Digital Twins: Context-aware instructions based on real machine state\"]",
+    "benefitsEn": "[\"Onboarding time reduced 30–50% for new technicians\", \"Error rate reduced via visual hands-free step-by-step instructions\", \"No paper manuals: guides always up to date, real-time versioning\", \"Productivity improved: operators keep hands free while consulting instructions\", \"Expertise captured and transferred: institutional knowledge encoded in guides\"]",
+    "estimatedCostEn": "From $65/user/month",
+    "implementationTimeEn": "4–8 weeks",
+    "idealCustomerSizeEn": "Industrial manufacturers, field service, logistics with complex processes"
   },
   {
     "id": "cmpck8vwp0002vquuq6z1u6yy",
     "createdAt": "2026-05-19T11:39:29.545Z",
-    "updatedAt": "2026-05-19T19:22:29.428Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "dynamics-365-remote-assist",
     "officialName": "Dynamics 365 Remote Assist",
     "category": "business",
@@ -706,12 +716,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Mixed Reality Collaboration: Expert assists field technician via HoloLens 2 + Teams\", \"Holographic Annotations: Draw, point, insert 3D models in the technician's field of view\", \"One-time Call (OTC): Customer support without a D365 Remote Assist license required\", \"File Sharing: Share schematics, manuals, technical photos during the call\", \"Work Order Integration: Direct link to D365 Field Service for incident tracking\", \"Asset Capture: Photo, video, spatial data capture during remote intervention\"]",
+    "benefitsEn": "[\"Expert travel costs reduced up to 70%: remote first-time resolution\", \"First-time fix rate improved: right expert available regardless of location\", \"Equipment downtime reduced via accelerated remote diagnosis\", \"Knowledge transfer: train field technicians remotely without travel\", \"Native Teams integration: no new tool required for experts\"]",
+    "estimatedCostEn": "From $65/user/month",
+    "implementationTimeEn": "1–4 weeks",
+    "idealCustomerSizeEn": "Industrial manufacturers, field service, complex technical support"
   },
   {
     "id": "cmpck8w580001vqvkbwttjhqz",
     "createdAt": "2026-05-19T11:39:29.852Z",
-    "updatedAt": "2026-05-19T19:22:29.416Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "dynamics-365-marketing",
     "officialName": "Dynamics 365 Marketing",
     "category": "business",
@@ -746,12 +761,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Customer Journey Orchestration: Trigger-based cross-channel journeys (email, SMS, push, events)\", \"AI Segmentation: Dynamic behavioral segments updated in real time\", \"Lead Scoring: Automatic qualification and routing to D365 Sales\", \"Event Management: Physical/virtual/hybrid event portal, registration, reminders, post-event ROI\", \"Copilot for Marketing: AI email content generation, journey creation from natural language\", \"LinkedIn Integration: Matched audiences, LinkedIn Lead Gen synced with D365\", \"A/B Testing: Content, subject lines, send-times with automatic winner selection\", \"GDPR Consent: Double opt-in, consent center, suppression lists, compliance by design\", \"Marketing Analytics: Campaign ROI, pipeline influenced, engagement funnel in Power BI\"]",
+    "benefitsEn": "[\"Higher quality leads transferred to sales via automated scoring and qualification\", \"Marketing ROI measurable via pipeline influenced reporting\", \"Seamless sales-marketing alignment: shared lead journey in one platform\", \"GDPR/CCPA compliant out of the box\", \"Faster campaign delivery via AI content generation (Copilot)\"]",
+    "estimatedCostEn": "Included in D365 Customer Insights (from $1,700/tenant/month)",
+    "implementationTimeEn": "6–12 weeks",
+    "idealCustomerSizeEn": "SMB to Enterprise with omnichannel marketing"
   },
   {
     "id": "cmpckzx97000mvqceylxo16b6",
     "createdAt": "2026-05-19T12:00:31.003Z",
-    "updatedAt": "2026-05-19T19:22:38.081Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "microsoft-365-copilot",
     "officialName": "Microsoft 365 Copilot",
     "category": "business",
@@ -786,12 +806,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Copilot in Word: Document drafting, rewriting, summarization, tone adjustment\", \"Copilot in Excel: Data analysis, formula suggestions, trend visualization, pivot generation\", \"Copilot in PowerPoint: Presentation creation from Word/PDF, design suggestions, speaker notes\", \"Copilot in Outlook: Email summarization, draft response generation, thread catch-up\", \"Copilot in Teams: Meeting summaries, action points, real-time translation, Copilot Chat\", \"Copilot in OneNote: Note organization, structured summaries, action extraction\", \"Microsoft 365 Copilot Chat: Enterprise ChatGPT grounded in your organizational data\", \"Copilot Pages: Persistent collaborative AI workspace within Teams\", \"Copilot Studio: Build custom agents without code (HR bot, procurement bot, etc.)\", \"Copilot Analytics: Adoption measurement and ROI tracking via Microsoft Viva Insights\", \"Copilot Control System (CCS): IT governance, data security, audit logs via Purview\", \"Agents: Autonomous task chains across Microsoft 365 (SharePoint, email, calendars)\"]",
+    "benefitsEn": "[\"2–3 hours saved per user per week on summarization and content drafting tasks\", \"Meeting productivity: instant summaries and action points without notetaking\", \"Accelerated onboarding: new employees access collective knowledge instantly via Copilot Chat\", \"Security maintained: AI grounded in your data, respecting Microsoft 365 permissions\", \"Measurable ROI via Copilot Analytics dashboard and adoption tracking\", \"Cross-app intelligence: Copilot works across the entire Microsoft 365 ecosystem\"]",
+    "estimatedCostEn": "$30/user/month add-on (on Enterprise E3/E5 or Business Standard/Premium)",
+    "implementationTimeEn": "1–4 weeks (enablement + adoption)",
+    "idealCustomerSizeEn": "All sizes — priority on knowledge workers (Teams/Outlook power users)"
   },
   {
     "id": "cmpckzx9h000nvqcef6w2mxmp",
     "createdAt": "2026-05-19T12:00:31.013Z",
-    "updatedAt": "2026-05-19T19:21:58.362Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "azure-virtual-desktop",
     "officialName": "Azure Virtual Desktop (AVD)",
     "category": "business",
@@ -826,12 +851,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Windows 11 Multi-session: Multiple users share one virtual machine for optimized costs\", \"FSLogix Profiles: User profiles stored in Azure with instant persistence\", \"Microsoft 365 Apps Optimization: Office, Teams, OneDrive natively optimized for AVD\", \"Azure Files / NetApp: Centralized profile and data storage with high performance\", \"Conditional Access + MFA: Zero-trust access policies via Entra ID\", \"Intune MDM: Centralized virtual desktop management without domain controller\", \"Cost Optimization: Autoscale, reserved instances, spot instances\", \"GPU support: High-performance rendering and AI workloads in the cloud\"]",
+    "benefitsEn": "[\"Desktop infrastructure cost reduced 30–50% vs. physical PCs with Autoscale\", \"Remote work productivity maintained: full Windows experience from any device\", \"Security improved: data never leaves Azure, zero data loss on local device compromise\", \"BYOD enabled without security risk: browser or thin client access\", \"Fast deployment of applications to thousands of users without physical installation\"]",
+    "estimatedCostEn": "Infrastructure + $6.20/user/month (Microsoft 365 E3 included)",
+    "implementationTimeEn": "4–8 weeks",
+    "idealCustomerSizeEn": "Any size with remote/hybrid workers or BYOD policy"
   },
   {
     "id": "cmpcsz6280000vq64bmbskaqn",
     "createdAt": "2026-05-19T15:43:52.686Z",
-    "updatedAt": "2026-05-19T19:22:07.689Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "d365-business-central",
     "officialName": "Dynamics 365 Business Central",
     "category": "business",
@@ -866,7 +896,12 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Financial Management: General ledger, AP/AR, bank reconciliation, multi-currency, consolidation\", \"Sales & Order Management: Quotes, orders, invoicing, CRM integration, shipping management\", \"Purchasing & Inventory: POs, receipts, warehouse management, replenishment automation\", \"Project Accounting: Time & expense tracking, WIP, billing, profitability by project\", \"Manufacturing: Production orders, BOM, capacity planning, shop floor management\", \"Service Management: Service contracts, dispatching, resource scheduling\", \"Copilot native: AI summaries, automated product descriptions, predictive late payments\", \"Power BI embedded: 30+ built-in reports for sales, finance and operations\", \"Microsoft 365 integration: Outlook, Teams, Excel — zero rekeying\", \"AppSource ecosystem: 300+ extensions (eCommerce, payroll, sector-specific)\", \"Cloud + On-premise + Hybrid: flexible deployment\", \"Automated workflows: Power Automate built-in for approval, notification and routing processes\"]",
+    "benefitsEn": "[\"All-in-one ERP without module sprawl: one platform for finance, sales, ops and service\", \"Up and running in 1–3 months vs 12–18 months for enterprise ERP\", \"TCO optimized: included in Microsoft 365 licenses, no hidden infrastructure costs\", \"Scales with growth: from 10 to 300 users without re-platforming\", \"Team productivity +40% via Office 365 integration (no double entry)\", \"Real-time visibility: 30+ standard Power BI dashboards out of the box\", \"Fraud reduced via automated 3-way matching and configurable approval workflows\"]",
+    "estimatedCostEn": "From $70/user/month (Essentials) or $100/user/month (Premium)",
+    "implementationTimeEn": "4–12 weeks",
+    "idealCustomerSizeEn": "SMB to Mid-market (10–300 employees)"
   },
   {
     "id": "cmpcsz6310001vq640t69f6qf",
@@ -921,7 +956,7 @@
   {
     "id": "cmpcsz6390002vq64rscc40wf",
     "createdAt": "2026-05-19T15:43:52.726Z",
-    "updatedAt": "2026-05-19T19:22:15.162Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "d365-customer-service",
     "officialName": "Dynamics 365 Customer Service",
     "category": "business",
@@ -956,12 +991,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Case Management: Automatic case creation, routing, SLA management, escalations\", \"Omnichannel: Chat, email, voice, SMS, WhatsApp, social — unified agent interface\", \"Copilot for Service: AI case summaries, draft email responses, knowledge article suggestions\", \"Knowledge Base: AI-powered articles with automatic suggestions and gap detection\", \"Customer Self-Service Portal: Self-service portal with community forums and AI chatbot\", \"AI Virtual Agent: No-code bot for FAQ, ticket creation, status tracking\", \"Predictive CSAT: AI scores customer satisfaction before case closure\", \"Routing & Skills: AI-based skills routing, capacity management, overflow rules\", \"Service Analytics: Power BI dashboards for agents, supervisors and CXO\", \"Microsoft Teams integration: Expert consultation (swarming) and co-browsing\", \"Connected Service: IoT alerts integrated into cases (via D365 Field Service)\", \"Customer Voice surveys: Automatic CSAT/NPS post-interaction\"]",
+    "benefitsEn": "[\"First Contact Resolution (FCR) +15% via AI knowledge suggestions and expert swarming\", \"Average Handle Time (AHT) -25% via Copilot AI email drafts and case summaries\", \"CSAT improved via proactive predictive scoring and intervention before escalation\", \"Agent productivity +40% via unified omnichannel interface and embedded Copilot\", \"Support cost reduced via AI deflection to self-service and virtual agents\", \"360° customer view: full interaction history across all channels in one place\", \"Native integration with D365 Sales and Field Service: seamless service-to-sales handoff\"]",
+    "estimatedCostEn": "From $95/user/month (Professional)",
+    "implementationTimeEn": "6–16 weeks",
+    "idealCustomerSizeEn": "SMB to Enterprise (20–5,000+ agents)"
   },
   {
     "id": "cmpcsz63j0003vq64no4j144z",
     "createdAt": "2026-05-19T15:43:52.735Z",
-    "updatedAt": "2026-05-21T12:00:00.000Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "d365-finance",
     "officialName": "Dynamics 365 Finance",
     "category": "business",
@@ -1001,12 +1041,17 @@
     "customerCases": "[{\"company\": \"Viridor (UK — gestion déchets / environnement)\", \"quote\": \"It feels like we've made a real difference as a whole business and brought the company together as one team. It's a culture change, which is underpinned by Dynamics 365.\", \"results\": [\"30% de réduction de l'effort de reporting\", \"50% de réduction des applications legacy (coûts IT réduits)\", \"25% d'économies sur les coûts opérationnels\", \"400 heures économisées grâce aux processus de clôture automatisés\"], \"module\": \"Finance Modernization\"}, {\"company\": \"Breville | Sage (Consumer Electronics — international)\", \"quote\": \"Breville seized the opportunity to explore new business models and routes to the market.\", \"results\": [\"Déploiement dans un nouveau pays en ~4 mois\", \"Mise à niveau dans un pays existant en 2 mois\", \"Processus business alignés, données standardisées, meilleures pratiques automatisées\"], \"module\": \"Finance Modernization — Optimize business models\"}, {\"company\": \"ClinChoice (Services — Clinical Research)\", \"quote\": \"The biggest savings, which we haven't been able to quantify, is the time saved across the organization after automating so much manual work, reconciliation work, and firefighting work.\", \"results\": [\"Elimination de la réconciliation manuelle\", \"Réduction du 'firefighting' comptable\", \"Visibilité temps réel prospect-to-payment-to-profit\"], \"module\": \"Finance Modernization — Service Operations\"}, {\"company\": \"UKRENERGO (Energy — National Power Company Ukraine)\", \"quote\": \"The enterprise resource planning (ERP) system enables us to concentrate on our work rather than spending hours filling in data on Excel files.\", \"results\": [\"Elimination de la saisie manuelle Excel\", \"Optimisation des ressources humaines\", \"Meilleure rétention des collaborateurs\"], \"module\": \"Finance Modernization — HR Resource Optimization\"}, {\"company\": \"Aftermarket Group (Distribution — Auto parts)\", \"quote\": \"Microsoft had the best approach: flexible, but standard. We could do the first rollout from scratch in 11 months. 90%+ is standard.\", \"results\": [\"Remplacement de 7 systèmes ERP legacy par D365\", \"Premier déploiement complet en 11 mois\", \"Automatisation des processus intercompany, amélioration sécurité et achats\"], \"module\": \"Supply Chain Modernization — New business models\"}, {\"company\": \"Golden State Foods (Foodservice Distribution)\", \"quote\": \"The reality is that our business needs didn't just change—they were disrupted overnight. Fortunately, with Dynamics 365 we have a flexible solution that can adjust and adapt with us.\", \"results\": [\"Tests qualité réduits de plusieurs jours à quelques heures\", \"Maintenance préventive des actifs avec gestion des pièces de rechange\", \"Visibilité cross-sites (cross-plant data visibility)\"], \"module\": \"Supply Chain Modernization — Manufacturing uptime\"}, {\"company\": \"GN (Audio Technology)\", \"results\": [\"50% d'amélioration de la qualité des données\"], \"module\": \"Supply Chain Modernization\"}, {\"company\": \"Brown-Forman (Spirits — Jack Daniel's, Woodford Reserve)\", \"results\": [\"3 300 heures collaborateur économisées sur les 7 premiers mois\"], \"module\": \"Supply Chain Modernization\"}, {\"company\": \"Northern Tool + Equipment (Retail)\", \"results\": [\"72% de réduction du délai de livraison\"], \"module\": \"Supply Chain Modernization\"}, {\"company\": \"Northrop Johnson (Marine)\", \"results\": [\"20% de réduction du nombre de jours de stockage des inventaires\"], \"module\": \"Supply Chain Modernization\"}]",
     "e2eProcesses": "[\"Record to Report (R2R) — comptabilité générale, clôture, reporting\", \"Procure to Pay (P2P) — achats, réception, paiement fournisseurs\", \"Acquire to Retire (A2R) — actifs immobilisés, leasing, amortissement\", \"Quote to Cash (Q2C) — devis, commande, facturation, encaissement\", \"Plan to Produce (P2P) — planification, production, supply chain\", \"Hire to Retire (H2R) — RH, paie, gestion des talents\"]",
     "salesContext": "{\"whyNow\": [\"71% des entreprises ont une agilité faible (Business Agility Institute, 2022)\", \"85% des décideurs voient l'agilité comme différenciateur concurrentiel\", \"95% des dirigeants doivent innover leurs modèles métiers face aux évolutions marché\", \"90% voient l'automatisation des tâches répétitives comme clé de l'agilité\", \"64% des collaborateurs manquent de temps ou d'énergie pour leur travail (Microsoft Work Trend Index, 2023)\", \"3,5x plus de difficultés à innover sans ERP moderne (Microsoft Work Trend Index, 2023)\"], \"salesMotion\": \"Optimize Finance and Supply Chain\", \"targetAudience\": \"CFO (Finance), COO (Supply Chain & Operations), CIO (IT / Digital Transformation)\", \"aimProgram\": {\"name\": \"AIM — Accelerate, Innovate, Move\", \"description\": \"Programme Microsoft pour accélérer la migration cloud ERP\", \"steps\": [\"Accelerate : AIM Assessment — évaluer la préparation et planifier l'adoption IA\", \"Innovate : Expert implementation guidance — accès aux services et guides d'implémentation\", \"Move : Investment offers — offres d'investissement pour faciliter la transition\"], \"link\": \"aka.ms/D365AIM\"}, \"nextSteps\": [\"Envisioning Workshop — atelier de définition des priorités\", \"Business Value Assessment — quantification du ROI et bénéfices financiers\", \"Self-guided tour + démo scénario IA\"]}",
-    "frameworkAGILE": "{\"A\": {\"label\": \"Adaptive\", \"description\": \"Composabilité via Microsoft Cloud — s'adapte à l'évolution des besoins\"}, \"G\": {\"label\": \"Global\", \"description\": \"Disponible dans plus de 180 pays avec localisation fiscale et réglementaire\"}, \"I\": {\"label\": \"Insightful\", \"description\": \"Insights contextuels dans le flux de travail — décisions proactives\"}, \"L\": {\"label\": \"Leading\", \"description\": \"Sécurité et IA de pointe — Azure OpenAI, Copilot, Microsoft Security\"}, \"E\": {\"label\": \"Empowering\", \"description\": \"Interopérabilité native avec Microsoft 365 (Teams, Excel, Outlook, Word)\"}}"
+    "frameworkAGILE": "{\"A\": {\"label\": \"Adaptive\", \"description\": \"Composabilité via Microsoft Cloud — s'adapte à l'évolution des besoins\"}, \"G\": {\"label\": \"Global\", \"description\": \"Disponible dans plus de 180 pays avec localisation fiscale et réglementaire\"}, \"I\": {\"label\": \"Insightful\", \"description\": \"Insights contextuels dans le flux de travail — décisions proactives\"}, \"L\": {\"label\": \"Leading\", \"description\": \"Sécurité et IA de pointe — Azure OpenAI, Copilot, Microsoft Security\"}, \"E\": {\"label\": \"Empowering\", \"description\": \"Interopérabilité native avec Microsoft 365 (Teams, Excel, Outlook, Word)\"}}",
+    "keyFeaturesEn": "[\"General Ledger: Flexible chart of accounts, financial dimensions (CC, projects, departments), multi-entity consolidation\", \"AP: Accounts Payable — AI Invoice Capture (OCR), 3-way matching, payment automation, Positive Pay anti-fraud\", \"AR: Accounts Receivable — free-form invoicing, recurring subscriptions, automated collections, SEPA direct debit\", \"Subscription Billing: SaaS/subscription invoicing, revenue deferral, IFRS 15 and ASC 606 compliance\", \"Treasury: AI (ML) cash flow forecasting, advanced bank reconciliation, client/supplier netting\", \"Budgeting: Collaborative planning, real-time budget control, HR forecasting position\", \"Fixed Assets: Full acquisition → depreciation → disposal cycle, multiple depreciation methods\", \"Asset Leasing: IFRS 16 and US GAAP ASC 842 compliance, ROU asset, automatic amortization\", \"Cost Accounting: Independent analytical ledger, overhead allocation, cost centers\", \"Finance Insights: ML payment prediction, AI cash flow forecasting, automatic budget proposals\", \"Account Reconciliation Agent AI (v10.0.44): Exception management and recommended actions\", \"Copilot for Finance: AI summaries, reduced manual entry, CFO recommendations (separate license)\", \"Globalization: Tax Calculation Service (170+ countries), configurable e-invoicing, RCS (Regulatory Configuration Service)\", \"Financial Reporting: 22 standard reports (P&L, Balance Sheet, Cash Flow, Budget vs Actual), Report Designer\", \"Integrated Power BI: Cash Overview, Subscription Billing, Cost Accounting mobile workspace\", \"Export to Azure Data Lake + Business Performance Analytics (BPA)\", \"Public Sector: Fund accounting, preliminary budgets, encumbrances, appropriations\", \"Multi-currency, multi-company consolidation, automatic intercompany accounting\"]",
+    "benefitsEn": "[\"Month-end close 2–3x faster via AP/AR automation and AI reconciliation\", \"Accurate cash flow forecasting: Finance Insights ML reduces variances and predicts late payments\", \"Out-of-the-box international compliance: IFRS 16, ASC 842, IFRS 15, ASC 606, 170+ countries\", \"Reduced vendor fraud: AI Invoice Capture + 3-way matching + Positive Pay\", \"DSO reduced by 8 days on average via automated collections and ML payment prediction\", \"Real-time visibility on global financial performance: CEO/CFO/Controller workspaces\", \"Instant CFO reporting: 22 standard reports + embedded Power BI with zero development\", \"Automated lease compliance: IFRS 16/ASC 842 without Excel spreadsheets: ROU asset + auto amortization\", \"Continuous regulatory updates (monthly versioning): zero compliance delays\", \"Native integration with D365 SCM / Project Operations / Commerce: zero interfaces to develop\", \"122% ROI over 3 years (Forrester TEI study, Microsoft D365, July 2022)\", \"55% increase in finance team productivity (Forrester TEI)\", \"$3.5M savings from legacy system consolidation (Forrester TEI)\", \"Finance team productivity +55%: autonomous financial processes\", \"400 hours saved through automated close processes (Viridor)\"]",
+    "estimatedCostEn": "From $180/user/month — implementation 12–24 weeks via partner",
+    "implementationTimeEn": "12–24 weeks (mid-market standard) — 6–12 months (large multi-entity enterprise)",
+    "idealCustomerSizeEn": "Mid-market to Enterprise (250+ employees, >€50M revenue)"
   },
   {
     "id": "cmpcsz63q0004vq64zlyfbf2l",
     "createdAt": "2026-05-19T15:43:52.743Z",
-    "updatedAt": "2026-05-21T16:00:00.000Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "d365-supply-chain",
     "officialName": "Dynamics 365 Supply Chain Management",
     "category": "business",
@@ -1048,12 +1093,17 @@
     "marketPosition": "{\"forresterTEI\": \"122% ROI sur 3 ans, $3,5M savings, 50% throughput warehouse, 35% réduction stocks (Forrester TEI July 2022)\", \"globalCustomers\": \"500 000 organisations utilisent D365 et Power Platform chaque mois\", \"fortuneShare\": \"97% des entreprises Fortune 500 utilisent Dynamics 365 ou Power Platform\", \"countriesSupported\": \"Plus de 180 pays avec localisation\", \"analystRecognition\": \"Forrester Wave Leader, Gartner Magic Quadrant Leader (ERP)\", \"heritage\": \"30 ans d'expertise CRM et ERP Microsoft\", \"customerROI\": \"$1,5M d'économies sur arrêts non planifiés (Alterra Mountain Company) · 83% réutilisation pièces critiques (BPW Aftermarket Group) · 50% amélioration débit entrepôt (Tillamook) · 80% réduction traitement documents sources (Columbia)\", \"rapidDeployment\": \"Rapid Deployment Package : data packages préconfigurés + training libraries + test plans + ISV apps + business processes — accélère le go-live et réduit le risque projet\"}",
     "frameworkAGILE": "{\"A\": {\"label\": \"Adaptive\", \"description\": \"Composabilité via Microsoft Cloud — Mixed Mode Manufacturing, modules indépendants\"}, \"G\": {\"label\": \"Global\", \"description\": \"180+ pays, localisation fiscale, Landed Cost pour l'import international\"}, \"I\": {\"label\": \"Insightful\", \"description\": \"Inventory Visibility temps réel, Planning Optimization, Demand Planning IA, Power BI\"}, \"L\": {\"label\": \"Leading\", \"description\": \"Copilot Procurement Agent, DDMRP, Sensor Data Intelligence IoT, Azure ML\"}, \"E\": {\"label\": \"Empowering\", \"description\": \"Intégration native M365 (Teams, Excel), WMS/Asset Management mobile apps, Shop floor UI tactile\"}}",
     "demandPlanningDetail": "{\"positioning\": \"D365 SCM Premium — application séparée sur Dataverse, licence additionnelle (min. 10 seats)\", \"businessObjectives\": [\"Right-size inventory levels — ni trop ni pas assez de stock\", \"Increase customer satisfaction — livraisons précises, 0 rupture\", \"Improve business decision making — prévisions IA vs intuition\"], \"commonChallengesSolved\": [\"Data quality & availability — accès aux données historiques et temps réel\", \"Collaboration & communication — planification en silos inter-départements\", \"Forecast accuracy — difficulté à prédire la demande future\", \"Promotion & seasonality — impact des promotions et saisonnalité\", \"Complex product portfolios — gammes larges avec tendances différentes\", \"Demand variability — variations soudaines de la demande clients\", \"New product introductions — prévision pour les nouveaux produits (phase-in-phase-out)\", \"Supply chain disruptions — catastrophes naturelles, instabilité politique\"], \"sixCapabilities\": {\"1_interactiveStatisticalForecasting\": {\"label\": \"Prévision statistique interactive\", \"features\": [\"Création de multiples profils de prévisions (scénarios)\", \"Sélection manuelle ou automatique du meilleur algorithme (best-fit)\", \"Détection et suppression automatique des valeurs aberrantes (outliers IQR)\", \"Intégration de la saisonnalité\", \"Prévision des nouveaux produits avec feature phase-in/phase-out\"]}, \"2_segmentationAnalysis\": {\"label\": \"Analyse de segmentation\", \"features\": [\"Slice & dice des prévisions par produits, canaux, régions, clients\", \"Agrégation/désagrégation temps réel — modifications à tout niveau\", \"Contrôle des accès par segment (row-level security)\"]}, \"3_collaborativePlanning\": {\"label\": \"Planification collaborative\", \"features\": [\"Suivi des modifications dans le temps (version history complète)\", \"Logs d'audit de toutes les actions (conformité et responsabilité)\", \"Expérience Teams intégrée — collaboration sans quitter le navigateur\", \"Commentaires au niveau cellule et plan\", \"Revue versions précédentes — qui a changé quoi\"]}, \"4_dataIntegrationTransformation\": {\"label\": \"Intégration et transformation de données\", \"features\": [\"Connecteurs Power Query : Excel, Azure Data Lake, CSV, ERP tiers\", \"Cycle demand + supply planning entièrement connecté dans D365 SCM\", \"Consolidation et transformation avec workflows user-friendly\", \"Architecture Dataverse — connecte n'importe quel système du réseau\"]}, \"5_insightsAnalytics\": {\"label\": \"Insights et analytics\", \"features\": [\"Copilot intégré pour comprendre les insights clés des données\", \"Worksheets interactives — interprétation visuelle des résultats\", \"Création/personnalisation dynamique de vues et worksheets\", \"Formatage conditionnel pour mettre en évidence les zones critiques\", \"Calculs sur la prévision : revenue forecast, croissance YoY%\"]}, \"6_scalabilityComposabilityExtensibility\": {\"label\": \"Scalabilité, composabilité, extensibilité\", \"features\": [\"Performance requêtes rapide sur grands volumes de données\", \"Connexion à tout système du réseau (platform composable)\", \"Extension tables et colonnes sans code (no-code)\", \"Modèles Azure Machine Learning custom pour étendre les capacités IA\"]}}, \"planningCycle\": {\"demandPlanning\": [\"1. Input : demande historique, prévisions passées, données master (produits, sites, hiérarchies)\", \"2. Data preprocessing : signaux ajustés (nettoyage, outliers, transformations)\", \"3. Forecast generation : prévision baseline IA\", \"4. Adjust, validate & aggregate : plan de demande ajusté collaborativement\", \"5. Consensus review, approve & publish : plan consensus → output comme modèle prévision pour MRP\"], \"planningOptimization\": [\"1. Planning input : besoins nets\", \"2. Planning calculator : Master Planning (MRP)\", \"3. Planning output : ordres planifiés\", \"4. Execution supply : ordres d'approvisionnement confirmés\", \"5. Execution demand : satisfaction des ordres de demande\"]}, \"architecture\": {\"platform\": \"Microsoft Dataverse\", \"inputSources\": [\"Excel\", \"Azure Data Lake(s)\", \"CSV Files\", \"3rd Party ERP/Systems\"], \"nativeConnection\": \"Dynamics 365 Supply Chain Management (import/export natif bidirectionnel)\", \"dataFlow\": \"Import DATA → Demand Planning (Dataverse) ↔ DATA INTEGRATION ↔ D365 SCM\"}, \"roadmap\": {\"oct2023\": \"Public Preview — forecast generation, collaboration, review/publish, data import/transform/export\", \"apr2024\": \"General Availability — row-level security, task automation, Copilot, product phase-in-phase-out\", \"wave2_2024\": \"Wave 2 annoncé juillet 2024\", \"releaseCADENCE\": \"Mensuel\"}, \"itBenefits\": [\"Réduction du besoin de développement custom — framework low-code forecasting et extensibilité\", \"Simplification IT : intégrations natives Microsoft (D365, Azure Data Lake, Excel)\", \"Elimination des silos de données — connexion de tout système à Demand Planning\", \"Réduction du nombre de systèmes IT — approche best-of-suite\", \"Fiabilité et performance de la plateforme Microsoft\"], \"premiumVsStandard\": {\"standard\": {\"demandPlanning\": \"Lecture seule + commentaires cellules\", \"price\": \"$180/user/mois\"}, \"premium\": {\"demandPlanning\": \"Accès complet : créer, éditer, analyser, publier\", \"aiML\": \"Capacités IA/ML supérieures\", \"storage\": \"Capacité et stockage plus élevés\", \"minSeats\": 10, \"price\": \"$300/user/mois\"}}}",
-    "modernizationScenarios": "{\"scenario1\": {\"name\": \"Ensure Manufacturing Uptime\", \"audience\": [\"VP Engineering\", \"VP Manufacturing\", \"Plant Manager\", \"Asset Manager\", \"COO\"], \"businessChallenge\": \"Arrêts non planifiés coûteux, maintenance réactive inefficace, actifs vieillissants non connectés, techniciens experts rares et dispersés géographiquement\", \"solutions\": [\"Asset Management (plans maintenance préventive/prédictive, work orders mobiles)\", \"Sensor Data Intelligence IoT (signaux machine → prédiction panne)\", \"Remote Assist (guidage HoloLens 2 / Teams — expert distant + technicien terrain)\", \"Guides (instructions de travail holographiques step-by-step)\"], \"customerExample\": \"Alterra Mountain Company — $1,5M économisés sur arrêts non planifiés\", \"keyMetric\": \"$1,5M savings/an pannes évitées\"}, \"scenario2\": {\"name\": \"Aftermarket Sales & Service Operations\", \"audience\": [\"VP Procurement / CPO\", \"VP Distribution\", \"CSCO\", \"Supply Chain Director\"], \"businessChallenge\": \"Gestion complexe des pièces de rechange, retours coûteux, reverse logistics non optimisée, prolifération des références aftermarket difficile à gérer\", \"solutions\": [\"Advanced Quality Management (traçabilité lot/série, reconditionnement)\", \"Engineering Change Management (cycle de vie pièces, BOM versioning)\", \"Copilot Procurement Agent (achats pièces de rechange automatisés)\", \"Production Control (ordres de reconditionnement / refabrication)\"], \"customerExample\": \"BPW Aftermarket Group — 83% d'augmentation de la réutilisation des pièces critiques\", \"keyMetric\": \"83% critical parts reuse\"}, \"scenario3\": {\"name\": \"Omni-channel Agility\", \"audience\": [\"COO\", \"VP Logistics\", \"VP Transportation\", \"VP Distribution\", \"Supply Chain Director\"], \"businessChallenge\": \"Silos online/magasin/3PL, délais de livraison longs, visibilité stock fragmentée sur les canaux, incapacité à promettre des dates de livraison fiables\", \"solutions\": [\"Inventory Visibility Service (stock temps réel tous canaux, soft reservation anti-survente)\", \"Intelligent Order Management (routage commandes multi-sources dynamique)\", \"WMS multi-sites (fulfilment warehouse centralisé + decentralisé)\", \"TMS (optimisation transport entrant/sortant, rate shopping FedEx/UPS)\", \"Demand Planning IA (prévisions collaboratives no-code)\"], \"customerExamples\": [\"Columbia — 80% réduction traitement documents sources | Warehouse in a Box\", \"Northern Tool + Equipment — 72% réduction du délai de livraison\", \"Manor (Suisse) — orchestration disponibilité produit online + POS + Click & Collect\"], \"keyMetric\": \"72% delivery time reduction\"}}"
+    "modernizationScenarios": "{\"scenario1\": {\"name\": \"Ensure Manufacturing Uptime\", \"audience\": [\"VP Engineering\", \"VP Manufacturing\", \"Plant Manager\", \"Asset Manager\", \"COO\"], \"businessChallenge\": \"Arrêts non planifiés coûteux, maintenance réactive inefficace, actifs vieillissants non connectés, techniciens experts rares et dispersés géographiquement\", \"solutions\": [\"Asset Management (plans maintenance préventive/prédictive, work orders mobiles)\", \"Sensor Data Intelligence IoT (signaux machine → prédiction panne)\", \"Remote Assist (guidage HoloLens 2 / Teams — expert distant + technicien terrain)\", \"Guides (instructions de travail holographiques step-by-step)\"], \"customerExample\": \"Alterra Mountain Company — $1,5M économisés sur arrêts non planifiés\", \"keyMetric\": \"$1,5M savings/an pannes évitées\"}, \"scenario2\": {\"name\": \"Aftermarket Sales & Service Operations\", \"audience\": [\"VP Procurement / CPO\", \"VP Distribution\", \"CSCO\", \"Supply Chain Director\"], \"businessChallenge\": \"Gestion complexe des pièces de rechange, retours coûteux, reverse logistics non optimisée, prolifération des références aftermarket difficile à gérer\", \"solutions\": [\"Advanced Quality Management (traçabilité lot/série, reconditionnement)\", \"Engineering Change Management (cycle de vie pièces, BOM versioning)\", \"Copilot Procurement Agent (achats pièces de rechange automatisés)\", \"Production Control (ordres de reconditionnement / refabrication)\"], \"customerExample\": \"BPW Aftermarket Group — 83% d'augmentation de la réutilisation des pièces critiques\", \"keyMetric\": \"83% critical parts reuse\"}, \"scenario3\": {\"name\": \"Omni-channel Agility\", \"audience\": [\"COO\", \"VP Logistics\", \"VP Transportation\", \"VP Distribution\", \"Supply Chain Director\"], \"businessChallenge\": \"Silos online/magasin/3PL, délais de livraison longs, visibilité stock fragmentée sur les canaux, incapacité à promettre des dates de livraison fiables\", \"solutions\": [\"Inventory Visibility Service (stock temps réel tous canaux, soft reservation anti-survente)\", \"Intelligent Order Management (routage commandes multi-sources dynamique)\", \"WMS multi-sites (fulfilment warehouse centralisé + decentralisé)\", \"TMS (optimisation transport entrant/sortant, rate shopping FedEx/UPS)\", \"Demand Planning IA (prévisions collaboratives no-code)\"], \"customerExamples\": [\"Columbia — 80% réduction traitement documents sources | Warehouse in a Box\", \"Northern Tool + Equipment — 72% réduction du délai de livraison\", \"Manor (Suisse) — orchestration disponibilité produit online + POS + Click & Collect\"], \"keyMetric\": \"72% delivery time reduction\"}}",
+    "keyFeaturesEn": "[\"Demand Planning & Forecasting: AI/ML demand sensing, inter-company planning, scenario modeling\", \"Procurement & Sourcing: RFQ, vendor management, contract management, procurement analytics\", \"Inventory Management: Real-time stock visibility, FIFO/FEFO/batch, quality control, consignment\", \"Warehouse Management (WMS): Wave/batch picking, slotting optimization, mobile workers, cross-docking\", \"Transportation Management (TMS): Load planning, carrier management, freight audit, last-mile\", \"Manufacturing Execution (MES): Shop floor control, job scheduling, IoT production integration\", \"Supply Chain Insights: AI-powered disruption detection, risk alerts, demand signals\", \"Traceability: Full serial/batch/lot traceability, expiry management, product recalls\", \"Vendor Collaboration Portal: POs, confirmations, delivery notes, invoices via self-service\", \"Landed Cost: Import duty calculation, voyage tracking, cost allocation by product\", \"Asset Management: Preventive maintenance, work orders, IoT sensors, spare parts planning\", \"Copilot for Supply Chain: AI summaries, purchase recommendations, disruption response suggestions\"]",
+    "benefitsEn": "[\"Inventory reduction 15–25% via AI demand forecasting and automated replenishment\", \"On-time delivery +20% with integrated TMS and proactive disruption alerts\", \"Full traceability from supplier to customer for regulatory compliance and rapid recalls\", \"Warehouse productivity +30% via slotting optimization and directed picking\", \"Reduced supplier risk: 360° visibility on vendor performance and contract compliance\", \"Procurement cost savings via automated RFQ and spend analytics\", \"Native integration with D365 Finance / Sales / Commerce: zero interfaces to develop\"]",
+    "estimatedCostEn": "From $180/user/month",
+    "implementationTimeEn": "16–32 weeks",
+    "idealCustomerSizeEn": "Mid-market to Enterprise (100+ employees, manufacturing/distribution/retail)"
   },
   {
     "id": "cmpcsz6460005vq64t0xcrgh7",
     "createdAt": "2026-05-19T15:43:52.758Z",
-    "updatedAt": "2026-05-19T19:22:15.154Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "d365-customer-insights",
     "officialName": "Dynamics 365 Customer Insights",
     "category": "business",
@@ -1088,12 +1138,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Customer Data Platform (CDP): Unified 360° profile from all sources (CRM, ERP, web, POS, IoT)\", \"Real-time Segmentation: AI segments updated in real time, behavioral and predictive\", \"Omnichannel Journeys: Email, SMS, push, social — personalized and triggered automation\", \"AI Predictions: Churn prediction, CLV, product affinity, next best action\", \"Lead Scoring: Marketing qualified leads automatically transferred to D365 Sales\", \"Event-based Marketing: Webinars, in-person events, attendance tracking, ROI measurement\", \"A/B Testing & Analytics: Send-time optimization, multi-variant content tests\", \"Consent & Compliance: Built-in GDPR/CCPA consent management, double opt-in\", \"Copilot for Marketing: AI content generation for emails, journeys and segments\", \"Power BI Dashboards: ROI by channel, pipeline influenced, engagement analytics\"]",
+    "benefitsEn": "[\"360° unified customer profile: break down data silos across all touchpoints\", \"Marketing ROI +30% via AI-targeted personalization and send-time optimization\", \"Lead quality improved: only marketing-qualified prospects transferred to sales\", \"GDPR/CCPA compliance out of the box: consent managed natively\", \"Faster time-to-market: drag-and-drop journey builder without technical skills\", \"Native integration with D365 Sales and Customer Service: frictionless lead handoff\"]",
+    "estimatedCostEn": "From $1,700/tenant/month (combined Data + Journeys)",
+    "implementationTimeEn": "8–16 weeks",
+    "idealCustomerSizeEn": "SMB to Enterprise with omnichannel marketing needs"
   },
   {
     "id": "cmpcsz64g0006vq64x4nt11f7",
     "createdAt": "2026-05-19T15:43:52.769Z",
-    "updatedAt": "2026-05-19T19:22:15.170Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "d365-field-service",
     "officialName": "Dynamics 365 Field Service",
     "category": "business",
@@ -1128,12 +1183,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Work Order Management: Creation, routing, scheduling, mobile execution, completion\", \"Intelligent Scheduling (RSO): AI optimization of 1,000s of appointments based on skills, location, availability\", \"Connected Field Service: IoT anomaly detection triggers automatic work orders (Azure IoT Hub)\", \"Copilot for Field Service: AI work order summaries, technician guidance, report drafting\", \"Mobile App: Offline, step-by-step guides, photo capture, digital signature, parts management\", \"Predictive Maintenance: ML failure prediction before breakdown occurs\", \"Remote Assist (HoloLens/Teams): Remote expert assistance via mixed reality\", \"Customer Experience: Automated appointment confirmations, real-time technician tracking, CSAT\", \"Inventory & Parts: Parts planning, van stock management, automatic replenishment\", \"Service Agreements: Preventive maintenance contracts, SLA management, automatic billing\"]",
+    "benefitsEn": "[\"First-time fix rate +20% via pre-arrival preparation and IoT diagnostics\", \"Scheduling efficiency +30% via AI route optimization (RSO)\", \"Technician travel time reduced 15% with intelligent geographic planning\", \"Downtime reduced via predictive maintenance before breakdowns\", \"Customer satisfaction improved via real-time tracking and proactive updates\", \"Native integration with D365 Customer Service and Supply Chain\"]",
+    "estimatedCostEn": "From $95/user/month",
+    "implementationTimeEn": "8–16 weeks",
+    "idealCustomerSizeEn": "Companies with field technician teams (manufacturing, utilities, telecom, facilities)"
   },
   {
     "id": "cmpcsz64o0007vq649fgodwbx",
     "createdAt": "2026-05-19T15:43:52.776Z",
-    "updatedAt": "2026-05-19T19:22:23.312Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "d365-project-operations",
     "officialName": "Dynamics 365 Project Operations",
     "category": "business",
@@ -1168,12 +1228,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Opportunity-to-Invoice: Integrated pipeline from proposal to project delivery and billing\", \"Project Planning: Interactive Gantt, WBS, milestones, dependencies\", \"Resource Management: Skill-based booking, utilization tracking, capacity planning\", \"Time & Expense: Mobile T&E capture, approvals, project cost allocation\", \"Project Billing: Fixed price, time & material, milestone, subscription billing\", \"Project Profitability: Real-time margin by project, project type, client\", \"Subcontractor Management: Purchase orders, vendor invoicing, subcontractor time tracking\", \"Copilot for Projects: AI risk summaries, status reports, delay detection\", \"Integration with D365 Finance: Direct revenue recognition, WIP accounting, IFRS 15\"]",
+    "benefitsEn": "[\"End-to-end visibility from project sale to cash collection\", \"Utilization improved via resource management and skills matching\", \"Billing accuracy improved: zero missed billable hours via automated T&E\", \"Project margin visibility in real time without spreadsheets\", \"IFRS 15 revenue recognition compliance out of the box\"]",
+    "estimatedCostEn": "From $120/user/month",
+    "implementationTimeEn": "8–16 weeks",
+    "idealCustomerSizeEn": "Professional services, consulting, engineering (20–2,000 employees)"
   },
   {
     "id": "cmpcsz6520008vq64mxlcfu6g",
     "createdAt": "2026-05-19T15:43:52.790Z",
-    "updatedAt": "2026-05-19T19:22:23.295Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "d365-human-resources",
     "officialName": "Dynamics 365 Human Resources",
     "category": "business",
@@ -1208,12 +1273,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"HR Core: Employee records, organizational structure, positions, compensation management\", \"Benefits Administration: Plan management, open enrollment, life events, ACA compliance\", \"Leave & Absence: Policy configuration, request management, balance tracking\", \"Performance Management: Goals (OKR), reviews, competency frameworks\", \"Learning Management: Course catalog, completion tracking, skill development\", \"Compensation: Salary grids, bonus plans, merit increase cycles\", \"Employee Self-Service: MyInfo portal, leave requests, payslip access\", \"Workforce Analytics: Headcount, turnover, cost per hire, Viva Insights integration\", \"Payroll Integration: Pre-built connectors to major payroll providers\", \"Copilot for HR: AI answers to HR questions, onboarding summaries\"]",
+    "benefitsEn": "[\"HR administrative time reduced via employee self-service and automated workflows\", \"Talent retention improved via structured performance and development processes\", \"Benefits management cost reduced via automated open enrollment\", \"Compliance maintained via regulatory update rollouts (versioning)\", \"HR analytics available without IT: Power BI embedded in the platform\"]",
+    "estimatedCostEn": "From $120/user/month",
+    "implementationTimeEn": "8–16 weeks",
+    "idealCustomerSizeEn": "Mid-market to Enterprise (100+ employees)"
   },
   {
     "id": "cmpcsz65f0009vq6428lyo1tt",
     "createdAt": "2026-05-19T15:43:52.803Z",
-    "updatedAt": "2026-05-19T19:22:15.120Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "d365-commerce",
     "officialName": "Dynamics 365 Commerce",
     "category": "business",
@@ -1248,12 +1318,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Unified Commerce: POS, eCommerce, call center and back-office in one platform\", \"POS (Modern POS): Clienteling, assisted selling, loyalty, offline mode\", \"eCommerce (Headless): API-first storefront, personalization, product recommendations\", \"Order Management (OMS): Cross-channel inventory, ship-from-store, BOPIS, returns\", \"Loyalty & Promotions: Points programs, tiered discounts, voucher management\", \"Clienteling: 360° customer profile accessible to store associates\", \"AI Product Recommendations: Personalized recommendations in store and online\", \"Category Management: Pricing, assortments, trade promotions by channel\", \"Retail Analytics: Sales performance, inventory turnover, basket analysis\", \"Native D365 Finance Integration: Automatic financial accounting without interfaces\"]",
+    "benefitsEn": "[\"Unified customer experience across all channels (store, web, mobile, call center)\", \"Inventory cost reduced via smart cross-channel order routing\", \"Customer loyalty improved via personalized recommendations and clienteling\", \"Retail operational costs reduced: one platform vs. separate systems per channel\", \"Native integration with D365 Finance and Supply Chain: zero interfaces\"]",
+    "estimatedCostEn": "From $180/user/month",
+    "implementationTimeEn": "16–32 weeks",
+    "idealCustomerSizeEn": "Mid-market to large retail / distribution (50+ stores or significant eCommerce)"
   },
   {
     "id": "cmpcsz65q000avq642brle3ix",
     "createdAt": "2026-05-19T15:43:52.815Z",
-    "updatedAt": "2026-05-19T19:22:15.143Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "d365-contact-center",
     "officialName": "Dynamics 365 Contact Center",
     "category": "business",
@@ -1288,12 +1363,17 @@
     "documentationUrl": null,
     "pricingUrl": null,
     "demoUrl": null,
-    "caseStudyUrls": null
+    "caseStudyUrls": null,
+    "keyFeaturesEn": "[\"Omnichannel Contact Center: Voice, chat, email, SMS, WhatsApp on a single platform\", \"AI Agent (IVR): Autonomous resolution of inquiries without human agent intervention\", \"Intelligent Skills Routing: Matching based on agent skills, language, customer history\", \"Real-time Agent Assist: AI suggestions to agents during live interactions\", \"Supervisor Dashboards: Real-time queue monitoring, occupancy, SLA, CSAT\", \"Workforce Management (WFM): Forecasting, scheduling, adherence monitoring\", \"Quality Management: Conversation recording, AI quality scoring, coaching programs\", \"Analytics & BI: Customer journey analytics, sentiment analysis, trend reporting\", \"Native Microsoft Teams voice: PSTN integration with existing Microsoft infrastructure\"]",
+    "benefitsEn": "[\"Operational cost reduced via AI deflection to autonomous agents\", \"Agent performance improved via real-time AI assistance and coaching\", \"TCO simplified: one unified platform vs. multiple point solutions\", \"Scalability: elastic scaling from 50 to 10,000+ concurrent agents\", \"Native integration with D365 Customer Service: seamless escalation from bot to agent\"]",
+    "estimatedCostEn": "From $110/user/month",
+    "implementationTimeEn": "8–20 weeks",
+    "idealCustomerSizeEn": "Mid-market to Enterprise contact centers (50+ agents)"
   },
   {
     "id": "cmpcsz65z000bvq642twx4fdv",
     "createdAt": "2026-05-19T15:43:52.824Z",
-    "updatedAt": "2026-05-21T00:00:00.000Z",
+    "updatedAt": "2026-05-22T00:00:00.000Z",
     "name": "copilot-for-sales",
     "officialName": "Copilot for Sales (Microsoft 365)",
     "category": "business",
@@ -1330,7 +1410,12 @@
     "demoUrl": null,
     "caseStudyUrls": null,
     "salesContext": "{\"keyStats\": [\"14 000 heures économisées annuellement chez Zurich Insurance Group avec Copilot for Sales\", \"300 utilisateurs activés chez Zurich Insurance en pilote Copilot for Sales\", \"GA avril 2026 : Sales Agent intégré nativement dans Microsoft 365 Copilot\", \"82% des dirigeants prévoient d'utiliser la \\\"main-d'œuvre numérique\\\" d'ici 18 mois (Work Trend Index 2025)\"], \"painPoints\": [\"Les commerciaux passent des heures à basculer entre Outlook, Teams et le CRM pour mettre à jour les données\", \"Données CRM obsolètes : les enregistrements ne reflètent pas la réalité des conversations en cours\", \"Préparation manuelle des réunions : recherche des historiques clients avant chaque appel\", \"Comptes rendus post-meeting manuels : temps perdu après chaque réunion client\"], \"keyDifferentiators\": [\"Sales Agent M365 Copilot (GA avril 2026) : workspace de vente directement dans le chat Copilot, Dynamics 365 sans changer d'application\", \"Mise à jour CRM instantanée : modifier des enregistrements D365 en langage naturel depuis Outlook ou Teams\", \"Préparation de réunion IA : résumés automatiques des opportunités, contacts, actualités compte\", \"Résumé post-meeting : compte rendu partageable avec le client en 1 clic\", \"Réseau Organigramme : visualisation des relations et hiérarchies organisationnelles chez le client\"], \"positioning\": \"Copilot for Sales transforme Microsoft 365 en workspace de vente agentique. Chaque email, réunion et appel devient une opportunité d'enrichir le CRM et d'obtenir des insights IA, sans jamais quitter Outlook ou Teams.\", \"nextSteps\": [\"Activer Sales Agent dans M365 Copilot : disponible GA avril 2026\", \"Pilote 30 jours : 20 commerciaux, mesurer les heures économisées sur la saisie CRM\", \"Présenter le business case ROI : 14 000h/an chez Zurich pour 300 users\"]}",
-    "customerCases": "[{\"company\": \"Zurich Insurance Group\", \"industry\": \"Insurance\", \"country\": \"Europe\", \"module\": \"Copilot for Sales + Dynamics 365 Sales\", \"challenge\": \"100 000+ opportunités actives, équipes commercial insurance naviguant entre apps pour mettre à jour le CRM\", \"results\": [\"14 000 heures économisées annuellement\", \"300 utilisateurs Copilot for Sales activés\", \"Données CRM constamment fraîches\"], \"quote\": \"Le panneau Copilot for Sales est critique. La streamlined experience permet d'accéder aux enregistrements sans ouvrir et chercher dans d'autres applications.\", \"contact\": \"John Martin, Global CRM Product Lead\"}]"
+    "customerCases": "[{\"company\": \"Zurich Insurance Group\", \"industry\": \"Insurance\", \"country\": \"Europe\", \"module\": \"Copilot for Sales + Dynamics 365 Sales\", \"challenge\": \"100 000+ opportunités actives, équipes commercial insurance naviguant entre apps pour mettre à jour le CRM\", \"results\": [\"14 000 heures économisées annuellement\", \"300 utilisateurs Copilot for Sales activés\", \"Données CRM constamment fraîches\"], \"quote\": \"Le panneau Copilot for Sales est critique. La streamlined experience permet d'accéder aux enregistrements sans ouvrir et chercher dans d'autres applications.\", \"contact\": \"John Martin, Global CRM Product Lead\"}]",
+    "keyFeaturesEn": "[\"CRM Integration: Automatic sync Salesforce or D365 Sales directly from Outlook and Teams\", \"Email Intelligence: AI analysis of email intent, suggested responses, automatic CRM logging\", \"Meeting Preparation: Automatic briefing before calls — deal history, contacts, open risks\", \"Meeting Summary: AI transcript with action points, next steps, CRM auto-update\", \"Opportunity Insights: Real-time deal health signals from communications\", \"Sales Coach: Comparison with winning deals, improvement suggestions\", \"Pipeline View in Outlook: Pipeline visibility without leaving the inbox\", \"Works with Salesforce: Native Salesforce CRM integration (no D365 required)\"]",
+    "benefitsEn": "[\"CRM update time -60%: automatic Outlook/Teams capture without manual entry\", \"Deal visibility improved: all communication signals aggregated in one intelligence layer\", \"Faster ramp-up for new reps: contextual deal intelligence accessible immediately\", \"Works with existing CRM (Salesforce or D365 Sales): no migration required\", \"Seamless M365 experience: Copilot embedded where reps already work\"]",
+    "estimatedCostEn": "$50/user/month (add-on to M365 + CRM license)",
+    "implementationTimeEn": "1–2 weeks",
+    "idealCustomerSizeEn": "SMB to Enterprise — sales teams using Outlook/Teams + Salesforce or D365"
   },
   {
     "id": "cmpck8s2r0001vqpg8nr2vdph",
