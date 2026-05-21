@@ -602,8 +602,8 @@ export default function KnowledgeBasePage() {
                     ← {solTab === 'dynamics' ? tr.backToDynamics : tr.backToAzure}
                   </button>
                   {selectedSol.category === 'business'
-                    ? <DynamicsSolutionDetail sol={selectedSol} />
-                    : <SolutionDetail sol={selectedSol} catConfig={AZURE_CAT} />
+                    ? <DynamicsSolutionDetail key={lang + selectedSol.id} sol={selectedSol} lang={lang} />
+                    : <SolutionDetail key={lang + selectedSol.id} sol={selectedSol} catConfig={AZURE_CAT} lang={lang} />
                   }
                 </motion.div>
               )}
@@ -873,8 +873,9 @@ function TabBar({ tabs, active, onChange, accent = 'indigo' }) {
 }
 
 // ── Azure solution detail (tabbed) ──────────────────────────────────────
-function SolutionDetail({ sol, catConfig }) {
-  const { lang } = useLang();
+function SolutionDetail({ sol, catConfig, lang: langProp }) {
+  const { lang: langCtx } = useLang();
+  const lang = langProp || langCtx;
   const tr = t[lang].kb;
   const [tab, setTab] = useState('overview');
   const cfg = catConfig[sol.category] || catConfig.business || catConfig.compute;
@@ -959,12 +960,12 @@ function SolutionDetail({ sol, catConfig }) {
           <motion.div key="az-features" {...fadeUp} className="space-y-5">
             {sol.keyFeatures?.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5"><Zap className="w-4 h-4 text-yellow-500" /> Key Features</p>
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5"><Zap className="w-4 h-4 text-yellow-500" /> {tr.keyFeaturesLabel}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                   {sol.keyFeatures.map((f, i) => (
                     <div key={i} className="flex items-start gap-2 text-sm text-gray-700">
                       <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                      <span>{typeof f === 'string' ? f.replace(/ [—–] /g, ': ') : String(f)}</span>
+                      <span>{(typeof f === 'string' ? f : String(f)).replace(/ [—–] /g, ': ')}</span>
                     </div>
                   ))}
                 </div>
@@ -973,10 +974,10 @@ function SolutionDetail({ sol, catConfig }) {
             {sol.benefits?.length > 0 && (
               <div className="gradient-border">
                 <div className="bg-white rounded-2xl p-6">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5"><Award className="w-4 h-4 text-blue-500" /> Business Benefits</p>
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5"><Award className="w-4 h-4 text-blue-500" /> {tr.businessBenefits}</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {sol.benefits.map((b, i) => (
-                      <div key={i} className="flex items-start gap-2 text-sm text-gray-700"><TrendingUp className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />{b}</div>
+                      <div key={i} className="flex items-start gap-2 text-sm text-gray-700"><TrendingUp className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />{(typeof b === 'string' ? b : String(b)).replace(/ [—–] /g, ': ')}</div>
                     ))}
                   </div>
                 </div>
@@ -997,8 +998,9 @@ const pf = (val) => {
 };
 
 // ── Dynamics 365 rich detail (tabbed) ──────────────────────────────────
-function DynamicsSolutionDetail({ sol }) {
-  const { lang } = useLang();
+function DynamicsSolutionDetail({ sol, lang: langProp }) {
+  const { lang: langCtx } = useLang();
+  const lang = langProp || langCtx;
   const tr = t[lang].kb;
   const [tab, setTab] = useState('overview');
   const cfg = AZURE_CAT['business'];
@@ -1159,13 +1161,12 @@ function DynamicsSolutionDetail({ sol }) {
                   </p>
                   <ul className="space-y-2 max-h-[520px] overflow-y-auto pr-1">
                     {sol.keyFeatures.map((f, i) => {
-                      const text = typeof f === 'string' ? f : String(f);
-                      const [rawTitle, ...rest] = text.split(' : ');
-                      const title = rawTitle.replace(/ [—–] /g, ': ');
+                      const raw = (typeof f === 'string' ? f : String(f)).replace(/ [—–] /g, ': ');
+                      const [title, ...rest] = raw.split(' : ');
                       return (
                         <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
                           <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                          <span><strong>{title}</strong>{rest.length ? ' : ' + rest.join(' : ').split('.')[0] : ''}</span>
+                          <span><strong>{title}</strong>{rest.length ? ' : ' + rest.join(' : ') : ''}</span>
                         </li>
                       );
                     })}
@@ -1180,7 +1181,8 @@ function DynamicsSolutionDetail({ sol }) {
                   <ul className="space-y-2">
                     {sol.benefits.map((b, i) => (
                       <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
-                        <TrendingUp className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />{b}
+                        <TrendingUp className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />
+                        {(typeof b === 'string' ? b : String(b)).replace(/ [—–] /g, ': ')}
                       </li>
                     ))}
                   </ul>
