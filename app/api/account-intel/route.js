@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
+import { handleApiError } from '@/lib/api-error';
 import { getFullKb } from '@/lib/kb-service';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -204,7 +205,12 @@ Fournis 3 digitalSignals, 3 éléments dans chaque branche SWOT, 3 topSolutions 
       response_format: { type: 'json_object' },
     });
 
-    const intel = JSON.parse(response.choices[0].message.content);
+    let intel;
+    try {
+      intel = JSON.parse(response.choices[0].message.content);
+    } catch {
+      throw new Error('OpenAI returned malformed JSON — retrying may help');
+    }
 
     return NextResponse.json({
       success: true,
@@ -213,10 +219,6 @@ Fournis 3 digitalSignals, 3 éléments dans chaque branche SWOT, 3 topSolutions 
       tokensUsed: response.usage?.total_tokens || 0,
     });
   } catch (error) {
-    console.error('Account intel error:', error);
-    return NextResponse.json(
-      { error: 'Failed to generate account intelligence', details: error.message },
-      { status: 500 }
-    );
+    return handleApiError(error, 'Account Intel');
   }
 }

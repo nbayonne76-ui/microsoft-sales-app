@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
+import { handleApiError } from '@/lib/api-error';
 import { getKbByTopic, getKbFiles } from '@/lib/kb-service';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -118,10 +119,6 @@ Retourne UNIQUEMENT un objet JSON valide (pas de markdown, pas de code fence) :
       tokensUsed:      response.usage?.total_tokens || 0,
     });
   } catch (error) {
-    console.error('KB email generation error:', error);
-    return NextResponse.json(
-      { error: 'Échec de la génération', details: error.message },
-      { status: 500 }
-    );
+    return handleApiError(error, 'KB Email');
   }
 }

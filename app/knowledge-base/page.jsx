@@ -276,6 +276,7 @@ export default function KnowledgeBasePage() {
 
   const [solutions, setSolutions]     = useState([]);
   const [loading, setLoading]         = useState(true);
+  const [fetchError, setFetchError]   = useState(false);
   const [search, setSearch]           = useState('');
   const [selectedSol, setSelectedSol] = useState(null);
   const [selectedDoc, setSelectedDoc] = useState(null);
@@ -285,10 +286,11 @@ export default function KnowledgeBasePage() {
 
   useEffect(() => {
     setLoading(true);
+    setFetchError(false);
     fetch(`/api/azure-solutions?lang=${lang}`)
-      .then(r => r.json())
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(d => { setSolutions(d.solutions || []); setLoading(false); })
-      .catch(() => setLoading(false));
+      .catch(() => { setFetchError(true); setLoading(false); });
   }, [lang]);
 
   // Sync selectedSol with re-fetched language-aware version
@@ -447,7 +449,19 @@ export default function KnowledgeBasePage() {
                     })}
                   </div>
                   <p className="text-sm text-gray-500 mb-4">{loading ? 'Loading…' : `${filteredAzure.length} solutions`}</p>
-                  {loading ? (
+                  {fetchError ? (
+                    <div className="flex flex-col items-center justify-center py-16 text-center">
+                      <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center mb-3">
+                        <span className="text-red-500 text-xl">!</span>
+                      </div>
+                      <p className="text-gray-700 font-medium mb-1">{lang === 'fr' ? 'Impossible de charger les solutions' : 'Failed to load solutions'}</p>
+                      <p className="text-sm text-gray-400 mb-4">{lang === 'fr' ? 'Vérifiez votre connexion et réessayez.' : 'Check your connection and try again.'}</p>
+                      <button onClick={() => { setFetchError(false); setLoading(true); fetch(`/api/azure-solutions?lang=${lang}`).then(r=>r.json()).then(d=>{setSolutions(d.solutions||[]);setLoading(false);}).catch(()=>{setFetchError(true);setLoading(false);}); }}
+                        className="px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors">
+                        {lang === 'fr' ? 'Réessayer' : 'Retry'}
+                      </button>
+                    </div>
+                  ) : loading ? (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">{[...Array(9)].map((_,i) => <div key={i} className="shimmer h-40 rounded-2xl" />)}</div>
                   ) : (
                     <SolutionGrid solutions={filteredAzure} catConfig={AZURE_CAT} onSelect={setSelectedSol} />
@@ -475,7 +489,19 @@ export default function KnowledgeBasePage() {
                     })}
                   </div>
                   <p className="text-sm text-gray-500 mb-4">{loading ? 'Loading…' : `${filteredDynamics.length} solutions`}</p>
-                  {loading ? (
+                  {fetchError ? (
+                    <div className="flex flex-col items-center justify-center py-16 text-center">
+                      <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center mb-3">
+                        <span className="text-red-500 text-xl">!</span>
+                      </div>
+                      <p className="text-gray-700 font-medium mb-1">{lang === 'fr' ? 'Impossible de charger les solutions' : 'Failed to load solutions'}</p>
+                      <p className="text-sm text-gray-400 mb-4">{lang === 'fr' ? 'Vérifiez votre connexion et réessayez.' : 'Check your connection and try again.'}</p>
+                      <button onClick={() => { setFetchError(false); setLoading(true); fetch(`/api/azure-solutions?lang=${lang}`).then(r=>r.json()).then(d=>{setSolutions(d.solutions||[]);setLoading(false);}).catch(()=>{setFetchError(true);setLoading(false);}); }}
+                        className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors">
+                        {lang === 'fr' ? 'Réessayer' : 'Retry'}
+                      </button>
+                    </div>
+                  ) : loading ? (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">{[...Array(6)].map((_,i) => <div key={i} className="shimmer h-40 rounded-2xl" />)}</div>
                   ) : (
                     <SolutionGrid solutions={filteredDynamics} catConfig={AZURE_CAT} onSelect={setSelectedSol} />

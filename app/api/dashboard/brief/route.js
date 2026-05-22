@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
+import { handleApiError } from '@/lib/api-error';
 import { getFullKb } from '@/lib/kb-service';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -79,7 +80,6 @@ Sois direct, actionnable, commercial. Maximum 300 mots.`;
       },
     });
   } catch (error) {
-    console.error('Dashboard brief error:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return handleApiError(error, 'Dashboard Brief');
   }
 }

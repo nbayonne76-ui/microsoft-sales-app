@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
+import { handleApiError } from '@/lib/api-error';
 import { getFullKb, getKbByTopics, detectTopics } from '@/lib/kb-service';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -97,10 +98,6 @@ ${kbContent}`;
       },
     });
   } catch (error) {
-    console.error('AI Agent error:', error);
-    return NextResponse.json(
-      { error: 'AI Agent error', details: error.message },
-      { status: 500 }
-    );
+    return handleApiError(error, 'AI Agent');
   }
 }

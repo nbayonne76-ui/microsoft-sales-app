@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 
 // Load solutions from static JSON — no DB dependency, works on Vercel/Railway
 let _cache = null;
@@ -64,11 +66,16 @@ export async function GET(request) {
     return response;
   } catch (error) {
     console.error('azure-solutions error:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to load solutions.' }, { status: 500 });
   }
 }
 
 export async function POST(request) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   const { action } = await request.json();
   if (action === 'invalidate-cache') {
     _cache = null;

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
+import { handleApiError } from '@/lib/api-error';
 import { getKbByTopic } from '@/lib/kb-service';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -121,10 +122,6 @@ Pour chaque email : inclure des données concrètes de la KB (prix, fonctionnali
       tokensUsed: response.usage?.total_tokens || 0,
     });
   } catch (error) {
-    console.error('Sequence generate error:', error);
-    return NextResponse.json(
-      { error: 'Échec de la génération', details: error.message },
-      { status: 500 }
-    );
+    return handleApiError(error, 'Sequence Generate');
   }
 }
