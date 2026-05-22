@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { getKbByTopic } from '@/lib/kb-service';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -14,6 +16,11 @@ const SOLUTION_LABELS = {
 };
 
 export async function POST(request) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const { company, solution = 'm365', persona = 'DSI', industry, companySize = 'sme' } = await request.json();
 

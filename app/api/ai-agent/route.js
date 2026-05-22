@@ -1,11 +1,18 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { getFullKb, getKbByTopics, detectTopics } from '@/lib/kb-service';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // ── Streaming SSE response ─────────────────────────────────────────────────
 export async function POST(request) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const { messages = [], userMessage } = await request.json();
 
