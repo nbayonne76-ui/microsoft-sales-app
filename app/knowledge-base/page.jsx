@@ -26,6 +26,7 @@ const AZURE_CAT = {
   development: { label: 'Development',  icon: Cog,       color: 'from-violet-500 to-violet-600', bg: 'bg-violet-50',  text: 'text-violet-700' },
   integration: { label: 'Integration',  icon: Cog,       color: 'from-teal-500 to-teal-600',    bg: 'bg-teal-50',    text: 'text-teal-700'   },
   iot:         { label: 'IoT',          icon: Network,   color: 'from-lime-500 to-lime-600',    bg: 'bg-lime-50',    text: 'text-lime-700'   },
+  'modern-work':{ label: 'Modern Work', icon: Layers,    color: 'from-sky-500 to-sky-600',      bg: 'bg-sky-50',     text: 'text-sky-700'    },
   // fallback for detail view
   business:    { label: 'Business Apps',icon: Building2, color: 'from-indigo-500 to-indigo-600',bg: 'bg-indigo-50',  text: 'text-indigo-700' },
 };
@@ -609,7 +610,7 @@ export default function KnowledgeBasePage() {
                     <Home className="w-4 h-4" />
                     ← {solTab === 'dynamics' ? tr.backToDynamics : tr.backToAzure}
                   </button>
-                  {selectedSol.category === 'business'
+                  {(selectedSol.category === 'business' || selectedSol.category === 'modern-work')
                     ? <DynamicsSolutionDetail key={lang + selectedSol.id} sol={selectedSol} lang={lang} />
                     : <SolutionDetail key={lang + selectedSol.id} sol={selectedSol} catConfig={AZURE_CAT} lang={lang} />
                   }
