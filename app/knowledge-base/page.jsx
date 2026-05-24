@@ -907,119 +907,409 @@ function TabBar({ tabs, active, onChange, accent = 'indigo' }) {
   );
 }
 
-// ── Azure solution detail (tabbed) ──────────────────────────────────────
+// ── Category gradient map for Azure hero headers ─────────────────────────
+const CAT_HERO = {
+  ai:          'from-violet-600 via-violet-700 to-purple-800',
+  analytics:   'from-teal-600 via-teal-700 to-cyan-800',
+  compute:     'from-orange-500 via-orange-600 to-amber-700',
+  security:    'from-red-600 via-red-700 to-rose-800',
+  storage:     'from-slate-600 via-slate-700 to-gray-800',
+  management:  'from-blue-600 via-blue-700 to-indigo-800',
+  networking:  'from-sky-600 via-sky-700 to-cyan-800',
+  integration: 'from-emerald-600 via-emerald-700 to-green-800',
+  iot:         'from-amber-600 via-amber-700 to-orange-800',
+  development: 'from-pink-600 via-pink-700 to-rose-800',
+  'modern-work':'from-sky-500 via-sky-600 to-blue-700',
+};
+
+// ── Azure solution detail — rich 6-tab view ───────────────────────────────
 function SolutionDetail({ sol, catConfig, lang: langProp }) {
   const { lang: langCtx } = useLang();
   const lang = langProp || langCtx;
   const tr = t[lang].kb;
   const [tab, setTab] = useState('overview');
-  const cfg = catConfig[sol.category] || catConfig.business || catConfig.compute;
+  const cfg  = catConfig[sol.category] || catConfig.compute;
   const Icon = cfg.icon;
+  const heroGrad = CAT_HERO[sol.category] || 'from-blue-600 via-blue-700 to-indigo-800';
+
+  const salesCtx   = pf(sol.salesContext)   || {};
+  const cases      = pf(sol.customerCases)  || [];
+  const competitors= pf(sol.competitors)    || [];
+  const market     = pf(sol.marketPosition) || {};
+  const compliance = pf(sol.complianceCerts)|| [];
+  const integrations= pf(sol.integrations)  || [];
+  const secFeats   = pf(sol.securityFeatures)|| [];
 
   const TABS = [
-    { key: 'overview',  emoji: '🏠', label: tr.tabOverview },
-    ...(sol.keyFeatures?.length > 0 || sol.benefits?.length > 0
-      ? [{ key: 'features', emoji: '⚡', label: tr.tabFeatures, count: sol.keyFeatures?.length }]
-      : []),
+    { key: 'overview',     emoji: '🏠', label: tr.tabOverview },
+    { key: 'features',     emoji: '⚡', label: tr.tabFeatures,     count: sol.keyFeatures?.length },
+    { key: 'scenarios',    emoji: '📋', label: tr.tabScenarios,    count: sol.useCases?.length },
+    ...(cases.length > 0       ? [{ key: 'cases',       emoji: '🏆', label: tr.tabCases,        count: cases.length }] : []),
+    ...(integrations.length > 0|| compliance.length > 0 || secFeats.length > 0
+      ? [{ key: 'security',    emoji: '🛡️', label: lang === 'fr' ? 'Sécurité' : 'Security' }] : []),
+    ...(competitors.length > 0 ? [{ key: 'competition', emoji: '🎯', label: tr.tabCompetition }] : []),
+    { key: 'pricing',      emoji: '💰', label: tr.tabPricing },
   ];
 
   return (
-    <div className="space-y-0">
-      {/* ── Header (always visible) ── */}
-      <div className="gradient-border mb-5">
-        <div className="bg-white rounded-2xl p-7">
-          <div className="flex items-start gap-5">
-            <div className={`p-4 rounded-2xl bg-gradient-to-br text-white shrink-0 ${cfg.color}`}><Icon className="w-8 h-8" /></div>
-            <div>
-              <div className="flex gap-2 mb-2 flex-wrap">
-                <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${cfg.bg} ${cfg.text}`}>{cfg.label}</span>
-                {sol.isFeatured && <span className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-yellow-50 text-yellow-700">⭐ Featured</span>}
-                {sol.salesPriority >= 8 && <span className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-green-50 text-green-700">🔥 Priority {sol.salesPriority}/10</span>}
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">{sol.officialName || sol.name}</h2>
-              <p className="text-gray-600 leading-relaxed">{sol.fullDescription || sol.shortDescription}</p>
+    <div>
+      {/* ── Hero header ── */}
+      <div className={`bg-gradient-to-br ${heroGrad} rounded-2xl p-7 text-white shadow-xl mb-5`}>
+        <div className="flex items-start gap-5">
+          <div className="p-4 bg-white/15 rounded-2xl shrink-0"><Icon className="w-9 h-9" /></div>
+          <div className="flex-1 min-w-0">
+            <div className="flex gap-2 mb-3 flex-wrap">
+              <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold">{cfg.label}</span>
+              {sol.isFeatured && <span className="px-3 py-1 bg-yellow-300/30 text-yellow-200 rounded-full text-xs font-semibold">⭐ Featured</span>}
+              {sol.salesPriority >= 8 && <span className="px-3 py-1 bg-green-400/30 text-green-200 rounded-full text-xs font-semibold">🔥 {tr.priorityLabel} {sol.salesPriority}/10</span>}
+              {market.leader && <span className="px-3 py-1 bg-white/15 rounded-full text-xs">👑 Leader</span>}
+            </div>
+            <h2 className="text-2xl font-bold mb-2">{sol.officialName || sol.name}</h2>
+            <p className="text-white/85 text-sm leading-relaxed max-w-3xl">{(sol.fullDescription || sol.shortDescription || '').replace(/ [—–] /g, ': ')}</p>
+            <div className="flex flex-wrap gap-3 mt-4">
+              {[
+                sol.estimatedCost      && { l: tr.pricingInfo,    v: sol.estimatedCost.split('—')[0].split(' — ')[0].trim() },
+                sol.implementationTime && { l: tr.implementation, v: sol.implementationTime.split('—')[0].trim() },
+                sol.idealCustomerSize  && { l: tr.target,         v: sol.idealCustomerSize.split('(')[0].trim() },
+                sol.complexity         && { l: tr.complexity,     v: sol.complexity.charAt(0).toUpperCase() + sol.complexity.slice(1) },
+              ].filter(Boolean).map((item, i) => (
+                <div key={i} className="bg-white/15 rounded-xl px-3 py-2">
+                  <p className="text-white/50 text-[10px] mb-0.5">{item.l}</p>
+                  <p className="font-bold text-xs">{item.v}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── Tabs ── */}
-      {TABS.length > 1 && <TabBar tabs={TABS} active={tab} onChange={setTab} accent="blue" />}
+      {/* ── Tab bar ── */}
+      <TabBar tabs={TABS} active={tab} onChange={setTab} accent="blue" />
 
       <AnimatePresence mode="wait">
-        {/* ── Tab: Vue d'ensemble ── */}
+
+        {/* ── 1. Overview ── */}
         {tab === 'overview' && (
           <motion.div key="az-overview" {...fadeUp} className="space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {/* Pricing */}
               <div className="gradient-border-green">
                 <div className="bg-white rounded-2xl p-5">
                   <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><DollarSign className="w-4 h-4 text-emerald-500" /> Pricing</p>
-                  <p className="text-sm font-semibold text-emerald-700 mb-2">{sol.pricingModel}</p>
-                  <p className="text-sm text-gray-600">{sol.estimatedCost}</p>
-                  {sol.implementationTime && <p className="text-xs text-gray-400 mt-2">{tr.setupLabel} {sol.implementationTime}</p>}
+                  <p className="text-sm font-semibold text-emerald-700 mb-1">{sol.pricingModel}</p>
+                  <p className="text-xs text-gray-600">{sol.estimatedCost}</p>
+                  {sol.implementationTime && <p className="text-xs text-gray-400 mt-2">{tr.setupLabel} {sol.implementationTime.split('—')[0].trim()}</p>}
                 </div>
               </div>
-              <div className="bg-white rounded-2xl border border-gray-100 p-5">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-blue-500" /> Use Cases</p>
-                <ul className="space-y-1.5">
-                  {(sol.useCases || []).slice(0, 6).map((u, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs text-gray-600">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" />
-                      {typeof u === 'object' ? u.title : u}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="bg-white rounded-2xl border border-gray-100 p-5">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><Building2 className="w-4 h-4 text-purple-500" /> Target</p>
-                {sol.idealCustomerSize && <p className="text-xs text-gray-600 mb-2"><strong>{tr.targetSize}</strong> {sol.idealCustomerSize}</p>}
-                <div className="flex flex-wrap gap-1">
-                  {(sol.targetIndustries || []).slice(0, 6).map((ind, i) => (
-                    <span key={i} className="px-2 py-0.5 bg-purple-50 text-purple-700 text-xs rounded-full">{ind}</span>
-                  ))}
-                </div>
-                {sol.targetPersonas?.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-1">
-                    {sol.targetPersonas.slice(0, 4).map((p, i) => (
-                      <span key={i} className="px-2 py-0.5 bg-blue-50 text-blue-600 text-xs rounded-full">{p}</span>
+              {/* Key Stats */}
+              <div className="bg-white rounded-2xl border border-gray-100 p-5 md:col-span-2">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><TrendingUp className="w-4 h-4 text-blue-500" /> {lang === 'fr' ? 'Chiffres clés' : 'Key Stats'}</p>
+                {salesCtx.keyStats?.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {salesCtx.keyStats.slice(0, 6).map((stat, i) => (
+                      <div key={i} className="flex items-start gap-2 bg-blue-50 border border-blue-100 rounded-xl p-2.5">
+                        <span className="text-sm shrink-0">📊</span>
+                        <p className="text-xs text-gray-700 leading-relaxed">{stat}</p>
+                      </div>
                     ))}
                   </div>
+                ) : (
+                  <ul className="space-y-1.5">
+                    {(sol.useCases || []).slice(0, 5).map((u, i) => (
+                      <li key={i} className="flex items-start gap-2 text-xs text-gray-600">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" />
+                        {typeof u === 'object' ? u.title : u}
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </div>
             </div>
-          </motion.div>
-        )}
-
-        {/* ── Tab: Fonctionnalités ── */}
-        {tab === 'features' && (
-          <motion.div key="az-features" {...fadeUp} className="space-y-5">
-            {sol.keyFeatures?.length > 0 && (
-              <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5"><Zap className="w-4 h-4 text-yellow-500" /> {tr.keyFeaturesLabel}</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-                  {sol.keyFeatures.map((f, i) => (
-                    <div key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                      <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                      <span>{(typeof f === 'string' ? f : String(f)).replace(/ [—–] /g, ': ')}</span>
+            {/* Target personas + industries */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {sol.targetPersonas?.length > 0 && (
+                <div className="bg-white rounded-2xl border border-gray-100 p-5">
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><Users className="w-4 h-4 text-blue-500" /> {tr.targetPersonas}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {sol.targetPersonas.map((p, i) => <span key={i} className="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-full border border-blue-100">{p}</span>)}
+                  </div>
+                </div>
+              )}
+              {(sol.targetIndustries?.length > 0) && (
+                <div className="bg-white rounded-2xl border border-gray-100 p-5">
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><Globe className="w-4 h-4 text-teal-500" /> {tr.targetIndustries}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {sol.targetIndustries.map((ind, i) => <span key={i} className="px-2.5 py-1 bg-teal-50 text-teal-700 text-xs rounded-full border border-teal-100">{ind}</span>)}
+                  </div>
+                </div>
+              )}
+            </div>
+            {/* Why Now */}
+            {salesCtx.whyNow?.length > 0 && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-5">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><TrendingUp className="w-4 h-4 text-orange-500" /> {tr.whyNow}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {salesCtx.whyNow.map((stat, i) => (
+                    <div key={i} className="flex items-start gap-2 bg-orange-50 border border-orange-100 rounded-xl p-2.5">
+                      <span className="text-sm shrink-0">📊</span>
+                      <p className="text-xs text-gray-700 leading-relaxed">{stat}</p>
                     </div>
                   ))}
                 </div>
               </div>
             )}
-            {sol.benefits?.length > 0 && (
-              <div className="gradient-border">
-                <div className="bg-white rounded-2xl p-6">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5"><Award className="w-4 h-4 text-blue-500" /> {tr.businessBenefits}</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          </motion.div>
+        )}
+
+        {/* ── 2. Features ── */}
+        {tab === 'features' && (
+          <motion.div key="az-features" {...fadeUp} className="space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {sol.keyFeatures?.length > 0 && (
+                <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                    <Zap className="w-4 h-4 text-yellow-500" /> {tr.keyFeaturesLabel} <span className="text-gray-300 font-normal ml-1">({sol.keyFeatures.length})</span>
+                  </p>
+                  <ul className="space-y-2 max-h-[520px] overflow-y-auto pr-1">
+                    {sol.keyFeatures.map((f, i) => {
+                      const raw = (typeof f === 'string' ? f : String(f)).replace(/ [—–] /g, ': ');
+                      const [title, ...rest] = raw.split(': ');
+                      return (
+                        <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
+                          <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                          <span><strong>{title}</strong>{rest.length ? ': ' + rest.join(': ') : ''}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+              {sol.benefits?.length > 0 && (
+                <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                    <Award className="w-4 h-4 text-blue-500" /> {tr.businessBenefits} <span className="text-gray-300 font-normal ml-1">({sol.benefits.length})</span>
+                  </p>
+                  <ul className="space-y-2">
                     {sol.benefits.map((b, i) => (
-                      <div key={i} className="flex items-start gap-2 text-sm text-gray-700"><TrendingUp className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />{(typeof b === 'string' ? b : String(b)).replace(/ [—–] /g, ': ')}</div>
+                      <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
+                        <TrendingUp className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />
+                        {(typeof b === 'string' ? b : String(b)).replace(/ [—–] /g, ': ')}
+                      </li>
                     ))}
-                  </div>
+                  </ul>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+
+        {/* ── 3. Use Cases ── */}
+        {tab === 'scenarios' && (
+          <motion.div key="az-scenarios" {...fadeUp} className="space-y-5">
+            {sol.useCases?.length > 0 && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                  <Building2 className="w-4 h-4 text-purple-500" /> {tr.detailedUseCases}
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {sol.useCases.map((u, i) => {
+                    const uc = typeof u === 'object' ? u : { title: u };
+                    return (
+                      <div key={i} className="bg-purple-50 border border-purple-100 rounded-xl p-4">
+                        <p className="font-semibold text-gray-900 text-sm mb-1">{uc.title}</p>
+                        {uc.description && <p className="text-xs text-gray-600 mb-2 leading-relaxed">{uc.description}</p>}
+                        {uc.industries?.length > 0 && (
+                          <div className="flex flex-wrap gap-1 mb-2">
+                            {uc.industries.map((ind, ii) => <span key={ii} className="px-1.5 py-0.5 bg-white text-purple-700 text-[10px] rounded-full border border-purple-200">{ind}</span>)}
+                          </div>
+                        )}
+                        {uc.businessImpact && (
+                          <div className="flex items-start gap-1.5 bg-white rounded-lg px-2.5 py-1.5">
+                            <TrendingUp className="w-3 h-3 text-green-500 shrink-0 mt-0.5" />
+                            <p className="text-xs text-green-700 font-medium">{uc.businessImpact}</p>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
           </motion.div>
         )}
+
+        {/* ── 4. Customer Cases ── */}
+        {tab === 'cases' && (
+          <motion.div key="az-cases" {...fadeUp}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {cases.map((c, i) => (
+                <div key={i} className="border border-gray-100 rounded-xl p-4 bg-white hover:shadow-md transition-shadow">
+                  <div className="flex items-start gap-2.5 mb-3">
+                    <div className={`w-8 h-8 bg-gradient-to-br ${heroGrad} rounded-lg flex items-center justify-center shrink-0`}>
+                      <Building2 className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-bold text-gray-900 text-sm leading-tight">{c.company}</p>
+                      <p className="text-[10px] text-gray-400">{[c.industry, c.country].filter(Boolean).join(' · ')}</p>
+                    </div>
+                  </div>
+                  {c.challenge && (
+                    <div className="bg-gray-50 rounded-lg px-3 py-2 mb-2">
+                      <p className="text-[10px] font-semibold text-gray-400 mb-0.5">Challenge</p>
+                      <p className="text-xs text-gray-600 leading-relaxed">{c.challenge}</p>
+                    </div>
+                  )}
+                  {c.results?.length > 0 && (
+                    <ul className="space-y-1 mt-2">
+                      {c.results.map((r, ri) => (
+                        <li key={ri} className="flex items-start gap-1.5 text-xs text-gray-700">
+                          <CheckCircle className="w-3 h-3 text-emerald-500 shrink-0 mt-0.5" />{r}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* ── 5. Security & Compliance ── */}
+        {tab === 'security' && (
+          <motion.div key="az-security" {...fadeUp} className="space-y-5">
+            {secFeats.length > 0 && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                  <Shield className="w-4 h-4 text-red-500" /> {lang === 'fr' ? 'Fonctionnalités sécurité' : 'Security Features'}
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {secFeats.map((f, i) => (
+                    <div key={i} className="flex items-start gap-2 text-xs text-gray-700 bg-red-50 border border-red-100 rounded-lg p-2.5">
+                      <Shield className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
+                      <span>{(typeof f === 'string' ? f : String(f)).split(' :')[0]}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {compliance.length > 0 && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 text-green-600" /> {tr.complianceCertsLabel} <span className="text-gray-300 font-normal ml-1">({compliance.length})</span>
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {compliance.map((cert, i) => (
+                    <span key={i} className="px-3 py-1.5 bg-green-50 text-green-700 text-xs rounded-full border border-green-100 font-medium">✓ {cert.split(' (')[0]}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+            {integrations.length > 0 && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                  <Network className="w-4 h-4 text-cyan-500" /> {tr.integrationsLabel} <span className="text-gray-300 font-normal ml-1">({integrations.length})</span>
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {integrations.map((int, i) => (
+                    <span key={i} className="px-3 py-1.5 bg-cyan-50 text-cyan-700 text-xs rounded-full border border-cyan-100">
+                      {(typeof int === 'string' ? int : String(int)).split(' —')[0].split(' (')[0]}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </motion.div>
+        )}
+
+        {/* ── 6. Competition ── */}
+        {tab === 'competition' && (
+          <motion.div key="az-competition" {...fadeUp} className="space-y-5">
+            {competitors.length > 0 && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                  <Shield className="w-4 h-4 text-red-500" /> {tr.competitiveComparison}
+                </p>
+                <div className="space-y-3">
+                  {competitors.map((comp, i) => (
+                    <div key={i} className="border border-gray-100 rounded-xl p-4">
+                      <p className="font-bold text-gray-900 text-sm mb-3">vs {comp.name || comp.competitor}</p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {(comp.ourAdvantage) && (
+                          <div className="bg-green-50 border border-green-100 rounded-lg p-3">
+                            <p className="text-xs font-semibold text-green-700 mb-1.5">✅ {tr.ourAdvantages}</p>
+                            <p className="text-xs text-gray-700 leading-relaxed">{comp.ourAdvantage}</p>
+                          </div>
+                        )}
+                        {(comp.weakness || comp.weaknesses) && (
+                          <div className="bg-orange-50 border border-orange-100 rounded-lg p-3">
+                            <p className="text-xs font-semibold text-orange-700 mb-1.5">⚠️ {lang === 'fr' ? 'Points de vigilance' : 'Watch Points'}</p>
+                            <p className="text-xs text-gray-700 leading-relaxed">{comp.weakness || comp.weaknesses}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {Object.keys(market).length > 0 && (
+              <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 text-white">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                  <Award className="w-4 h-4" /> {tr.marketPositionLabel}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {[
+                    market.gartnerMagicQuadrant && { l: 'Gartner',       i: '⭐', v: market.gartnerMagicQuadrant },
+                    market.forresterTEI         && { l: 'Forrester TEI', i: '📈', v: market.forresterTEI },
+                    market.customerROI          && { l: tr.clientROI,    i: '💰', v: market.customerROI },
+                    market.globalCustomers      && { l: tr.globalCustomers, i: '🌍', v: market.globalCustomers },
+                    market.analystRecognition   && { l: 'Analyst',       i: '🏆', v: Array.isArray(market.analystRecognition) ? market.analystRecognition.join(' · ') : market.analystRecognition },
+                    ...(market.keyStats ? Object.entries(market.keyStats).map(([k, v]) => ({ l: k, i: '📊', v })) : []),
+                  ].filter(Boolean).map((item, idx) => (
+                    <div key={idx} className="bg-white/10 rounded-xl p-3">
+                      <p className="text-xs text-slate-400 mb-1">{item.i} {item.l}</p>
+                      <p className="text-xs text-white leading-relaxed">{item.v}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </motion.div>
+        )}
+
+        {/* ── 7. Pricing ── */}
+        {tab === 'pricing' && (
+          <motion.div key="az-pricing" {...fadeUp} className="space-y-5">
+            {sol.pricingTiers?.length > 0 && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                  <DollarSign className="w-4 h-4 text-emerald-500" /> {tr.pricingPlans}
+                </p>
+                <div className={`grid gap-4 ${sol.pricingTiers.length <= 2 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-3'}`}>
+                  {sol.pricingTiers.map((tier, i) => (
+                    <div key={i} className="border-2 border-emerald-100 rounded-xl p-5 bg-emerald-50/40">
+                      <p className="font-bold text-gray-900 mb-1">{tier.tier}</p>
+                      {tier.price && <p className="text-2xl font-black text-emerald-700 mb-2">{tier.price}</p>}
+                      {tier.pricing && <p className="text-sm font-semibold text-emerald-700 mb-2">{tier.pricing}</p>}
+                      {tier.description && <p className="text-xs text-gray-600 leading-relaxed">{tier.description}</p>}
+                    </div>
+                  ))}
+                </div>
+                {sol.estimatedCost && <p className="text-xs text-gray-500 mt-3 bg-gray-50 rounded-lg px-3 py-2">ℹ️ {sol.estimatedCost}</p>}
+              </div>
+            )}
+            {!sol.pricingTiers?.length && sol.estimatedCost && (
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                  <DollarSign className="w-4 h-4 text-emerald-500" /> {tr.pricingInfo}
+                </p>
+                <p className="text-sm text-gray-700">{sol.estimatedCost}</p>
+                {sol.pricingModel && <p className="text-xs text-gray-400 mt-1">{sol.pricingModel}</p>}
+              </div>
+            )}
+          </motion.div>
+        )}
+
       </AnimatePresence>
     </div>
   );
