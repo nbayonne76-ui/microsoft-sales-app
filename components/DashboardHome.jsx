@@ -103,11 +103,11 @@ export default function DashboardHome() {
         {/* ── Header ──────────────────────────────────────────── */}
         <motion.div {...fadeUp} className="mb-10">
           <div className="flex items-center gap-3 mb-1">
-            <div className="bg-gradient-to-br from-indigo-600 to-purple-700 p-3 rounded-xl shadow-lg">
+            <div className="bg-gradient-to-br from-indigo-600 to-purple-700 p-3 rounded-xl shadow-lg shrink-0">
               <Sparkles className="h-7 w-7 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
                 {lang === 'fr' ? 'Bonjour Nicolas 👋' : 'Hello Nicolas 👋'}
               </h1>
               <p className="text-gray-500 text-sm mt-0.5 capitalize">{today}</p>
@@ -118,9 +118,9 @@ export default function DashboardHome() {
         {/* ── Brief IA du jour ────────────────────────────────── */}
         <motion.div {...fadeUp} transition={{ delay: 0.05 }}
           className="bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 rounded-2xl p-6 text-white shadow-xl mb-8">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
                 <Brain className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -132,7 +132,7 @@ export default function DashboardHome() {
                 </p>
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 shrink-0">
               {briefText && briefDone && (
                 <button onClick={copyBrief}
                   className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg transition-colors">

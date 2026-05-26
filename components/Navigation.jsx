@@ -5,11 +5,17 @@ import { usePathname } from 'next/navigation';
 import {
   Home, Mail, BookOpen, Sparkles, Globe,
   MessageSquare, Zap,
-  ChevronLeft, ChevronRight, Bot
+  ChevronLeft, ChevronRight, Bot, X
 } from 'lucide-react';
 import { useLang, t } from '@/contexts/LanguageContext';
 
-export default function Navigation({ collapsed = false, setCollapsed = () => {} }) {
+export default function Navigation({
+  collapsed = false,
+  setCollapsed = () => {},
+  isMobile = false,
+  mobileOpen = false,
+  onMobileClose = () => {},
+}) {
   const pathname = usePathname();
   const { lang, setLang } = useLang();
   const tr = t[lang].nav;
@@ -41,6 +47,9 @@ export default function Navigation({ collapsed = false, setCollapsed = () => {} 
     },
   ];
 
+  // On mobile the sidebar is a full-height drawer; on desktop it collapses to icons
+  const isCollapsed = isMobile ? false : collapsed;
+
   return (
     <aside
       className={`
@@ -48,21 +57,34 @@ export default function Navigation({ collapsed = false, setCollapsed = () => {} 
         bg-gradient-to-b from-[#0f172a] via-[#1e1b4b] to-[#0f172a]
         border-r border-white/10 shadow-2xl
         transition-all duration-300 ease-in-out
-        ${collapsed ? 'w-[68px]' : 'w-[220px]'}
+        ${isMobile
+          ? `w-[260px] ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`
+          : `${collapsed ? 'w-[68px]' : 'w-[220px]'}`
+        }
       `}
     >
       {/* ── Logo ──────────────────────────────────────────────── */}
-      <div className={`flex items-center gap-3 px-4 py-5 border-b border-white/10 ${collapsed ? 'justify-center' : ''}`}>
+      <div className={`flex items-center gap-3 px-4 py-5 border-b border-white/10 ${isCollapsed ? 'justify-center' : ''}`}>
         <div className="shrink-0 bg-gradient-to-br from-blue-500 to-indigo-600 p-2 rounded-xl shadow-lg">
           <Bot className="h-5 w-5 text-white" />
         </div>
-        {!collapsed && (
-          <div className="overflow-hidden">
+        {!isCollapsed && (
+          <div className="overflow-hidden flex-1">
             <p className="text-white font-bold text-sm leading-tight truncate">
               {t[lang].app.title.replace('Microsoft ', '')}
             </p>
             <p className="text-blue-300 text-[10px] truncate">{t[lang].app.subtitle}</p>
           </div>
+        )}
+        {/* Close button — mobile only */}
+        {isMobile && (
+          <button
+            onClick={onMobileClose}
+            aria-label="Close menu"
+            className="ml-auto p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+          >
+            <X className="h-4 w-4" />
+          </button>
         )}
       </div>
 
@@ -70,12 +92,12 @@ export default function Navigation({ collapsed = false, setCollapsed = () => {} 
       <nav className="flex-1 overflow-y-auto py-3 space-y-1 scrollbar-hide">
         {groups.map((group) => (
           <div key={group.key} className="px-2">
-            {!collapsed && (
+            {!isCollapsed && (
               <p className="text-[10px] font-semibold text-blue-300/60 uppercase tracking-widest px-2 pt-3 pb-1">
                 {group.label}
               </p>
             )}
-            {collapsed && <div className="my-2 border-t border-white/10" />}
+            {isCollapsed && <div className="my-2 border-t border-white/10" />}
             {group.items.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
@@ -83,7 +105,8 @@ export default function Navigation({ collapsed = false, setCollapsed = () => {} 
                 <Link
                   key={item.href}
                   href={item.href}
-                  title={collapsed ? item.label : undefined}
+                  title={isCollapsed ? item.label : undefined}
+                  onClick={isMobile ? onMobileClose : undefined}
                   className={`
                     flex items-center gap-3 px-3 py-2.5 rounded-xl mb-0.5
                     transition-all duration-150 group relative
@@ -93,19 +116,19 @@ export default function Navigation({ collapsed = false, setCollapsed = () => {} 
                       ? 'bg-gradient-to-r from-indigo-500/20 to-purple-500/20 text-indigo-200 border border-indigo-400/20 hover:border-indigo-400/50 hover:from-indigo-500/30 hover:to-purple-500/30'
                       : 'text-blue-100/80 hover:bg-white/10 hover:text-white'
                     }
-                    ${collapsed ? 'justify-center' : ''}
+                    ${isCollapsed ? 'justify-center' : ''}
                   `}
                 >
                   <Icon className={`h-4 w-4 shrink-0 ${isActive ? 'text-blue-600' : ''}`} />
-                  {!collapsed && (
+                  {!isCollapsed && (
                     <span className="text-sm truncate">{item.label}</span>
                   )}
                   {/* Active indicator bar */}
-                  {isActive && !collapsed && (
+                  {isActive && !isCollapsed && (
                     <span className="absolute right-2 w-1.5 h-1.5 rounded-full bg-blue-500" />
                   )}
-                  {/* Tooltip for collapsed */}
-                  {collapsed && (
+                  {/* Tooltip for collapsed desktop */}
+                  {isCollapsed && (
                     <span className="
                       absolute left-full ml-2 px-2 py-1 rounded-md bg-gray-900 text-white text-xs
                       whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none
@@ -131,28 +154,30 @@ export default function Navigation({ collapsed = false, setCollapsed = () => {} 
             w-full flex items-center gap-2.5 px-3 py-2 rounded-xl
             border border-white/20 bg-white/5 hover:bg-white/15
             text-blue-100 text-sm font-medium transition-all
-            ${collapsed ? 'justify-center' : ''}
+            ${isCollapsed ? 'justify-center' : ''}
           `}
         >
           <Globe className="h-4 w-4 shrink-0" />
-          {!collapsed && <span>{lang === 'en' ? '🇫🇷 Français' : '🇬🇧 English'}</span>}
+          {!isCollapsed && <span>{lang === 'en' ? '🇫🇷 Français' : '🇬🇧 English'}</span>}
         </button>
 
-        {/* Collapse toggle */}
-        <button
-          onClick={() => setCollapsed(c => !c)}
-          className={`
-            w-full flex items-center gap-2.5 px-3 py-2 rounded-xl
-            text-blue-300/60 hover:text-white hover:bg-white/10
-            text-sm transition-all
-            ${collapsed ? 'justify-center' : ''}
-          `}
-        >
-          {collapsed
-            ? <ChevronRight className="h-4 w-4 shrink-0" />
-            : <><ChevronLeft className="h-4 w-4 shrink-0" /><span className="text-xs">Réduire</span></>
-          }
-        </button>
+        {/* Collapse toggle — desktop only */}
+        {!isMobile && (
+          <button
+            onClick={() => setCollapsed(c => !c)}
+            className={`
+              w-full flex items-center gap-2.5 px-3 py-2 rounded-xl
+              text-blue-300/60 hover:text-white hover:bg-white/10
+              text-sm transition-all
+              ${collapsed ? 'justify-center' : ''}
+            `}
+          >
+            {collapsed
+              ? <ChevronRight className="h-4 w-4 shrink-0" />
+              : <><ChevronLeft className="h-4 w-4 shrink-0" /><span className="text-xs">Réduire</span></>
+            }
+          </button>
+        )}
       </div>
     </aside>
   );
