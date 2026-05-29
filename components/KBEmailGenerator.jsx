@@ -31,7 +31,7 @@ const KB_TOPIC_MAP = {
 };
 
 const KB_FILES_BY_TOPIC = {
-  m365:     ['m365-pricing-2025.md','m365-e3-vs-e5-decision-guide.md','microsoft-365-collaboration.md','microsoft-licensing-contracts-guide.md','csp-vs-mca-decision-guide.md'],
+  m365:     ['m365-pricing-2025.md','m365-e3-vs-e5-decision-guide.md','m365-e7-frontier-worker-suite.md','microsoft-365-collaboration.md','microsoft-licensing-contracts-guide.md','csp-vs-mca-decision-guide.md'],
   azure:    ['azure-pricing-2025.md','azure-migration.md'],
   dynamics: ['dynamics-365-pricing-2025.md'],
   power:    ['power-platform-digital.md'],
