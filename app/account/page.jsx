@@ -91,7 +91,9 @@ export default function AccountIntelPage() {
   const [query, setQuery]     = useState('');
   const [intel, setIntel]     = useState(null);
   const [loading, setLoading] = useState(false);
-  const [webUsed, setWebUsed] = useState(false);
+  const [webUsed, setWebUsed]       = useState(false);
+  const [sourcesUsed, setSourcesUsed] = useState({});
+  const [snippetCount, setSnippetCount] = useState(0);
 
   async function handleAnalyse() {
     if (!query.trim()) return;
@@ -107,7 +109,11 @@ export default function AccountIntelPage() {
       if (!res.ok || !data.success) throw new Error(data.error || 'Erreur API');
       setIntel(data.intel);
       setWebUsed(data.webDataUsed || false);
-      toast.success(`Dossier généré — ${data.tokensUsed} tokens`);
+      setSourcesUsed(data.sourcesUsed || {});
+      setSnippetCount(data.snippetCount || 0);
+      const srcLabel = Object.entries(data.sourcesUsed || {})
+        .filter(([, v]) => v).map(([k]) => k).join(' + ') || 'KB';
+      toast.success(`Dossier généré — ${data.snippetCount || 0} snippets web (${srcLabel}) · ${data.tokensUsed} tokens`);
     } catch (e) {
       toast.error(e.message);
     } finally {
@@ -195,8 +201,18 @@ export default function AccountIntelPage() {
                       <div className="flex items-center gap-2 flex-wrap">
                         <h2 className="text-2xl font-bold">{intel.company?.name}</h2>
                         {webUsed && (
-                          <span className="flex items-center gap-1 text-xs bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 px-2 py-0.5 rounded-full">
-                            <Wifi className="h-3 w-3" /> {lang === 'fr' ? 'Données web' : 'Web data'}
+                          <span className="flex items-center gap-2 flex-wrap">
+                            <span className="flex items-center gap-1 text-xs bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 px-2 py-0.5 rounded-full">
+                              <Wifi className="h-3 w-3" /> {lang === 'fr' ? 'Données web' : 'Web data'}
+                            </span>
+                            {snippetCount > 0 && (
+                              <span className="text-xs bg-white/10 text-slate-300 px-2 py-0.5 rounded-full">
+                                {snippetCount} {lang === 'fr' ? 'sources' : 'sources'}
+                              </span>
+                            )}
+                            {sourcesUsed.exa    && <span className="text-[10px] bg-violet-500/20 text-violet-300 border border-violet-400/30 px-1.5 py-0.5 rounded-full">Exa</span>}
+                            {sourcesUsed.jina   && <span className="text-[10px] bg-blue-500/20 text-blue-300 border border-blue-400/30 px-1.5 py-0.5 rounded-full">Jina</span>}
+                            {sourcesUsed.tavily && <span className="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-400/30 px-1.5 py-0.5 rounded-full">Tavily</span>}
                           </span>
                         )}
                       </div>
@@ -270,7 +286,14 @@ export default function AccountIntelPage() {
                     <h3 className="font-semibold text-gray-800 text-sm">
                       {lang === 'fr' ? 'Signaux digitaux détectés' : 'Digital signals detected'}
                     </h3>
-                    {webUsed && <span className="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Live</span>}
+                    {webUsed && (
+                      <span className="flex items-center gap-1">
+                        <span className="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Live</span>
+                        {sourcesUsed.exa    && <span className="text-[10px] bg-violet-100 text-violet-700 px-1.5 py-0.5 rounded-full">Exa</span>}
+                        {sourcesUsed.jina   && <span className="text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full">Jina</span>}
+                        {sourcesUsed.tavily && <span className="text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full">Tavily</span>}
+                      </span>
+                    )}
                   </div>
                   <div className="space-y-2.5">
                     {(intel.digitalSignals || []).map((sig, i) => (

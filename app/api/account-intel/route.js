@@ -7,18 +7,98 @@ import { getFullKb } from '@/lib/kb-service';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-// ── Tavily web search (optional — graceful fallback if no key) ────────────────
-async function webSearch(companyName) {
-  const apiKey = process.env.TAVILY_API_KEY;
-  if (!apiKey) return null;
+// ── Source 1 : Exa.ai — neural search (meilleure qualité) ────────────────────
+async function searchExa(companyName) {
+  const apiKey = process.env.EXA_API_KEY;
+  if (!apiKey) return [];
+
+  const queries = [
+    `${companyName} digital transformation cloud Microsoft stratégie IT 2024 2025`,
+    `${companyName} DSI directeur informatique CTO recrutement technologie`,
+    `${companyName} rapport annuel résultats financiers actualité`,
+  ];
 
   try {
-    const queries = [
-      `${companyName} projet digital transformation numérique 2024 2025`,
-      `${companyName} cloud IA innovation technologie actualité`,
-      `${companyName} recrutement DSI informatique`,
-    ];
+    const results = await Promise.allSettled(
+      queries.map(query =>
+        fetch('https://api.exa.ai/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+          },
+          body: JSON.stringify({
+            query,
+            numResults: 4,
+            type: 'neural',
+            useAutoprompt: true,
+            highlights: { numSentences: 3, highlightsPerUrl: 2 },
+          }),
+        }).then(r => r.json())
+      )
+    );
 
+    const snippets = [];
+    for (const r of results) {
+      if (r.status !== 'fulfilled' || !r.value?.results) continue;
+      for (const item of r.value.results) {
+        const text = item.highlights?.join(' ') || item.text?.slice(0, 500) || '';
+        if (text) snippets.push(`[Exa — ${item.title}] ${text}`);
+      }
+    }
+    return snippets;
+  } catch {
+    return [];
+  }
+}
+
+// ── Source 2 : Jina Search — gratuit, sans clé, toujours disponible ──────────
+async function searchJina(companyName) {
+  const queries = [
+    `${companyName} stratégie numérique cloud innovation Microsoft`,
+    `${companyName} actualité entreprise technologie 2024 2025`,
+  ];
+
+  try {
+    const results = await Promise.allSettled(
+      queries.map(q =>
+        fetch(`https://s.jina.ai/${encodeURIComponent(q)}`, {
+          headers: { Accept: 'text/plain', 'X-Return-Format': 'text' },
+          signal: AbortSignal.timeout(8000),
+        }).then(r => r.text())
+      )
+    );
+
+    const snippets = [];
+    for (const r of results) {
+      if (r.status === 'fulfilled' && r.value && r.value.length > 100) {
+        // Extract meaningful chunks (skip nav/footer noise)
+        const lines = r.value
+          .split('\n')
+          .filter(l => l.trim().length > 60)
+          .slice(0, 8)
+          .join(' ');
+        if (lines) snippets.push(`[Jina Web] ${lines.slice(0, 800)}`);
+      }
+    }
+    return snippets;
+  } catch {
+    return [];
+  }
+}
+
+// ── Source 3 : Tavily — IA-native search (existing) ──────────────────────────
+async function searchTavily(companyName) {
+  const apiKey = process.env.TAVILY_API_KEY;
+  if (!apiKey) return [];
+
+  const queries = [
+    `${companyName} projet cloud Microsoft Azure transformation numérique`,
+    `${companyName} recrutement DSI architecte cloud sécurité informatique`,
+    `${companyName} budget IT investissement technologie 2024 2025`,
+  ];
+
+  try {
     const results = await Promise.allSettled(
       queries.map(q =>
         fetch('https://api.tavily.com/search', {
@@ -37,18 +117,76 @@ async function webSearch(companyName) {
 
     const snippets = [];
     for (const r of results) {
-      if (r.status === 'fulfilled' && r.value?.results) {
-        for (const item of r.value.results) {
-          if (item.content) {
-            snippets.push(`[${item.title}] ${item.content.slice(0, 400)}`);
-          }
+      if (r.status !== 'fulfilled' || !r.value?.results) continue;
+      for (const item of r.value.results) {
+        if (item.content) {
+          snippets.push(`[Tavily — ${item.title}] ${item.content.slice(0, 400)}`);
         }
       }
     }
-    return snippets.length ? snippets.join('\n\n') : null;
+    return snippets;
+  } catch {
+    return [];
+  }
+}
+
+// ── Contact Finder — Exa neural → décideurs DSI/CTO (pattern ERP Scraper) ────
+async function findDecisionMakers(companyName) {
+  const apiKey = process.env.EXA_API_KEY;
+  if (!apiKey) return null;
+
+  try {
+    const res = await fetch('https://api.exa.ai/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+      },
+      body: JSON.stringify({
+        query: `${companyName} DSI directeur informatique CTO CIO site:linkedin.com OR responsable IT`,
+        numResults: 5,
+        type: 'neural',
+        useAutoprompt: true,
+        highlights: { numSentences: 2, highlightsPerUrl: 1 },
+      }),
+    });
+    const data = await res.json();
+    if (!data?.results?.length) return null;
+
+    const hits = data.results
+      .map(r => `${r.title}: ${r.url}`)
+      .slice(0, 4)
+      .join('\n');
+    return hits;
   } catch {
     return null;
   }
+}
+
+// ── Enrichissement multi-source parallèle (pattern ERP Scraper enricher.py) ──
+async function enrichCompany(companyName) {
+  const [exaResults, jinaResults, tavilyResults, contactHints] = await Promise.allSettled([
+    searchExa(companyName),
+    searchJina(companyName),
+    searchTavily(companyName),
+    findDecisionMakers(companyName),
+  ]);
+
+  const snippets = [
+    ...(exaResults.status === 'fulfilled'    ? exaResults.value    : []),
+    ...(jinaResults.status === 'fulfilled'   ? jinaResults.value   : []),
+    ...(tavilyResults.status === 'fulfilled' ? tavilyResults.value : []),
+  ];
+
+  const contacts = contactHints.status === 'fulfilled' ? contactHints.value : null;
+
+  const sourcesUsed = {
+    exa:    exaResults.status === 'fulfilled'    && exaResults.value.length > 0,
+    jina:   jinaResults.status === 'fulfilled'   && jinaResults.value.length > 0,
+    tavily: tavilyResults.status === 'fulfilled' && tavilyResults.value.length > 0,
+  };
+
+  return { snippets, contacts, sourcesUsed };
 }
 
 // ── Main handler ──────────────────────────────────────────────────────────────
@@ -65,15 +203,31 @@ export async function POST(request) {
       return NextResponse.json({ error: 'accountName is required' }, { status: 400 });
     }
 
-    // Run KB read + web search in parallel
-    const [kbContent, webData] = await Promise.all([
+    // ── Parallel: KB + multi-source web enrichment ──────────────────────────
+    const [kbContent, enriched] = await Promise.all([
       Promise.resolve(getFullKb(14000)),
-      webSearch(accountName),
+      enrichCompany(accountName),
     ]);
 
-    const webSection = webData
-      ? `\n\n## DONNÉES WEB EN TEMPS RÉEL (scraping)\n${webData}`
-      : '\n\n## DONNÉES WEB : non disponibles (clé Tavily non configurée — utilise tes connaissances)';
+    const { snippets, contacts, sourcesUsed } = enriched;
+    const webDataUsed = snippets.length > 0;
+
+    // Build web section with source attribution
+    let webSection;
+    if (webDataUsed) {
+      const sourceLabels = Object.entries(sourcesUsed)
+        .filter(([, used]) => used)
+        .map(([src]) => src.charAt(0).toUpperCase() + src.slice(1))
+        .join(' + ');
+
+      webSection = `\n\n## DONNÉES WEB EN TEMPS RÉEL (sources : ${sourceLabels})\n${snippets.join('\n\n')}`;
+
+      if (contacts) {
+        webSection += `\n\n## DÉCIDEURS POTENTIELS DÉTECTÉS\n${contacts}`;
+      }
+    } else {
+      webSection = '\n\n## DONNÉES WEB : non disponibles — utilise tes connaissances générales sur cette entreprise.';
+    }
 
     const systemPrompt = `Tu es un expert en intelligence commerciale et stratégie d'entreprise pour un Account Manager Microsoft.
 Ton rôle : produire un dossier de prospection complet et structuré sur une entreprise cible.
@@ -81,6 +235,7 @@ Ton rôle : produire un dossier de prospection complet et structuré sur une ent
 RÈGLES :
 - Toutes les recommandations de solutions/prix doivent venir EXCLUSIVEMENT de la KNOWLEDGE BASE ci-dessous
 - Pour le SWOT et PESTEL : raisonne à partir des données web ET de ta connaissance générale de l'entreprise/secteur
+- Si des décideurs potentiels ont été détectés dans les données web, enrichis la section decisionMakers avec leurs noms/titres réels
 - Sois factuel, précis, commercial — évite le remplissage
 
 KNOWLEDGE BASE MICROSOFT :
@@ -108,30 +263,14 @@ Retourne UNIQUEMENT un objet JSON valide (pas de markdown, pas de code fence) av
     "Ex: Budget IT augmenté de 15% selon rapport annuel 2024"
   ],
   "swot": {
-    "strengths": [
-      "Force 1 — avec impact sur l'adoption Microsoft",
-      "Force 2",
-      "Force 3"
-    ],
-    "weaknesses": [
-      "Faiblesse 1 — angle d'attaque pour le commercial",
-      "Faiblesse 2",
-      "Faiblesse 3"
-    ],
-    "opportunities": [
-      "Opportunité 1 — comment Microsoft peut y répondre",
-      "Opportunité 2",
-      "Opportunité 3"
-    ],
-    "threats": [
-      "Menace 1 — et comment Microsoft atténue ce risque",
-      "Menace 2",
-      "Menace 3"
-    ]
+    "strengths": ["Force 1 — avec impact sur l'adoption Microsoft", "Force 2", "Force 3"],
+    "weaknesses": ["Faiblesse 1 — angle d'attaque pour le commercial", "Faiblesse 2", "Faiblesse 3"],
+    "opportunities": ["Opportunité 1 — comment Microsoft peut y répondre", "Opportunité 2", "Opportunité 3"],
+    "threats": ["Menace 1 — et comment Microsoft atténue ce risque", "Menace 2", "Menace 3"]
   },
   "pestel": {
-    "political": "Facteurs politiques/réglementaires impactant leur stratégie IT (ex: directives NIS2, souveraineté cloud)",
-    "economic": "Contexte économique — pression sur les coûts IT, investissement numérique prévu",
+    "political": "Facteurs politiques/réglementaires impactant leur stratégie IT",
+    "economic": "Contexte économique — pression sur les coûts IT, investissement numérique",
     "social": "Facteurs sociaux — télétravail, recrutement tech, culture digitale",
     "technological": "Maturité technologique actuelle + enjeux de modernisation",
     "environmental": "Enjeux RSE/Green IT — engagement Net Zéro, reporting carbone",
@@ -141,10 +280,7 @@ Retourne UNIQUEMENT un objet JSON valide (pas de markdown, pas de code fence) av
     "score": 85,
     "rationale": "2-3 phrases expliquant pourquoi Microsoft est pertinent pour cette entreprise maintenant",
     "urgencyLevel": "high | medium | low",
-    "buyingSignals": [
-      "Signal 1 qui indique une fenêtre d'opportunité",
-      "Signal 2"
-    ]
+    "buyingSignals": ["Signal 1 qui indique une fenêtre d'opportunité", "Signal 2"]
   },
   "decisionMakers": [
     {
@@ -215,7 +351,9 @@ Fournis 3 digitalSignals, 3 éléments dans chaque branche SWOT, 3 topSolutions 
     return NextResponse.json({
       success: true,
       intel,
-      webDataUsed: !!webData,
+      webDataUsed,
+      sourcesUsed,
+      snippetCount: snippets.length,
       tokensUsed: response.usage?.total_tokens || 0,
     });
   } catch (error) {
