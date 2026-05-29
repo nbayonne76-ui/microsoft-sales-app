@@ -208,7 +208,7 @@ export default function AccountIntelPage() {
                     {[
                       { label: lang === 'fr' ? 'Taille' : 'Size',      value: intel.company?.size?.toUpperCase() },
                       { label: lang === 'fr' ? 'Effectif' : 'Employees',value: intel.company?.employees },
-                      { label: 'CA estimé',                              value: intel.company?.estimatedRevenue },
+                      { label: lang === 'fr' ? 'CA estimé' : 'Est. Revenue', value: intel.company?.estimatedRevenue },
                     ].map(i => (
                       <div key={i.label} className="bg-white/10 rounded-xl px-4 py-2 text-center min-w-[80px]">
                         <p className="text-slate-400 text-[10px] uppercase tracking-wider">{i.label}</p>
@@ -243,9 +243,11 @@ export default function AccountIntelPage() {
                       ? 'bg-orange-100 text-orange-700'
                       : 'bg-green-100 text-green-700'
                   }`}>
-                    {intel.microsoftFit?.urgencyLevel === 'high' ? '🔥 Urgence élevée'
-                      : intel.microsoftFit?.urgencyLevel === 'medium' ? '⚡ Urgence moyenne'
-                      : '✅ Pipeline long terme'}
+                    {intel.microsoftFit?.urgencyLevel === 'high'
+                      ? (lang === 'fr' ? '🔥 Urgence élevée' : '🔥 High urgency')
+                      : intel.microsoftFit?.urgencyLevel === 'medium'
+                      ? (lang === 'fr' ? '⚡ Urgence moyenne' : '⚡ Medium urgency')
+                      : (lang === 'fr' ? '✅ Pipeline long terme' : '✅ Long-term pipeline')}
                   </div>
                   <p className="text-xs text-gray-500 text-center leading-relaxed">{intel.microsoftFit?.rationale}</p>
                   {intel.microsoftFit?.buyingSignals?.length > 0 && (
@@ -295,8 +297,8 @@ export default function AccountIntelPage() {
               <motion.div variants={fadeUp} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
                   <BarChart3 className="h-5 w-5 text-gray-600" />
-                  <h3 className="font-semibold text-gray-800 text-sm">Analyse SWOT</h3>
-                  <span className="text-xs text-gray-400 ml-auto">Contextualisée pour un pitch Microsoft</span>
+                  <h3 className="font-semibold text-gray-800 text-sm">{lang === 'fr' ? 'Analyse SWOT' : 'SWOT Analysis'}</h3>
+                  <span className="text-xs text-gray-400 ml-auto">{lang === 'fr' ? 'Contextualisée pour un pitch Microsoft' : 'Contextualised for a Microsoft pitch'}</span>
                 </div>
                 <div className="grid grid-cols-2">
                   {SWOT_CONFIG.map((cell, idx) => {
@@ -326,8 +328,8 @@ export default function AccountIntelPage() {
               <motion.div variants={fadeUp} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
                   <Globe className="h-5 w-5 text-gray-600" />
-                  <h3 className="font-semibold text-gray-800 text-sm">Analyse PESTEL</h3>
-                  <span className="text-xs text-gray-400 ml-auto">Impact sur la stratégie IT</span>
+                  <h3 className="font-semibold text-gray-800 text-sm">{lang === 'fr' ? 'Analyse PESTEL' : 'PESTEL Analysis'}</h3>
+                  <span className="text-xs text-gray-400 ml-auto">{lang === 'fr' ? 'Impact sur la stratégie IT' : 'IT strategy impact'}</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
                   {PESTEL_CONFIG.map(item => {

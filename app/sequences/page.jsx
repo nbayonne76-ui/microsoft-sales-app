@@ -39,15 +39,17 @@ const STATUS_STYLES = {
   replied:  'bg-emerald-100 text-emerald-700',
   ignored:  'bg-red-100 text-red-600',
 };
-const STATUS_LABELS = { pending: 'À envoyer', sent: 'Envoyé', replied: 'Répondu', ignored: 'Ignoré' };
+const STATUS_LABELS_FR = { pending: 'À envoyer', sent: 'Envoyé', replied: 'Répondu', ignored: 'Ignoré' };
+const STATUS_LABELS_EN = { pending: 'To send', sent: 'Sent', replied: 'Replied', ignored: 'Ignored' };
 
 const CHANNEL_ICON = { Email: Mail, LinkedIn: MessageSquare, Appel: Phone };
 
 // ── Touch card ────────────────────────────────────────────────────────────────
-function TouchCard({ touch, phaseColor, status, onStatusChange, onCopy, copied }) {
+function TouchCard({ touch, phaseColor, status, onStatusChange, onCopy, copied, lang }) {
   const [open, setOpen] = useState(false);
   const style = PHASE_STYLES[phaseColor] || PHASE_STYLES.blue;
   const ChanIcon = CHANNEL_ICON[touch.channel] || Mail;
+  const STATUS_LABELS = lang === 'fr' ? STATUS_LABELS_FR : STATUS_LABELS_EN;
 
   return (
     <motion.div variants={fadeUp} className={`rounded-xl border ${style.border} bg-white shadow-sm overflow-hidden`}>
@@ -117,14 +119,16 @@ function TouchCard({ touch, phaseColor, status, onStatusChange, onCopy, copied }
                   className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   {copied ? <CheckCheck className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                  {copied ? 'Copié !' : 'Copier pour Outlook'}
+                  {copied
+                    ? (lang === 'fr' ? 'Copié !' : 'Copied!')
+                    : (lang === 'fr' ? 'Copier pour Outlook' : 'Copy for Outlook')}
                 </button>
                 <Link
                   href={`/email-generator?challenge=${encodeURIComponent(touch.subject)}`}
                   className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
                 >
                   <Sparkles className="w-3 h-3" />
-                  Affiner dans Email Generator
+                  {lang === 'fr' ? 'Affiner dans Email Generator' : 'Refine in Email Generator'}
                 </Link>
               </div>
             </div>
@@ -257,7 +261,7 @@ export default function SequencesPage() {
               <input
                 value={industry}
                 onChange={e => setIndustry(e.target.value)}
-                placeholder="ex: Aéronautique, Finance, Industrie…"
+                placeholder={lang === 'fr' ? 'ex: Aéronautique, Finance, Industrie…' : 'e.g. Aerospace, Finance, Manufacturing…'}
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm"
               />
             </div>
@@ -308,7 +312,7 @@ export default function SequencesPage() {
                 {lang === 'fr' ? 'Taille entreprise' : 'Company size'}
               </label>
               <div className="flex gap-2">
-                {[['startup','Startup'],['sme','PME'],['enterprise','Grand compte']].map(([v,l]) => (
+                {[['startup','Startup'],['sme', lang === 'fr' ? 'PME' : 'SME'],['enterprise', lang === 'fr' ? 'Grand compte' : 'Enterprise']].map(([v,l]) => (
                   <button key={v} onClick={() => setCompanySize(v)}
                     className={`flex-1 py-2 rounded-xl text-xs font-semibold border transition-all ${
                       companySize === v
@@ -366,9 +370,9 @@ export default function SequencesPage() {
                   {/* Progress stats */}
                   <div className="flex gap-4">
                     {[
-                      { label: 'Touches', value: totalTouches, color: 'text-white' },
-                      { label: 'Envoyées', value: sentCount, color: 'text-blue-300' },
-                      { label: 'Réponses', value: repliedCount, color: 'text-emerald-300' },
+                      { label: lang === 'fr' ? 'Touches' : 'Touches', value: totalTouches, color: 'text-white' },
+                      { label: lang === 'fr' ? 'Envoyées' : 'Sent', value: sentCount, color: 'text-blue-300' },
+                      { label: lang === 'fr' ? 'Réponses' : 'Replies', value: repliedCount, color: 'text-emerald-300' },
                     ].map(s => (
                       <div key={s.label} className="text-center">
                         <p className={`text-2xl font-black ${s.color}`}>{s.value}</p>
@@ -381,11 +385,11 @@ export default function SequencesPage() {
                 <div className="flex gap-2 mt-4 flex-wrap">
                   <button onClick={saveSequence}
                     className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors">
-                    <Plus className="h-3 w-3" /> Sauvegarder
+                    <Plus className="h-3 w-3" /> {lang === 'fr' ? 'Sauvegarder' : 'Save'}
                   </button>
                   <button onClick={() => { setSequence(null); setCompany(''); }}
                     className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors">
-                    <RotateCcw className="h-3 w-3" /> Nouvelle séquence
+                    <RotateCcw className="h-3 w-3" /> {lang === 'fr' ? 'Nouvelle séquence' : 'New sequence'}
                   </button>
                   <Link href={`/email-generator?company=${encodeURIComponent(sequence.company)}&solution=${sequence.solutionId}`}
                     className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg transition-colors">
@@ -424,6 +428,7 @@ export default function SequencesPage() {
                           onStatusChange={s => setTouchStatus(phaseIdx, touchIdx, s)}
                           onCopy={(text) => copyText(text, `${phaseIdx}-${touchIdx}`)}
                           copied={copiedId === `${phaseIdx}-${touchIdx}`}
+                          lang={lang}
                         />
                       ))}
                     </div>
@@ -452,7 +457,7 @@ export default function SequencesPage() {
                   <div className="flex gap-2">
                     <button onClick={() => { setSequence(s); setStatuses({}); }}
                       className="text-xs px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-1">
-                      <ArrowRight className="h-3 w-3" /> Voir
+                      <ArrowRight className="h-3 w-3" /> {lang === 'fr' ? 'Voir' : 'View'}
                     </button>
                     <button onClick={() => setSaved(prev => prev.filter(x => x.id !== s.id))}
                       className="text-xs px-2 py-1.5 bg-gray-100 text-gray-500 rounded-lg hover:bg-red-50 hover:text-red-500 transition-colors">

@@ -8,9 +8,11 @@ import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Building2, Mail, Lock, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
+import { useLang } from '@/contexts/LanguageContext'
 
 export default function SignInPage() {
   const router = useRouter()
+  const { lang } = useLang()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -35,7 +37,7 @@ export default function SignInPage() {
         router.refresh()
       }
     } catch (err) {
-      setError('Une erreur est survenue')
+      setError(lang === 'fr' ? 'Une erreur est survenue' : 'An error occurred')
     } finally {
       setLoading(false)
     }
@@ -54,7 +56,7 @@ export default function SignInPage() {
             Microsoft Partner Hub
           </h1>
           <p className="text-gray-600">
-            Plateforme d'accélération commerciale
+            {lang === 'fr' ? 'Plateforme d\'accélération commerciale' : 'Sales acceleration platform'}
           </p>
         </div>
 
@@ -75,7 +77,7 @@ export default function SignInPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="votre@email.com"
+                placeholder={lang === 'fr' ? 'votre@email.com' : 'your@email.com'}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -87,7 +89,7 @@ export default function SignInPage() {
 
           <div className="space-y-2">
             <label htmlFor="password" className="text-sm font-medium text-gray-700">
-              Mot de passe
+              {lang === 'fr' ? 'Mot de passe' : 'Password'}
             </label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -109,21 +111,23 @@ export default function SignInPage() {
             disabled={loading}
             className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
           >
-            {loading ? 'Connexion...' : 'Se connecter'}
+            {loading
+              ? (lang === 'fr' ? 'Connexion...' : 'Signing in...')
+              : (lang === 'fr' ? 'Se connecter' : 'Sign in')}
           </Button>
 
           <div className="text-center text-sm text-gray-600">
-            <span>Pas encore de compte ? </span>
+            <span>{lang === 'fr' ? 'Pas encore de compte ? ' : 'No account yet? '}</span>
             <Link href="/auth/signup" className="text-blue-600 hover:text-blue-700 font-medium">
-              Créer un compte
+              {lang === 'fr' ? 'Créer un compte' : 'Create an account'}
             </Link>
           </div>
         </form>
 
         <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="flex items-center justify-center gap-4 text-xs text-gray-400">
-            <span>✓ Connexion sécurisée</span>
-            <span>✓ Données cryptées</span>
+            <span>{lang === 'fr' ? '✓ Connexion sécurisée' : '✓ Secure login'}</span>
+            <span>{lang === 'fr' ? '✓ Données cryptées' : '✓ Encrypted data'}</span>
             <span>✓ RGPD compliant</span>
           </div>
         </div>

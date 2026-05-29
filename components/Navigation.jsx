@@ -174,7 +174,7 @@ export default function Navigation({
           >
             {collapsed
               ? <ChevronRight className="h-4 w-4 shrink-0" />
-              : <><ChevronLeft className="h-4 w-4 shrink-0" /><span className="text-xs">Réduire</span></>
+              : <><ChevronLeft className="h-4 w-4 shrink-0" /><span className="text-xs">{lang === 'fr' ? 'Réduire' : 'Collapse'}</span></>
             }
           </button>
         )}

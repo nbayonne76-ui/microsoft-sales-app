@@ -7,9 +7,11 @@ import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Building2, Mail, Lock, User, AlertCircle, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
+import { useLang } from '@/contexts/LanguageContext'
 
 export default function SignUpPage() {
   const router = useRouter()
+  const { lang } = useLang()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -21,14 +23,13 @@ export default function SignUpPage() {
     e.preventDefault()
     setError('')
 
-    // Validation
     if (password !== confirmPassword) {
-      setError('Les mots de passe ne correspondent pas')
+      setError(lang === 'fr' ? 'Les mots de passe ne correspondent pas' : 'Passwords do not match')
       return
     }
 
     if (password.length < 6) {
-      setError('Le mot de passe doit contenir au moins 6 caractères')
+      setError(lang === 'fr' ? 'Le mot de passe doit contenir au moins 6 caractères' : 'Password must be at least 6 characters')
       return
     }
 
@@ -50,14 +51,13 @@ export default function SignUpPage() {
       const data = await response.json()
 
       if (!response.ok) {
-        setError(data.error || 'Une erreur est survenue')
+        setError(data.error || (lang === 'fr' ? 'Une erreur est survenue' : 'An error occurred'))
         return
       }
 
-      // Success - redirect to signin
       router.push('/auth/signin?registered=true')
     } catch (err) {
-      setError('Une erreur est survenue lors de la création du compte')
+      setError(lang === 'fr' ? 'Une erreur est survenue lors de la création du compte' : 'An error occurred while creating the account')
     } finally {
       setLoading(false)
     }
@@ -73,10 +73,10 @@ export default function SignUpPage() {
             </div>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Créer un compte
+            {lang === 'fr' ? 'Créer un compte' : 'Create an account'}
           </h1>
           <p className="text-gray-600">
-            Rejoignez le Microsoft Partner Hub
+            {lang === 'fr' ? 'Rejoignez le Microsoft Partner Hub' : 'Join the Microsoft Partner Hub'}
           </p>
         </div>
 
@@ -90,7 +90,7 @@ export default function SignUpPage() {
 
           <div className="space-y-2">
             <label htmlFor="name" className="text-sm font-medium text-gray-700">
-              Nom complet
+              {lang === 'fr' ? 'Nom complet' : 'Full name'}
             </label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -115,7 +115,7 @@ export default function SignUpPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="votre@email.com"
+                placeholder={lang === 'fr' ? 'votre@email.com' : 'your@email.com'}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -127,7 +127,7 @@ export default function SignUpPage() {
 
           <div className="space-y-2">
             <label htmlFor="password" className="text-sm font-medium text-gray-700">
-              Mot de passe
+              {lang === 'fr' ? 'Mot de passe' : 'Password'}
             </label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -143,13 +143,13 @@ export default function SignUpPage() {
               />
             </div>
             <p className="text-xs text-gray-500">
-              Minimum 6 caractères
+              {lang === 'fr' ? 'Minimum 6 caractères' : 'Minimum 6 characters'}
             </p>
           </div>
 
           <div className="space-y-2">
             <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
-              Confirmer le mot de passe
+              {lang === 'fr' ? 'Confirmer le mot de passe' : 'Confirm password'}
             </label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -171,13 +171,15 @@ export default function SignUpPage() {
             disabled={loading}
             className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
           >
-            {loading ? 'Création...' : 'Créer mon compte'}
+            {loading
+              ? (lang === 'fr' ? 'Création...' : 'Creating...')
+              : (lang === 'fr' ? 'Créer mon compte' : 'Create my account')}
           </Button>
 
           <div className="text-center text-sm text-gray-600">
-            <span>Vous avez déjà un compte ? </span>
+            <span>{lang === 'fr' ? 'Vous avez déjà un compte ? ' : 'Already have an account? '}</span>
             <Link href="/auth/signin" className="text-blue-600 hover:text-blue-700 font-medium">
-              Se connecter
+              {lang === 'fr' ? 'Se connecter' : 'Sign in'}
             </Link>
           </div>
         </form>
@@ -186,15 +188,15 @@ export default function SignUpPage() {
           <div className="space-y-2 text-xs text-gray-500">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 text-green-500" />
-              <span>Mots de passe cryptés avec bcrypt</span>
+              <span>{lang === 'fr' ? 'Mots de passe cryptés avec bcrypt' : 'Passwords encrypted with bcrypt'}</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 text-green-500" />
-              <span>Données sécurisées et confidentielles</span>
+              <span>{lang === 'fr' ? 'Données sécurisées et confidentielles' : 'Secured and confidential data'}</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 text-green-500" />
-              <span>Conforme RGPD</span>
+              <span>{lang === 'fr' ? 'Conforme RGPD' : 'GDPR compliant'}</span>
             </div>
           </div>
         </div>
