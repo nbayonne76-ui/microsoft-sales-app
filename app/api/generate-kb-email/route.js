@@ -24,13 +24,48 @@ export async function POST(request) {
       return NextResponse.json({ error: 'companyName is required' }, { status: 400 });
     }
 
-    const kbContent  = getKbByTopic(solution || 'm365');
-    const kbFiles    = getKbFiles(solution || 'm365');
+    // Map granular sub-solution IDs → parent KB topic
+    const KB_TOPIC_MAP = {
+      dy_sales: 'dynamics', dy_cs: 'dynamics', dy_field: 'dynamics',
+      dy_bc: 'dynamics', dy_finance: 'dynamics',
+      m365_business: 'm365', m365_e3: 'm365', m365_e5: 'm365', m365_copilot: 'm365',
+      azure_migration: 'azure', azure_ai: 'azure', azure_infra: 'azure', azure_data: 'azure',
+      power_bi: 'power', power_apps: 'power', power_automate: 'power',
+      security_defender: 'security', security_sentinel: 'security', security_purview: 'security',
+    };
+    const kbTopic    = KB_TOPIC_MAP[solution] || solution || 'm365';
+    const kbContent  = getKbByTopic(kbTopic);
+    const kbFiles    = getKbFiles(kbTopic);
 
     const SOLUTION_LABELS = {
+      // Legacy
       m365: 'Microsoft 365', azure: 'Microsoft Azure',
       dynamics: 'Dynamics 365', power: 'Power Platform',
       security: 'Microsoft Security & Compliance', bundles: 'Microsoft Solution Bundles',
+      // Dynamics 365 sub-solutions
+      dy_sales:   'Dynamics 365 Sales',
+      dy_cs:      'Dynamics 365 Customer Service',
+      dy_field:   'Dynamics 365 Field Service',
+      dy_bc:      'Dynamics 365 Business Central',
+      dy_finance: 'Dynamics 365 Finance & Supply Chain',
+      // Microsoft 365 sub-solutions
+      m365_business: 'Microsoft 365 Business',
+      m365_e3:       'Microsoft 365 Enterprise E3',
+      m365_e5:       'Microsoft 365 Enterprise E5',
+      m365_copilot:  'Microsoft 365 Copilot',
+      // Azure sub-solutions
+      azure_migration: 'Azure Cloud Migration',
+      azure_ai:        'Azure AI & OpenAI Service',
+      azure_infra:     'Azure Infrastructure',
+      azure_data:      'Azure Data & Analytics',
+      // Power Platform sub-solutions
+      power_bi:       'Power BI',
+      power_apps:     'Power Apps',
+      power_automate: 'Power Automate',
+      // Security sub-solutions
+      security_defender: 'Microsoft Defender',
+      security_sentinel: 'Microsoft Sentinel',
+      security_purview:  'Microsoft Purview',
     };
     const solutionLabel = SOLUTION_LABELS[solution] || 'Microsoft solutions';
 

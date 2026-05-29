@@ -12,8 +12,25 @@ import Link from 'next/link';
 import { toast } from 'sonner';
 import { useLang, t } from '@/contexts/LanguageContext';
 
-// ── KB files per solution (mirrors route) ────────────────────────────────────
-const KB_FILES = {
+// ── KB topic map: sub-solution ID → parent KB topic ──────────────────────────
+const KB_TOPIC_MAP = {
+  // Dynamics 365
+  dy_sales: 'dynamics', dy_cs: 'dynamics', dy_field: 'dynamics',
+  dy_bc: 'dynamics', dy_finance: 'dynamics',
+  // Microsoft 365
+  m365_business: 'm365', m365_e3: 'm365', m365_e5: 'm365', m365_copilot: 'm365',
+  // Azure
+  azure_migration: 'azure', azure_ai: 'azure', azure_infra: 'azure', azure_data: 'azure',
+  // Power Platform
+  power_bi: 'power', power_apps: 'power', power_automate: 'power',
+  // Security
+  security_defender: 'security', security_sentinel: 'security', security_purview: 'security',
+  // Bundles + legacy IDs (backward compat)
+  bundles: 'bundles', m365: 'm365', azure: 'azure',
+  dynamics: 'dynamics', power: 'power', security: 'security',
+};
+
+const KB_FILES_BY_TOPIC = {
   m365:     ['m365-pricing-2025.md','m365-e3-vs-e5-decision-guide.md','microsoft-365-collaboration.md','microsoft-licensing-contracts-guide.md','csp-vs-mca-decision-guide.md'],
   azure:    ['azure-pricing-2025.md','azure-migration.md'],
   dynamics: ['dynamics-365-pricing-2025.md'],
@@ -22,57 +39,72 @@ const KB_FILES = {
   bundles:  ['solution-bundles-pricing.md','microsoft-pricing-guide-2025.md'],
 };
 
-// ── Happi Brain: solution cards ──────────────────────────────────────────────
-const SOLUTIONS = [
+function getKbFiles(solId) {
+  return KB_FILES_BY_TOPIC[KB_TOPIC_MAP[solId] || solId] || [];
+}
+
+// ── Solution groups (granular) ────────────────────────────────────────────────
+const SOLUTION_GROUPS = [
   {
-    id: 'm365',
-    label: 'Microsoft 365',
-    emoji: '💼',
-    color: 'from-blue-500 to-indigo-600',
-    border: 'gradient-border',
-    desc: 'Productivity, Teams, Exchange, SharePoint',
-  },
-  {
-    id: 'azure',
-    label: 'Microsoft Azure',
-    emoji: '☁️',
-    color: 'from-sky-500 to-blue-600',
-    border: 'gradient-border',
-    desc: 'Cloud infrastructure, migration, AI services',
-  },
-  {
-    id: 'dynamics',
-    label: 'Dynamics 365',
-    emoji: '🎯',
+    key: 'dynamics', label: 'Dynamics 365', emoji: '🎯',
     color: 'from-orange-500 to-red-600',
-    border: 'gradient-border-orange',
-    desc: 'CRM, ERP, Sales, Customer Service',
+    solutions: [
+      { id: 'dy_sales',   label: 'D365 Sales',            emoji: '🎯', desc: 'Pipeline, opportunités, prévisions', color: 'from-orange-500 to-red-600' },
+      { id: 'dy_cs',      label: 'D365 Customer Service', emoji: '🎧', desc: 'Ticketing, SLA, self-service portal', color: 'from-red-500 to-rose-600' },
+      { id: 'dy_field',   label: 'D365 Field Service',    emoji: '🔧', desc: 'Techniciens terrain, IoT, planning', color: 'from-orange-600 to-amber-600' },
+      { id: 'dy_bc',      label: 'Business Central',      emoji: '📊', desc: 'ERP PME : finance, compta, stock', color: 'from-amber-500 to-orange-500' },
+      { id: 'dy_finance', label: 'D365 Finance & SCM',    emoji: '💹', desc: 'ERP grands comptes, supply chain', color: 'from-orange-700 to-red-700' },
+    ],
   },
   {
-    id: 'power',
-    label: 'Power Platform',
-    emoji: '⚡',
+    key: 'm365', label: 'Microsoft 365', emoji: '💼',
+    color: 'from-blue-500 to-indigo-600',
+    solutions: [
+      { id: 'm365_business', label: 'M365 Business',          emoji: '💼', desc: 'PME ≤300 : Teams, Exchange, Office', color: 'from-blue-500 to-indigo-600' },
+      { id: 'm365_e3',       label: 'M365 Enterprise E3',     emoji: '🏢', desc: 'Compliance, eDiscovery, Intune', color: 'from-blue-600 to-indigo-700' },
+      { id: 'm365_e5',       label: 'M365 Enterprise E5',     emoji: '⭐', desc: 'Defender, Purview, Phone System', color: 'from-indigo-600 to-purple-700' },
+      { id: 'm365_copilot',  label: 'Microsoft 365 Copilot',  emoji: '🤖', desc: 'IA générative dans Teams, Word, Excel', color: 'from-purple-600 to-indigo-700' },
+    ],
+  },
+  {
+    key: 'azure', label: 'Microsoft Azure', emoji: '☁️',
+    color: 'from-sky-500 to-blue-600',
+    solutions: [
+      { id: 'azure_migration', label: 'Azure Migration',       emoji: '🚀', desc: 'Lift & shift, modernisation infra on-prem', color: 'from-sky-500 to-blue-600' },
+      { id: 'azure_ai',        label: 'Azure AI & OpenAI',     emoji: '🧠', desc: 'GPT-4, Copilot Studio, AI Search', color: 'from-blue-600 to-violet-600' },
+      { id: 'azure_infra',     label: 'Azure Infrastructure',  emoji: '🖥️', desc: 'VMs, AKS, réseau, stockage, AVD', color: 'from-sky-600 to-cyan-600' },
+      { id: 'azure_data',      label: 'Azure Data & Analytics',emoji: '📈', desc: 'Fabric, Synapse, Data Factory, Purview', color: 'from-blue-700 to-sky-700' },
+    ],
+  },
+  {
+    key: 'power', label: 'Power Platform', emoji: '⚡',
     color: 'from-yellow-500 to-orange-500',
-    border: 'gradient-border-orange',
-    desc: 'Low-code apps, automation, analytics',
+    solutions: [
+      { id: 'power_bi',       label: 'Power BI',        emoji: '📊', desc: 'Dashboards, rapports, self-service BI', color: 'from-yellow-500 to-orange-500' },
+      { id: 'power_apps',     label: 'Power Apps',      emoji: '📱', desc: 'Apps métier no-code / low-code', color: 'from-orange-400 to-yellow-500' },
+      { id: 'power_automate', label: 'Power Automate',  emoji: '⚙️', desc: 'RPA, flux intelligents, connecteurs', color: 'from-yellow-600 to-orange-600' },
+    ],
   },
   {
-    id: 'security',
-    label: 'Security & Compliance',
-    emoji: '🛡️',
+    key: 'security', label: 'Security & Compliance', emoji: '🛡️',
     color: 'from-red-500 to-rose-600',
-    border: 'gradient-border-orange',
-    desc: 'Zero Trust, Defender, Purview',
+    solutions: [
+      { id: 'security_defender', label: 'Microsoft Defender', emoji: '🛡️', desc: 'XDR, endpoint, identité, SIEM', color: 'from-red-500 to-rose-600' },
+      { id: 'security_sentinel', label: 'Microsoft Sentinel',  emoji: '🔍', desc: 'SIEM/SOAR, threat intelligence cloud', color: 'from-rose-600 to-red-700' },
+      { id: 'security_purview',  label: 'Microsoft Purview',   emoji: '🔒', desc: 'DLP, classification, RGPD, eDiscovery', color: 'from-red-600 to-rose-700' },
+    ],
   },
   {
-    id: 'bundles',
-    label: 'Solution Bundles',
-    emoji: '🎁',
+    key: 'bundles', label: 'Solution Bundles', emoji: '🎁',
     color: 'from-emerald-500 to-teal-600',
-    border: 'gradient-border-green',
-    desc: 'ROI-optimised Microsoft packages',
+    solutions: [
+      { id: 'bundles', label: 'Solution Bundles', emoji: '🎁', desc: 'Packages ROI-optimisés toutes solutions', color: 'from-emerald-500 to-teal-600' },
+    ],
   },
 ];
+
+// Flat list for lookups (URL params, selectedSolution display)
+const SOLUTIONS = SOLUTION_GROUPS.flatMap(g => g.solutions);
 
 const TONES = [
   { id: 'professional', label: 'Executive', icon: '🤝' },
@@ -286,25 +318,34 @@ export default function KBEmailGenerator() {
               <h2 className="text-2xl font-bold text-gray-900 mb-2">{lang === 'fr' ? 'Quelle solution pitchez-vous ?' : 'Which solution are you pitching?'}</h2>
               <p className="text-gray-500 mb-8">{lang === 'fr' ? 'L\'email sera généré exclusivement depuis les docs KB de cette solution.' : "The email will be generated exclusively from that solution's knowledge base docs."}</p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-                {SOLUTIONS.map((sol) => (
-                  <motion.div key={sol.id} variants={fadeUp}>
-                    <TiltCard>
-                      <div className={sol.border}>
+              <div className="space-y-5">
+                {SOLUTION_GROUPS.map((group) => (
+                  <motion.div key={group.key} variants={fadeUp}>
+                    {/* Group header */}
+                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r ${group.color} text-white text-xs font-bold uppercase tracking-wider mb-3`}>
+                      <span>{group.emoji}</span>
+                      <span>{group.label}</span>
+                    </div>
+                    {/* Sub-solutions row */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
+                      {group.solutions.map((sol) => (
                         <button
+                          key={sol.id}
                           onClick={() => { setSolution(sol.id); setStep(2); }}
-                          className={`w-full bg-white rounded-[calc(1rem-1px)] p-5 text-left group transition-all hover:shadow-xl ${
-                            solution === sol.id ? 'ring-2 ring-blue-500' : ''
+                          className={`text-left bg-white rounded-xl border-2 p-3.5 transition-all hover:shadow-lg group ${
+                            solution === sol.id
+                              ? 'border-blue-500 shadow-md ring-1 ring-blue-400'
+                              : 'border-gray-100 hover:border-gray-300'
                           }`}
                         >
-                          <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${sol.color} text-white text-2xl mb-3 group-hover:scale-110 transition-transform`}>
+                          <div className={`inline-flex p-2 rounded-lg bg-gradient-to-br ${sol.color} text-white text-lg mb-2 group-hover:scale-110 transition-transform`}>
                             {sol.emoji}
                           </div>
-                          <h3 className="font-bold text-gray-900 mb-1">{sol.label}</h3>
-                          <p className="text-xs text-gray-500">{sol.desc}</p>
+                          <p className="font-semibold text-gray-900 text-sm leading-tight mb-0.5">{sol.label}</p>
+                          <p className="text-[10px] text-gray-400 leading-tight">{sol.desc}</p>
                         </button>
-                      </div>
-                    </TiltCard>
+                      ))}
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -426,7 +467,7 @@ export default function KBEmailGenerator() {
                       </span>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
-                      {(KB_FILES[solution] || []).map(f => (
+                      {(getKbFiles(solution) || []).map(f => (
                         <span key={f} className="px-2 py-1 bg-white border border-emerald-200 rounded-lg text-xs text-emerald-700 font-medium">
                           📄 {f.replace('.md','').replace(/-/g,' ')}
                         </span>
@@ -460,7 +501,7 @@ export default function KBEmailGenerator() {
                     <Sparkles className="w-5 h-5 text-white" />
                     <span className="text-white">{tr.generate}</span>
                     <span className="text-blue-200 text-sm font-normal ml-1">
-                      ({(KB_FILES[solution] || []).length} {lang === 'fr' ? 'docs KB' : 'KB docs'})
+                      ({(getKbFiles(solution) || []).length} {lang === 'fr' ? 'docs KB' : 'KB docs'})
                     </span>
                   </>
                 )}
@@ -478,12 +519,12 @@ export default function KBEmailGenerator() {
                     <CheckCircle className="w-5 h-5 text-emerald-600" />
                   </div>
                   <div>
-                    <p className="font-bold text-gray-900">Email generated</p>
+                    <p className="font-bold text-gray-900">{lang === 'fr' ? 'Email généré' : 'Email generated'}</p>
                     <p className="text-xs text-gray-500">{result.solution} · {result.tokensUsed} tokens</p>
                   </div>
                 </div>
                 <button onClick={reset} className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors">
-                  <RotateCcw className="w-4 h-4" /> New email
+                  <RotateCcw className="w-4 h-4" /> {lang === 'fr' ? 'Nouvel email' : 'New email'}
                 </button>
               </div>
 
