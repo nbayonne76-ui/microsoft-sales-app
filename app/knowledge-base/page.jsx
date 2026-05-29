@@ -52,11 +52,12 @@ const SUB_TO_GROUP = {
 
 // ── Pricing docs & KB documents ─────────────────────────────────────────
 const KB_DOCS = [
-  { id: 'm365-pricing',    title: 'M365 Pricing 2025',        file: 'm365-pricing-2025.md',                  category: 'M365',     emoji: '💼', featured: true  },
-  { id: 'e3-vs-e5',        title: 'M365 E3 vs E5 Guide',      file: 'm365-e3-vs-e5-decision-guide.md',       category: 'M365',     emoji: '📊', featured: true  },
-  { id: 'licensing',       title: 'Licensing & Contracts',     file: 'microsoft-licensing-contracts-guide.md',category: 'M365',     emoji: '📄', featured: true  },
-  { id: 'csp-vs-mca',      title: 'CSP vs MCA Decision',      file: 'csp-vs-mca-decision-guide.md',          category: 'M365',     emoji: '🤝', featured: false },
-  { id: 'm365-collab',     title: 'M365 Collaboration',       file: 'microsoft-365-collaboration.md',        category: 'M365',     emoji: '✨', featured: false },
+  { id: 'm365-pricing',    title: 'M365 Pricing 2025',             file: 'm365-pricing-2025.md',                  category: 'M365',     emoji: '💼', featured: true  },
+  { id: 'm365-e7',         title: 'M365 E7 — Frontier Worker Suite', file: 'm365-e7-frontier-worker-suite.md',  category: 'M365',     emoji: '🚀', featured: true  },
+  { id: 'e3-vs-e5',        title: 'M365 E3 vs E5 Guide',           file: 'm365-e3-vs-e5-decision-guide.md',       category: 'M365',     emoji: '📊', featured: true  },
+  { id: 'licensing',       title: 'Licensing & Contracts',          file: 'microsoft-licensing-contracts-guide.md',category: 'M365',     emoji: '📄', featured: true  },
+  { id: 'csp-vs-mca',      title: 'CSP vs MCA Decision',           file: 'csp-vs-mca-decision-guide.md',          category: 'M365',     emoji: '🤝', featured: false },
+  { id: 'm365-collab',     title: 'M365 Collaboration',            file: 'microsoft-365-collaboration.md',        category: 'M365',     emoji: '✨', featured: false },
   { id: 'azure-pricing',   title: 'Azure Pricing 2025',       file: 'azure-pricing-2025.md',                 category: 'Azure',    emoji: '☁️', featured: true  },
   { id: 'azure-migration', title: 'Azure Migration',          file: 'azure-migration.md',                    category: 'Azure',    emoji: '🚀', featured: false },
   { id: 'dynamics',        title: 'Dynamics 365 Pricing',     file: 'dynamics-365-pricing-2025.md',          category: 'Dynamics', emoji: '🎯', featured: true  },
@@ -171,6 +172,32 @@ const M365_PLANS = [
     badge: '🔐 Sécurité & Compliance Max',
     badgeColor: 'bg-purple-100 text-purple-700',
     color: 'border-purple-300',
+  },
+  {
+    id: 'm365-e7', segment: 'enterprise',
+    name: 'Microsoft 365 E7 — Frontier Worker Suite', shortName: 'M365 E7',
+    emoji: '🚀',
+    description: 'Le plan Enterprise premium tout-en-un : M365 E5 + Entra Suite (Zero Trust complet) + Microsoft 365 Copilot (IA intégrée) + Microsoft Agent 365 (plan de contrôle des agents IA). Disponibilité générale : 1er mai 2026.',
+    apps: ['Tout M365 E5 inclus', 'Microsoft 365 Copilot (Word, Excel, PowerPoint, Outlook, Teams)', 'Work IQ (intelligence personnalisée)', 'Agent Builder & Copilot Studio'],
+    services: [
+      'Microsoft Entra Suite (Zero Trust complet — Private Access, Internet Access, ID Governance, Verified ID)',
+      'Microsoft Agent 365 — Observe : visibilité temps réel sur tous les agents',
+      'Microsoft Agent 365 — Govern : guardrails + lifecycle + audit agents',
+      'Microsoft Agent 365 — Secure : identités agents + DLP + menaces IA',
+      'Pre-built agents : Word, Excel, PowerPoint, Researcher, Analyst, Facilitator, SharePoint, Workflows',
+      'Agent Marketplace (3P) : 1 400+ connecteurs',
+      'Power BI Pro',
+      'Teams Phone System + Audio Conferencing',
+    ],
+    notIncluded: [],
+    bestFor: 'Organisations souhaitant adopter l\'IA agentique à grande échelle avec sécurité et gouvernance maximales — le seul plan incluant Agent 365',
+    highlight: 'M365 E5 + Entra Suite + Copilot + Agent 365 — le seul plan avec plan de contrôle des agents IA',
+    badge: '🚀 Frontier Worker Suite — GA Mai 2026',
+    badgeColor: 'bg-gradient-to-r from-blue-100 to-purple-100 text-purple-700',
+    color: 'border-purple-400',
+    pricing: '$99/user/mois (avec Teams) · $90.45 sans Teams (à partir du 1/7/26)',
+    pricingBreakdown: 'M365 E5 $60 + Entra Suite $12 + Copilot $30 + Agent 365 $15 = $117 séparément → $99 en bundle (−$18/user/mois)',
+    newBadge: true,
   },
   {
     id: 'm365-e5-security', segment: 'enterprise',
@@ -555,6 +582,9 @@ export default function KnowledgeBasePage() {
                                 <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full font-medium uppercase tracking-wide">
                                   {plan.segment === 'business' ? tr.segBusiness : plan.segment === 'enterprise' ? tr.segEnterprise : tr.segFrontline}
                                 </span>
+                                {plan.newBadge && (
+                                  <span className="text-xs px-2.5 py-0.5 rounded-full font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-white animate-pulse">NEW</span>
+                                )}
                                 {plan.badge && (
                                   <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold ${plan.badgeColor}`}>{plan.badge}</span>
                                 )}
@@ -617,6 +647,16 @@ export default function KnowledgeBasePage() {
                             </div>
                           )}
                         </div>
+
+                        {/* Pricing (E7 only) */}
+                        {plan.pricing && (
+                          <div className="mt-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 border border-purple-200 rounded-xl">
+                            <p className="text-xs font-bold text-purple-700 mb-0.5">💰 {plan.pricing}</p>
+                            {plan.pricingBreakdown && (
+                              <p className="text-[10px] text-purple-500 leading-tight">{plan.pricingBreakdown}</p>
+                            )}
+                          </div>
+                        )}
 
                         {/* Best for */}
                         <div className="mt-4 pt-3 border-t border-gray-100">
