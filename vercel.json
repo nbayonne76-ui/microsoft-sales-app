@@ -1,4 +1,7 @@
 {
+  "env": {
+    "DATABASE_URL": "file:/tmp/dev.db"
+  },
   "crons": [
     {
       "path": "/api/cron/refresh-news",
