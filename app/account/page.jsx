@@ -7,7 +7,7 @@ import {
   TrendingUp, TrendingDown, Shield, Zap, ChevronRight,
   RotateCcw, Lightbulb, Star, AlertTriangle, CheckCircle,
   Target, Users, DollarSign, Cpu, Leaf, Scale, BarChart3,
-  Flame, Eye, ArrowRight, Info, RadioTower
+  Flame, Eye, ArrowRight, RadioTower
 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
@@ -174,14 +174,6 @@ export default function AccountIntelPage() {
               }
             </button>
           </div>
-          {!process.env.NEXT_PUBLIC_HAS_TAVILY && (
-            <p className="mt-2 text-xs text-amber-600 flex items-center gap-1">
-              <Info className="h-3 w-3" />
-              {lang === 'fr'
-                ? 'Ajoutez TAVILY_API_KEY dans .env pour activer le scraping web en temps réel'
-                : 'Add TAVILY_API_KEY to .env to enable real-time web scraping'}
-            </p>
-          )}
         </motion.div>
 
         {/* ── Results ────────────────────────────────────────── */}
