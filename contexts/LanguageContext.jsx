@@ -41,11 +41,13 @@ export const t = {
       analytics: 'Analytics',
       sequences: 'Sequences',
       leadBuilder: 'Lead Builder',
+      blog: 'Blog',
       groups: {
         overview: 'Overview',
         aiTools: 'AI Tools',
         pipeline: 'Pipeline',
         knowledge: 'Knowledge',
+        resources: 'Resources',
       },
     },
     app: {
@@ -217,11 +219,13 @@ export const t = {
       analytics: 'Analytique',
       sequences: 'Séquences',
       leadBuilder: 'Importer Leads',
+      blog: 'Blog',
       groups: {
         overview: 'Vue d\'ensemble',
         aiTools: 'Outils IA',
         pipeline: 'Pipeline',
         knowledge: 'Connaissance',
+        resources: 'Ressources',
       },
     },
     app: {
