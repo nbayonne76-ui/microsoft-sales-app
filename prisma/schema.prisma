@@ -1324,19 +1324,3 @@ model ResponseIntelligence {
   @@index([createdAt])
   @@map("response_intelligence")
 }
-
-model MicrosoftNews {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String
-  excerpt   String   @default("")
-  url       String   @unique
-  source    String   @default("")
-  date      DateTime @default(now())
-  category  String   @default("Microsoft 365")
-
-  @@index([date])
-  @@index([category])
-  @@map("microsoft_news")
-}
