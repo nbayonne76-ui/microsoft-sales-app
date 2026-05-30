@@ -52,5 +52,4 @@ Solutions Architect - Microsoft Azure
 📧 nicolas.bayonne@microsoft.com
 📱 +33 6 XX XX XX XX
 
----
 *Référence : Plus de 500 migrations réussies en France*

@@ -25,7 +25,6 @@
 
 - **Dynamics 365 Field Service**: $95/user/month
 
----
 
 ### ERP Applications
 
@@ -57,7 +56,6 @@
 
 - **Dynamics 365 Project Operations**: $135/user/month (full user)
 
----
 
 ### Additional Licensing Notes
 
@@ -65,6 +63,5 @@
 - **Device Licenses**: Available for shared devices in some scenarios
 - **Implementation Costs**: Finance & Operations implementations typically start at $200,000+
 
----
 
 *Note: All prices are in USD per user/month unless otherwise noted. Prices are subject to change and may vary by region.*

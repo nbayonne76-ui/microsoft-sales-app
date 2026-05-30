@@ -2,7 +2,6 @@
 
 > Offres actives jusqu'au **30 juin 2026** — Canal CSP · Commandez avant le 1er juillet (hausse tarifaire)
 
----
 
 ## Bundles PME (≤ 300 utilisateurs)
 
@@ -12,7 +11,6 @@
 
 **Copilot Business standalone add-on** — 15% off
 
----
 
 ## Copilot Enterprise (par volume)
 
@@ -24,7 +22,6 @@
 
 **Copilot for M365 — 1 000+ licences** — 40% off
 
----
 
 ## Plans Enterprise
 
@@ -36,7 +33,6 @@
 
 **M365 E7 Frontier Suite — 100+ licences, 1 an** — 15% off (jusqu'au 31 déc. 2026)
 
----
 
 ## Sécurité & Compliance
 
@@ -44,7 +40,6 @@
 
 **Microsoft Sentinel — commitment tier 50 GB** — jusqu'à 15% off vs. pay-as-you-go
 
----
 
 ## Cloud PC
 

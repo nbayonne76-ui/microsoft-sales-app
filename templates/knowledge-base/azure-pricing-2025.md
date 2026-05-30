@@ -4,7 +4,6 @@
 
 Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by region (examples shown for US East).
 
----
 
 ## Compute Services
 
@@ -36,7 +35,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - **Azure Spot**: Up to 90% savings (can be interrupted)
 - **Azure Hybrid Benefit**: Up to 85% savings with existing licenses
 
----
 
 ### Azure Kubernetes Service (AKS)
 
@@ -44,7 +42,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - **Worker nodes**: Pay for underlying VMs
 - **Production cluster** (3 nodes): ~$400/month
 
----
 
 ### Azure Functions (Serverless)
 
@@ -53,7 +50,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - Additional executions: $0.20 per million
 - Execution time: $0.000016/GB-second
 
----
 
 ### Azure App Service
 
@@ -63,7 +59,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - **Premium**: $57-2,200/month
 - **Isolated**: $280-9,000+/month
 
----
 
 ## Storage Services
 
@@ -92,7 +87,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - Data retrieval (Cool): $0.01 per GB
 - Data retrieval (Archive): $0.02 per GB
 
----
 
 ### Azure Files
 
@@ -101,7 +95,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - **Hot**: $0.0255 per GB/month
 - **Cool**: $0.015 per GB/month
 
----
 
 ### Managed Disks
 
@@ -110,7 +103,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - **Premium SSD**: $0.135 per GB/month (P4: 32 GB)
 - **Ultra Disk**: Performance-based pricing
 
----
 
 ## Database Services
 
@@ -147,20 +139,17 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - Backup storage: $0.10-0.20 per GB/month
 - Long-term retention: $0.05 per GB/month
 
----
 
 ### Azure Cosmos DB
 
 - Pricing based on provisioned throughput (RU/s) and storage
 - Serverless option available
 
----
 
 ### Azure Database for MySQL/PostgreSQL
 
 - Similar vCore-based pricing to SQL Database
 
----
 
 ## Networking Services
 
@@ -189,7 +178,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 
 - Pricing based on data transfer out
 
----
 
 ## AI & Machine Learning
 
@@ -206,21 +194,18 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 #### Embeddings:
 - **Ada**: $0.0001 per 1K tokens
 
----
 
 ### Azure Cognitive Services
 
 - Various pricing per service
 - Free tiers available for many services
 
----
 
 ### Azure Machine Learning
 
 - Compute-based pricing
 - Training VMs billed per hour
 
----
 
 ## Identity & Security
 
@@ -232,7 +217,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - **Workload ID**: $3/workload/month
 - **Microsoft Entra Suite**: $12/user/month
 
----
 
 ## Cost Management Tools
 
@@ -245,7 +229,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 
 - **Free** recommendations for cost optimization
 
----
 
 ## Key Pricing Notes
 
@@ -272,7 +255,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - Support plans (Basic is free, paid plans start at ~$29/month)
 - Third-party marketplace applications
 
----
 
 ## Useful Resources
 
@@ -282,6 +264,5 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - **Azure Documentation**: https://docs.microsoft.com
 - **Microsoft Support**: https://support.microsoft.com
 
----
 
 *Note: All prices are approximate and subject to change. Prices may vary by region, currency, and specific agreements. Always verify current pricing with Microsoft or authorized partners. Price increases and promotional offers may apply.*

@@ -2,7 +2,6 @@
 
 ## Quick Reference for Sales Proposals
 
----
 
 ## 1. SMB STARTER PACKAGE (1-50 employees)
 
@@ -19,7 +18,6 @@
 
 **Upsell Opportunity:** Business Standard at $12.50/user/month adds desktop apps
 
----
 
 ### Complete SMB Solution
 **Microsoft 365 Business Premium** - $22/user/month
@@ -36,7 +34,6 @@
 - Advanced security included
 - Scales with growth
 
----
 
 ## 2. MID-MARKET SOLUTION (50-500 employees)
 
@@ -55,7 +52,6 @@
 - 20 users × $30/month = $600/month additional
 - **Total with Copilot: $4,200/month**
 
----
 
 ### Sales & CRM Solution
 **Microsoft 365 E3** - $36/user/month (100 users)
@@ -68,7 +64,6 @@
 - Customer Service: 10 × $50 = $500
 - **Total: $6,200/month or $74,400/year**
 
----
 
 ### Manufacturing Complete
 **Microsoft 365 E3** - $36/user/month (200 users)
@@ -83,7 +78,6 @@
 - Azure IoT: $2,000
 - **Total: $12,500/month or $150,000/year**
 
----
 
 ## 3. ENTERPRISE SOLUTIONS (500+ employees)
 
@@ -104,7 +98,6 @@
 - 3-year Enterprise Agreement: Potential 15-20% discount
 - Estimated savings: ~$102,000-136,000 over 3 years
 
----
 
 ### Enterprise Digital Transformation
 **Microsoft 365 E5** - $57/user/month (1,000 users)
@@ -121,7 +114,6 @@
 - Azure: $50,000
 - **Total: $136,000/month or $1,632,000/year**
 
----
 
 ## 4. INDUSTRY-SPECIFIC BUNDLES
 
@@ -142,7 +134,6 @@
 - Azure: ~$8,000/month
 - **Total: ~$15,600/month**
 
----
 
 ### Financial Services Package
 **Microsoft 365 E5** - $57/user/month
@@ -162,7 +153,6 @@
 - Azure Database: $2,000/month
 - **Total: ~$19,700/month**
 
----
 
 ### Retail & E-Commerce Solution
 **Microsoft 365 E3** - $36/user/month (200 store + corporate employees)
@@ -179,7 +169,6 @@
 - Azure: $3,000
 - **Total: $18,800/month or $225,600/year**
 
----
 
 ## 5. COPILOT ADOPTION STRATEGIES
 
@@ -202,7 +191,6 @@
 - Phased approach allows budget flexibility
 - Estimated total: ~$270,000 for 500 users (averaged over 12 months)
 
----
 
 ## 6. AZURE INFRASTRUCTURE BUNDLES
 
@@ -214,7 +202,6 @@
 - Storage (100 GB): $5/month
 - **Total: ~$440/month**
 
----
 
 ### Small Business Production
 **Azure Resources:**
@@ -225,7 +212,6 @@
 - Load Balancer: $50/month
 - **Total: ~$956/month or $11,472/year**
 
----
 
 ### Enterprise Production (High Availability)
 **Azure Resources:**
@@ -241,7 +227,6 @@
 - VM savings: Up to 72% = ~$1,200/month savings
 - **Optimized Total: ~$6,500/month**
 
----
 
 ## 7. DISCOUNT STRATEGIES
 
@@ -261,7 +246,6 @@
 - **Q4 Calendar Year**: Additional discounts often available
 - **New customer offers**: Sometimes waived onboarding/migration costs
 
----
 
 ## 8. ROI CALCULATORS
 
@@ -279,7 +263,6 @@
 
 **ROI: 197%-449%**
 
----
 
 ### Dynamics 365 Business Central ROI
 **Cost:**
@@ -296,7 +279,6 @@
 **Year 1 ROI: 267%**
 **Year 2+ ROI: 1,183%** (no implementation costs)
 
----
 
 ## PROPOSAL TEMPLATES BY COMPANY SIZE
 
@@ -324,6 +306,5 @@
 - **Annual:** $684,000 (pre-discount)
 - **With EA discount (18%):** $560,880/year
 
----
 
 *Use these bundles as starting points for customer conversations. Always customize based on specific customer needs, industry requirements, and current Microsoft promotions.*

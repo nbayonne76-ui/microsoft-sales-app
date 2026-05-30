@@ -62,5 +62,4 @@ Innovation Platform Specialist - Microsoft
 📧 nicolas.bayonne@microsoft.com
 🔗 [Calendrier de réservation](https://outlook.com/nicolas-microsoft)
 
----
 *Témoignage : "En 6 mois, nos équipes ont créé 15 applications métier" - DSI Fortune 500*

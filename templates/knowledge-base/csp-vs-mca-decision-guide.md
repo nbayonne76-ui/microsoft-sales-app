@@ -4,7 +4,6 @@
 
 This guide helps you choose between **CSP Indirect** and **MCA (Microsoft Customer Agreement)** based on customer profile and needs.
 
----
 
 ## Option 1: CSP Indirect (Cloud Solution Provider)
 
@@ -38,7 +37,6 @@ This guide helps you choose between **CSP Indirect** and **MCA (Microsoft Custom
 #### ⚠️ **Important: October 2025**
 Verify that your partner meets the **new security requirements** (MFA, GDAP, compliance)
 
----
 
 ## Option 2: MCA (Microsoft Customer Agreement)
 
@@ -121,7 +119,6 @@ Verify that your partner meets the **new security requirements** (MFA, GDAP, com
   - Consolidated payment
   - Simplified accounting
 
----
 
 ## 📊 Comparison Table: CSP Indirect vs MCA
 
@@ -140,7 +137,6 @@ Verify that your partner meets the **new security requirements** (MFA, GDAP, com
 | **Cost Visibility** | Partner portal | Native Cost Management |
 | **Azure Consumption** | Separate management | Unified with M365 |
 
----
 
 ## 🎯 Decision Tree
 
@@ -173,7 +169,6 @@ START: What's your priority?
     └─ Simplified contract (12 pages)? ──YES──> MCA
 ```
 
----
 
 ## 💼 Real-World Scenarios
 
@@ -198,7 +193,6 @@ START: What's your priority?
 - Total: ~$1,200-1,265/month
 - Value: Partner support included
 
----
 
 ### Scenario 2: Mid-Market with Growing Azure (200 users)
 **Profile:**
@@ -234,7 +228,6 @@ MCA:
 - Savings: $1,220/month or $14,640/year
 ```
 
----
 
 ### Scenario 3: Enterprise with Heavy Azure (500+ users)
 **Profile:**
@@ -267,7 +260,6 @@ MCA:
 - **Annual savings: $60,000**
 ```
 
----
 
 ### Scenario 4: Hybrid Approach (Starting Small)
 **Profile:**
@@ -289,7 +281,6 @@ MCA:
 - Test Azure Cost Management tools
 - Learn MCA portal without pressure
 
----
 
 ## 🔄 Migration Paths
 
@@ -328,7 +319,6 @@ MCA:
 - ⚠️ **Pricing**: May be higher or lower depending on negotiation
 - ✅ **Flexibility**: Gain more control and transparency
 
----
 
 ### MCA → CSP Migration (Rare but possible)
 
@@ -343,7 +333,6 @@ MCA:
 - MCA flexibility is hard to give up
 - Cost savings on Azure are significant
 
----
 
 ## ⚠️ Important Considerations
 
@@ -410,7 +399,6 @@ MCA:
   - Community forums
   - AI-powered support chatbot
 
----
 
 ## 🎯 Key Takeaways
 
@@ -437,7 +425,6 @@ MCA:
 - Migrate fully after successful pilot
 - Best of both worlds during transition
 
----
 
 ## 📞 Getting Started
 
@@ -463,7 +450,6 @@ MCA:
 - Can you provide customer references?
 - What training/onboarding is included?
 
----
 
 ## 📚 Additional Resources
 
@@ -477,7 +463,6 @@ MCA:
 - **Support Model Comparison**: Detailed support SLA comparison
 - **Migration Planning Tool**: Estimate migration timeline and effort
 
----
 
 *Last Updated: January 2025*
 *Next Review: After October 2025 security requirement deadline*

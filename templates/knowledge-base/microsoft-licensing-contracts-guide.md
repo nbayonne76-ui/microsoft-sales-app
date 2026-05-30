@@ -3,7 +3,6 @@
 ## Overview
 This guide covers the different licensing models, tenant management strategies, and contract types available for Microsoft solutions. Understanding these options is critical for recommending the right approach to customers.
 
----
 
 ## 1. TENANT MANAGEMENT STRATEGIES
 
@@ -29,7 +28,6 @@ When a company has two Microsoft 365 tenants, should they merge or keep them sep
 - Different geographic/sovereignty requirements
 - Distinct business units with separate P&L
 
----
 
 ## 2. LICENSING & CONTRACT OPTIONS
 
@@ -38,7 +36,6 @@ Customers currently use NCE (New Commerce Experience) with 3-year fixed pricing 
 
 ### Analysis: Available Options
 
----
 
 ## OPTION 1: CSP INDIRECT (Cloud Solution Provider)
 
@@ -69,7 +66,6 @@ Starting **October 1, 2025**, Microsoft will enforce enhanced authorization crit
 - **Proactive and responsive support**
 - **Simplified management** for SMBs/mid-market
 
----
 
 ## OPTION 2: MCA (Microsoft Customer Agreement)
 
@@ -119,7 +115,6 @@ MCA provides flexibility to purchase new products and services as business needs
 - Customers requiring unified license and subscription management
 - Companies needing direct Microsoft support
 
----
 
 ## 3. LICENSING CONTRACTUAL MODELS - DETAILED COMPARISON
 
@@ -153,7 +148,6 @@ Traditional volume licensing for large organizations with 500+ users/devices.
 - Companies wanting maximum discounts
 - Long-term Microsoft commitment
 
----
 
 ### Enterprise Agreement Subscription (EAS)
 
@@ -178,7 +172,6 @@ Subscription version of EA with more flexibility.
 - Organizations transitioning to cloud
 - Companies seeking EA benefits with less complexity
 
----
 
 ### Microsoft Products and Services Agreement (MPSA)
 
@@ -196,7 +189,6 @@ Flexible licensing for mid-size organizations (250-500 users).
 - Existing MPSA customers can continue until contract expiry
 - Microsoft recommends migrating to CSP or MCA
 
----
 
 ### Cloud Solution Provider (CSP) - Full Details
 
@@ -223,7 +215,6 @@ Flexible licensing for mid-size organizations (250-500 users).
 - **Cancellation penalties**: Apply for early termination
 - **Seat management**: Can increase anytime, reduce at renewal
 
----
 
 ### Microsoft Customer Agreement (MCA) - Full Details
 
@@ -253,7 +244,6 @@ Flexible licensing for mid-size organizations (250-500 users).
 - **Reserved Instances**: Up to 72% discount
 - **Savings Plans**: Flexible commitment discounts
 
----
 
 ## 4. NCE (NEW COMMERCE EXPERIENCE) - DETAILED GUIDE
 
@@ -312,7 +302,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 - **Granular Delegated Admin Privileges (GDAP)**: Replaces legacy DAP
 - **Security compliance checks**: Required for CSP authorization
 
----
 
 ## 5. AZURE COMMITMENT OPTIONS
 
@@ -356,7 +345,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 - No additional Azure licensing cost for OS/SQL
 - Only pay for compute + storage
 
----
 
 ## 6. FINAL RECOMMENDATIONS BY SCENARIO
 
@@ -379,7 +367,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 - Multiple billing and cost management
 - Complex user identity management
 
----
 
 ### Scenario 2: License Model Choice
 
@@ -404,7 +391,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 - Value traditional Microsoft relationship
 - Current EA provides better pricing than alternatives
 
----
 
 ### Scenario 3: Azure Commitment Strategy
 
@@ -426,7 +412,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 - **Variable capacity**: Savings Plan for flexibility
 - **Burst capacity**: Pay-as-you-go for unpredictable spikes
 
----
 
 ## 7. SUPPORT & GOVERNANCE
 
@@ -469,7 +454,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 - Custom SLAs
 - Proactive services
 
----
 
 ## 8. COMPLIANCE & GOVERNANCE POINTS (2025)
 
@@ -498,7 +482,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 - Maintain up-to-date license inventory
 - Regular cost optimization reviews
 
----
 
 ## 9. MIGRATION STRATEGIES
 
@@ -535,7 +518,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 - ⚠️ Learning curve for direct Microsoft support
 - ⚠️ Possible pricing differences (negotiate carefully)
 
----
 
 ### Migrating from EA to CSP/MCA
 
@@ -551,7 +533,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 - **Software Assurance**: May lose benefits in CSP
 - **Pricing comparison**: EA often has best bulk discounts
 
----
 
 ## 10. COST OPTIMIZATION STRATEGIES
 
@@ -586,7 +567,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 - ✅ Use Azure Advisor for recommendations
 - ✅ Monthly cost reviews
 
----
 
 ## 11. COMMON PITFALLS TO AVOID
 
@@ -617,7 +597,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
    - Management nightmare
    - Lost visibility and control
 
----
 
 ## 12. QUICK DECISION MATRIX
 
@@ -632,7 +611,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 | **Stable Workloads** | EA + 3-year RI | Maximum savings on predictable resources |
 | **Variable Headcount** | CSP Monthly or MCA | Flexibility to scale up/down |
 
----
 
 ## 13. USEFUL RESOURCES
 
@@ -653,7 +631,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 - **TCO Calculator**: Total cost of ownership across licensing models
 - **Migration Planner**: Estimate migration timeline and costs
 
----
 
 ## 14. GLOSSARY
 
@@ -679,7 +656,6 @@ Microsoft's modernized commerce platform replacing legacy CSP, launched March 20
 
 **Co-terming**: Aligning subscription end dates for simpler management
 
----
 
 *Last Updated: January 2025*
 *Next Review: April 2025 (after NCE pricing changes take effect)*

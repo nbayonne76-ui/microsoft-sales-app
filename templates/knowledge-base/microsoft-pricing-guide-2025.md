@@ -3,7 +3,6 @@
 ## Overview
 This guide covers pricing for Microsoft's three major workloads: **Modern Work (Microsoft 365)**, **Dynamics 365**, and **Azure**. All prices are in USD per user/month unless otherwise noted.
 
----
 
 ## 1. MODERN WORK (Microsoft 365)
 
@@ -91,7 +90,6 @@ This guide covers pricing for Microsoft's three major workloads: **Modern Work (
 
 **Enterprise Plans**: Similar configurations with Intune integration
 
----
 
 ## 2. DYNAMICS 365
 
@@ -141,7 +139,6 @@ This guide covers pricing for Microsoft's three major workloads: **Modern Work (
 - **Device Licenses**: Available for shared devices in some scenarios
 - **Implementation Costs**: Finance & Operations implementations typically start at $200,000+
 
----
 
 ## 3. AZURE
 
@@ -334,7 +331,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 #### Azure Advisor
 - Free recommendations for cost optimization
 
----
 
 ## Key Pricing Notes
 
@@ -358,7 +354,6 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - **Support plans** (Basic is free, paid plans start at ~$29/month)
 - **Third-party marketplace** applications
 
----
 
 ## Useful Resources
 
@@ -368,6 +363,5 @@ Azure uses **pay-as-you-go pricing** with various pricing models. Prices vary by
 - **Azure Documentation**: https://docs.microsoft.com
 - **Microsoft Support**: https://support.microsoft.com
 
----
 
 *Note: All prices are approximate and subject to change. Prices may vary by region, currency, and specific agreements. Always verify current pricing with Microsoft or authorized partners. Price increases and promotional offers may apply.*

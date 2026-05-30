@@ -7,7 +7,6 @@
 - **Microsoft 365 Personal**: $6.99/month or $69.99/year (1 user)
 - **Microsoft 365 Family**: $9.99/month or $99.99/year (up to 6 users)
 
----
 
 ### Business Plans (Up to 300 users)
 
@@ -34,7 +33,6 @@
 - Device management (Intune)
 - Azure Information Protection
 
----
 
 ### Enterprise Plans (Unlimited users)
 
@@ -79,7 +77,6 @@
 - Microsoft Defender for Endpoint
 - Advanced compliance and analytics
 
----
 
 ### Add-ons
 
@@ -88,7 +85,6 @@
 - **Teams Phone Standard**: $10/user/month
 - **Teams Phone Standard for Frontline**: $5/user/month
 
----
 
 ### Windows 365 (Cloud PC)
 
@@ -100,6 +96,5 @@
 
 **Enterprise Plans**: Similar configurations with Intune integration
 
----
 
 *Note: All prices are in USD per user/month unless otherwise noted. Prices are subject to change and may vary by region.*

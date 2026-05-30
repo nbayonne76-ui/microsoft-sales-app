@@ -2,7 +2,6 @@
 
 ## Disponibilité Générale : 1er mai 2026
 
----
 
 ## 1. QU'EST-CE QUE M365 E7 ?
 
@@ -19,7 +18,6 @@ Microsoft 365 E7 est le nouveau plan Enterprise premium qui regroupe en un seul 
 
 > Disponible avec ou sans Teams.
 
----
 
 ## 2. CONTENU DÉTAILLÉ DU PLAN
 
@@ -56,7 +54,6 @@ Microsoft 365 E7 est le nouveau plan Enterprise premium qui regroupe en un seul 
 - **Govern** : guardrails pour agents et utilisateurs, intégration IT avec supervision, audit-ready, conformité et rétention des données
 - **Secure** : sécuriser les identités des agents, contrôler l'accès aux ressources, prévenir le data oversharing, défendre contre les menaces
 
----
 
 ## 3. MICROSOFT AGENT 365 — LE PLAN DE CONTRÔLE DES AGENTS
 
@@ -77,7 +74,6 @@ Microsoft Agent 365 permet d'**étendre l'infrastructure existante de gestion de
 - Données web et contexte source
 - Modèles IA
 
----
 
 ## 4. MICROSOFT ENTRA SUITE (inclus dans E7)
 
@@ -94,7 +90,6 @@ Microsoft Agent 365 permet d'**étendre l'infrastructure existante de gestion de
 - **-90%** de réduction des tickets helpdesk
 - **+75%** plus rapide pour l'onboarding des employés
 
----
 
 ## 5. POURQUOI M365 E7 MAINTENANT — CONTEXTE MARCHÉ
 
@@ -110,7 +105,6 @@ Microsoft Agent 365 permet d'**étendre l'infrastructure existante de gestion de
 - **-40%** de réduction des coûts (PG&E, Capita, Air India, Club Med)
 - **+50%** d'amélioration de la vitesse de mise sur le marché (Teradata, NTT Data)
 
----
 
 ## 6. CAS CLIENTS CONCRETS
 
@@ -129,7 +123,6 @@ Microsoft Agent 365 permet d'**étendre l'infrastructure existante de gestion de
 - **Solution** : outils IA activés sur toute la stack sécurité, vue agentique consolidée (alertes, contrôle d'accès, vulnérabilités)
 - **Résultats** : ~200 heures/mois économisées · Temps de reporting réduit de plusieurs heures à quelques minutes
 
----
 
 ## 7. COMPARATIF M365 E5 vs E7
 
@@ -149,7 +142,6 @@ Microsoft Agent 365 permet d'**étendre l'infrastructure existante de gestion de
 | **Microsoft Agent 365 (Observe/Govern/Secure)** | ❌ | ✅ **inclus** |
 | **Prix (avec Teams)** | $60 | **$99** |
 
----
 
 ## 8. ANGLES DE VENTE ET QUESTIONS DE DÉCOUVERTE
 

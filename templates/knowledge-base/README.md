@@ -4,7 +4,6 @@
 
 This knowledge base contains comprehensive information to help you create accurate, compelling proposals and emails for Microsoft solutions.
 
----
 
 ## 1. Email Templates
 
@@ -28,7 +27,6 @@ This knowledge base contains comprehensive information to help you create accura
 **Target audience:** CISO, Compliance officers
 **Solutions covered:** Microsoft Defender, Azure Security, Purview
 
----
 
 ## 2. Pricing Guides
 
@@ -114,7 +112,6 @@ This knowledge base contains comprehensive information to help you create accura
 - Budget and pricing preferences
 - Contract flexibility requirements
 
----
 
 ## 3. How to Use This Knowledge Base
 
@@ -139,7 +136,6 @@ Use pricing information to:
 - ✅ Calculate customer lifetime value
 - ✅ Prioritize high-value opportunities
 
----
 
 ## 4. Quick Reference Tables
 
@@ -174,7 +170,6 @@ Use pricing information to:
 | Storage | 1 TB Blob (Hot) | $18/month |
 | OpenAI GPT-4 | Per 1K tokens | $0.03-0.06 |
 
----
 
 ## 5. Common Customer Scenarios
 
@@ -212,7 +207,6 @@ Use pricing information to:
 **ROI:** 10-20 hours saved per user/month
 **Template:** Microsoft 365 Collaboration with Copilot focus
 
----
 
 ## 6. Competitive Positioning
 
@@ -241,7 +235,6 @@ Use pricing information to:
 - D365 Sales Professional: $65/user/mo
 - **14% cost savings + M365 integration**
 
----
 
 ## 7. Industry-Specific Compliance
 
@@ -266,7 +259,6 @@ Use pricing information to:
 - Special pricing and compliance
 **Contact:** Microsoft Federal sales team
 
----
 
 ## 8. Sales Playbooks by Deal Size
 
@@ -296,7 +288,6 @@ Use pricing information to:
 4. 3-year commitment with discounts
 5. Custom enterprise solution
 
----
 
 ## 9. Objection Handling
 
@@ -332,7 +323,6 @@ Use pricing information to:
 - Better disaster recovery
 **Reference:** Azure migration template
 
----
 
 ## 10. Tools & Resources
 
@@ -353,7 +343,6 @@ Use pricing information to:
 - Hot Leads Tracker: http://localhost:3001/hot-leads
 - AI Agent: http://localhost:3001/ai-agent
 
----
 
 ## 11. Update Log
 
@@ -372,7 +361,6 @@ Use pricing information to:
 - Competitive battle cards (Q2 2025)
 - Customer success stories (Q3 2025)
 
----
 
 ## 12. Contributing
 
@@ -383,13 +371,11 @@ To add new templates or update pricing:
 4. Test with email generator tool
 5. Submit for review
 
----
 
 **Need Help?**
 Contact: Nicolas BAYONNE
 Email: v-nbayonne@microsoft.com
 Team: Microsoft Campaign Manager
 
----
 
 *This knowledge base is continuously updated. Last sync: January 2025*

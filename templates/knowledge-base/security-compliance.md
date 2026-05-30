@@ -57,5 +57,4 @@ Cybersecurity Specialist - Microsoft
 📧 nicolas.bayonne@microsoft.com
 📱 Ligne directe : +33 6 XX XX XX XX
 
----
 *Certification : Microsoft protège 8 billions de signaux de sécurité quotidiens*

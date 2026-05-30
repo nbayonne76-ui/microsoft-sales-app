@@ -54,5 +54,4 @@ Atelier découverte de 30 minutes pour :
 
 {signature_microsoft}
 
----
 *P.S. : Déploiement possible en mode pilote pour valider les bénéfices*
