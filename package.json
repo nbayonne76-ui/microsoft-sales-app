@@ -13,7 +13,7 @@
     "db:check": "node scripts/check-database.js",
     "db:backup": "node scripts/backup-database.js",
     "db:restore": "node scripts/restore-database.js",
-    "postinstall": "prisma generate"
+    "postinstall": "node scripts/prisma-generate.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.65.0",

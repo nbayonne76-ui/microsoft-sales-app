@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
-// ISR : Vercel revalidates this cached response every hour automatically
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 const RSS_FEEDS = [
   { url: 'https://blogs.microsoft.com/feed/', source: 'blogs.microsoft.com' },
