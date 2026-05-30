@@ -1,99 +1,51 @@
 # Solutions Bundles & Promotions Microsoft 2026
 
-> Promotions actives — valables jusqu'au 30 juin 2026 via canal CSP
+> Offres actives jusqu'au **30 juin 2026** — Canal CSP · Commandez avant le 1er juillet (hausse tarifaire)
 
 ---
 
-## ⚡ À retenir
+## Bundles PME (≤ 300 utilisateurs)
 
-Microsoft revoit ses tarifs au **1er juillet 2026**. Toute commande passée avant cette date bénéficie des offres promotionnelles en cours.
+**Business Standard + Copilot Business** — 35% off
 
----
+**Business Premium + Copilot Business** — 25% off
 
-## 🏷️ Bundles Copilot Business — PME ≤ 300 utilisateurs
-
-- **Business Standard + Copilot Business** — remise significative, engagement annuel
-- **Business Premium + Copilot Business** — remise, engagement annuel
-- **Copilot Business standalone** — remise sur add-on uniquement
-
-Conditions : 10 à 300 licences, via partenaire CSP.
+**Copilot Business standalone add-on** — 15% off
 
 ---
 
-## 🤖 Copilot Enterprise — Offres par volume
+## Copilot Enterprise (par volume)
 
-Prérequis : M365 E3 ou E5 actif.
+**Copilot for M365 — 10 à 99 licences** — 15% off
 
-- **10 à 99 licences** — remise Getting Started
-- **100 à 299 licences** — remise Scale Up
-- **300 à 999 licences** — remise For All
-- **1 000+ licences** — remise Enterprise Scale
+**Copilot for M365 — 100 à 299 licences** — 20% off
 
----
+**Copilot for M365 — 300 à 999 licences** — 30% off
 
-## 🚀 M365 E7 — Frontier Worker Suite
-
-Valable du 1er mai au 31 décembre 2026, canal CSP.
-
-- Remise sur engagement 1 an (paliers volume)
-- Remise sur engagement 3 ans (300+ licences)
-
-E7 = M365 E5 + Copilot + Copilot Chat + Agent Studio.
-Cible : clients E5 souhaitant intégrer Copilot, organisations soumises à NIS2/DORA/RGPD.
+**Copilot for M365 — 1 000+ licences** — 40% off
 
 ---
 
-## 📈 M365 E5 — Nouveaux clients
+## Plans Enterprise
 
-Valable jusqu'au 30 juin 2026.
+**M365 E5 new customers** — 15% off (jusqu'au 30 juin 2026)
 
-- Remise 1ère année pour les clients migrant depuis E3
-- Canal CSP, tout secteur
+**M365 E3 & E5 — engagement 3 ans** — 10% off
 
----
+**M365 E7 Frontier Suite — 10 à 99 licences, 1 an** — 10% off (jusqu'au 31 déc. 2026)
 
-## 📅 M365 E3 & E5 — Engagement 3 ans
-
-Valable jusqu'au 30 juin 2026.
-
-- Remise pour tout engagement triannuel
-- Verrouillage du budget IT sur 3 ans
+**M365 E7 Frontier Suite — 100+ licences, 1 an** — 15% off (jusqu'au 31 déc. 2026)
 
 ---
 
-## 🔒 Microsoft Purview — Business Premium
+## Sécurité & Compliance
 
-Valable jusqu'au 1er juillet 2026.
+**Microsoft Purview Suite + Business Premium** — 50% off (jusqu'au 1er juillet 2026)
 
-- Remise importante sur Purview Suite pour les clients Business Premium
-- Couverture RGPD, NIS2, DLP, Insider Risk Management
-- Cible : finance, santé, legal
+**Microsoft Sentinel — commitment tier 50 GB** — jusqu'à 15% off vs. pay-as-you-go
 
 ---
 
-## 🛡️ Microsoft Sentinel — Commitment Tier
+## Cloud PC
 
-Valable jusqu'au 30 juin 2026.
-
-- Tarification engagement 50 GB/jour
-- Économie vs. pay-as-you-go
-- Cible : SOC PME/ETI
-
----
-
-## 🖥️ Windows 365 Business — Réduction permanente
-
-Effective depuis le 1er mai 2026.
-
-- Réduction permanente sur le tarif liste
-- Nouveaux et existants clients, sans date d'expiration
-- Cible : organisations Cloud PC, télétravail
-
----
-
-## 💡 Séquence de vente
-
-1. Identifier le plan actuel du client
-2. Qualifier le besoin Copilot — sponsor exécutif identifié ?
-3. Créer l'urgence autour du 1er juillet 2026
-4. Proposer une réunion de closing avant le 20 juin
+**Windows 365 Business** — 20% off (réduction permanente depuis mai 2026)
