@@ -7,7 +7,7 @@
     "dev:turbo": "next dev --turbopack",
     "workers": "node lib/workers/start-workers.js",
     "dev:all": "concurrently \"npm run dev\" \"npm run workers\"",
-    "build": "next build",
+    "build": "node scripts/prisma-generate.js && next build",
     "start": "next start",
     "lint": "eslint",
     "db:check": "node scripts/check-database.js",
