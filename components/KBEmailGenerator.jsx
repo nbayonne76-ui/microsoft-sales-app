@@ -248,10 +248,10 @@ export default function KBEmailGenerator() {
   const selectedSolution = SOLUTIONS.find(s => s.id === solution);
 
   return (
-    <div className="min-h-screen happi-surface">
+    <div className="min-h-screen ms-surface">
 
       {/* ── Hero header ───────────────────────────────────────────────────── */}
-      <div className="relative overflow-hidden happi-hero-bg text-white py-14 px-8">
+      <div className="relative overflow-hidden ms-hero-bg text-white py-14 px-8">
         <div className="orb orb-blue  w-64 h-64 -top-12 -left-12" />
         <div className="orb orb-purple w-56 h-56 top-0 right-0 animation-delay-2000" />
         <div className="relative z-10 max-w-4xl mx-auto text-center">

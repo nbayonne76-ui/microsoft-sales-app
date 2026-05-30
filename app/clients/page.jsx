@@ -93,9 +93,9 @@ export default function ClientsPage() {
     const interactions = history?.interactions || history?.data?.interactions || [];
 
     return (
-      <div className="min-h-screen happi-surface">
+      <div className="min-h-screen ms-surface">
         {/* Hero */}
-        <div className="relative overflow-hidden happi-hero-bg text-white py-12 px-8">
+        <div className="relative overflow-hidden ms-hero-bg text-white py-12 px-8">
           <div className="orb orb-blue w-60 h-60 -top-10 -left-10" />
           <div className="orb orb-purple w-48 h-48 top-0 right-8" style={{animationDelay:'2s'}} />
           <div className="relative z-10 max-w-5xl mx-auto">
@@ -227,9 +227,9 @@ export default function ClientsPage() {
 
   // ── List view ────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen happi-surface">
+    <div className="min-h-screen ms-surface">
       {/* Hero */}
-      <div className="relative overflow-hidden happi-hero-bg text-white py-12 px-8">
+      <div className="relative overflow-hidden ms-hero-bg text-white py-12 px-8">
         <div className="orb orb-blue   w-64 h-64 -top-12 -left-12" />
         <div className="orb orb-purple w-48 h-48 top-0 right-12" style={{animationDelay:'2s'}} />
         <div className="relative z-10 max-w-6xl mx-auto">

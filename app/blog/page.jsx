@@ -70,10 +70,10 @@ export default function BlogPage() {
       });
 
   return (
-    <div className="min-h-screen happi-surface">
+    <div className="min-h-screen ms-surface">
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
-      <div className="relative overflow-hidden happi-hero-bg text-white py-14 px-8">
+      <div className="relative overflow-hidden ms-hero-bg text-white py-14 px-8">
         <div className="orb orb-blue   w-72 h-72 -top-16 -left-16" />
         <div className="orb orb-purple w-56 h-56 top-0 right-8" style={{ animationDelay: '2s' }} />
         <div className="relative z-10 max-w-5xl mx-auto">

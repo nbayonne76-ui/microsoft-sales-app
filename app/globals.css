@@ -110,11 +110,10 @@
   background-clip: text;
 }
 
-/* Happi hero background */
-.happi-hero-bg {
+.ms-hero-bg {
   background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #0f172a 100%);
 }
-.happi-surface {
+.ms-surface {
   background: linear-gradient(135deg, #f8fafc 0%, #f0f4ff 100%);
 }
 
