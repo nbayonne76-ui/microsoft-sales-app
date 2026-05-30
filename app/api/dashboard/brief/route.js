@@ -19,7 +19,7 @@ export async function POST(request) {
       weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
     });
 
-    const systemPrompt = `Tu es Happi Brain, l'assistant commercial de Nicolas BAYONNE, Account Manager Microsoft chez H'appi.
+    const systemPrompt = `Tu es un assistant commercial pour Nicolas BAYONNE, Microsoft Partner Account Manager.
 Aujourd'hui c'est le ${today}.
 
 KNOWLEDGE BASE MICROSOFT (prix et solutions actuels) :

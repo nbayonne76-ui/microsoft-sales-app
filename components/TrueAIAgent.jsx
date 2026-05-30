@@ -227,7 +227,7 @@ export default function TrueAIAgent() {
             <Brain className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-semibold text-slate-900">Happi Brain — AI Agent</h1>
+            <h1 className="text-base font-semibold text-slate-900">Microsoft AI Agent</h1>
             <p className="text-xs text-slate-500">Alimenté par la Knowledge Base Microsoft</p>
           </div>
         </div>

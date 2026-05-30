@@ -104,7 +104,7 @@ ${typeGuide}
 5. SOLUTION : présenter ${solutionLabel} avec données EXACTES de la KB (fonctionnalités + prix)
 6. ROI / PREUVE SOCIALE : chiffre concret tiré de la KB (ex: -40% coûts, 99.99% SLA)
 7. CTA : une seule action claire et facile (15 min d'appel, demo, PDF)
-8. SIGNATURE : Nicolas BAYONNE | Microsoft Partner Account Manager | H'appi
+8. SIGNATURE : Nicolas BAYONNE | Microsoft Partner Account Manager
 
 # KNOWLEDGE BASE — ${solutionLabel}
 Fichiers consultés : ${kbFiles.join(', ')}

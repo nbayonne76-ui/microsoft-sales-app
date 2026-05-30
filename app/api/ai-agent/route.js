@@ -28,7 +28,7 @@ export async function POST(request) {
       ? getKbByTopics(detectedTopics, 14000)
       : getFullKb(12000);
 
-    const systemPrompt = `Tu es Happi Brain, l'assistant commercial IA de Nicolas BAYONNE, Account Manager Microsoft chez H'appi.
+    const systemPrompt = `Tu es un assistant commercial IA pour Nicolas BAYONNE, Microsoft Partner Account Manager.
 
 Ton rôle : aider Nicolas à préparer ses rendez-vous commerciaux, analyser des entreprises, rédiger des emails, comprendre les solutions Microsoft et construire des stratégies de prospection.
 

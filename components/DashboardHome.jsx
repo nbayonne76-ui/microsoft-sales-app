@@ -24,7 +24,7 @@ const KB_DOMAINS = [
 const QUICK_ACTIONS = [
   { href: '/account',         icon: Building2,  label: 'Account Intelligence', desc: 'SWOT · PESTEL · Signaux digitaux · Solutions Microsoft', color: 'from-indigo-600 to-purple-700', star: true },
   { href: '/email-generator', icon: Mail,       label: 'Email Generator',      desc: 'Emails B2B ultra-personnalisés depuis la KB',            color: 'from-blue-600 to-indigo-600'  },
-  { href: '/ai-agent',        icon: Brain,      label: 'Happi Brain',          desc: '/brief · /email · /swot · /prix · /pitch',              color: 'from-violet-600 to-purple-700' },
+  { href: '/ai-agent',        icon: Brain,      label: 'Microsoft AI Agent',   desc: '/brief · /email · /swot · /prix · /pitch',              color: 'from-violet-600 to-purple-700' },
   { href: '/sequences',       icon: Zap,        label: 'Séquences',           desc: '3 phases · 7 touches · Plan de prospection IA',         color: 'from-emerald-600 to-teal-600'  },
   { href: '/knowledge-base',  icon: BookOpen,   label: 'Knowledge Base',      desc: 'Noyau de l\'app — 62 solutions · prix · guides',        color: 'from-gray-600 to-slate-700'    },
 ];

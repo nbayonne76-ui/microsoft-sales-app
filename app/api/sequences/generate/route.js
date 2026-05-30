@@ -33,7 +33,7 @@ export async function POST(request) {
     const solutionLabel = SOLUTION_LABELS[solution] || solution;
     const sizeLabel = companySize === 'enterprise' ? 'Grand compte (300+ employés)' : companySize === 'startup' ? 'Startup (<50)' : 'PME (50-300 employés)';
 
-    const systemPrompt = `Tu es Nicolas BAYONNE, Account Manager Microsoft expert chez H'appi.
+    const systemPrompt = `Tu es Nicolas BAYONNE, Microsoft Partner Account Manager expert en vente consultative B2B.
 Tu dois créer un plan de séquence de prospection en 3 phases et 7 touches pour une cible commerciale précise.
 
 RÈGLE ABSOLUE : tous les prix, fonctionnalités et plans doivent venir EXCLUSIVEMENT de la Knowledge Base.
