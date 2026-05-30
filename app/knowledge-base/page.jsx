@@ -64,8 +64,9 @@ const KB_DOCS = [
   { id: 'dynamics',        title: 'Dynamics 365 Pricing',     file: 'dynamics-365-pricing-2025.md',          category: 'Dynamics', emoji: '🎯', featured: true  },
   { id: 'power',           title: 'Power Platform',           file: 'power-platform-digital.md',            category: 'Power',    emoji: '⚡', featured: false },
   { id: 'security',        title: 'Security & Compliance',    file: 'security-compliance.md',               category: 'Security', emoji: '🛡️', featured: false },
-  { id: 'bundles',         title: 'Solution Bundles & ROI',   file: 'solution-bundles-pricing.md',           category: 'Bundles',  emoji: '🎁', featured: false },
-  { id: 'pricing-guide',   title: 'Full Pricing Guide 2025',  file: 'microsoft-pricing-guide-2025.md',       category: 'Bundles',  emoji: '📋', featured: true  },
+  { id: 'promotions-2026', title: 'Promotions Microsoft 2026',  file: 'microsoft-promotions-2026.md',          category: 'Bundles',  emoji: '🏷️', featured: true  },
+  { id: 'bundles',         title: 'Solutions Bundles & Promotions', file: 'solution-bundles-pricing.md',      category: 'Bundles',  emoji: '🎁', featured: false },
+  { id: 'pricing-guide',   title: 'Full Pricing Guide 2025',  file: 'microsoft-pricing-guide-2025.md',       category: 'Bundles',  emoji: '📋', featured: false },
 ];
 const DOC_CATEGORIES = ['All','M365','Azure','Dynamics','Power','Security','Bundles'];
 
