@@ -1,6 +1,8 @@
 {
   "env": {
-    "DATABASE_URL": "file:/tmp/dev.db"
+    "DATABASE_URL": "file:/tmp/dev.db",
+    "NEXTAUTH_URL": "https://microsoft-sales-app.vercel.app",
+    "NEXTAUTH_SECRET": "b8ee543dfc3e2afff25658f245133fa1f467252cde6f4deebd9c05bf5eaea38e"
   },
   "crons": [
     {
