@@ -6,15 +6,19 @@ export async function GET() {
   try {
     revalidatePath('/api/blog/news');
 
-    // Fetch the route so Vercel pre-builds the new cached response
-    const base = process.env.NEXTAUTH_URL || process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://localhost:3000';
+    // Build base URL — fix operator-precedence: evaluate || before ?
+    const base = process.env.NEXTAUTH_URL
+      ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
 
     const res = await fetch(`${base}/api/blog/news`, {
       cache: 'no-store',
       headers: { 'x-cron-refresh': '1' },
     });
+
+    if (!res.ok) {
+      const text = await res.text();
+      return NextResponse.json({ success: false, error: `upstream ${res.status}: ${text.slice(0, 200)}` }, { status: 502 });
+    }
 
     const data = await res.json();
 

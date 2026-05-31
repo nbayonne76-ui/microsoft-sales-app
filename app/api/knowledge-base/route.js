@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
+
+const BASE_DIR = path.join(process.cwd(), 'templates', 'knowledge-base');
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -11,24 +13,16 @@ export async function GET(request) {
   }
 
   try {
-    const filePath = path.join(process.cwd(), 'templates', 'knowledge-base', file);
+    const filePath = path.normalize(path.join(BASE_DIR, file));
 
-    // Security check: ensure file is within knowledge-base directory
-    const normalizedPath = path.normalize(filePath);
-    const baseDir = path.join(process.cwd(), 'templates', 'knowledge-base');
-
-    if (!normalizedPath.startsWith(baseDir)) {
+    // Prevent path traversal — require trailing sep so knowledge-base-evil/ is blocked
+    if (!filePath.startsWith(BASE_DIR + path.sep) && filePath !== BASE_DIR) {
       return NextResponse.json({ error: 'Invalid file path' }, { status: 403 });
     }
 
-    const content = fs.readFileSync(filePath, 'utf-8');
-
+    const content = await fs.readFile(filePath, 'utf-8');
     return NextResponse.json({ content, file });
-  } catch (error) {
-    console.error('Error reading file:', error);
-    return NextResponse.json(
-      { error: 'File not found or could not be read' },
-      { status: 404 }
-    );
+  } catch {
+    return NextResponse.json({ error: 'File not found' }, { status: 404 });
   }
 }

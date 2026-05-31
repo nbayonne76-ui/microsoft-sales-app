@@ -67,7 +67,9 @@ async function fetchFeed({ url, source }) {
       signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return [];
-    return parseRSS(await res.text(), source);
+    // Cap at 512 KB to prevent ReDoS on malformed/malicious RSS
+    const text = (await res.text()).slice(0, 512 * 1024);
+    return parseRSS(text, source);
   } catch {
     return [];
   }
