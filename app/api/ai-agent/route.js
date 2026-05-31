@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { handleApiError } from '@/lib/api-error';
 import { getFullKb, getKbByTopics, detectTopics } from '@/lib/kb-service';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-// ── Streaming SSE response ─────────────────────────────────────────────────
 export async function POST(request) {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -21,7 +20,6 @@ export async function POST(request) {
       return NextResponse.json({ error: 'userMessage is required' }, { status: 400 });
     }
 
-    // Detect topics from the conversation to load relevant KB sections
     const allText = [userMessage, ...messages.map(m => m.content)].join(' ');
     const detectedTopics = detectTopics(allText);
     const kbContent = detectedTopics.length > 0
@@ -51,38 +49,29 @@ DOMAINES KB CHARGÉS : ${detectedTopics.join(', ')}
 KNOWLEDGE BASE MICROSOFT :
 ${kbContent}`;
 
-    // Build messages array for OpenAI
-    const openaiMessages = [
-      { role: 'system', content: systemPrompt },
-      ...messages.slice(-10), // Keep last 10 messages for context
+    const claudeMessages = [
+      ...messages.slice(-10).map(m => ({ role: m.role, content: m.content })),
       { role: 'user', content: userMessage },
     ];
 
-    // Create streaming response
-    const stream = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: openaiMessages,
-      temperature: 0.5,
-      max_tokens: 1200,
-      stream: true,
-    });
-
-    // Stream back as SSE
     const encoder = new TextEncoder();
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          for await (const chunk of stream) {
-            const delta = chunk.choices[0]?.delta?.content || '';
-            if (delta) {
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta })}\n\n`));
+          const stream = anthropic.messages.stream({
+            model: 'claude-sonnet-4-6',
+            max_tokens: 1200,
+            system: systemPrompt,
+            messages: claudeMessages,
+          });
+
+          for await (const event of stream) {
+            if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: event.delta.text })}\n\n`));
             }
           }
-          // Send metadata at the end
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({
-            done: true,
-            kbTopics: detectedTopics,
-          })}\n\n`));
+
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true, kbTopics: detectedTopics })}\n\n`));
           controller.close();
         } catch (err) {
           controller.error(err);

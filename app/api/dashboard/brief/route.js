@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { handleApiError } from '@/lib/api-error';
 import { getFullKb } from '@/lib/kb-service';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 export async function POST(request) {
   const session = await getServerSession(authOptions);
@@ -33,7 +33,7 @@ ${kbContent}`;
 3. [priorité avec une action immédiate recommandée]
 
 **STAT DU JOUR :**
-[1 chiffre percutant tiré de la KB — ex: "Microsoft 365 E5 = 57€/user/mois soit 3x moins qu'un stack équivalent"]
+[1 chiffre percutant tiré de la KB]
 
 **QUESTION DE QUALIFICATION À TESTER AUJOURD'HUI :**
 [1 question ouverte stratégique pour un RDV de découverte]
@@ -43,27 +43,23 @@ ${kbContent}`;
 
 Sois direct, actionnable, commercial. Maximum 300 mots.`;
 
-    const stream = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user',   content: userPrompt },
-      ],
-      temperature: 0.6,
-      max_tokens: 600,
-      stream: true,
-    });
-
     const encoder = new TextEncoder();
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          for await (const chunk of stream) {
-            const delta = chunk.choices[0]?.delta?.content || '';
-            if (delta) {
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta })}\n\n`));
+          const stream = anthropic.messages.stream({
+            model: 'claude-sonnet-4-6',
+            max_tokens: 600,
+            system: systemPrompt,
+            messages: [{ role: 'user', content: userPrompt }],
+          });
+
+          for await (const event of stream) {
+            if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: event.delta.text })}\n\n`));
             }
           }
+
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
           controller.close();
         } catch (err) {

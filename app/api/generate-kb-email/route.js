@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { handleApiError } from '@/lib/api-error';
 import { getKbByTopic, getKbFiles } from '@/lib/kb-service';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 export async function POST(request) {
   const session = await getServerSession(authOptions);
@@ -129,18 +129,16 @@ Retourne UNIQUEMENT un objet JSON valide (pas de markdown, pas de code fence) :
   "price": "prix exact depuis la KB"
 }`;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user',   content: userPrompt },
-      ],
-      temperature: 0.65,
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-6',
       max_tokens: 1400,
-      response_format: { type: 'json_object' },
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }],
     });
 
-    const result = JSON.parse(response.choices[0].message.content);
+    const raw = response.content[0].text;
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    const result = JSON.parse(jsonMatch ? jsonMatch[0] : raw);
 
     return NextResponse.json({
       success: true,
@@ -151,7 +149,7 @@ Retourne UNIQUEMENT un objet JSON valide (pas de markdown, pas de code fence) :
       price:           result.price           || '',
       solution:        solutionLabel,
       kbFiles,
-      tokensUsed:      response.usage?.total_tokens || 0,
+      tokensUsed:      response.usage?.output_tokens || 0,
     });
   } catch (error) {
     return handleApiError(error, 'KB Email');

@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { handleApiError } from '@/lib/api-error';
 import { getFullKb } from '@/lib/kb-service';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 // ── Source 1 : Exa.ai — neural search (meilleure qualité) ────────────────────
 async function searchExa(companyName) {
@@ -330,22 +330,20 @@ Retourne UNIQUEMENT un objet JSON valide (pas de markdown, pas de code fence) av
 
 Fournis 3 digitalSignals, 3 éléments dans chaque branche SWOT, 3 topSolutions (triées par priorité), 3 emailAngles, 4 keyQuestions.`;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user',   content: userPrompt },
-      ],
-      temperature: 0.4,
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-6',
       max_tokens: 2500,
-      response_format: { type: 'json_object' },
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }],
     });
 
     let intel;
     try {
-      intel = JSON.parse(response.choices[0].message.content);
+      const raw = response.content[0].text;
+      const jsonMatch = raw.match(/\{[\s\S]*\}/);
+      intel = JSON.parse(jsonMatch ? jsonMatch[0] : raw);
     } catch {
-      throw new Error('OpenAI returned malformed JSON — retrying may help');
+      throw new Error('Claude returned malformed JSON — retrying may help');
     }
 
     return NextResponse.json({
@@ -354,7 +352,7 @@ Fournis 3 digitalSignals, 3 éléments dans chaque branche SWOT, 3 topSolutions 
       webDataUsed,
       sourcesUsed,
       snippetCount: snippets.length,
-      tokensUsed: response.usage?.total_tokens || 0,
+      tokensUsed: response.usage?.output_tokens || 0,
     });
   } catch (error) {
     return handleApiError(error, 'Account Intel');
