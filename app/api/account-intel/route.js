@@ -9,6 +9,26 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // ── Tool executors (Happi Brain Phase 7 pattern) ──────────────────────────────
 
+// Jina Reader — fetches any URL and returns clean text (free, no key needed)
+async function toolFetchUrl(url) {
+  try {
+    const res = await fetch(`https://r.jina.ai/${encodeURIComponent(url)}`, {
+      headers: { Accept: 'text/plain', 'X-Return-Format': 'text' },
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!res.ok) return 'Page not accessible.';
+    const text = await res.text();
+    return text
+      .split('\n')
+      .filter(l => l.trim().length > 40)
+      .slice(0, 15)
+      .join('\n')
+      .slice(0, 2000) || 'No content found.';
+  } catch {
+    return 'Fetch unavailable.';
+  }
+}
+
 async function toolWebSearch(query) {
   try {
     const res = await fetch(`https://s.jina.ai/${encodeURIComponent(query)}`, {
@@ -79,6 +99,20 @@ const TOOLS = [
   {
     type: 'function',
     function: {
+      name: 'fetch_url',
+      description: 'Fetch a specific URL and return its text content. Use to read company registry pages (pappers.fr, societe.com, infogreffe.fr) for precise employee count, revenue, SIREN, creation date.',
+      parameters: {
+        type: 'object',
+        properties: {
+          url: { type: 'string', description: 'Full URL to fetch, e.g. https://www.pappers.fr/recherche?q=company+name' }
+        },
+        required: ['url'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
       name: 'web_search',
       description: 'Search the web for information about the company. Use for: general info, recent news, digital transformation, cloud strategy, annual reports.',
       parameters: {
@@ -122,6 +156,7 @@ const TOOLS = [
 
 async function executeTool(name, args) {
   switch (name) {
+    case 'fetch_url':     return toolFetchUrl(args.url);
     case 'web_search':    return toolWebSearch(args.query);
     case 'exa_search':    return toolExaSearch(args.query);
     case 'tavily_search': return toolTavilySearch(args.query);
@@ -136,10 +171,12 @@ async function gatherAndAnalyze(accountName, kbContent) {
 
 MISSION : Analyser l'entreprise "${accountName}" et générer un dossier de prospection complet.
 
-PROCESSUS :
-1. Lance 3 à 5 recherches ciblées via les outils disponibles (web, exa, tavily)
-2. Analyse les données récupérées
-3. Génère le JSON final en utilisant EXCLUSIVEMENT les prix/solutions de la KNOWLEDGE BASE pour les recommandations
+PROCESSUS OBLIGATOIRE :
+1. Commence TOUJOURS par fetch_url sur https://www.pappers.fr/recherche?q={NOM_ENTREPRISE} pour obtenir effectif, CA, SIREN
+2. Si pappers ne donne pas de résultat, tente fetch_url sur https://www.societe.com/cgi-bin/search?champs={NOM_ENTREPRISE}
+3. Lance 2-3 recherches web_search ou tavily_search pour les signaux digitaux, actualités, stratégie IT
+4. Génère le JSON final en utilisant EXCLUSIVEMENT les prix/solutions de la KNOWLEDGE BASE pour les recommandations
+5. Ne mets JAMAIS "Unknown" si tu as trouvé l'info — cherche jusqu'à l'avoir
 
 KNOWLEDGE BASE MICROSOFT :
 ${kbContent}`;
@@ -195,7 +232,7 @@ Après tes recherches, retourne UNIQUEMENT ce JSON valide (sans markdown) :
     },
   ];
 
-  const sourcesUsed = { web: false, exa: false, tavily: false };
+  const sourcesUsed = { registry: false, web: false, exa: false, tavily: false };
   const snippets = [];
   let iterations = 0;
   const MAX_ITERATIONS = 4;
@@ -224,6 +261,7 @@ Après tes recherches, retourne UNIQUEMENT ce JSON valide (sans markdown) :
           const args = JSON.parse(call.function.arguments || '{}');
           const result = await executeTool(call.function.name, args);
 
+          if (call.function.name === 'fetch_url')     sourcesUsed.registry = true;
           if (call.function.name === 'web_search')    sourcesUsed.web = true;
           if (call.function.name === 'exa_search')    sourcesUsed.exa = true;
           if (call.function.name === 'tavily_search') sourcesUsed.tavily = true;
