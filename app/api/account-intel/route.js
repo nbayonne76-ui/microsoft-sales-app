@@ -5,6 +5,8 @@ import { authOptions } from '@/lib/auth';
 import { handleApiError } from '@/lib/api-error';
 import { getFullKb } from '@/lib/kb-service';
 
+export const maxDuration = 60;
+
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 // ── Source 1 : Exa.ai — neural search (meilleure qualité) ────────────────────
@@ -64,7 +66,7 @@ async function searchJina(companyName) {
       queries.map(q =>
         fetch(`https://s.jina.ai/${encodeURIComponent(q)}`, {
           headers: { Accept: 'text/plain', 'X-Return-Format': 'text' },
-          signal: AbortSignal.timeout(8000),
+          signal: AbortSignal.timeout(4000),
         }).then(r => r.text())
       )
     );
@@ -204,9 +206,13 @@ export async function POST(request) {
     }
 
     // ── Parallel: KB + multi-source web enrichment ──────────────────────────
+    const enrichTimeout = new Promise(resolve =>
+      setTimeout(() => resolve({ snippets: [], contacts: null, sourcesUsed: { exa: false, jina: false, tavily: false } }), 6000)
+    );
+
     const [kbContent, enriched] = await Promise.all([
-      Promise.resolve(getFullKb(14000)),
-      enrichCompany(accountName),
+      Promise.resolve(getFullKb(10000)),
+      Promise.race([enrichCompany(accountName), enrichTimeout]),
     ]);
 
     const { snippets, contacts, sourcesUsed } = enriched;
@@ -332,7 +338,7 @@ Fournis 3 digitalSignals, 3 éléments dans chaque branche SWOT, 3 topSolutions 
 
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-6',
-      max_tokens: 2500,
+      max_tokens: 4096,
       system: systemPrompt,
       messages: [{ role: 'user', content: userPrompt }],
     });
@@ -341,9 +347,14 @@ Fournis 3 digitalSignals, 3 éléments dans chaque branche SWOT, 3 topSolutions 
     try {
       const raw = response.content[0].text;
       const jsonMatch = raw.match(/\{[\s\S]*\}/);
-      intel = JSON.parse(jsonMatch ? jsonMatch[0] : raw);
-    } catch {
-      throw new Error('Claude returned malformed JSON — retrying may help');
+      if (!jsonMatch) throw new Error('no JSON found');
+      intel = JSON.parse(jsonMatch[0]);
+    } catch (parseErr) {
+      console.error('JSON parse error:', parseErr.message);
+      return NextResponse.json(
+        { error: 'La génération a échoué — réessaie dans quelques secondes.' },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({
