@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 import { handleApiError } from '@/lib/api-error';
 import { getFullKb, getKbByTopics, detectTopics } from '@/lib/kb-service';
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export async function POST(request) {
   try {
@@ -26,7 +26,6 @@ Ton rôle : aider Nicolas à préparer ses rendez-vous commerciaux, analyser des
 RÈGLES ABSOLUES :
 - Tous les prix, plans et fonctionnalités Microsoft doivent venir EXCLUSIVEMENT de la Knowledge Base ci-dessous
 - Sois direct, actionnable, commercial — pas académique
-- Si tu ne trouves pas l'information dans la KB, dis-le clairement
 - Réponds dans la même langue que l'utilisateur (FR ou EN)
 
 COMMANDES RECONNUES :
@@ -42,28 +41,30 @@ DOMAINES KB CHARGÉS : ${detectedTopics.join(', ') || 'tous'}
 KNOWLEDGE BASE MICROSOFT :
 ${kbContent}`;
 
-    const claudeMessages = [
-      ...messages.slice(-10).map(m => ({ role: m.role, content: m.content })),
+    const openaiMessages = [
+      { role: 'system', content: systemPrompt },
+      ...messages.slice(-10),
       { role: 'user', content: userMessage },
     ];
+
+    const stream = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: openaiMessages,
+      temperature: 0.5,
+      max_tokens: 1200,
+      stream: true,
+    });
 
     const encoder = new TextEncoder();
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          const stream = anthropic.messages.stream({
-            model: 'claude-sonnet-4-6',
-            max_tokens: 1200,
-            system: systemPrompt,
-            messages: claudeMessages,
-          });
-
-          for await (const event of stream) {
-            if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: event.delta.text })}\n\n`));
+          for await (const chunk of stream) {
+            const delta = chunk.choices[0]?.delta?.content || '';
+            if (delta) {
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta })}\n\n`));
             }
           }
-
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true, kbTopics: detectedTopics })}\n\n`));
           controller.close();
         } catch (err) {

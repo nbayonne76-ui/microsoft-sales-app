@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 import { handleApiError } from '@/lib/api-error';
 import { getKbByTopic } from '@/lib/kb-service';
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const SOLUTION_LABELS = {
   m365:     'Microsoft 365',
@@ -28,7 +28,6 @@ export async function POST(request) {
 
     const systemPrompt = `Tu es Nicolas BAYONNE, Microsoft Partner Account Manager expert en vente consultative B2B.
 Tu dois créer un plan de séquence de prospection en 3 phases et 7 touches pour une cible commerciale précise.
-
 RÈGLE ABSOLUE : tous les prix, fonctionnalités et plans doivent venir EXCLUSIVEMENT de la Knowledge Base.
 
 KNOWLEDGE BASE — ${solutionLabel} :
@@ -47,53 +46,28 @@ Retourne UNIQUEMENT un objet JSON valide :
   "objective": "objectif en 1 phrase",
   "phases": [
     {
-      "phase": 1,
-      "name": "Découverte",
-      "color": "blue",
-      "description": "Première prise de contact et établissement de la relation",
-      "touches": [
-        {
-          "touch": 1,
-          "day": 0,
-          "type": "email",
-          "channel": "Email",
-          "subject": "objet de l'email <60 chars",
-          "body": "corps complet de l'email avec \\n pour les sauts de ligne. Utilise les données KB.",
-          "kbSources": ["source KB utilisée"],
-          "tip": "conseil tactique en 1 phrase pour cet envoi"
-        }
-      ]
+      "phase": 1, "name": "Découverte", "color": "blue",
+      "description": "Première prise de contact",
+      "touches": [{ "touch": 1, "day": 0, "type": "email", "channel": "Email", "subject": "...", "body": "...", "kbSources": ["..."], "tip": "..." }]
     },
-    {
-      "phase": 2,
-      "name": "Qualification",
-      "color": "orange",
-      "description": "Présentation de la valeur et qualification du besoin",
-      "touches": []
-    },
-    {
-      "phase": 3,
-      "name": "Closing",
-      "color": "green",
-      "description": "Proposition formelle et prise de décision",
-      "touches": []
-    }
+    { "phase": 2, "name": "Qualification", "color": "orange", "description": "Qualification du besoin", "touches": [] },
+    { "phase": 3, "name": "Closing", "color": "green", "description": "Proposition formelle", "touches": [] }
   ]
 }
+Structure : Phase 1 — 3 touches (J0, J3, J7) · Phase 2 — 2 touches (J14, J21) · Phase 3 — 2 touches (J30, J45).`;
 
-Structure : Phase 1 — 3 touches (J0, J3, J7) · Phase 2 — 2 touches (J14, J21) · Phase 3 — 2 touches (J30, J45).
-Pour chaque email : inclure des données concrètes de la KB (prix, fonctionnalités, ROI).`;
-
-    const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-6',
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user',   content: userPrompt },
+      ],
+      temperature: 0.5,
       max_tokens: 4000,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: userPrompt }],
+      response_format: { type: 'json_object' },
     });
 
-    const raw = message.content[0].text;
-    const jsonMatch = raw.match(/\{[\s\S]*\}/);
-    const result = JSON.parse(jsonMatch ? jsonMatch[0] : raw);
+    const result = JSON.parse(response.choices[0].message.content);
 
     return NextResponse.json({
       success: true,
@@ -106,7 +80,7 @@ Pour chaque email : inclure des données concrètes de la KB (prix, fonctionnali
       sequenceName: result.sequenceName || `Séquence ${company}`,
       objective: result.objective || '',
       phases: result.phases || [],
-      tokensUsed: message.usage?.output_tokens || 0,
+      tokensUsed: response.usage?.total_tokens || 0,
     });
   } catch (error) {
     return handleApiError(error, 'Sequence Generate');

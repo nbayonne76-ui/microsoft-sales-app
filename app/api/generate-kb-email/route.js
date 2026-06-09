@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 import { handleApiError } from '@/lib/api-error';
 import { getKbByTopic, getKbFiles } from '@/lib/kb-service';
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export async function POST(request) {
   try {
@@ -51,60 +51,44 @@ export async function POST(request) {
       friendly:     'Chaleureux et accessible. Conversationnel mais professionnel. 1-2 emojis max. Longueur : 180-250 mots.',
       direct:       'Court, percutant, aller droit au but. Zéro remplissage. Maximum 150 mots dans le corps.',
     };
-    const toneGuide = TONE_GUIDES[tone] || TONE_GUIDES.professional;
 
     const TYPE_GUIDES = {
-      prospection: 'Premier contact froid. Ouvre avec un hook contextuel lié à leur secteur. Identifie une douleur probable. Propose une valeur immédiate.',
-      relance:     'Relance après silence. Référence le premier contact. Apporte un élément nouveau (statistique, cas client, offre limitée).',
-      demo:        'Invitation à une démo de 30 min. Met en avant 2-3 bénéfices concrets. Propose 2 créneaux précis. Urgence douce.',
-      proposal:    'Proposition formelle après découverte. Structure : contexte → solution → ROI → prochaines étapes. Inclut les prix KB.',
+      prospection: 'Premier contact froid. Ouvre avec un hook contextuel lié à leur secteur.',
+      relance:     'Relance après silence. Référence le premier contact. Apporte un élément nouveau.',
+      demo:        'Invitation à une démo de 30 min. Propose 2 créneaux précis.',
+      proposal:    'Proposition formelle. Structure : contexte → solution → ROI → prochaines étapes.',
     };
-    const typeGuide = TYPE_GUIDES[emailType] || TYPE_GUIDES.prospection;
 
     const systemPrompt = `Tu es Nicolas BAYONNE, Account Manager Microsoft expert avec 10 ans d'expérience en vente consultative B2B.
+RÈGLE ABSOLUE : utilise EXCLUSIVEMENT les données, prix et fonctionnalités de la KNOWLEDGE BASE.
 
-RÈGLE ABSOLUE : utilise EXCLUSIVEMENT les données, prix et fonctionnalités présents dans la KNOWLEDGE BASE.
-N'invente JAMAIS un prix ou une fonctionnalité absente de la KB.
+STYLE : ${TONE_GUIDES[tone] || TONE_GUIDES.professional}
+TYPE : ${TYPE_GUIDES[emailType] || TYPE_GUIDES.prospection}
 
-STYLE D'EMAIL : ${toneGuide}
-TYPE D'EMAIL : ${typeGuide}
+STRUCTURE : OBJET (<60 chars) · SALUTATION · HOOK · PROBLÈME · SOLUTION (données KB) · ROI · CTA · SIGNATURE Nicolas BAYONNE
 
-STRUCTURE OBLIGATOIRE :
-1. OBJET : accrocheur, personnalisé, <60 caractères
-2. SALUTATION : avec prénom si disponible
-3. HOOK (1 phrase) : fait sectoriel ou question provocante lié à ${industry || 'leur secteur'}
-4. PROBLÈME : reformuler leur défi principal "${challenge || 'transformation digitale'}" avec empathie
-5. SOLUTION : présenter ${solutionLabel} avec données EXACTES de la KB
-6. ROI / PREUVE SOCIALE : chiffre concret tiré de la KB
-7. CTA : une seule action claire et facile
-8. SIGNATURE : Nicolas BAYONNE | Microsoft Partner Account Manager
-
-KNOWLEDGE BASE — ${solutionLabel}
-Fichiers : ${kbFiles.join(', ')}
+KNOWLEDGE BASE — ${solutionLabel} (${kbFiles.join(', ')}) :
 ${kbContent}`;
 
-    const userPrompt = `Rédige un email de ${emailType} en FRANÇAIS pour :
-Entreprise : ${companyName}
-Contact : ${contactName || 'le décideur'}
-Poste : ${contactRole || 'Directeur Général / DSI'}
-Secteur : ${industry || 'non précisé'}
-Taille : ${companySize === 'enterprise' ? 'Grand compte' : companySize === 'startup' ? 'Startup' : 'PME'}
-Défi : ${challenge || 'transformation digitale'}
-Solution : ${solutionLabel}
+    const userPrompt = `Email de ${emailType} pour :
+Entreprise : ${companyName} | Contact : ${contactName || 'le décideur'} | Poste : ${contactRole || 'DSI/DG'}
+Secteur : ${industry || 'n/a'} | Taille : ${companySize === 'enterprise' ? 'Grand compte' : companySize === 'startup' ? 'Startup' : 'PME'}
+Défi : ${challenge || 'transformation digitale'} | Solution : ${solutionLabel}
 
-Retourne UNIQUEMENT un objet JSON valide :
-{"subject":"...","body":"...avec \\n pour sauts de ligne...","kbSources":["..."],"recommendedPlan":"...","price":"..."}`;
+JSON : {"subject":"...","body":"...\\n...","kbSources":["..."],"recommendedPlan":"...","price":"..."}`;
 
-    const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-6',
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user',   content: userPrompt },
+      ],
+      temperature: 0.65,
       max_tokens: 1400,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: userPrompt }],
+      response_format: { type: 'json_object' },
     });
 
-    const raw = response.content[0].text;
-    const jsonMatch = raw.match(/\{[\s\S]*\}/);
-    const result = JSON.parse(jsonMatch ? jsonMatch[0] : raw);
+    const result = JSON.parse(response.choices[0].message.content);
 
     return NextResponse.json({
       success: true,
@@ -115,7 +99,7 @@ Retourne UNIQUEMENT un objet JSON valide :
       price:           result.price           || '',
       solution:        solutionLabel,
       kbFiles,
-      tokensUsed:      response.usage?.output_tokens || 0,
+      tokensUsed:      response.usage?.total_tokens || 0,
     });
   } catch (error) {
     return handleApiError(error, 'KB Email');
