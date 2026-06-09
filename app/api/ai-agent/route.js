@@ -1,18 +1,11 @@
 import { NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/auth';
 import { handleApiError } from '@/lib/api-error';
 import { getFullKb, getKbByTopics, detectTopics } from '@/lib/kb-service';
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 export async function POST(request) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
   try {
     const { messages = [], userMessage } = await request.json();
 
@@ -36,15 +29,15 @@ RÈGLES ABSOLUES :
 - Si tu ne trouves pas l'information dans la KB, dis-le clairement
 - Réponds dans la même langue que l'utilisateur (FR ou EN)
 
-COMMANDES RECONNUES (slash commands) :
-- /brief [entreprise] → Génère un brief commercial rapide
-- /email [entreprise] → Suggère un angle d'email avec accroche
-- /pitch [produit] → Génère un pitch 2 min pour ce produit Microsoft
+COMMANDES RECONNUES :
+- /brief [entreprise] → Brief commercial rapide
+- /email [entreprise] → Angle d'email avec accroche
+- /pitch [produit] → Pitch 2 min pour ce produit Microsoft
 - /swot [entreprise] → Analyse SWOT rapide
 - /prix [produit] → Prix et plans depuis la KB
-- /compare [produit A] vs [produit B] → Comparaison depuis la KB
+- /compare [A] vs [B] → Comparaison depuis la KB
 
-DOMAINES KB CHARGÉS : ${detectedTopics.join(', ')}
+DOMAINES KB CHARGÉS : ${detectedTopics.join(', ') || 'tous'}
 
 KNOWLEDGE BASE MICROSOFT :
 ${kbContent}`;

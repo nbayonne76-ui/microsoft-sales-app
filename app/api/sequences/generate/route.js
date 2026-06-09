@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/auth';
 import { handleApiError } from '@/lib/api-error';
 import { getKbByTopic } from '@/lib/kb-service';
 
@@ -17,11 +15,6 @@ const SOLUTION_LABELS = {
 };
 
 export async function POST(request) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
   try {
     const { company, solution = 'm365', persona = 'DSI', industry, companySize = 'sme' } = await request.json();
 
@@ -65,7 +58,7 @@ Retourne UNIQUEMENT un objet JSON valide :
           "type": "email",
           "channel": "Email",
           "subject": "objet de l'email <60 chars",
-          "body": "corps complet de l'email avec \\n pour les sauts de ligne. Utilise les données KB (prix, fonctionnalités).",
+          "body": "corps complet de l'email avec \\n pour les sauts de ligne. Utilise les données KB.",
           "kbSources": ["source KB utilisée"],
           "tip": "conseil tactique en 1 phrase pour cet envoi"
         }
@@ -88,11 +81,7 @@ Retourne UNIQUEMENT un objet JSON valide :
   ]
 }
 
-Structure des touches :
-- Phase 1 — Découverte : 3 touches (J0 email froid, J3 relance LinkedIn ou email, J7 email nouvelle accroche)
-- Phase 2 — Qualification : 2 touches (J14 invitation démo 30 min, J21 email proposition de valeur ciblée avec prix KB)
-- Phase 3 — Closing : 2 touches (J30 proposition formelle avec ROI KB, J45 dernier contact urgence douce)
-
+Structure : Phase 1 — 3 touches (J0, J3, J7) · Phase 2 — 2 touches (J14, J21) · Phase 3 — 2 touches (J30, J45).
 Pour chaque email : inclure des données concrètes de la KB (prix, fonctionnalités, ROI).`;
 
     const message = await anthropic.messages.create({

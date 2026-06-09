@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/auth';
 import { handleApiError } from '@/lib/api-error';
 import { getFullKb } from '@/lib/kb-service';
 
@@ -193,11 +191,6 @@ async function enrichCompany(companyName) {
 
 // ── Main handler ──────────────────────────────────────────────────────────────
 export async function POST(request) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
   try {
     const { accountName } = await request.json();
 
