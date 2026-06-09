@@ -213,7 +213,9 @@ Après tes recherches, retourne UNIQUEMENT ce JSON valide (sans markdown) :
 
     iterations++;
     const choice = response.choices[0];
-    messages.push({ role: 'assistant', content: choice.message.content, tool_calls: choice.message.tool_calls });
+
+    // Push the raw message object — never reconstruct it (content may be null when tool_calls present)
+    messages.push(choice.message);
 
     if (choice.finish_reason === 'tool_calls' && choice.message.tool_calls?.length) {
       // Execute all tool calls in parallel
@@ -222,13 +224,12 @@ Après tes recherches, retourne UNIQUEMENT ce JSON valide (sans markdown) :
           const args = JSON.parse(call.function.arguments || '{}');
           const result = await executeTool(call.function.name, args);
 
-          // Track sources
-          if (call.function.name === 'web_search') sourcesUsed.web = true;
-          if (call.function.name === 'exa_search') sourcesUsed.exa = true;
+          if (call.function.name === 'web_search')    sourcesUsed.web = true;
+          if (call.function.name === 'exa_search')    sourcesUsed.exa = true;
           if (call.function.name === 'tavily_search') sourcesUsed.tavily = true;
-          snippets.push(`[${call.function.name}:${args.query}] ${result.slice(0, 200)}`);
+          snippets.push(result.slice(0, 200));
 
-          return { role: 'tool', tool_call_id: call.id, content: result };
+          return { role: 'tool', tool_call_id: call.id, content: String(result) };
         })
       );
       messages.push(...results);
@@ -237,13 +238,26 @@ Après tes recherches, retourne UNIQUEMENT ce JSON valide (sans markdown) :
       // Final response — extract JSON
       const raw = choice.message.content || '';
       const jsonMatch = raw.match(/\{[\s\S]*\}/);
-      if (!jsonMatch) throw new Error('No JSON in final response');
+      if (!jsonMatch) throw new Error('GPT did not return valid JSON');
       const intel = JSON.parse(jsonMatch[0]);
       return { intel, sourcesUsed, snippetCount: snippets.length };
     }
   }
 
-  throw new Error('Max iterations reached without final response');
+  // Max iterations — force a final JSON response without tools
+  const final = await openai.chat.completions.create({
+    model: 'gpt-4o',
+    messages: [{ role: 'system', content: systemPrompt }, ...messages, {
+      role: 'user',
+      content: 'Based on all the research above, generate the final JSON dossier now. Return ONLY the JSON object.',
+    }],
+    temperature: 0.3,
+    max_tokens: 4096,
+  });
+  const raw = final.choices[0].message.content || '';
+  const jsonMatch = raw.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) throw new Error('Could not generate JSON dossier');
+  return { intel: JSON.parse(jsonMatch[0]), sourcesUsed, snippetCount: snippets.length };
 }
 
 // ── Main handler ──────────────────────────────────────────────────────────────
