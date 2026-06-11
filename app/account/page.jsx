@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import {
   Search, Building2, Sparkles, Mail, Globe, Wifi,
@@ -97,11 +97,16 @@ export default function AccountIntelPage() {
   const [snippetCount, setSnippetCount] = useState(0);
   const [error, setError] = useState(null); // { type, message, hint }
 
-  // Persistent history (localStorage)
-  const [history, setHistory] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('accountIntelHistory') || '[]'); } catch { return []; }
-  });
+  // Persistent history (localStorage) — useEffect évite l'incompatibilité SSR
+  const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('accountIntelHistory') || '[]');
+      setHistory(saved);
+    } catch {}
+  }, []);
 
   const saveToHistory = (q, data) => {
     const entry = { id: Date.now(), query: q, date: new Date().toISOString(), intel: data, company: data.company?.name || q };
@@ -222,20 +227,31 @@ export default function AccountIntelPage() {
 
         {/* ── Header ─────────────────────────────────────────── */}
         <motion.div {...fadeUp} className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="bg-gradient-to-br from-ms-blue to-ms-blueDark p-3 rounded-xl shadow-lg">
-              <Sparkles className="h-7 w-7 text-white" />
+          <div className="flex items-start justify-between gap-4 mb-2">
+            <div className="flex items-center gap-3">
+              <div className="bg-gradient-to-br from-ms-blue to-ms-blueDark p-3 rounded-xl shadow-lg">
+                <Sparkles className="h-7 w-7 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">
+                  {lang === 'fr' ? 'Intelligence Compte' : 'Account Intelligence'}
+                </h1>
+                <p className="text-gray-500 text-sm mt-0.5">
+                  {lang === 'fr'
+                    ? 'Dossier commercial complet — SWOT · PESTEL · Signaux digitaux · Stratégie Microsoft'
+                    : 'Full commercial dossier — SWOT · PESTEL · Digital signals · Microsoft strategy'}
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                {lang === 'fr' ? 'Intelligence Compte' : 'Account Intelligence'}
-              </h1>
-              <p className="text-gray-500 text-sm mt-0.5">
-                {lang === 'fr'
-                  ? 'Dossier commercial complet — SWOT · PESTEL · Signaux digitaux · Stratégie Microsoft'
-                  : 'Full commercial dossier — SWOT · PESTEL · Digital signals · Microsoft strategy'}
-              </p>
-            </div>
+            {intel && (
+              <button
+                onClick={exportPDF}
+                className="no-print shrink-0 flex items-center gap-1.5 text-xs bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-ms-blue px-3 py-2 rounded-xl transition-colors shadow-sm"
+              >
+                <Download className="h-3.5 w-3.5" />
+                {lang === 'fr' ? 'Exporter PDF' : 'Export PDF'}
+              </button>
+            )}
           </div>
         </motion.div>
 

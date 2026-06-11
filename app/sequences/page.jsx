@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Zap, Sparkles, Mail, Copy, CheckCheck, ChevronDown, ChevronUp,
@@ -176,10 +176,15 @@ export default function SequencesPage() {
   const [statuses,  setStatuses]  = useState({}); // { "phaseIdx-touchIdx": status }
   const [copiedId,  setCopiedId]  = useState(null);
 
-  // Persistent saved sequences (localStorage)
-  const [saved, setSaved] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('savedSequences') || '[]'); } catch { return []; }
-  });
+  // Persistent saved sequences (localStorage) — useEffect évite l'incompatibilité SSR
+  const [saved, setSaved] = useState([]);
+
+  useEffect(() => {
+    try {
+      const s = JSON.parse(localStorage.getItem('savedSequences') || '[]');
+      setSaved(s);
+    } catch {}
+  }, []);
   const persistSaved = (list) => {
     setSaved(list);
     try { localStorage.setItem('savedSequences', JSON.stringify(list)); } catch {}
