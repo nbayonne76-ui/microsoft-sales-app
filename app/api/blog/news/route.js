@@ -5,68 +5,41 @@ export const dynamic = 'force-dynamic';
 // ── HTML entity decoder ───────────────────────────────────────────────────────
 function decodeEntities(str = '') {
   return str
-    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
-    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(n));
-}
-
-// ── Category detection — 3 levels ─────────────────────────────────────────────
-// Level 1 : forced by feed definition (most feeds)
-// Level 2 : URL path hints (blogs.microsoft.com)
-// Level 3 : keyword detection in title+excerpt (last resort)
-
-function detectFromUrl(url = '') {
-  const u = url.toLowerCase();
-  if (u.includes('/security') || u.includes('/defender') || u.includes('/sentinel') || u.includes('/purview') || u.includes('/threat')) return 'Sécurité';
-  if (u.includes('/copilot') || u.includes('/openai') || u.includes('/ai/') || u.includes('/artificial-intelligence')) return 'Copilot & IA';
-  if (u.includes('/azure') || u.includes('/cloud')) return 'Azure & Cloud';
-  if (u.includes('/dynamics') || u.includes('/business-central') || u.includes('/power-platform') || u.includes('/power-apps')) return 'Dynamics 365';
-  if (u.includes('/microsoft-365') || u.includes('/teams') || u.includes('/office-365') || u.includes('/sharepoint') || u.includes('/outlook')) return 'Microsoft 365';
-  return null;
-}
-
-// Most specific keywords first — avoid false positives on generic terms
-const KEYWORD_RULES = [
-  { cat: 'Sécurité',     words: ['zero trust', 'ransomware', 'phishing', 'entra id', 'sentinel', 'purview', 'microsoft defender', 'nis2', 'dora', 'gdpr compliance', 'mfa', 'identity protection'] },
-  { cat: 'Copilot & IA', words: ['microsoft copilot', 'copilot studio', 'azure openai', 'openai gpt', 'generative ai', 'ai agent', 'large language model', ' llm ', 'machine learning model'] },
-  { cat: 'Azure & Cloud', words: ['azure kubernetes', 'azure arc', 'azure sql', 'azure synapse', 'azure fabric', 'azure devops', 'azure migration', 'azure virtual', 'azure container'] },
-  { cat: 'Dynamics 365', words: ['dynamics 365', 'business central', 'power platform', 'power apps', 'power automate', 'power bi', 'field service', 'sales hub', 'customer insights'] },
-  { cat: 'Microsoft 365', words: ['microsoft 365', 'microsoft teams', 'sharepoint', 'exchange server', 'onedrive', 'office 365', 'viva engage', 'microsoft intune', 'loop workspace'] },
-  // Broad fallbacks — only if nothing above matched
-  { cat: 'Sécurité',     words: ['defender', 'security update', 'vulnerability', 'cyber'] },
-  { cat: 'Copilot & IA', words: ['copilot', 'artificial intelligence', 'openai'] },
-  { cat: 'Azure & Cloud', words: ['azure '] },
-  { cat: 'Dynamics 365', words: ['dynamics', 'crm ', 'erp '] },
-];
-
-function detectFromText(title = '', excerpt = '') {
-  const text = `${title} ${excerpt}`.toLowerCase();
-  for (const { cat, words } of KEYWORD_RULES) {
-    if (words.some(w => text.includes(w))) return cat;
-  }
-  return 'Microsoft 365'; // final catch-all
-}
-
-// Main dispatcher — forcedCategory wins, then URL, then text
-function getCategory(forcedCategory, url, title, excerpt) {
-  if (forcedCategory != null) return forcedCategory;
-  return detectFromUrl(url) ?? detectFromText(title, excerpt);
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&').replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)));
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// RSS FEEDS — category is FIXED per feed; null = auto-detect
+// RSS FEEDS — chaque feed a une catégorie FIXE et explicite.
+// Aucune détection textuelle pour ces sources : la source est la vérité.
 // ─────────────────────────────────────────────────────────────────────────────
 const RSS_FEEDS = [
-  { url: 'https://blogs.microsoft.com/feed/',                                                                       source: 'blogs.microsoft.com',         category: null,             type: 'rss' },
-  { url: 'https://azure.microsoft.com/en-us/blog/feed/',                                                            source: 'azure.microsoft.com',         category: 'Azure & Cloud',  type: 'rss' },
-  { url: 'https://www.microsoft.com/en-us/microsoft-365/blog/feed/',                                                source: 'microsoft.com',               category: 'Microsoft 365',  type: 'rss' },
-  { url: 'https://cloudblogs.microsoft.com/dynamics365/feed/',                                                      source: 'cloudblogs.microsoft.com',    category: 'Dynamics 365',   type: 'rss' },
-  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=microsoft365blog',        source: 'techcommunity.microsoft.com', category: 'Microsoft 365',  type: 'rss' },
-  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=AzureInfrastructureblog', source: 'techcommunity.microsoft.com', category: 'Azure & Cloud',  type: 'rss' },
-  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftSecurityandCompliance', source: 'techcommunity.microsoft.com', category: 'Sécurité', type: 'rss' },
-  { url: 'https://cloudblogs.microsoft.com/microsoftsecure/feed/',                                                  source: 'cloudblogs.microsoft.com',    category: 'Sécurité',       type: 'rss' },
+  // ── Microsoft 365 ──────────────────────────────────────────────────────────
+  { url: 'https://www.microsoft.com/en-us/microsoft-365/blog/feed/',                                                               category: 'Microsoft 365',  source: 'microsoft.com/m365'    },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=microsoft365blog',                        category: 'Microsoft 365',  source: 'techcommunity.microsoft.com' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftTeamsBlog',                      category: 'Microsoft 365',  source: 'techcommunity.microsoft.com' },
+
+  // ── Azure & Cloud ──────────────────────────────────────────────────────────
+  { url: 'https://azure.microsoft.com/en-us/blog/feed/',                                                                           category: 'Azure & Cloud',  source: 'azure.microsoft.com'   },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=AzureInfrastructureblog',                 category: 'Azure & Cloud',  source: 'techcommunity.microsoft.com' },
+
+  // ── Dynamics 365 ──────────────────────────────────────────────────────────
+  { url: 'https://cloudblogs.microsoft.com/dynamics365/feed/',                                                                     category: 'Dynamics 365',   source: 'cloudblogs.microsoft.com' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=DynamicsSmallAndMediumBusiness',          category: 'Dynamics 365',   source: 'techcommunity.microsoft.com' },
+
+  // ── Sécurité ───────────────────────────────────────────────────────────────
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftSecurityandCompliance',          category: 'Sécurité',       source: 'techcommunity.microsoft.com' },
+  { url: 'https://cloudblogs.microsoft.com/microsoftsecure/feed/',                                                                 category: 'Sécurité',       source: 'cloudblogs.microsoft.com' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftDefenderATP',                   category: 'Sécurité',       source: 'techcommunity.microsoft.com' },
+
+  // ── Copilot & IA ───────────────────────────────────────────────────────────
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=Microsoft365CopilotBlog',                category: 'Copilot & IA',   source: 'techcommunity.microsoft.com' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftCopilot',                       category: 'Copilot & IA',   source: 'techcommunity.microsoft.com' },
 ];
 
+// ── RSS parser ────────────────────────────────────────────────────────────────
 function extractXML(block, tag) {
   const cdata = block.match(new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]>`, 'i'));
   if (cdata) return cdata[1].trim();
@@ -74,62 +47,62 @@ function extractXML(block, tag) {
   return plain ? plain[1].trim() : '';
 }
 
-function parseRSS(xml, defaultSource, forcedCategory, sourceType = 'rss') {
+function parseRSS(xml, source, category) {
   const items = [];
   const blocks = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)];
   for (const block of blocks) {
-    const content = block[1];
-    const title   = decodeEntities(extractXML(content, 'title')).slice(0, 200);
-    const link    = extractXML(content, 'link') || extractXML(content, 'guid');
-    const rawDesc = decodeEntities(extractXML(content, 'description'));
+    const raw  = block[1];
+    const title  = decodeEntities(extractXML(raw, 'title')).slice(0, 200);
+    const link   = extractXML(raw, 'link') || extractXML(raw, 'guid');
+    const rawDesc = decodeEntities(extractXML(raw, 'description'));
     const excerpt = rawDesc.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 280);
-    const pubDate = extractXML(content, 'pubDate');
+    const pubDate = extractXML(raw, 'pubDate');
     if (!title || !link || !link.startsWith('http')) continue;
     let date;
     try { date = new Date(pubDate); if (isNaN(date.getTime())) date = new Date(); } catch { date = new Date(); }
-    let source = defaultSource;
-    try { source = new URL(link).hostname.replace('www.', ''); } catch {}
+    let itemSource = source;
+    try { itemSource = new URL(link).hostname.replace('www.', ''); } catch {}
     items.push({
       id:         `rss-${Buffer.from(link).toString('base64').slice(0, 12)}`,
       title,
       excerpt,
       url:        link,
-      source,
-      sourceType,
+      source:     itemSource,
+      sourceType: 'rss',
       date:       date.toISOString(),
-      category:   getCategory(forcedCategory, link, title, excerpt),
+      category,   // catégorie FIXE du feed — jamais calculée
     });
   }
   return items;
 }
 
-async function fetchRSS({ url, source, category, type }) {
+async function fetchRSS({ url, source, category }) {
   try {
     const res = await fetch(url, {
       headers: { 'User-Agent': 'Mozilla/5.0 MicrosoftSalesApp/1.0' },
       signal: AbortSignal.timeout(7000),
     });
     if (!res.ok) return [];
-    return parseRSS((await res.text()).slice(0, 512 * 1024), source, category, type);
+    return parseRSS((await res.text()).slice(0, 512 * 1024), source, category);
   } catch { return []; }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TAVILY — category FIXED per query
+// TAVILY — catégorie FIXE par requête
 // ─────────────────────────────────────────────────────────────────────────────
 const TAVILY_QUERIES = [
-  { q: 'Microsoft 365 Teams Outlook SharePoint new features update 2026', category: 'Microsoft 365'  },
-  { q: 'Microsoft Copilot AI agent Studio update 2026',                   category: 'Copilot & IA'   },
-  { q: 'Microsoft Azure infrastructure cloud release 2026',               category: 'Azure & Cloud'  },
-  { q: 'Dynamics 365 Business Central CRM ERP update 2026',              category: 'Dynamics 365'   },
-  { q: 'Microsoft Defender Sentinel Purview security 2026',              category: 'Sécurité'        },
+  { q: 'Microsoft 365 Teams Outlook SharePoint update announcement 2026', category: 'Microsoft 365'  },
+  { q: 'Microsoft Copilot AI Studio agent new features 2026',             category: 'Copilot & IA'   },
+  { q: 'Microsoft Azure cloud infrastructure release update 2026',        category: 'Azure & Cloud'  },
+  { q: 'Dynamics 365 Business Central CRM ERP release 2026',             category: 'Dynamics 365'   },
+  { q: 'Microsoft Defender Sentinel Purview security threat 2026',        category: 'Sécurité'        },
 ];
 
 async function fetchTavily() {
   const key = process.env.TAVILY_API_KEY;
   if (!key) return [];
   try {
-    const results = await Promise.allSettled(
+    const settled = await Promise.allSettled(
       TAVILY_QUERIES.map(({ q }) =>
         fetch('https://api.tavily.com/search', {
           method: 'POST',
@@ -140,7 +113,7 @@ async function fetchTavily() {
       )
     );
     const items = [];
-    results.forEach((r, idx) => {
+    settled.forEach((r, idx) => {
       if (r.status !== 'fulfilled' || !r.value?.results) return;
       const { category } = TAVILY_QUERIES[idx];
       for (const item of r.value.results) {
@@ -155,7 +128,7 @@ async function fetchTavily() {
           source:     (() => { try { return new URL(item.url).hostname.replace('www.', ''); } catch { return 'web'; } })(),
           sourceType: 'tavily',
           date:       date.toISOString(),
-          category,   // always the query's category — no guessing
+          category,   // catégorie FIXE de la requête — jamais calculée
         });
       }
     });
@@ -164,83 +137,27 @@ async function fetchTavily() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DDG via Jina — detect from URL then text
-// ─────────────────────────────────────────────────────────────────────────────
-const DDG_QUERIES = [
-  'Microsoft 365 Teams Copilot news site:techcommunity.microsoft.com OR site:blogs.microsoft.com',
-  'Microsoft Azure security Dynamics news 2026 site:techcommunity.microsoft.com',
-];
-
-function parseDDGSnippets(text) {
-  const items = [];
-  const urlPattern = /\[([^\]]{10,150})\]\(https?:\/\/([^\)]+)\)/g;
-  let match;
-  while ((match = urlPattern.exec(text)) !== null) {
-    const title  = match[1].trim();
-    const rawUrl = match[2];
-    if (!title || !rawUrl) continue;
-    if (rawUrl.includes('duckduckgo') || rawUrl.includes('uddg=')) continue;
-    let url;
-    try { url = `https://${rawUrl}`; new URL(url); } catch { continue; }
-    const idx     = text.indexOf(match[0]);
-    const snippet = text.slice(idx + match[0].length, idx + match[0].length + 300)
-      .replace(/\[.*?\]\(.*?\)/g, ' ').replace(/\n/g, ' ').trim().slice(0, 280);
-    if (!items.find(i => i.url === url)) {
-      items.push({
-        id:         `ddg-${Buffer.from(url).toString('base64').slice(0, 12)}`,
-        title:      title.slice(0, 200),
-        excerpt:    snippet || title,
-        url,
-        source:     (() => { try { return new URL(url).hostname.replace('www.', ''); } catch { return 'web'; } })(),
-        sourceType: 'jina',
-        date:       new Date().toISOString(),
-        category:   getCategory(null, url, title, snippet),
-      });
-    }
-    if (items.length >= 6) break;
-  }
-  return items;
-}
-
-async function fetchDDG() {
-  const items = [];
-  await Promise.allSettled(
-    DDG_QUERIES.map(async (q) => {
-      try {
-        const url = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(q)}`;
-        const res = await fetch(`https://r.jina.ai/${encodeURIComponent(url)}`, {
-          headers: { Accept: 'text/plain', 'X-Return-Format': 'text' },
-          signal: AbortSignal.timeout(6000),
-        });
-        if (!res.ok) return;
-        items.push(...parseDDGSnippets(await res.text()));
-      } catch {}
-    })
-  );
-  return items;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
 // PIPELINE
 // ─────────────────────────────────────────────────────────────────────────────
 export async function GET() {
   try {
-    const [rssResults, tavilyItems, ddgItems] = await Promise.allSettled([
+    const [rssResults, tavilyItems] = await Promise.allSettled([
       Promise.all(RSS_FEEDS.map(fetchRSS)).then(r => r.flat()),
       fetchTavily(),
-      fetchDDG(),
     ]);
 
     const all = [
       ...(rssResults.status  === 'fulfilled' ? rssResults.value  : []),
       ...(tavilyItems.status === 'fulfilled' ? tavilyItems.value : []),
-      ...(ddgItems.status    === 'fulfilled' ? ddgItems.value    : []),
     ];
 
+    const VALID_CATEGORIES = new Set(['Microsoft 365', 'Azure & Cloud', 'Copilot & IA', 'Dynamics 365', 'Sécurité']);
     const seen = new Set();
     const news = all
       .filter(item => {
-        if (!item.url || seen.has(item.url)) return false;
+        if (!item.url || !item.title) return false;
+        if (!VALID_CATEGORIES.has(item.category)) return false; // rejette toute catégorie inconnue
+        if (seen.has(item.url)) return false;
         seen.add(item.url);
         return true;
       })
@@ -253,7 +170,6 @@ export async function GET() {
 
     return NextResponse.json(
       { success: true, news, count: news.length, lastUpdated: new Date().toISOString() },
-      // Court cache : 5 minutes sur le CDN, revalidation en arrière-plan
       { headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=60' } }
     );
   } catch (error) {

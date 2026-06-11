@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Newspaper, Rss, RefreshCw, Zap, BookOpen, Search, X } from 'lucide-react';
 import { useLang } from '@/contexts/LanguageContext';
@@ -19,27 +19,30 @@ export default function BlogPage() {
   const [newsError, setNewsError] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [newsFilter, setNewsFilter] = useState('all');
+  const newsFetchedAt = useRef(null);
 
   const isFr = lang === 'fr';
 
-  // Fetch live news when "news" tab is selected
+  // Fetch live news quand l'onglet news est ouvert,
+  // ou si les données ont plus de 10 minutes
   useEffect(() => {
-    if (activeCategory === 'news' && news.length === 0) {
-      fetchNews();
-    }
+    if (activeCategory !== 'news') return;
+    const stale = !newsFetchedAt.current || Date.now() - newsFetchedAt.current > 10 * 60 * 1000;
+    if (news.length === 0 || stale) fetchNews(true);
   }, [activeCategory]);
 
   async function fetchNews(force = false) {
     setNewsLoading(true);
     setNewsError(false);
+    if (force) setNews([]); // reset pour forcer le rechargement visible
     try {
-      // force=true ajoute un timestamp pour bypasser le cache CDN Vercel
-      const url = force ? `/api/blog/news?t=${Date.now()}` : '/api/blog/news';
+      const url = `/api/blog/news?t=${force ? Date.now() : 'cache'}`;
       const res = await fetch(url, { cache: 'no-store' });
       const data = await res.json();
       if (data.success) {
         setNews(data.news || []);
         setLastUpdated(data.lastUpdated);
+        newsFetchedAt.current = Date.now();
       } else {
         setNewsError(true);
       }
