@@ -2,16 +2,41 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
+// ── HTML entity decoder ───────────────────────────────────────────────────────
+function decodeEntities(str = '') {
+  return str
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(n));
+}
+
 // ── Category detection ────────────────────────────────────────────────────────
+// Order matters: more specific first, M365 last (broadest)
 const CATEGORY_KEYWORDS = {
-  'Microsoft 365': ['m365', 'microsoft 365', 'teams', 'outlook', 'sharepoint', 'exchange', 'onedrive', 'copilot', 'e3', 'e5', 'e7', 'office 365', 'viva', 'loop'],
-  'Azure & Cloud': ['azure', 'cloud', 'iaas', 'paas', 'kubernetes', 'aks', 'openai service', 'migration', 'serverless', 'devops', 'fabric', 'synapse'],
-  'Copilot & IA': ['copilot', ' ai ', 'artificial intelligence', 'openai', 'gpt', 'agent', 'llm', 'machine learning', 'generative', 'agent 365', 'work iq'],
-  'Dynamics 365': ['dynamics', 'crm', 'erp', 'business central', 'sales hub', 'field service', 'customer service', 'finance', 'supply chain', 'power platform'],
-  'Sécurité': ['security', 'defender', 'sentinel', 'purview', 'zero trust', 'mfa', 'identity', 'entra', 'compliance', 'rgpd', 'gdpr', 'nis2', 'dora', 'ransomware'],
+  'Sécurité':     ['security', 'defender', 'sentinel', 'purview', 'zero trust', 'mfa', 'identity', 'entra', 'compliance', 'rgpd', 'gdpr', 'nis2', 'dora', 'ransomware', 'phishing', 'threat'],
+  'Copilot & IA': ['copilot', 'openai', 'gpt', ' llm', 'machine learning', 'generative ai', 'ai agent', 'artificial intelligence', 'work iq', 'phi-'],
+  'Azure & Cloud':['azure', 'iaas', 'paas', 'kubernetes', 'aks', 'openai service', 'serverless', 'devops', 'fabric', 'synapse', 'azure arc', 'azure sql'],
+  'Dynamics 365': ['dynamics', 'crm', 'erp', 'business central', 'sales hub', 'field service', 'customer service', 'supply chain', 'power platform', 'power apps', 'power automate'],
+  'Microsoft 365':['microsoft 365', 'teams', 'outlook', 'sharepoint', 'exchange', 'onedrive', 'office 365', 'viva', 'loop', 'm365', 'intune'],
 };
 
-function detectCategory(text = '') {
+// Feed URL → forced category (overrides keyword detection)
+const FEED_CATEGORY_MAP = {
+  'azure.microsoft.com':                   'Azure & Cloud',
+  'dynamics365':                           'Dynamics 365',
+  'microsoft-365':                         'Microsoft 365',
+  'microsoft365blog':                      'Microsoft 365',
+  'AzureInfrastructureblog':               'Azure & Cloud',
+  'MicrosoftSecurityandCompliance':        'Sécurité',
+  'microsoftsecure':                       'Sécurité',
+};
+
+function detectCategory(text = '', feedHint = '') {
+  // Try feed-based hint first
+  for (const [key, cat] of Object.entries(FEED_CATEGORY_MAP)) {
+    if (feedHint.includes(key)) return cat;
+  }
+  // Fall back to keyword detection (specific → broad)
   const lower = text.toLowerCase();
   for (const [cat, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
     if (keywords.some(kw => lower.includes(kw))) return cat;
@@ -40,15 +65,15 @@ function extractXML(block, tag) {
   return plain ? plain[1].trim() : '';
 }
 
-function parseRSS(xml, defaultSource) {
+function parseRSS(xml, defaultSource, feedUrl = '') {
   const items = [];
   const blocks = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)];
   for (const block of blocks) {
     const content = block[1];
-    const title = extractXML(content, 'title').slice(0, 200);
+    const title = decodeEntities(extractXML(content, 'title')).slice(0, 200);
     const link = extractXML(content, 'link') || extractXML(content, 'guid');
-    const description = extractXML(content, 'description')
-      .replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 280);
+    const rawDesc = decodeEntities(extractXML(content, 'description'));
+    const description = rawDesc.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 280);
     const pubDate = extractXML(content, 'pubDate');
     if (!title || !link || !link.startsWith('http')) continue;
     let date;
@@ -62,7 +87,7 @@ function parseRSS(xml, defaultSource) {
       url: link,
       source,
       date: date.toISOString(),
-      category: detectCategory(`${title} ${description}`),
+      category: detectCategory(`${title} ${description}`, feedUrl),
     });
   }
   return items;
@@ -75,7 +100,7 @@ async function fetchRSS({ url, source }) {
       signal: AbortSignal.timeout(7000),
     });
     if (!res.ok) return [];
-    return parseRSS((await res.text()).slice(0, 512 * 1024), source);
+    return parseRSS((await res.text()).slice(0, 512 * 1024), source, url);
   } catch { return []; }
 }
 
