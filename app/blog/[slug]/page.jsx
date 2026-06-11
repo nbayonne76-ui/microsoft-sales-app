@@ -11,7 +11,7 @@ import { getArticle, ARTICLES, CATEGORY_COLORS, CATEGORY_GRADIENTS } from '@/lib
 const fadeUp = { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } };
 
 // ── Section renderers ────────────────────────────────────────────────────────
-function renderSection(section, i) {
+function renderSection(section, i, isFr) {
   switch (section.type) {
     case 'intro':
       return (
@@ -40,9 +40,9 @@ function renderSection(section, i) {
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Composant</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Prix</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Note</th>
+                <th className="text-left px-4 py-3 font-semibold text-gray-600">{isFr ? 'Composant' : 'Component'}</th>
+                <th className="text-left px-4 py-3 font-semibold text-gray-600">{isFr ? 'Prix' : 'Price'}</th>
+                <th className="text-left px-4 py-3 font-semibold text-gray-600">{isFr ? 'Note' : 'Note'}</th>
               </tr>
             </thead>
             <tbody>
@@ -143,7 +143,7 @@ export default function ArticlePage({ params }) {
       {/* ── Article body ─────────────────────────────────────────────────── */}
       <div className="max-w-3xl mx-auto px-6 py-12">
         <article className="prose-custom space-y-6">
-          {(content.sections || article.fr.sections || []).map((section, i) => renderSection(section, i))}
+          {(content.sections || article.fr.sections || []).map((section, i) => renderSection(section, i, isFr))}
         </article>
 
         {/* Author card */}
