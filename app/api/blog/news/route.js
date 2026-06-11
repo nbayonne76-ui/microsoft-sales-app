@@ -10,38 +10,61 @@ function decodeEntities(str = '') {
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(n));
 }
 
-// ── Keyword detection — used ONLY for blogs.microsoft.com (mixed) + DDG ──────
-// Order: most specific first, M365 last (broadest catch-all)
-const CATEGORY_KEYWORDS = [
-  { cat: 'Sécurité',     kw: ['security', 'defender', 'sentinel', 'purview', 'zero trust', 'entra', 'mfa', 'compliance', 'gdpr', 'nis2', 'ransomware', 'phishing', 'threat intel'] },
-  { cat: 'Copilot & IA', kw: ['copilot', 'openai', ' gpt', ' llm ', 'generative ai', 'ai agent', 'machine learning', 'artificial intelligence'] },
-  { cat: 'Azure & Cloud', kw: ['azure ', 'iaas', 'paas', 'kubernetes', 'aks', 'serverless', 'devops', 'azure synapse', 'azure fabric', 'azure arc', 'azure sql'] },
-  { cat: 'Dynamics 365', kw: ['dynamics 365', 'dynamics365', 'business central', 'field service', 'power platform', 'power apps', 'power automate', 'power bi'] },
-  { cat: 'Microsoft 365', kw: ['microsoft 365', 'teams', 'outlook', 'sharepoint', 'exchange', 'onedrive', 'office 365', 'viva', 'intune', 'm365'] },
+// ── Category detection — 3 levels ─────────────────────────────────────────────
+// Level 1 : forced by feed definition (most feeds)
+// Level 2 : URL path hints (blogs.microsoft.com)
+// Level 3 : keyword detection in title+excerpt (last resort)
+
+function detectFromUrl(url = '') {
+  const u = url.toLowerCase();
+  if (u.includes('/security') || u.includes('/defender') || u.includes('/sentinel') || u.includes('/purview') || u.includes('/threat')) return 'Sécurité';
+  if (u.includes('/copilot') || u.includes('/openai') || u.includes('/ai/') || u.includes('/artificial-intelligence')) return 'Copilot & IA';
+  if (u.includes('/azure') || u.includes('/cloud')) return 'Azure & Cloud';
+  if (u.includes('/dynamics') || u.includes('/business-central') || u.includes('/power-platform') || u.includes('/power-apps')) return 'Dynamics 365';
+  if (u.includes('/microsoft-365') || u.includes('/teams') || u.includes('/office-365') || u.includes('/sharepoint') || u.includes('/outlook')) return 'Microsoft 365';
+  return null;
+}
+
+// Most specific keywords first — avoid false positives on generic terms
+const KEYWORD_RULES = [
+  { cat: 'Sécurité',     words: ['zero trust', 'ransomware', 'phishing', 'entra id', 'sentinel', 'purview', 'microsoft defender', 'nis2', 'dora', 'gdpr compliance', 'mfa', 'identity protection'] },
+  { cat: 'Copilot & IA', words: ['microsoft copilot', 'copilot studio', 'azure openai', 'openai gpt', 'generative ai', 'ai agent', 'large language model', ' llm ', 'machine learning model'] },
+  { cat: 'Azure & Cloud', words: ['azure kubernetes', 'azure arc', 'azure sql', 'azure synapse', 'azure fabric', 'azure devops', 'azure migration', 'azure virtual', 'azure container'] },
+  { cat: 'Dynamics 365', words: ['dynamics 365', 'business central', 'power platform', 'power apps', 'power automate', 'power bi', 'field service', 'sales hub', 'customer insights'] },
+  { cat: 'Microsoft 365', words: ['microsoft 365', 'microsoft teams', 'sharepoint', 'exchange server', 'onedrive', 'office 365', 'viva engage', 'microsoft intune', 'loop workspace'] },
+  // Broad fallbacks — only if nothing above matched
+  { cat: 'Sécurité',     words: ['defender', 'security update', 'vulnerability', 'cyber'] },
+  { cat: 'Copilot & IA', words: ['copilot', 'artificial intelligence', 'openai'] },
+  { cat: 'Azure & Cloud', words: ['azure '] },
+  { cat: 'Dynamics 365', words: ['dynamics', 'crm ', 'erp '] },
 ];
 
-function detectCategoryFromText(text = '') {
-  const lower = text.toLowerCase();
-  for (const { cat, kw } of CATEGORY_KEYWORDS) {
-    if (kw.some(k => lower.includes(k))) return cat;
+function detectFromText(title = '', excerpt = '') {
+  const text = `${title} ${excerpt}`.toLowerCase();
+  for (const { cat, words } of KEYWORD_RULES) {
+    if (words.some(w => text.includes(w))) return cat;
   }
-  return 'Microsoft 365';
+  return 'Microsoft 365'; // final catch-all
+}
+
+// Main dispatcher — forcedCategory wins, then URL, then text
+function getCategory(forcedCategory, url, title, excerpt) {
+  if (forcedCategory != null) return forcedCategory;
+  return detectFromUrl(url) ?? detectFromText(title, excerpt);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SOURCE 1 — RSS feeds — category is FIXED per feed, no keyword detection
+// RSS FEEDS — category is FIXED per feed; null = auto-detect
 // ─────────────────────────────────────────────────────────────────────────────
 const RSS_FEEDS = [
-  // category: null → detect from article text (mixed blog)
-  { url: 'https://blogs.microsoft.com/feed/',                                                                       source: 'blogs.microsoft.com',       category: null },
-  // Explicit categories — every article from these feeds gets the fixed category
-  { url: 'https://azure.microsoft.com/en-us/blog/feed/',                                                            source: 'azure.microsoft.com',       category: 'Azure & Cloud'  },
-  { url: 'https://www.microsoft.com/en-us/microsoft-365/blog/feed/',                                                source: 'microsoft.com',             category: 'Microsoft 365'  },
-  { url: 'https://cloudblogs.microsoft.com/dynamics365/feed/',                                                      source: 'cloudblogs.microsoft.com',  category: 'Dynamics 365'   },
-  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=microsoft365blog',        source: 'techcommunity.microsoft.com', category: 'Microsoft 365' },
-  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=AzureInfrastructureblog', source: 'techcommunity.microsoft.com', category: 'Azure & Cloud' },
-  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftSecurityandCompliance', source: 'techcommunity.microsoft.com', category: 'Sécurité' },
-  { url: 'https://cloudblogs.microsoft.com/microsoftsecure/feed/',                                                  source: 'cloudblogs.microsoft.com',  category: 'Sécurité'       },
+  { url: 'https://blogs.microsoft.com/feed/',                                                                       source: 'blogs.microsoft.com',         category: null,             type: 'rss' },
+  { url: 'https://azure.microsoft.com/en-us/blog/feed/',                                                            source: 'azure.microsoft.com',         category: 'Azure & Cloud',  type: 'rss' },
+  { url: 'https://www.microsoft.com/en-us/microsoft-365/blog/feed/',                                                source: 'microsoft.com',               category: 'Microsoft 365',  type: 'rss' },
+  { url: 'https://cloudblogs.microsoft.com/dynamics365/feed/',                                                      source: 'cloudblogs.microsoft.com',    category: 'Dynamics 365',   type: 'rss' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=microsoft365blog',        source: 'techcommunity.microsoft.com', category: 'Microsoft 365',  type: 'rss' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=AzureInfrastructureblog', source: 'techcommunity.microsoft.com', category: 'Azure & Cloud',  type: 'rss' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftSecurityandCompliance', source: 'techcommunity.microsoft.com', category: 'Sécurité', type: 'rss' },
+  { url: 'https://cloudblogs.microsoft.com/microsoftsecure/feed/',                                                  source: 'cloudblogs.microsoft.com',    category: 'Sécurité',       type: 'rss' },
 ];
 
 function extractXML(block, tag) {
@@ -51,15 +74,15 @@ function extractXML(block, tag) {
   return plain ? plain[1].trim() : '';
 }
 
-function parseRSS(xml, defaultSource, forcedCategory) {
+function parseRSS(xml, defaultSource, forcedCategory, sourceType = 'rss') {
   const items = [];
   const blocks = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)];
   for (const block of blocks) {
     const content = block[1];
-    const title = decodeEntities(extractXML(content, 'title')).slice(0, 200);
-    const link  = extractXML(content, 'link') || extractXML(content, 'guid');
+    const title   = decodeEntities(extractXML(content, 'title')).slice(0, 200);
+    const link    = extractXML(content, 'link') || extractXML(content, 'guid');
     const rawDesc = decodeEntities(extractXML(content, 'description'));
-    const description = rawDesc.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 280);
+    const excerpt = rawDesc.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 280);
     const pubDate = extractXML(content, 'pubDate');
     if (!title || !link || !link.startsWith('http')) continue;
     let date;
@@ -67,39 +90,39 @@ function parseRSS(xml, defaultSource, forcedCategory) {
     let source = defaultSource;
     try { source = new URL(link).hostname.replace('www.', ''); } catch {}
     items.push({
-      id: `rss-${Buffer.from(link).toString('base64').slice(0, 12)}`,
+      id:         `rss-${Buffer.from(link).toString('base64').slice(0, 12)}`,
       title,
-      excerpt: description,
-      url: link,
+      excerpt,
+      url:        link,
       source,
-      date: date.toISOString(),
-      // Use forced category if defined, otherwise detect from text
-      category: forcedCategory ?? detectCategoryFromText(`${title} ${description}`),
+      sourceType,
+      date:       date.toISOString(),
+      category:   getCategory(forcedCategory, link, title, excerpt),
     });
   }
   return items;
 }
 
-async function fetchRSS({ url, source, category }) {
+async function fetchRSS({ url, source, category, type }) {
   try {
     const res = await fetch(url, {
       headers: { 'User-Agent': 'Mozilla/5.0 MicrosoftSalesApp/1.0' },
       signal: AbortSignal.timeout(7000),
     });
     if (!res.ok) return [];
-    return parseRSS((await res.text()).slice(0, 512 * 1024), source, category);
+    return parseRSS((await res.text()).slice(0, 512 * 1024), source, category, type);
   } catch { return []; }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SOURCE 2 — Tavily — category is FIXED per query
+// TAVILY — category FIXED per query
 // ─────────────────────────────────────────────────────────────────────────────
 const TAVILY_QUERIES = [
-  { q: 'Microsoft 365 Teams Outlook new features 2026',                category: 'Microsoft 365'  },
-  { q: 'Microsoft Copilot AI agent new capabilities 2026',             category: 'Copilot & IA'   },
-  { q: 'Microsoft Azure cloud infrastructure release 2026',            category: 'Azure & Cloud'  },
-  { q: 'Dynamics 365 Business Central CRM update 2026',                category: 'Dynamics 365'   },
-  { q: 'Microsoft Security Defender Sentinel Purview announcement 2026', category: 'Sécurité'     },
+  { q: 'Microsoft 365 Teams Outlook SharePoint new features update 2026', category: 'Microsoft 365'  },
+  { q: 'Microsoft Copilot AI agent Studio update 2026',                   category: 'Copilot & IA'   },
+  { q: 'Microsoft Azure infrastructure cloud release 2026',               category: 'Azure & Cloud'  },
+  { q: 'Dynamics 365 Business Central CRM ERP update 2026',              category: 'Dynamics 365'   },
+  { q: 'Microsoft Defender Sentinel Purview security 2026',              category: 'Sécurité'        },
 ];
 
 async function fetchTavily() {
@@ -119,19 +142,20 @@ async function fetchTavily() {
     const items = [];
     results.forEach((r, idx) => {
       if (r.status !== 'fulfilled' || !r.value?.results) return;
-      const forcedCategory = TAVILY_QUERIES[idx].category;
+      const { category } = TAVILY_QUERIES[idx];
       for (const item of r.value.results) {
         if (!item.title || !item.url) continue;
         let date;
         try { date = new Date(item.published_date); if (isNaN(date.getTime())) date = new Date(); } catch { date = new Date(); }
         items.push({
-          id: `tv-${Buffer.from(item.url).toString('base64').slice(0, 12)}`,
-          title: item.title.slice(0, 200),
-          excerpt: (item.content || '').slice(0, 280),
-          url: item.url,
-          source: (() => { try { return new URL(item.url).hostname.replace('www.', ''); } catch { return 'web'; } })(),
-          date: date.toISOString(),
-          category: forcedCategory, // always use the query's category
+          id:         `tv-${Buffer.from(item.url).toString('base64').slice(0, 12)}`,
+          title:      item.title.slice(0, 200),
+          excerpt:    (item.content || '').slice(0, 280),
+          url:        item.url,
+          source:     (() => { try { return new URL(item.url).hostname.replace('www.', ''); } catch { return 'web'; } })(),
+          sourceType: 'tavily',
+          date:       date.toISOString(),
+          category,   // always the query's category — no guessing
         });
       }
     });
@@ -140,11 +164,11 @@ async function fetchTavily() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SOURCE 3 — DuckDuckGo via Jina (free, detect from text)
+// DDG via Jina — detect from URL then text
 // ─────────────────────────────────────────────────────────────────────────────
 const DDG_QUERIES = [
-  'Microsoft 365 Copilot news site:techcommunity.microsoft.com OR site:blogs.microsoft.com',
-  'Microsoft Azure Copilot AI announcement June 2026',
+  'Microsoft 365 Teams Copilot news site:techcommunity.microsoft.com OR site:blogs.microsoft.com',
+  'Microsoft Azure security Dynamics news 2026 site:techcommunity.microsoft.com',
 ];
 
 function parseDDGSnippets(text) {
@@ -152,27 +176,28 @@ function parseDDGSnippets(text) {
   const urlPattern = /\[([^\]]{10,150})\]\(https?:\/\/([^\)]+)\)/g;
   let match;
   while ((match = urlPattern.exec(text)) !== null) {
-    const title = match[1].trim();
+    const title  = match[1].trim();
     const rawUrl = match[2];
     if (!title || !rawUrl) continue;
     if (rawUrl.includes('duckduckgo') || rawUrl.includes('uddg=')) continue;
     let url;
     try { url = `https://${rawUrl}`; new URL(url); } catch { continue; }
-    const idx = text.indexOf(match[0]);
+    const idx     = text.indexOf(match[0]);
     const snippet = text.slice(idx + match[0].length, idx + match[0].length + 300)
       .replace(/\[.*?\]\(.*?\)/g, ' ').replace(/\n/g, ' ').trim().slice(0, 280);
     if (!items.find(i => i.url === url)) {
       items.push({
-        id: `ddg-${Buffer.from(url).toString('base64').slice(0, 12)}`,
-        title: title.slice(0, 200),
-        excerpt: snippet || title,
+        id:         `ddg-${Buffer.from(url).toString('base64').slice(0, 12)}`,
+        title:      title.slice(0, 200),
+        excerpt:    snippet || title,
         url,
-        source: (() => { try { return new URL(url).hostname.replace('www.', ''); } catch { return 'web'; } })(),
-        date: new Date().toISOString(),
-        category: detectCategoryFromText(`${title} ${snippet}`),
+        source:     (() => { try { return new URL(url).hostname.replace('www.', ''); } catch { return 'web'; } })(),
+        sourceType: 'jina',
+        date:       new Date().toISOString(),
+        category:   getCategory(null, url, title, snippet),
       });
     }
-    if (items.length >= 4) break;
+    if (items.length >= 6) break;
   }
   return items;
 }
@@ -228,7 +253,8 @@ export async function GET() {
 
     return NextResponse.json(
       { success: true, news, count: news.length, lastUpdated: new Date().toISOString() },
-      { headers: { 'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=3600' } }
+      // Court cache : 5 minutes sur le CDN, revalidation en arrière-plan
+      { headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=60' } }
     );
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

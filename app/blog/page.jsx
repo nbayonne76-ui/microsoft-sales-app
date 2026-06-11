@@ -29,11 +29,13 @@ export default function BlogPage() {
     }
   }, [activeCategory]);
 
-  async function fetchNews() {
+  async function fetchNews(force = false) {
     setNewsLoading(true);
     setNewsError(false);
     try {
-      const res = await fetch('/api/blog/news');
+      // force=true ajoute un timestamp pour bypasser le cache CDN Vercel
+      const url = force ? `/api/blog/news?t=${Date.now()}` : '/api/blog/news';
+      const res = await fetch(url, { cache: 'no-store' });
       const data = await res.json();
       if (data.success) {
         setNews(data.news || []);
@@ -172,7 +174,7 @@ export default function BlogPage() {
                   )}
                 </div>
                 <button
-                  onClick={fetchNews}
+                  onClick={() => fetchNews(true)}
                   disabled={newsLoading}
                   className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg transition-colors disabled:opacity-50"
                 >
