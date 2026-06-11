@@ -14,20 +14,24 @@ export default function SidebarLayout({ children }) {
   const [presentationMode, setPresentationMode] = useState(false);
 
   useEffect(() => {
+    let raf;
     const check = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
-      if (!mobile) setMobileOpen(false);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const mobile = window.innerWidth < 768;
+        setIsMobile(mobile);
+        if (!mobile) setMobileOpen(false);
+      });
     };
     check();
     window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
+    return () => { window.removeEventListener('resize', check); cancelAnimationFrame(raf); };
   }, []);
 
   // Ctrl+Shift+P → toggle presentation mode
   useEffect(() => {
     const handler = (e) => {
-      if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'P') {
         e.preventDefault();
         setPresentationMode(m => !m);
       }

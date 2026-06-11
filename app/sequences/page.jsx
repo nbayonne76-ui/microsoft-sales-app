@@ -170,6 +170,15 @@ export default function SequencesPage() {
   const [industry,    setIndustry]    = useState('');
   const [companySize, setCompanySize] = useState('sme');
 
+  // Pré-remplissage depuis Account Intel via URL params (client-only)
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    if (p.get('company')) setCompany(decodeURIComponent(p.get('company')));
+    if (p.get('solution') && SOLUTIONS.find(s => s.id === p.get('solution'))) setSolution(p.get('solution'));
+    if (p.get('industry')) setIndustry(decodeURIComponent(p.get('industry')));
+    if (['startup','sme','enterprise'].includes(p.get('size'))) setCompanySize(p.get('size'));
+  }, []);
+
   // Result state
   const [sequence,  setSequence]  = useState(null);
   const [loading,   setLoading]   = useState(false);
@@ -208,7 +217,11 @@ export default function SequencesPage() {
       const data = await res.json();
       if (!data.success) throw new Error(data.error);
       setSequence(data);
-      setStatuses({});
+      // Restore persisted statuses for this company if they exist
+      try {
+        const saved = JSON.parse(localStorage.getItem(`seq-statuses-${data.company}`) || '{}');
+        setStatuses(saved);
+      } catch { setStatuses({}); }
       toast.success(lang === 'fr' ? `Séquence générée — ${data.tokensUsed} tokens` : `Sequence generated — ${data.tokensUsed} tokens`);
     } catch (e) {
       toast.error(e.message || (lang === 'fr' ? 'Erreur de génération' : 'Generation error'));
@@ -218,14 +231,25 @@ export default function SequencesPage() {
   }, [company, solution, persona, industry, companySize]);
 
   const copyText = async (text, id) => {
-    await navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    toast.success(lang === 'fr' ? 'Copié dans le presse-papier' : 'Copied to clipboard');
-    setTimeout(() => setCopiedId(null), 2000);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedId(id);
+      toast.success(lang === 'fr' ? 'Copié dans le presse-papier' : 'Copied to clipboard');
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch {
+      toast.error(lang === 'fr' ? 'Copie non autorisée sur ce navigateur' : 'Clipboard not available');
+    }
   };
 
   const setTouchStatus = (phaseIdx, touchIdx, status) => {
-    setStatuses(prev => ({ ...prev, [`${phaseIdx}-${touchIdx}`]: status }));
+    setStatuses(prev => {
+      const next = { ...prev, [`${phaseIdx}-${touchIdx}`]: status };
+      // Persist statuses with the current sequence id
+      if (sequence?.id || sequence?.company) {
+        try { localStorage.setItem(`seq-statuses-${sequence?.company}`, JSON.stringify(next)); } catch {}
+      }
+      return next;
+    });
   };
 
   const saveSequence = () => {
@@ -235,7 +259,7 @@ export default function SequencesPage() {
     toast.success(lang === 'fr' ? 'Séquence sauvegardée' : 'Sequence saved');
   };
 
-  const totalTouches = sequence?.phases?.reduce((sum, p) => sum + (p.touches?.length || 0), 0) || 0;
+  const totalTouches = sequence?.phases?.reduce((sum, p) => sum + (Array.isArray(p.touches) ? p.touches.length : 0), 0) || 0;
   const sentCount    = Object.values(statuses).filter(s => s === 'sent' || s === 'replied').length;
   const repliedCount = Object.values(statuses).filter(s => s === 'replied').length;
 
@@ -491,7 +515,13 @@ export default function SequencesPage() {
                     <p className="text-xs text-gray-500">{s.company} · {s.solution} · {s.phases?.reduce((sum, p) => sum + (p.touches?.length || 0), 0)} touches</p>
                   </div>
                   <div className="flex gap-2">
-                    <button onClick={() => { setSequence(s); setStatuses({}); }}
+                    <button onClick={() => {
+                      setSequence(s);
+                      try {
+                        const st = JSON.parse(localStorage.getItem(`seq-statuses-${s.company}`) || '{}');
+                        setStatuses(st);
+                      } catch { setStatuses({}); }
+                    }}
                       className="text-xs px-3 py-1.5 bg-ms-blue text-white rounded-lg hover:bg-ms-blueDark transition-colors flex items-center gap-1">
                       <ArrowRight className="h-3 w-3" /> {lang === 'fr' ? 'Voir' : 'View'}
                     </button>

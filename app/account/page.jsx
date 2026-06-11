@@ -136,7 +136,17 @@ export default function AccountIntelPage() {
     'Generating SWOT · PESTEL dossier…',
   ];
 
-  function classifyError(e, status) {
+  // capturedQuery passé explicitement pour éviter le stale closure si l'user retape pendant le fetch
+  function classifyError(e, status, capturedQuery) {
+    if (e.name === 'AbortError') {
+      return {
+        type: 'timeout',
+        message: lang === 'fr' ? 'Délai d\'analyse dépassé' : 'Analysis timed out',
+        hint: lang === 'fr'
+          ? 'L\'analyse prend plus de 60 secondes. Réessayez — les données sont mises en cache.'
+          : 'Analysis took over 60 seconds. Retry — data is cached.',
+      };
+    }
     if (!navigator.onLine || e.message === 'Failed to fetch') {
       return {
         type: 'network',
@@ -158,7 +168,7 @@ export default function AccountIntelPage() {
     if (status === 404 || (e.message || '').toLowerCase().includes('not found')) {
       return {
         type: 'notFound',
-        message: lang === 'fr' ? `Entreprise introuvable : "${query}"` : `Company not found: "${query}"`,
+        message: lang === 'fr' ? `Entreprise introuvable : "${capturedQuery}"` : `Company not found: "${capturedQuery}"`,
         hint: lang === 'fr'
           ? 'Essayez le nom légal complet, l\'acronyme, ou ajoutez le pays (ex : "SNCF France").'
           : 'Try the full legal name, acronym, or add the country (e.g. "Airbus France").',
@@ -175,6 +185,7 @@ export default function AccountIntelPage() {
 
   async function handleAnalyse() {
     if (!query.trim()) return;
+    const capturedQuery = query.trim(); // snapshot avant tout await
     setLoading(true);
     setLoadStep(0);
     setIntel(null);
@@ -189,12 +200,12 @@ export default function AccountIntelPage() {
       const res = await fetch('/api/account-intel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ accountName: query.trim() }),
+        body: JSON.stringify({ accountName: capturedQuery }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) {
         const err = new Error(data.error || (lang === 'fr' ? 'Erreur API' : 'API error'));
-        setError(classifyError(err, res.status));
+        setError(classifyError(err, res.status, capturedQuery));
         toast.error(err.message);
         return;
       }
@@ -202,14 +213,14 @@ export default function AccountIntelPage() {
       setWebUsed(data.webDataUsed || false);
       setSourcesUsed(data.sourcesUsed || {});
       setSnippetCount(data.snippetCount || 0);
-      saveToHistory(query.trim(), data.intel);
+      saveToHistory(capturedQuery, data.intel);
       const srcLabel = Object.entries(data.sourcesUsed || {})
         .filter(([, v]) => v).map(([k]) => k).join(' + ') || 'KB';
       toast.success(lang === 'fr'
         ? `Dossier généré — ${data.snippetCount || 0} sources (${srcLabel})`
         : `Dossier generated — ${data.snippetCount || 0} sources (${srcLabel})`);
     } catch (e) {
-      setError(classifyError(e, null));
+      setError(classifyError(e, null, capturedQuery));
       toast.error(e.message);
     } finally {
       clearInterval(stepInterval);
@@ -448,7 +459,12 @@ export default function AccountIntelPage() {
                   <div className="mt-4 flex gap-2 flex-wrap">
                     <Link href={`/email-generator?company=${encodeURIComponent(intel.company?.name || query)}&solution=${intel.topSolutions?.[0]?.category || 'm365'}&industry=${encodeURIComponent(intel.company?.industry || '')}&size=${intel.company?.size || 'sme'}&challenge=${encodeURIComponent(intel.quickWin || '')}`}
                       className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                      <Mail className="h-3 w-3" /> {lang === 'fr' ? 'Générer un email complet' : 'Generate full email'}
+                      <Mail className="h-3 w-3" /> {lang === 'fr' ? 'Générer un email' : 'Generate email'}
+                    </Link>
+                    <Link
+                      href={`/sequences?company=${encodeURIComponent(intel.company?.name || query)}&solution=${intel.topSolutions?.[0]?.category || 'm365'}&industry=${encodeURIComponent(intel.company?.industry || '')}&size=${intel.company?.size || 'sme'}`}
+                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                      <Zap className="h-3 w-3" /> {lang === 'fr' ? 'Créer une séquence' : 'Create sequence'}
                     </Link>
                     <button onClick={handleAnalyse} disabled={loading}
                       className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50">

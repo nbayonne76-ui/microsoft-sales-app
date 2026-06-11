@@ -251,8 +251,18 @@ Génère le dossier commercial complet. Retourne UNIQUEMENT ce JSON valide (sans
 
   const raw = response.choices[0].message.content || '';
   const jsonMatch = raw.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error('GPT did not return valid JSON');
-  const intel = JSON.parse(jsonMatch[0]);
+  if (!jsonMatch) throw new Error('GPT response contained no JSON block');
+  let intel;
+  try {
+    intel = JSON.parse(jsonMatch[0]);
+  } catch {
+    // GPT occasionally emits trailing commas or NaN — strip and retry
+    const cleaned = jsonMatch[0]
+      .replace(/,\s*([}\]])/g, '$1')   // trailing commas
+      .replace(/:\s*NaN/g, ': null')    // NaN values
+      .replace(/:\s*undefined/g, ': null');
+    intel = JSON.parse(cleaned);        // throws naturally if still malformed
+  }
 
   // Always override with trusted gov data
   if (gov) {
