@@ -51,7 +51,7 @@ export const t = {
       },
     },
     app: {
-      title: 'Microsoft Campaign Manager',
+      title: 'Microsoft Partner Sales Intelligence',
       subtitle: 'by Nicolas BAYONNE',
     },
     dashboard: {
@@ -229,7 +229,7 @@ export const t = {
       },
     },
     app: {
-      title: 'Microsoft Campaign Manager',
+      title: 'Microsoft Partner Sales Intelligence',
       subtitle: 'par Nicolas BAYONNE',
     },
     dashboard: {

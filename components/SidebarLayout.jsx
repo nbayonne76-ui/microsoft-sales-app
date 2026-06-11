@@ -2,15 +2,16 @@
 
 import { useState, useEffect, createContext, useContext } from 'react';
 import Navigation from './Navigation';
-import { Menu, Bot } from 'lucide-react';
+import { Menu, Bot, Presentation, X } from 'lucide-react';
 
-const SidebarCtx = createContext({ collapsed: false, setCollapsed: () => {} });
+const SidebarCtx = createContext({ collapsed: false, setCollapsed: () => {}, presentationMode: false });
 export const useSidebar = () => useContext(SidebarCtx);
 
 export default function SidebarLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [presentationMode, setPresentationMode] = useState(false);
 
   useEffect(() => {
     const check = () => {
@@ -23,8 +24,37 @@ export default function SidebarLayout({ children }) {
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  // Ctrl+Shift+P → toggle presentation mode
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+        e.preventDefault();
+        setPresentationMode(m => !m);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
+  if (presentationMode) {
+    return (
+      <SidebarCtx.Provider value={{ collapsed: true, setCollapsed, presentationMode }}>
+        <div className="min-h-screen bg-gray-50">
+          {/* Presentation mode banner */}
+          <div className="fixed top-0 left-0 right-0 z-50 bg-ms-blue text-white text-xs flex items-center justify-between px-4 py-1.5 no-print">
+            <span className="flex items-center gap-1.5"><Presentation className="h-3.5 w-3.5" /> Mode présentation — Ctrl+Shift+P pour quitter</span>
+            <button onClick={() => setPresentationMode(false)} className="hover:text-white/70 transition-colors">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <div className="pt-7">{children}</div>
+        </div>
+      </SidebarCtx.Provider>
+    );
+  }
+
   return (
-    <SidebarCtx.Provider value={{ collapsed, setCollapsed }}>
+    <SidebarCtx.Provider value={{ collapsed, setCollapsed, presentationMode }}>
       {/* Mobile backdrop */}
       {isMobile && mobileOpen && (
         <div

@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Microsoft Campaign Manager - AI-Powered Lead & Email Management",
-  description: "Professional campaign management system with AI-powered email generation, lead tracking, and analytics for Microsoft Account Managers.",
-  keywords: ["email templates", "AI optimization", "Microsoft", "campaign management", "lead tracking", "account manager"],
+  title: "Microsoft Partner Sales Intelligence",
+  description: "AI-powered sales intelligence platform for Microsoft Partner Account Managers — Account Intel, Email Generator, Sequences & Knowledge Base.",
+  keywords: ["Microsoft", "sales intelligence", "account manager", "copilot", "AI", "B2B", "Partner Account Manager"],
   authors: [{ name: "Nicolas BAYONNE" }],
 };
 
@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
         suppressHydrationWarning

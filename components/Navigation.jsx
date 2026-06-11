@@ -78,9 +78,9 @@ export default function Navigation({
         {!isCollapsed && (
           <div className="overflow-hidden flex-1">
             <p className="text-white font-bold text-sm leading-tight truncate">
-              {t[lang].app.title.replace('Microsoft ', '')}
+              Microsoft Partner Sales Intelligence
             </p>
-            <p className="text-blue-300 text-[10px] truncate">{t[lang].app.subtitle}</p>
+            <p className="text-blue-300 text-[10px] truncate">by Nicolas BAYONNE</p>
           </div>
         )}
         {/* Close button — mobile only */}

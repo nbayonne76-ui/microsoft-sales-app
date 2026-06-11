@@ -113,22 +113,32 @@ function TouchCard({ touch, phaseColor, status, onStatusChange, onCopy, copied, 
                   ))}
                 </div>
               )}
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 <button
                   onClick={() => onCopy(`Objet: ${touch.subject}\n\n${touch.body}`)}
-                  className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-ms-blue text-white rounded-lg hover:bg-ms-blueDark transition-colors"
                 >
                   {copied ? <CheckCheck className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                   {copied
                     ? (lang === 'fr' ? 'Copié !' : 'Copied!')
-                    : (lang === 'fr' ? 'Copier pour Outlook' : 'Copy for Outlook')}
+                    : (lang === 'fr' ? 'Copier' : 'Copy')}
                 </button>
+                {/* Ouvrir dans Outlook (deep link) */}
+                <a
+                  href={`https://outlook.office.com/mail/deeplink/compose?subject=${encodeURIComponent(touch.subject)}&body=${encodeURIComponent(touch.body)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-[#0078D4]/10 text-[#0078D4] border border-[#0078D4]/20 rounded-lg hover:bg-[#0078D4]/20 transition-colors"
+                >
+                  <Mail className="w-3 h-3" />
+                  {lang === 'fr' ? 'Ouvrir dans Outlook' : 'Open in Outlook'}
+                </a>
                 <Link
                   href={`/email-generator?challenge=${encodeURIComponent(touch.subject)}`}
                   className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
                 >
                   <Sparkles className="w-3 h-3" />
-                  {lang === 'fr' ? 'Affiner dans Email Generator' : 'Refine in Email Generator'}
+                  {lang === 'fr' ? 'Affiner' : 'Refine'}
                 </Link>
               </div>
             </div>
@@ -155,12 +165,23 @@ export default function SequencesPage() {
   const [loading,   setLoading]   = useState(false);
   const [statuses,  setStatuses]  = useState({}); // { "phaseIdx-touchIdx": status }
   const [copiedId,  setCopiedId]  = useState(null);
-  const [saved,     setSaved]     = useState([]); // localStorage-backed list
+
+  // Persistent saved sequences (localStorage)
+  const [saved, setSaved] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('savedSequences') || '[]'); } catch { return []; }
+  });
+  const persistSaved = (list) => {
+    setSaved(list);
+    try { localStorage.setItem('savedSequences', JSON.stringify(list)); } catch {}
+  };
 
   const selectedSol = SOLUTIONS.find(s => s.id === solution);
 
   const generate = useCallback(async () => {
-    if (!company.trim()) { toast.error('Entrez un nom d\'entreprise'); return; }
+    if (!company.trim()) {
+      toast.error(lang === 'fr' ? 'Entrez un nom d\'entreprise' : 'Enter a company name');
+      return;
+    }
     setLoading(true);
     setSequence(null);
     try {
@@ -173,9 +194,9 @@ export default function SequencesPage() {
       if (!data.success) throw new Error(data.error);
       setSequence(data);
       setStatuses({});
-      toast.success(`Séquence générée — ${data.tokensUsed} tokens`);
+      toast.success(lang === 'fr' ? `Séquence générée — ${data.tokensUsed} tokens` : `Sequence generated — ${data.tokensUsed} tokens`);
     } catch (e) {
-      toast.error(e.message || 'Erreur de génération');
+      toast.error(e.message || (lang === 'fr' ? 'Erreur de génération' : 'Generation error'));
     } finally {
       setLoading(false);
     }
@@ -195,7 +216,7 @@ export default function SequencesPage() {
   const saveSequence = () => {
     if (!sequence) return;
     const entry = { ...sequence, id: Date.now(), savedAt: new Date().toISOString() };
-    setSaved(prev => [entry, ...prev]);
+    persistSaved([entry, ...saved]);
     toast.success('Séquence sauvegardée dans cette session');
   };
 
@@ -211,7 +232,7 @@ export default function SequencesPage() {
         {/* ── Header ──────────────────────────────────────────── */}
         <motion.div {...fadeUp} className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="bg-gradient-to-br from-indigo-600 to-purple-700 p-3 rounded-xl shadow-lg">
+            <div className="bg-gradient-to-br from-ms-blue to-ms-blueDark p-3 rounded-xl shadow-lg">
               <Zap className="h-7 w-7 text-white" />
             </div>
             <div>
@@ -392,7 +413,7 @@ export default function SequencesPage() {
                     <RotateCcw className="h-3 w-3" /> {lang === 'fr' ? 'Nouvelle séquence' : 'New sequence'}
                   </button>
                   <Link href={`/email-generator?company=${encodeURIComponent(sequence.company)}&solution=${sequence.solutionId}`}
-                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg transition-colors">
+                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-ms-blue hover:bg-ms-blue text-white rounded-lg transition-colors">
                     <Mail className="h-3 w-3" /> Email Generator
                   </Link>
                 </div>
@@ -456,10 +477,10 @@ export default function SequencesPage() {
                   </div>
                   <div className="flex gap-2">
                     <button onClick={() => { setSequence(s); setStatuses({}); }}
-                      className="text-xs px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-1">
+                      className="text-xs px-3 py-1.5 bg-ms-blue text-white rounded-lg hover:bg-ms-blueDark transition-colors flex items-center gap-1">
                       <ArrowRight className="h-3 w-3" /> {lang === 'fr' ? 'Voir' : 'View'}
                     </button>
-                    <button onClick={() => setSaved(prev => prev.filter(x => x.id !== s.id))}
+                    <button onClick={() => persistSaved(saved.filter(x => x.id !== s.id))}
                       className="text-xs px-2 py-1.5 bg-gray-100 text-gray-500 rounded-lg hover:bg-red-50 hover:text-red-500 transition-colors">
                       <Trash2 className="h-3 w-3" />
                     </button>

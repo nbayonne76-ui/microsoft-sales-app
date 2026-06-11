@@ -7,7 +7,7 @@ import {
   TrendingUp, TrendingDown, Shield, Zap, ChevronRight,
   RotateCcw, Lightbulb, Star, AlertTriangle, CheckCircle,
   Target, Users, DollarSign, Cpu, Leaf, Scale, BarChart3,
-  Flame, Eye, ArrowRight, RadioTower
+  Flame, Eye, ArrowRight, RadioTower, Download, Clock, Trash2
 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
@@ -91,14 +91,95 @@ export default function AccountIntelPage() {
   const [query, setQuery]     = useState('');
   const [intel, setIntel]     = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadStep, setLoadStep] = useState(0);
   const [webUsed, setWebUsed]       = useState(false);
   const [sourcesUsed, setSourcesUsed] = useState({});
   const [snippetCount, setSnippetCount] = useState(0);
+  const [error, setError] = useState(null); // { type, message, hint }
+
+  // Persistent history (localStorage)
+  const [history, setHistory] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('accountIntelHistory') || '[]'); } catch { return []; }
+  });
+  const [showHistory, setShowHistory] = useState(false);
+
+  const saveToHistory = (q, data) => {
+    const entry = { id: Date.now(), query: q, date: new Date().toISOString(), intel: data, company: data.company?.name || q };
+    const updated = [entry, ...history].slice(0, 10);
+    setHistory(updated);
+    try { localStorage.setItem('accountIntelHistory', JSON.stringify(updated)); } catch {}
+  };
+  const removeFromHistory = (id) => {
+    const updated = history.filter(h => h.id !== id);
+    setHistory(updated);
+    try { localStorage.setItem('accountIntelHistory', JSON.stringify(updated)); } catch {}
+  };
+  const exportPDF = () => window.print();
+
+  const LOAD_STEPS_FR = [
+    'Consultation du registre officiel…',
+    'Recherche des signaux digitaux…',
+    'Analyse des actualités & recrutements IT…',
+    'Récupération du site web officiel…',
+    'Génération du dossier SWOT · PESTEL…',
+  ];
+  const LOAD_STEPS_EN = [
+    'Querying official business registry…',
+    'Searching digital signals…',
+    'Analysing news & IT job postings…',
+    'Fetching official company website…',
+    'Generating SWOT · PESTEL dossier…',
+  ];
+
+  function classifyError(e, status) {
+    if (!navigator.onLine || e.message === 'Failed to fetch') {
+      return {
+        type: 'network',
+        message: lang === 'fr' ? 'Pas de connexion internet' : 'No internet connection',
+        hint: lang === 'fr'
+          ? 'Vérifiez votre réseau puis réessayez. Vous pouvez charger une analyse récente depuis l\'historique.'
+          : 'Check your network then retry. You can load a recent analysis from history.',
+      };
+    }
+    if (status === 429) {
+      return {
+        type: 'rateLimit',
+        message: lang === 'fr' ? 'Limite de requêtes atteinte' : 'Rate limit reached',
+        hint: lang === 'fr'
+          ? 'Trop d\'analyses simultanées. Attendez 30 secondes puis relancez.'
+          : 'Too many simultaneous analyses. Wait 30 seconds and retry.',
+      };
+    }
+    if (status === 404 || (e.message || '').toLowerCase().includes('not found')) {
+      return {
+        type: 'notFound',
+        message: lang === 'fr' ? `Entreprise introuvable : "${query}"` : `Company not found: "${query}"`,
+        hint: lang === 'fr'
+          ? 'Essayez le nom légal complet, l\'acronyme, ou ajoutez le pays (ex : "SNCF France").'
+          : 'Try the full legal name, acronym, or add the country (e.g. "Airbus France").',
+      };
+    }
+    return {
+      type: 'api',
+      message: e.message || (lang === 'fr' ? 'Erreur inattendue' : 'Unexpected error'),
+      hint: lang === 'fr'
+        ? 'Le service d\'analyse a rencontré un problème. Réessayez ou consultez une analyse récente.'
+        : 'The analysis service encountered an issue. Retry or load a recent analysis.',
+    };
+  }
 
   async function handleAnalyse() {
     if (!query.trim()) return;
     setLoading(true);
+    setLoadStep(0);
     setIntel(null);
+    setError(null);
+
+    // Animate loading steps while the API call runs
+    const stepInterval = setInterval(() => {
+      setLoadStep(s => s < 4 ? s + 1 : s);
+    }, 2200);
+
     try {
       const res = await fetch('/api/account-intel', {
         method: 'POST',
@@ -106,17 +187,27 @@ export default function AccountIntelPage() {
         body: JSON.stringify({ accountName: query.trim() }),
       });
       const data = await res.json();
-      if (!res.ok || !data.success) throw new Error(data.error || 'Erreur API');
+      if (!res.ok || !data.success) {
+        const err = new Error(data.error || (lang === 'fr' ? 'Erreur API' : 'API error'));
+        setError(classifyError(err, res.status));
+        toast.error(err.message);
+        return;
+      }
       setIntel(data.intel);
       setWebUsed(data.webDataUsed || false);
       setSourcesUsed(data.sourcesUsed || {});
       setSnippetCount(data.snippetCount || 0);
+      saveToHistory(query.trim(), data.intel);
       const srcLabel = Object.entries(data.sourcesUsed || {})
         .filter(([, v]) => v).map(([k]) => k).join(' + ') || 'KB';
-      toast.success(`Dossier généré — ${data.snippetCount || 0} snippets web (${srcLabel}) · ${data.tokensUsed} tokens`);
+      toast.success(lang === 'fr'
+        ? `Dossier généré — ${data.snippetCount || 0} sources (${srcLabel})`
+        : `Dossier generated — ${data.snippetCount || 0} sources (${srcLabel})`);
     } catch (e) {
+      setError(classifyError(e, null));
       toast.error(e.message);
     } finally {
+      clearInterval(stepInterval);
       setLoading(false);
     }
   }
@@ -132,7 +223,7 @@ export default function AccountIntelPage() {
         {/* ── Header ─────────────────────────────────────────── */}
         <motion.div {...fadeUp} className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="bg-gradient-to-br from-indigo-600 to-purple-600 p-3 rounded-xl shadow-lg">
+            <div className="bg-gradient-to-br from-ms-blue to-ms-blueDark p-3 rounded-xl shadow-lg">
               <Sparkles className="h-7 w-7 text-white" />
             </div>
             <div>
@@ -155,7 +246,7 @@ export default function AccountIntelPage() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
               <input
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={e => { setQuery(e.target.value); if (error) setError(null); }}
                 onKeyDown={e => e.key === 'Enter' && handleAnalyse()}
                 placeholder={lang === 'fr' ? 'Nom de l\'entreprise… ex: TotalEnergies, Airbus, SNCF' : 'Company name… e.g. TotalEnergies, Airbus, SNCF'}
                 className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-800 placeholder-gray-400"
@@ -165,7 +256,7 @@ export default function AccountIntelPage() {
               onClick={handleAnalyse}
               disabled={loading || !query.trim()}
               className="px-6 py-3.5 rounded-xl font-semibold text-white shadow-md transition-all
-                bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700
+                bg-gradient-to-r from-ms-blue to-ms-blueDark hover:from-ms-blueDark hover:to-[#004578]
                 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
             >
               {loading
@@ -174,6 +265,41 @@ export default function AccountIntelPage() {
               }
             </button>
           </div>
+
+          {/* ── Historique récent ─────────────────────────────── */}
+          {history.length > 0 && !intel && !loading && (
+            <div className="mt-4 max-w-2xl">
+              <button
+                onClick={() => setShowHistory(h => !h)}
+                className="flex items-center gap-2 text-xs text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                <Clock className="h-3.5 w-3.5" />
+                {lang === 'fr' ? `Analyses récentes (${history.length})` : `Recent analyses (${history.length})`}
+                <ChevronRight className={`h-3.5 w-3.5 transition-transform ${showHistory ? 'rotate-90' : ''}`} />
+              </button>
+              {showHistory && (
+                <div className="mt-2 space-y-1.5">
+                  {history.map(h => (
+                    <div key={h.id} className="flex items-center gap-2 bg-white border border-gray-100 rounded-xl px-3 py-2 shadow-sm">
+                      <Building2 className="h-3.5 w-3.5 text-gray-400 shrink-0" />
+                      <button
+                        onClick={() => { setIntel(h.intel); setQuery(h.query); setShowHistory(false); }}
+                        className="flex-1 text-left text-sm font-medium text-gray-700 hover:text-ms-blue transition-colors truncate"
+                      >
+                        {h.company}
+                      </button>
+                      <span className="text-[10px] text-gray-400 shrink-0">
+                        {new Date(h.date).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'short' })}
+                      </span>
+                      <button onClick={() => removeFromHistory(h.id)} className="text-gray-300 hover:text-red-400 transition-colors">
+                        <Trash2 className="h-3 w-3" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </motion.div>
 
         {/* ── Results ────────────────────────────────────────── */}
@@ -212,7 +338,7 @@ export default function AccountIntelPage() {
                       <p className="text-slate-400 text-xs mt-1">{intel.company?.description}</p>
                     </div>
                   </div>
-                  <div className="flex gap-4 flex-wrap">
+                  <div className="flex gap-4 flex-wrap items-center">
                     {[
                       { label: lang === 'fr' ? 'Taille' : 'Size',      value: intel.company?.size?.toUpperCase() },
                       { label: lang === 'fr' ? 'Effectif' : 'Employees',value: intel.company?.employees },
@@ -223,6 +349,14 @@ export default function AccountIntelPage() {
                         <p className="text-white font-semibold text-sm mt-0.5">{i.value || '—'}</p>
                       </div>
                     ))}
+                    {/* Export PDF */}
+                    <button
+                      onClick={exportPDF}
+                      className="no-print ml-auto flex items-center gap-1.5 text-xs bg-white/10 hover:bg-white/20 text-white border border-white/20 px-3 py-2 rounded-xl transition-colors"
+                    >
+                      <Download className="h-3.5 w-3.5" />
+                      {lang === 'fr' ? 'Exporter PDF' : 'Export PDF'}
+                    </button>
                   </div>
                 </div>
               </motion.div>
@@ -290,7 +424,7 @@ export default function AccountIntelPage() {
                   <div className="space-y-2.5">
                     {(intel.digitalSignals || []).map((sig, i) => (
                       <div key={i} className="flex items-start gap-3 p-3 bg-indigo-50/60 border border-indigo-100 rounded-xl">
-                        <span className="mt-0.5 w-5 h-5 rounded-full bg-indigo-500 text-white text-[10px] font-bold flex items-center justify-center shrink-0">{i + 1}</span>
+                        <span className="mt-0.5 w-5 h-5 rounded-full bg-ms-blue text-white text-[10px] font-bold flex items-center justify-center shrink-0">{i + 1}</span>
                         <p className="text-sm text-gray-700">{sig}</p>
                       </div>
                     ))}
@@ -473,10 +607,111 @@ export default function AccountIntelPage() {
         </AnimatePresence>
 
         {/* ── Empty state ────────────────────────────────────── */}
-        {!intel && !loading && (
+        {/* Loading progressif */}
+        {loading && (
+          <motion.div {...fadeUp} className="py-16 flex flex-col items-center gap-6">
+            <div className="relative w-20 h-20">
+              <div className="absolute inset-0 rounded-full border-4 border-gray-100" />
+              <div className="absolute inset-0 rounded-full border-4 border-t-ms-blue animate-spin" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Building2 className="h-7 w-7 text-ms-blue" />
+              </div>
+            </div>
+            <div className="text-center">
+              <p className="font-semibold text-gray-800 mb-4">
+                {lang === 'fr' ? `Analyse de « ${query} »` : `Analysing "${query}"`}
+              </p>
+              <div className="space-y-2 text-left">
+                {(lang === 'fr' ? LOAD_STEPS_FR : LOAD_STEPS_EN).map((step, i) => (
+                  <div key={i} className={`flex items-center gap-2.5 text-sm transition-all duration-500 ${i <= loadStep ? 'opacity-100' : 'opacity-25'}`}>
+                    <span className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${
+                      i < loadStep ? 'bg-green-500' : i === loadStep ? 'bg-ms-blue animate-pulse' : 'bg-gray-200'
+                    }`}>
+                      {i < loadStep
+                        ? <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                        : null}
+                    </span>
+                    <span className={i < loadStep ? 'text-gray-400 line-through' : i === loadStep ? 'text-gray-800 font-medium' : 'text-gray-400'}>
+                      {step}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {!intel && !loading && error && (
+          <motion.div {...fadeUp} transition={{ delay: 0.1 }} className="max-w-lg mx-auto py-12">
+            <div className={`rounded-2xl border p-6 shadow-sm ${
+              error.type === 'network'   ? 'bg-orange-50 border-orange-200' :
+              error.type === 'rateLimit' ? 'bg-amber-50 border-amber-200' :
+              error.type === 'notFound'  ? 'bg-blue-50 border-blue-200' :
+                                           'bg-red-50 border-red-200'
+            }`}>
+              <div className="flex items-start gap-3 mb-4">
+                <div className={`p-2 rounded-xl shrink-0 ${
+                  error.type === 'network'   ? 'bg-orange-100' :
+                  error.type === 'rateLimit' ? 'bg-amber-100' :
+                  error.type === 'notFound'  ? 'bg-blue-100' :
+                                               'bg-red-100'
+                }`}>
+                  {error.type === 'network'   && <Wifi className="h-5 w-5 text-orange-500" />}
+                  {error.type === 'rateLimit' && <Clock className="h-5 w-5 text-amber-500" />}
+                  {error.type === 'notFound'  && <Search className="h-5 w-5 text-blue-500" />}
+                  {error.type === 'api'       && <AlertTriangle className="h-5 w-5 text-red-500" />}
+                </div>
+                <div>
+                  <p className={`font-semibold text-sm ${
+                    error.type === 'network'   ? 'text-orange-800' :
+                    error.type === 'rateLimit' ? 'text-amber-800' :
+                    error.type === 'notFound'  ? 'text-blue-800' :
+                                                 'text-red-800'
+                  }`}>{error.message}</p>
+                  <p className="text-xs text-gray-600 mt-1 leading-relaxed">{error.hint}</p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {/* Always offer retry */}
+                <button
+                  onClick={handleAnalyse}
+                  className="flex items-center gap-1.5 text-xs px-3 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors shadow-sm"
+                >
+                  <RotateCcw className="h-3.5 w-3.5" />
+                  {lang === 'fr' ? 'Réessayer' : 'Retry'}
+                </button>
+
+                {/* If notFound, offer to search with different term */}
+                {error.type === 'notFound' && (
+                  <button
+                    onClick={() => { setError(null); setQuery(''); document.querySelector('input')?.focus(); }}
+                    className="flex items-center gap-1.5 text-xs px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors shadow-sm"
+                  >
+                    <Search className="h-3.5 w-3.5" />
+                    {lang === 'fr' ? 'Modifier la recherche' : 'Edit search'}
+                  </button>
+                )}
+
+                {/* If history exists, offer to load cached result */}
+                {history.length > 0 && (
+                  <button
+                    onClick={() => { setError(null); setShowHistory(true); }}
+                    className="flex items-center gap-1.5 text-xs px-3 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
+                  >
+                    <Clock className="h-3.5 w-3.5" />
+                    {lang === 'fr' ? `Charger une analyse récente (${history.length})` : `Load recent analysis (${history.length})`}
+                  </button>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {!intel && !loading && !error && (
           <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="text-center py-20">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-2xl mb-4">
-              <Building2 className="h-8 w-8 text-indigo-500" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-50 rounded-2xl mb-4">
+              <Building2 className="h-8 w-8 text-ms-blue" />
             </div>
             <p className="text-gray-500 text-sm">
               {lang === 'fr'

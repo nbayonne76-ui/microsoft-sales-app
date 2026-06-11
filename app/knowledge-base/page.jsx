@@ -475,7 +475,7 @@ export default function KnowledgeBasePage() {
                   <button key={key} onClick={() => switchSolTab(key)}
                     className={'flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all border ' +
                       (solTab === key
-                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-md'
+                        ? 'bg-ms-blue text-white border-ms-blue shadow-md'
                         : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300')}>
                     <span>{emoji}</span>
                     <span>{label}</span>
@@ -538,7 +538,7 @@ export default function KnowledgeBasePage() {
                         <button key={key} onClick={() => setD365Filter(key)}
                           className={'flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium border transition-all ' +
                             (d365Filter === key
-                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-transparent shadow-md'
+                              ? 'bg-gradient-to-r from-ms-blue to-ms-blueDark text-white border-transparent shadow-md'
                               : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300')}>
                           <Icon className="w-3.5 h-3.5" />
                           {d365Labels[key] || cfg.label}
@@ -555,7 +555,7 @@ export default function KnowledgeBasePage() {
                       <p className="text-gray-700 font-medium mb-1">{lang === 'fr' ? 'Impossible de charger les solutions' : 'Failed to load solutions'}</p>
                       <p className="text-sm text-gray-400 mb-4">{lang === 'fr' ? 'Vérifiez votre connexion et réessayez.' : 'Check your connection and try again.'}</p>
                       <button onClick={() => { setFetchError(false); setLoading(true); fetch(`/api/azure-solutions?lang=${lang}`).then(r=>r.json()).then(d=>{setSolutions(d.solutions||[]);setLoading(false);}).catch(()=>{setFetchError(true);setLoading(false);}); }}
-                        className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors">
+                        className="px-4 py-2 rounded-xl bg-ms-blue text-white text-sm font-medium hover:bg-ms-blueDark transition-colors">
                         {lang === 'fr' ? 'Réessayer' : 'Retry'}
                       </button>
                     </div>
@@ -571,7 +571,7 @@ export default function KnowledgeBasePage() {
               {solTab === 'm365' && (
                 <motion.div key="m365-list" {...fadeUp}>
                   {/* Copilot banner */}
-                  <div className="mb-5 bg-gradient-to-r from-violet-600 to-purple-700 rounded-2xl p-4 text-white flex items-center gap-4">
+                  <div className="mb-5 bg-gradient-to-r from-ms-blue to-ms-blueDark rounded-2xl p-4 text-white flex items-center gap-4">
                     <div className="p-2 bg-white/15 rounded-xl shrink-0"><Bot className="w-6 h-6" /></div>
                     <div>
                       <p className="font-bold text-sm">{tr.copilotBannerTitle}</p>
@@ -1861,7 +1861,7 @@ function DynamicsSolutionDetail({ sol, lang: langProp }) {
               </div>
             )}
             {salesCtx.aimProgram && (
-              <div className="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl p-6 text-white">
+              <div className="bg-gradient-to-r from-ms-blue to-ms-blueDark rounded-2xl p-6 text-white">
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-white/15 rounded-xl shrink-0"><Zap className="w-6 h-6" /></div>
                   <div className="flex-1">
