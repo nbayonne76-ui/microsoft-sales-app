@@ -218,7 +218,7 @@ export default function AccountIntelPage() {
         .filter(([, v]) => v).map(([k]) => k).join(' + ') || 'KB';
       toast.success(lang === 'fr'
         ? `Dossier généré — ${data.snippetCount || 0} sources (${srcLabel})`
-        : `Dossier generated — ${data.snippetCount || 0} sources (${srcLabel})`);
+        : `Briefing generated — ${data.snippetCount || 0} sources (${srcLabel})`);
     } catch (e) {
       setError(classifyError(e, null, capturedQuery));
       toast.error(e.message);
@@ -249,8 +249,8 @@ export default function AccountIntelPage() {
                 </h1>
                 <p className="text-gray-500 text-sm mt-0.5">
                   {lang === 'fr'
-                    ? 'Dossier commercial complet — SWOT · PESTEL · Signaux digitaux · Stratégie Microsoft'
-                    : 'Full commercial dossier — SWOT · PESTEL · Digital signals · Microsoft strategy'}
+                    ? 'Dossier commercial complet — Signaux digitaux · Stratégie Microsoft'
+                    : 'Full account briefing — Digital signals · Microsoft strategy'}
                 </p>
               </div>
             </div>
@@ -748,10 +748,10 @@ export default function AccountIntelPage() {
             <p className="text-gray-500 text-sm">
               {lang === 'fr'
                 ? 'Entrez un nom d\'entreprise pour générer un dossier commercial complet'
-                : 'Enter a company name to generate a full commercial dossier'}
+                : 'Enter a company name to generate a full account briefing'}
             </p>
             <p className="text-gray-400 text-xs mt-1">
-              {lang === 'fr' ? 'SWOT · PESTEL · Signaux digitaux · Solutions Microsoft · Angles email' : 'SWOT · PESTEL · Digital signals · Microsoft solutions · Email angles'}
+              {lang === 'fr' ? 'Signaux digitaux · Solutions Microsoft · Angles email · Score d\'adéquation' : 'Digital signals · Microsoft solutions · Email angles · Fit score'}
             </p>
           </motion.div>
         )}
