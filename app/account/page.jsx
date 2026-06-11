@@ -249,8 +249,8 @@ export default function AccountIntelPage() {
                 </h1>
                 <p className="text-gray-500 text-sm mt-0.5">
                   {lang === 'fr'
-                    ? 'Dossier commercial complet — Signaux digitaux · Stratégie Microsoft'
-                    : 'Full account briefing — Digital signals · Microsoft strategy'}
+                    ? 'Dossier commercial complet : Signaux digitaux · Stratégie Microsoft'
+                    : 'Full account briefing: Digital signals · Microsoft strategy'}
                 </p>
               </div>
             </div>
