@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Zap, Sparkles, Mail, Copy, CheckCheck, ChevronDown, ChevronUp,
   Building2, Target, Users, ArrowRight, RotateCcw, Plus, Trash2,
-  CheckCircle, Clock, MessageSquare, Phone
+  CheckCircle, Clock, MessageSquare, Phone, Video
 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
@@ -131,7 +131,17 @@ function TouchCard({ touch, phaseColor, status, onStatusChange, onCopy, copied, 
                   className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-[#0078D4]/10 text-[#0078D4] border border-[#0078D4]/20 rounded-lg hover:bg-[#0078D4]/20 transition-colors"
                 >
                   <Mail className="w-3 h-3" />
-                  {lang === 'fr' ? 'Ouvrir dans Outlook' : 'Open in Outlook'}
+                  Outlook
+                </a>
+                {/* Partager via Teams */}
+                <a
+                  href={`https://teams.microsoft.com/l/chat/0/0?message=${encodeURIComponent(`${touch.subject}\n\n${touch.body}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-[#6264A7]/10 text-[#6264A7] border border-[#6264A7]/20 rounded-lg hover:bg-[#6264A7]/20 transition-colors"
+                >
+                  <Video className="w-3 h-3" />
+                  Teams
                 </a>
                 <Link
                   href={`/email-generator?challenge=${encodeURIComponent(touch.subject)}`}
@@ -205,7 +215,7 @@ export default function SequencesPage() {
   const copyText = async (text, id) => {
     await navigator.clipboard.writeText(text);
     setCopiedId(id);
-    toast.success('Copié dans le presse-papier');
+    toast.success(lang === 'fr' ? 'Copié dans le presse-papier' : 'Copied to clipboard');
     setTimeout(() => setCopiedId(null), 2000);
   };
 
@@ -217,7 +227,7 @@ export default function SequencesPage() {
     if (!sequence) return;
     const entry = { ...sequence, id: Date.now(), savedAt: new Date().toISOString() };
     persistSaved([entry, ...saved]);
-    toast.success('Séquence sauvegardée dans cette session');
+    toast.success(lang === 'fr' ? 'Séquence sauvegardée' : 'Sequence saved');
   };
 
   const totalTouches = sequence?.phases?.reduce((sum, p) => sum + (p.touches?.length || 0), 0) || 0;

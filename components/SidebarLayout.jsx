@@ -88,7 +88,7 @@ export default function SidebarLayout({ children }) {
             <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-1.5 rounded-lg shadow">
               <Bot className="h-4 w-4 text-white" />
             </div>
-            <span className="font-semibold text-gray-800 text-sm">Campaign Manager</span>
+            <span className="font-semibold text-gray-800 text-sm">Sales Intelligence</span>
           </div>
         )}
         {children}
