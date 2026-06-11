@@ -126,14 +126,14 @@ export default function AccountIntelPage() {
     'Recherche des signaux digitaux…',
     'Analyse des actualités & recrutements IT…',
     'Récupération du site web officiel…',
-    'Génération du dossier SWOT · PESTEL…',
+    'Génération du dossier commercial…',
   ];
   const LOAD_STEPS_EN = [
     'Querying official business registry…',
     'Searching digital signals…',
     'Analysing news & IT job postings…',
     'Fetching official company website…',
-    'Generating SWOT · PESTEL dossier…',
+    'Generating full account briefing…',
   ];
 
   // capturedQuery passé explicitement pour éviter le stale closure si l'user retape pendant le fetch
