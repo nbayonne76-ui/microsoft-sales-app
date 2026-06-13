@@ -52,22 +52,32 @@ const SUB_TO_GROUP = {
 
 // ── Pricing docs & KB documents ─────────────────────────────────────────
 const KB_DOCS = [
-  { id: 'm365-pricing',    title: 'M365 Pricing 2025',             file: 'm365-pricing-2025.md',                  category: 'M365',     emoji: '💼', featured: true  },
-  { id: 'm365-e7',         title: 'M365 E7 — Frontier Worker Suite', file: 'm365-e7-frontier-worker-suite.md',  category: 'M365',     emoji: '🚀', featured: true  },
-  { id: 'e3-vs-e5',        title: 'M365 E3 vs E5 Guide',           file: 'm365-e3-vs-e5-decision-guide.md',       category: 'M365',     emoji: '📊', featured: true  },
-  { id: 'o365-e3-e5',      title: 'Office 365 E3 & E5 Plans',      file: 'm365-pricing-2025.md',                  category: 'M365',     emoji: '📧', featured: false },
-  { id: 'licensing',       title: 'Licensing & Contracts',          file: 'microsoft-licensing-contracts-guide.md',category: 'M365',     emoji: '📄', featured: true  },
-  { id: 'csp-vs-mca',      title: 'CSP vs MCA Decision',           file: 'csp-vs-mca-decision-guide.md',          category: 'M365',     emoji: '🤝', featured: false },
-  { id: 'm365-collab',     title: 'M365 Collaboration',            file: 'microsoft-365-collaboration.md',        category: 'M365',     emoji: '✨', featured: false },
-  { id: 'azure-pricing',   title: 'Azure Pricing 2025',       file: 'azure-pricing-2025.md',                 category: 'Azure',    emoji: '☁️', featured: true  },
-  { id: 'azure-migration', title: 'Azure Migration',          file: 'azure-migration.md',                    category: 'Azure',    emoji: '🚀', featured: false },
-  { id: 'dynamics',        title: 'Dynamics 365 Pricing',     file: 'dynamics-365-pricing-2025.md',          category: 'Dynamics', emoji: '🎯', featured: true  },
-  { id: 'power',           title: 'Power Platform',           file: 'power-platform-digital.md',            category: 'Power',    emoji: '⚡', featured: false },
-  { id: 'security',        title: 'Security & Compliance',    file: 'security-compliance.md',               category: 'Security', emoji: '🛡️', featured: false },
-  { id: 'bundles',         title: 'Solutions Bundles & Promotions', file: 'microsoft-promotions-2026.md',     category: 'Bundles',  emoji: '🏷️', featured: true  },
-  { id: 'pricing-guide',   title: 'Full Pricing Guide 2025',  file: 'microsoft-pricing-guide-2025.md',       category: 'Bundles',  emoji: '📋', featured: false },
+  { id: 'm365-pricing',    title: 'M365 Pricing 2025',               file: 'm365-pricing-2025.md',                  category: 'M365',     emoji: '💼', featured: true,  desc: 'Tarifs complets Business & Enterprise — Copilot add-on, remises CSP, comparatif plans' },
+  { id: 'm365-e7',         title: 'M365 E7 — Frontier Worker Suite', file: 'm365-e7-frontier-worker-suite.md',      category: 'M365',     emoji: '🚀', featured: true,  desc: 'Nouveau plan Frontline Workers — couverture terrain, appareils partagés, tarif dédié' },
+  { id: 'e3-vs-e5',        title: 'M365 E3 vs E5 Guide',             file: 'm365-e3-vs-e5-decision-guide.md',       category: 'M365',     emoji: '📊', featured: true,  desc: 'Aide à la décision E3/E5 — tableau comparatif, critères de choix, ROI sécurité avancée' },
+  { id: 'o365-e3-e5',      title: 'Office 365 E3 & E5 Plans',        file: 'm365-pricing-2025.md',                  category: 'M365',     emoji: '📧', featured: false, desc: 'Plans Office 365 purs — messagerie & apps sans gouvernance avancée' },
+  { id: 'licensing',       title: 'Licensing & Contracts',            file: 'microsoft-licensing-contracts-guide.md',category: 'M365',     emoji: '📄', featured: true,  desc: 'Guide complet contrats EA, CSP, MCA — clauses clés, renouvellements, audit de licences' },
+  { id: 'csp-vs-mca',      title: 'CSP vs MCA Decision',             file: 'csp-vs-mca-decision-guide.md',          category: 'M365',     emoji: '🤝', featured: false, desc: 'Choisir entre Cloud Solution Provider et Microsoft Customer Agreement — critères et impacts' },
+  { id: 'm365-collab',     title: 'M365 Collaboration',              file: 'microsoft-365-collaboration.md',        category: 'M365',     emoji: '✨', featured: false, desc: 'Teams, SharePoint, Loop — cas d\'usage collaboration moderne et productivité équipe' },
+  { id: 'azure-pricing',   title: 'Azure Pricing 2025',              file: 'azure-pricing-2025.md',                 category: 'Azure',    emoji: '☁️', featured: true,  desc: 'Tarifs Azure IaaS/PaaS — compute, storage, réseau, réductions Reserved Instances' },
+  { id: 'azure-migration', title: 'Azure Migration',                 file: 'azure-migration.md',                    category: 'Azure',    emoji: '🚀', featured: false, desc: 'Playbook de migration cloud — assessment, lift & shift, modernisation, TCO calculator' },
+  { id: 'dynamics',        title: 'Dynamics 365 Pricing',            file: 'dynamics-365-pricing-2025.md',          category: 'Dynamics', emoji: '🎯', featured: true,  desc: 'Tarifs D365 Sales, Customer Service, BC, Finance & SCM — licences attach rules' },
+  { id: 'power',           title: 'Power Platform',                  file: 'power-platform-digital.md',             category: 'Power',    emoji: '⚡', featured: false, desc: 'Power BI, Power Apps, Power Automate — licences, capacités Premium et connecteurs' },
+  { id: 'security',        title: 'Security & Compliance',           file: 'security-compliance.md',                category: 'Security', emoji: '🛡️', featured: false, desc: 'Defender, Sentinel, Purview — couverture Zero Trust, conformité RGPD & NIS2' },
+  { id: 'bundles',         title: 'Solutions Bundles & Promotions',  file: 'microsoft-promotions-2026.md',          category: 'Bundles',  emoji: '🏷️', featured: true,  desc: 'Offres bundles 2026 — remises combos M365+D365, promotions partenaires actives' },
+  { id: 'pricing-guide',   title: 'Full Pricing Guide 2025',         file: 'microsoft-pricing-guide-2025.md',       category: 'Bundles',  emoji: '📋', featured: false, desc: 'Guide tarifaire unifié — tous produits Microsoft, grille partenaire CSP complète' },
 ];
+
 const DOC_CATEGORIES = ['All','M365','Azure','Dynamics','Power','Security','Bundles'];
+
+const CAT_DOC_STYLE = {
+  M365:     { gradient: 'from-blue-500 to-indigo-600',    light: 'bg-blue-50',    badge: 'bg-blue-100 text-blue-700 border-blue-200',     bar: 'bg-blue-500',   ring: 'hover:ring-blue-200'  },
+  Azure:    { gradient: 'from-sky-500 to-cyan-600',       light: 'bg-sky-50',     badge: 'bg-sky-100 text-sky-700 border-sky-200',         bar: 'bg-sky-500',    ring: 'hover:ring-sky-200'   },
+  Dynamics: { gradient: 'from-orange-500 to-amber-600',   light: 'bg-orange-50',  badge: 'bg-orange-100 text-orange-700 border-orange-200', bar: 'bg-orange-500', ring: 'hover:ring-orange-200'},
+  Power:    { gradient: 'from-yellow-500 to-orange-500',  light: 'bg-yellow-50',  badge: 'bg-yellow-100 text-yellow-700 border-yellow-200', bar: 'bg-yellow-400', ring: 'hover:ring-yellow-200'},
+  Security: { gradient: 'from-red-500 to-rose-600',       light: 'bg-red-50',     badge: 'bg-red-100 text-red-700 border-red-200',         bar: 'bg-red-500',    ring: 'hover:ring-red-200'   },
+  Bundles:  { gradient: 'from-emerald-500 to-teal-600',   light: 'bg-emerald-50', badge: 'bg-emerald-100 text-emerald-700 border-emerald-200', bar: 'bg-emerald-500', ring: 'hover:ring-emerald-200'},
+};
 
 // ── Modern Work — M365 Plans (no pricing — see Pricing Guides tab) ───────
 const M365_SEGMENTS = [
@@ -720,50 +730,113 @@ export default function KnowledgeBasePage() {
           {/* ══ DOCS TAB ════════════════════════════════════════ */}
           {tab === 'docs' && !selectedDoc && (
             <motion.div key="docs-list" {...fadeUp} initial="initial" animate="animate">
-              <div className="flex flex-wrap gap-2 mb-6">
-                {DOC_CATEGORIES.map(cat => (
-                  <button key={cat} onClick={() => setDocFilter(cat)}
-                    className={'px-4 py-2 rounded-xl text-sm font-medium border transition-all ' +
-                      (docFilter === cat
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-transparent shadow-md'
-                        : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300')}>
-                    {cat}
-                  </button>
-                ))}
+
+              {/* ── Filtres avec compteurs ─────────────────────── */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {DOC_CATEGORIES.map(cat => {
+                  const count = cat === 'All' ? KB_DOCS.length : KB_DOCS.filter(d => d.category === cat).length;
+                  const style = CAT_DOC_STYLE[cat];
+                  return (
+                    <button key={cat} onClick={() => setDocFilter(cat)}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-all ${
+                        docFilter === cat
+                          ? `bg-gradient-to-r ${style?.gradient || 'from-blue-600 to-indigo-600'} text-white border-transparent shadow-md`
+                          : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                      }`}>
+                      {cat}
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold min-w-[18px] text-center ${
+                        docFilter === cat ? 'bg-white/25 text-white' : 'bg-gray-100 text-gray-500'
+                      }`}>{count}</span>
+                    </button>
+                  );
+                })}
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                {filteredDocs.filter(d => d.featured).map((doc, i) => (
-                  <motion.button key={doc.id} onClick={() => setSelectedDoc(doc)}
-                    initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
-                    className="text-left gradient-border group">
-                    <div className="bg-white rounded-2xl p-5 hover:shadow-xl transition-all">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="text-3xl">{doc.emoji}</span>
-                        <div>
-                          <span className="px-2.5 py-0.5 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">{doc.category}</span>
-                          <div className="flex items-center gap-1 mt-0.5"><Star className="w-3 h-3 text-yellow-400 fill-yellow-400" /><span className="text-xs text-gray-400">Featured</span></div>
+
+              {/* ── Featured docs — cards larges ───────────────── */}
+              {filteredDocs.filter(d => d.featured).length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                  {filteredDocs.filter(d => d.featured).map((doc, i) => {
+                    const style = CAT_DOC_STYLE[doc.category] || CAT_DOC_STYLE.M365;
+                    return (
+                      <motion.button key={doc.id} onClick={() => setSelectedDoc(doc)}
+                        initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
+                        whileHover={{ y: -2 }}
+                        className={`text-left bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all ring-2 ring-transparent ${style.ring} group`}>
+                        {/* Barre couleur catégorie */}
+                        <div className={`h-1.5 w-full bg-gradient-to-r ${style.gradient}`} />
+                        <div className="p-5">
+                          <div className="flex items-start justify-between gap-3 mb-3">
+                            <div className="flex items-start gap-3">
+                              <div className={`p-2.5 rounded-xl ${style.light} text-2xl shrink-0`}>{doc.emoji}</div>
+                              <div>
+                                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${style.badge}`}>{doc.category}</span>
+                                  <span className="flex items-center gap-1 text-[10px] text-yellow-600 bg-yellow-50 px-2 py-0.5 rounded-full border border-yellow-200 font-semibold">
+                                    <Star className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" /> Featured
+                                  </span>
+                                </div>
+                                <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors text-sm leading-snug">{doc.title}</h3>
+                              </div>
+                            </div>
+                            <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-blue-500 group-hover:translate-x-1 transition-all shrink-0 mt-1" />
+                          </div>
+                          {doc.desc && (
+                            <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 mb-3 pl-[52px]">{doc.desc}</p>
+                          )}
+                          <div className="pl-[52px] flex items-center justify-between">
+                            <span className="text-[10px] text-gray-300 font-mono truncate max-w-[180px]">{doc.file}</span>
+                            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full bg-gradient-to-r ${style.gradient} text-white opacity-0 group-hover:opacity-100 transition-opacity`}>
+                              Lire →
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-1">{doc.title}</h3>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-gray-400">{doc.file}</span>
-                        <ChevronRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform" />
-                      </div>
-                    </div>
-                  </motion.button>
-                ))}
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {filteredDocs.filter(d => !d.featured).map((doc, i) => (
-                  <motion.button key={doc.id} onClick={() => setSelectedDoc(doc)}
-                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-                    className="text-left bg-white rounded-2xl p-4 border border-gray-100 hover:shadow-lg hover:border-blue-200 transition-all group">
-                    <div className="text-2xl mb-2">{doc.emoji}</div>
-                    <h3 className="font-bold text-gray-900 text-sm group-hover:text-blue-600 transition-colors mb-1">{doc.title}</h3>
-                    <span className="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full">{doc.category}</span>
-                  </motion.button>
-                ))}
-              </div>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* ── Docs reguliers — grid 3 colonnes ───────────── */}
+              {filteredDocs.filter(d => !d.featured).length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {filteredDocs.filter(d => !d.featured).map((doc, i) => {
+                    const style = CAT_DOC_STYLE[doc.category] || CAT_DOC_STYLE.M365;
+                    return (
+                      <motion.button key={doc.id} onClick={() => setSelectedDoc(doc)}
+                        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+                        whileHover={{ y: -2 }}
+                        className={`text-left bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-lg transition-all ring-2 ring-transparent ${style.ring} group`}>
+                        <div className={`h-1 w-full bg-gradient-to-r ${style.gradient}`} />
+                        <div className="p-4">
+                          <div className="flex items-start gap-2.5 mb-2.5">
+                            <div className={`p-2 rounded-lg ${style.light} text-xl shrink-0`}>{doc.emoji}</div>
+                            <div className="min-w-0">
+                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full border ${style.badge} block w-fit mb-1`}>{doc.category}</span>
+                              <h3 className="font-bold text-gray-900 text-xs group-hover:text-blue-600 transition-colors leading-snug">{doc.title}</h3>
+                            </div>
+                          </div>
+                          {doc.desc && (
+                            <p className="text-[11px] text-gray-400 leading-relaxed line-clamp-2 mb-3">{doc.desc}</p>
+                          )}
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] text-gray-300 font-mono truncate max-w-[140px]">{doc.file}</span>
+                            <ChevronRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all shrink-0" />
+                          </div>
+                        </div>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* ── Empty state ─────────────────────────────────── */}
+              {filteredDocs.length === 0 && (
+                <div className="text-center py-16">
+                  <div className="text-4xl mb-3">📂</div>
+                  <p className="text-gray-400 text-sm">{lang === 'fr' ? 'Aucun document dans cette catégorie.' : 'No documents in this category.'}</p>
+                </div>
+              )}
+
             </motion.div>
           )}
 
