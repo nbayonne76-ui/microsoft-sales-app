@@ -1154,7 +1154,184 @@ export default function KnowledgeBasePage() {
                   );
                 })}
               </div>
-              <div className="mt-10 bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-7 text-white">
+              {/* ── Comment nominer ──────────────────────────────────────── */}
+              <div className="mt-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2.5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl text-white shrink-0">
+                    <Briefcase className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-lg">Comment nominer un Solution Assessment</h3>
+                    <p className="text-sm text-gray-500">3 voies selon le type de nominateur — FY26 Q4 (depuis le 16 avril 2026)</p>
+                  </div>
+                </div>
+
+                {/* 3 voies */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                  {/* Microsoft Internal */}
+                  <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-5 text-white">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-2xl">🏢</span>
+                      <div>
+                        <p className="text-[10px] text-blue-200 font-bold uppercase tracking-widest">Microsoft Internal</p>
+                        <p className="font-bold text-sm leading-tight">MSX Deal Assistance</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-blue-100 mb-3 leading-relaxed">Nouveau depuis le 16 avril 2026. Remplace OneAsk pour toutes les nouvelles nominations via MSX.</p>
+                    <div className="bg-white/10 rounded-xl p-3 text-xs space-y-1.5">
+                      <p className="flex items-center gap-1.5"><span className="text-green-300">✓</span> Email de confirmation (REQ-XXX)</p>
+                      <p className="flex items-center gap-1.5"><span className="text-green-300">✓</span> Aucune permission spéciale requise</p>
+                      <p className="flex items-center gap-1.5"><span className="text-green-300">✓</span> Nomination pour le compte d'un seller</p>
+                    </div>
+                  </div>
+
+                  {/* Partner */}
+                  <div className="bg-white border-2 border-orange-200 rounded-2xl p-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-2xl">🤝</span>
+                      <div>
+                        <p className="text-[10px] text-orange-500 font-bold uppercase tracking-widest">Partenaire</p>
+                        <p className="font-bold text-sm text-gray-900 leading-tight">Partner Nomination Page</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-500 mb-3 leading-relaxed">Accès direct via le portail partenaire Microsoft. Disponible pour tous les partenaires certifiés.</p>
+                    <div className="bg-orange-50 rounded-xl p-3 text-xs space-y-1.5 text-orange-800">
+                      <p className="flex items-center gap-1.5"><span>✓</span> Portail partenaire Microsoft</p>
+                      <p className="flex items-center gap-1.5"><span>✓</span> Validation par SA Ops desk</p>
+                      <p className="flex items-center gap-1.5"><span>✓</span> Co-delivery avec consultant Microsoft</p>
+                    </div>
+                  </div>
+
+                  {/* Customer */}
+                  <div className="bg-white border-2 border-emerald-200 rounded-2xl p-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-2xl">🌐</span>
+                      <div>
+                        <p className="text-[10px] text-emerald-600 font-bold uppercase tracking-widest">Client direct</p>
+                        <p className="font-bold text-sm text-gray-900 leading-tight">Customer Nomination Page</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-500 mb-3 leading-relaxed">Auto-nomination client. Cybersecurity Assessment en self-service gratuit disponible pour tous.</p>
+                    <div className="bg-emerald-50 rounded-xl p-3 text-xs space-y-1.5 text-emerald-800">
+                      <p className="flex items-center gap-1.5"><span>✓</span> Self-service Cybersecurity (gratuit)</p>
+                      <p className="flex items-center gap-1.5"><span>✓</span> Ouvert à tous les clients</p>
+                      <p className="flex items-center gap-1.5"><span>✓</span> Contact : smbassessmenttriage@microsoft.com</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Microsoft Internal — Étapes détaillées MDA */}
+                <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-6">
+                  <div className="flex items-center gap-2 mb-5 flex-wrap">
+                    <span className="text-xl">🏢</span>
+                    <h4 className="font-bold text-blue-900 text-base flex-1">Étapes détaillées — Microsoft Internal via MSX Deal Assistance</h4>
+                    <span className="text-[10px] bg-blue-600 text-white px-3 py-1 rounded-full font-bold uppercase tracking-wide">Live depuis 16 avr. 2026</span>
+                  </div>
+
+                  {/* Stepper horizontal */}
+                  <div className="flex items-stretch gap-0 overflow-x-auto pb-2 mb-6">
+                    {[
+                      { n: 1, emoji: '💼', title: 'Ouvrir MSX', sub: 'Aller sur une Opportunity' },
+                      { n: 2, emoji: '🖱️', title: 'Deal Assistance', sub: 'Cliquer New Request' },
+                      { n: 3, emoji: '📋', title: 'FY26 Investments', sub: 'Sélectionner Solution Assessment' },
+                      { n: 4, emoji: '🎯', title: 'SA Core', sub: 'Solution Play · Contact · Objectifs client' },
+                      { n: 5, emoji: '⚙️', title: 'Assessment Type', sub: 'CAIP / Security / AIBS + Initiative' },
+                      { n: 6, emoji: '❓', title: 'Questions', sub: 'Headcount ou taille env. (CAIP)' },
+                      { n: 7, emoji: '✅', title: 'Soumettre', sub: 'Email REQ-XXX automatique' },
+                    ].map((step, i, arr) => (
+                      <div key={step.n} className="flex items-center">
+                        <div className="flex flex-col items-center min-w-[96px] max-w-[96px]">
+                          <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm mb-2 shrink-0">
+                            {step.n}
+                          </div>
+                          <span className="text-lg mb-1">{step.emoji}</span>
+                          <p className="text-[10px] font-bold text-blue-900 text-center leading-tight">{step.title}</p>
+                          <p className="text-[9px] text-blue-600 text-center leading-tight mt-0.5">{step.sub}</p>
+                        </div>
+                        {i < arr.length - 1 && (
+                          <ChevronRight className="w-4 h-4 text-blue-300 shrink-0 mx-1" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Détails par étape */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                    <div className="bg-white rounded-xl p-4 border border-blue-100">
+                      <p className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+                        <span>📋</span> Étape 4 — SA Core (champs obligatoires *)
+                      </p>
+                      <ul className="space-y-1.5 text-xs text-gray-600">
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" /><span><strong>Solution Play</strong> — prérempli depuis l'opportunity</span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" /><span><strong>Est. Assessment Start Date</strong> — date estimée</span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" /><span><strong>Customer Contact Name & Email</strong></span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" /><span><strong>Customer Objectives</strong> — env. size, licences, timeline, plans post-assessment</span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-1.5 shrink-0" /><span className="text-gray-400">Migration Partner (optionnel)</span></li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border border-blue-100">
+                      <p className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+                        <span>⚙️</span> Étape 5 — Assessment Types
+                      </p>
+                      <ul className="space-y-1.5 text-xs text-gray-600">
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" /><span><strong>Program</strong> — FY26 Solution Assessment Security / CAIP / AIBS</span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" /><span><strong>Initiative Name</strong> — lié au Program sélectionné</span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" /><span>Exemples Security : RSA, TPA, DSA, BVA, Protect Cloud AI Platform</span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-1.5 shrink-0" /><span className="text-gray-400">Azure Accelerate → aller sur Azure Offer Navigator (AON)</span></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Key facts */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {[
+                      { label: 'ID unique', value: 'REQ-XXX', desc: 'Remplace NOM-XXX + CAS-XXX', color: 'bg-blue-100 text-blue-800' },
+                      { label: 'Confirmation', value: 'Email auto', desc: 'DealAssistance ServiceAcct', color: 'bg-green-100 text-green-800' },
+                      { label: 'Approbation', value: 'SA Ops', desc: 'Email manuel (pas automatique)', color: 'bg-amber-100 text-amber-800' },
+                      { label: '1 oppty = 1 SA', value: 'Règle clé', desc: 'Un ID oppty par nomination', color: 'bg-red-100 text-red-800' },
+                    ].map((fact) => (
+                      <div key={fact.label} className="bg-white rounded-xl p-3 border border-blue-100 text-center">
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${fact.color}`}>{fact.label}</span>
+                        <p className="text-sm font-bold text-gray-900 mt-2">{fact.value}</p>
+                        <p className="text-[10px] text-gray-500 mt-0.5">{fact.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* MDA Case Management — 5 stages */}
+                <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+                    <Cog className="w-3.5 h-3.5" /> Après approbation — Case Management MDA (5 étapes)
+                  </p>
+                  <div className="flex items-center gap-2 overflow-x-auto pb-2">
+                    {[
+                      { n: 1, label: 'Planning', detail: 'Kickoff, outil, date estimée', color: 'bg-blue-600' },
+                      { n: 2, label: 'Solution Prep', detail: 'Partner + SA consultant', color: 'bg-indigo-600' },
+                      { n: 3, label: 'Execution', detail: 'Env. prep, déploiement outil, collecte données', color: 'bg-violet-600' },
+                      { n: 4, label: 'Internal Review', detail: 'Revue interne du rapport', color: 'bg-purple-600' },
+                      { n: 5, label: 'Final Review', detail: 'Présentation + clôture (date réelle)', color: 'bg-emerald-600' },
+                    ].map((stage, i, arr) => (
+                      <div key={stage.n} className="flex items-center gap-2 shrink-0">
+                        <div className="text-center">
+                          <div className={`${stage.color} text-white rounded-xl px-3 py-2 min-w-[90px]`}>
+                            <p className="text-[10px] font-bold">{stage.n}. {stage.label}</p>
+                          </div>
+                          <p className="text-[9px] text-gray-400 mt-1 max-w-[90px] leading-tight">{stage.detail}</p>
+                        </div>
+                        {i < arr.length - 1 && <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800 flex items-start gap-2">
+                    <span className="shrink-0 mt-0.5">⚠️</span>
+                    <span><strong>Règle Case Owner :</strong> doit d'abord être ajouté au Case Team avant de pouvoir être assigné comme Case Manager. L'Actual Close Date doit être le jour même — pas de backdating ni de date future (audit).</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* ── Summary & eligibility ────────────────────────────────── */}
+              <div className="mt-2 bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-7 text-white">
                 <div className="flex items-start gap-4 mb-5">
                   <div className="p-3 bg-white/10 rounded-xl shrink-0"><Award className="w-6 h-6" /></div>
                   <div>
@@ -1181,7 +1358,15 @@ export default function KnowledgeBasePage() {
                     </ul>
                   </div>
                 </div>
-                <p className="text-xs text-slate-500 mt-4 text-center">Contact : smbassessmenttriage@microsoft.com • Nomination partenaire : Partner Nomination Page • Microsoft interne : OneAsk</p>
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-500">
+                  <span>📧 smbassessmenttriage@microsoft.com</span>
+                  <span>•</span>
+                  <span>🏢 Microsoft interne → MSX Deal Assistance (depuis 16 avr. 2026)</span>
+                  <span>•</span>
+                  <span>🤝 Partenaire → Partner Nomination Page</span>
+                  <span>•</span>
+                  <span>🌐 Client → Customer Nomination Page</span>
+                </div>
               </div>
             </motion.div>
           )}
