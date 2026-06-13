@@ -285,19 +285,97 @@ const M365_PLANS = [
   },
 ];
 
-// ── Assessments data (unchanged) ────────────────────────────────────────
+// ── Assessments data — FY26 SMB Assessment Desk (source PDF officiel) ────
 const ASSESSMENTS_DATA = [
   {
     pillar: 'Security',
     icon: Shield,
     color: 'from-red-500 to-rose-600',
     bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200',
-    description: 'Assess and strengthen customer security posture against modern threats',
+    description: 'Maturité sécurité, risk mitigation & valeur business',
+    solutionPlay: 'Modernize SecOps with Unified Platform',
+    toolPillar: 'CSAT',
     assessments: [
-      { name: 'Rapid Security Assessment', short: 'RSA', emoji: '🔍', description: "Quick snapshot of the customer's security posture using Microsoft Secure Score. Identifies top risks and quick wins within days.", tool: 'CSAT (Customer Security Assessment Tool)', timeline: '2–4 weeks', eligibility: 'SMB < 300 seats, Nominated by CSP/partner', outputs: ['Microsoft Secure Score baseline', 'Top 5 security gaps', 'Prioritized remediation roadmap', 'ROI estimate for security investments'], badge: 'Quick Win', badgeColor: 'bg-orange-100 text-orange-700' },
-      { name: 'Threat Protection Assessment', short: 'TPA', emoji: '🛡️', description: 'Evaluates email and endpoint threat exposure. Tests resilience against phishing, ransomware, and identity attacks using Defender products.', tool: 'Microsoft Defender for Office 365 / Defender for Endpoint', timeline: '2–3 weeks', eligibility: 'SMB < 300 seats, Active M365 subscription', outputs: ['Threat exposure report', 'Attack simulation results', 'Defender deployment gaps', 'License upgrade recommendations'], badge: 'High Impact', badgeColor: 'bg-red-100 text-red-700' },
-      { name: 'Azure Security Assessment', short: 'ASA', emoji: '☁️', description: 'Deep-dive review of Azure infrastructure security: identity, network, data, and compliance against CIS Controls v8 and Zero Trust principles.', tool: 'Microsoft Defender for Cloud / Azure Security Center', timeline: '4–6 weeks', eligibility: 'Active Azure subscription, $5k+ MCA/CSP spend', outputs: ['CIS Controls v8 gap analysis', 'Zero Trust maturity score', 'Compliance posture (ISO 27001, GDPR)', 'Actionable remediation plan'], badge: 'Comprehensive', badgeColor: 'bg-purple-100 text-purple-700' },
-      { name: 'Security Business Value Assessment', short: 'Security BVA', emoji: '💰', description: 'Quantifies the financial value of Microsoft Security investments. Builds a business case with TCO, breach cost avoidance, and productivity gains.', tool: 'Microsoft Security ROI Calculator', timeline: '1–2 weeks', eligibility: 'Any SMB customer, Pre-sales or renewal', outputs: ['3-year TCO comparison', 'Breach cost avoidance estimate', 'Productivity ROI', 'Executive-ready business case deck'], badge: 'Sales Tool', badgeColor: 'bg-green-100 text-green-700' },
+      {
+        name: 'Rapid Security Assessment', short: 'RSA', emoji: '🔍',
+        description: "Revue de posture de sécurité : vulnérabilités immédiates, appareils non gérés, déploiement logiciel, politiques de contrôle des risques et recommandations de remédiation pour réduire le cyber-risque dans le cloud.",
+        tool: 'CSAT (Questionnaire + Endpoint Scan)',
+        timeline: '1–2 semaines',
+        eligibility: '> 30 sièges • Standard offering',
+        outputs: [
+          'Score CIS v8.1 + Microsoft 365 Secure Score (cible : 80%+)',
+          'Entra ID Admin Accounts — MFA gaps, comptes expirés, Domain Admins',
+          'Browser-Based LLM Usage — ChatGPT, DeepSeek, Gemini, Claude détectés',
+          'Endpoint Secure Configuration — BitLocker, PowerShell 2.0, antivirus',
+          'M365 Copilot Readiness + Plan d\'action court/long terme',
+        ],
+        badge: 'Standard', badgeColor: 'bg-orange-100 text-orange-700',
+        phases: ['Planning', 'Discovery', 'Analysis', 'Delivery'],
+      },
+      {
+        name: 'Threat Protection Assessment', short: 'TPA', emoji: '🛡️',
+        description: "Vue exhaustive on-premise et cloud de la posture sécurité. CIS Controls, Zero Trust Architecture, Azure Secure Score, AWS/GitHub security insights et score de conformité NIS 2.0. Plan d'action pour infrastructures hybrides.",
+        tool: 'CSAT — Defender for Office 365 / Defender for Endpoint',
+        timeline: '1–2 semaines',
+        eligibility: '> 30 sièges • Comptes Corporate / Mid-Market',
+        outputs: [
+          'Company Maturity Score (CIS Controls — 4 niveaux : Basic → Dynamic)',
+          'Quick Wins, Zero Trust Architecture, Azure & Microsoft Secure Scores',
+          'AWS security settings + GitHub security settings',
+          'Recommended Action Plan pour infrastructures hybrides',
+          'Business Case Analysis + NIS 2.0 Directive Readiness Score',
+        ],
+        badge: 'Corporate+', badgeColor: 'bg-red-100 text-red-700',
+        phases: ['Planning', 'Discovery', 'Analysis', 'Delivery'],
+      },
+      {
+        name: 'Data Security Assessment', short: 'DSA', emoji: '🗂️',
+        description: "Vue complète sur la conformité et gouvernance des données : insider risk management, data loss prevention, information protection. Fondation sécurité pour protéger l'IA générative et les applications tierces.",
+        tool: 'CSAT',
+        timeline: '1–2 semaines',
+        eligibility: '> 30 sièges',
+        outputs: [
+          'Company Maturity Score (CIS Controls) + NIS 2.0 Directive Readiness',
+          'Data Protection — SharePoint PII, Cloud Storage, DMARC/DKIM/SPF',
+          'Data governance insights + M365 Copilot security & governance',
+          'Browser-Based LLM Usage + 3rd party Gen AI detection',
+          'Plan d\'action : data management & protection contre les menaces',
+        ],
+        badge: 'Data & Compliance', badgeColor: 'bg-purple-100 text-purple-700',
+        phases: ['Planning', 'Discovery', 'Analysis', 'Delivery'],
+      },
+      {
+        name: 'Protect Cloud, AI Platforms & Apps', short: 'PCAP', emoji: '☁️',
+        description: "Analyse des risques Azure : cloud infrastructures, identity, data et application protection. Essentiel pour les clients avec Azure OpenAI et Azure AI Foundry. Hero offerings : Defender for Cloud + Purview.",
+        tool: 'CSAT — Hero : Defender for Cloud + Purview',
+        timeline: 'TBC',
+        eligibility: 'Clients Azure actif • Azure OpenAI / Foundry',
+        outputs: [
+          'Maturity Score (CIS Controls, Zero Trust, Azure Secure Score)',
+          'Azure Policy compliance (ex : 13%) + Azure Network Security Groups',
+          'Cloud Storage Accounts — TLS, chiffrement, public access',
+          'Multi-Cloud scan — AWS MFA (76 identités), 15 certificats expirés',
+          'Recommended Action Plan pour cloud infrastructure & AI apps',
+        ],
+        badge: 'Azure AI', badgeColor: 'bg-cyan-100 text-cyan-700',
+        phases: ['Planning', 'Discovery', 'Analysis', 'Delivery'],
+      },
+      {
+        name: 'Security Business Value Assessment', short: 'Security BVA', emoji: '💰',
+        description: "Analyse financière personnalisée des économies et bénéfices de la consolidation sur Microsoft 365 : coûts licences, implémentation, formation, consolidation fournisseurs, mitigation des risques. Inclus dans tous les assessments Security.",
+        tool: 'Questionnaire (outil BVA Microsoft)',
+        timeline: '1–2 semaines',
+        eligibility: 'Inclus dans tous les assessments Security',
+        outputs: [
+          '3-year Breakdown of Estimated Costs (licences, migration, formation)',
+          '3-year Breakdown of Estimated Benefits (consolidation fournisseurs, ROI)',
+          'Eliminate Redundant Solutions — ex : 15+ vendors à $63/user/mois',
+          'Economic Impact — ex : $9.4M, ROI 176%, Payback 8 mois',
+          'Business case exécutif prêt à présenter au CISO/CIO',
+        ],
+        badge: 'Inclus partout', badgeColor: 'bg-green-100 text-green-700',
+        phases: ['Planning', 'Data Gathering', 'Analysis', 'Report'],
+      },
     ],
   },
   {
@@ -305,10 +383,42 @@ const ASSESSMENTS_DATA = [
     icon: Database,
     color: 'from-blue-500 to-cyan-600',
     bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200',
-    description: 'Drive Azure adoption and quantify migration value vs on-premises or competitors',
+    description: 'Migration Azure data-driven & sécurité cloud',
+    solutionPlay: 'Migrate & Modernize your Estate • Protect Cloud AI Platform',
+    toolPillar: 'Dr Migrate + CSAT',
     assessments: [
-      { name: 'Azure Benchmark TCO', short: 'TCO', emoji: '📊', description: 'Compares total cost of ownership between on-premises infrastructure and Azure. Covers compute, storage, networking, and operational costs over 3–5 years.', tool: 'Azure TCO Calculator + Azure Migrate', timeline: '1–2 weeks', eligibility: 'Customer with on-prem or AWS workloads, Partner-nominated', outputs: ['3–5 year TCO comparison', 'Cost savings projection', 'Migration complexity rating', 'Recommended Azure SKUs'], badge: 'ROI Focus', badgeColor: 'bg-blue-100 text-blue-700' },
-      { name: 'Azure Security DCSA', short: 'DCSA', emoji: '🏢', description: 'Data Center Security Assessment evaluates security gaps when migrating from on-prem data centers to Azure. Uses Dr Migrate to inventory and map workloads.', tool: 'Dr Migrate + Microsoft Defender for Cloud', timeline: '3–4 weeks', eligibility: 'Customer planning DC migration, $10k+ Azure commitment', outputs: ['Workload inventory & dependency map', 'Security risk matrix', 'Migration wave plan', 'Azure Landing Zone design'], badge: 'Migration', badgeColor: 'bg-cyan-100 text-cyan-700' },
+      {
+        name: 'Azure Benchmark TCO', short: 'TCO', emoji: '📊',
+        description: "Vue data-driven de l'environnement actuel et du plan de migration Azure. Utilise Dr Migrate : outil Microsoft agentless (sans agent, sans install) déployé dans 75+ pays auprès de +2000 clients. Coûts, priorités, wave planning et prochaines étapes concrètes.",
+        tool: 'Dr Migrate + DMC (agentless — ~5MB/VM, ~2% CPU, ~1000 VMs/heure)',
+        timeline: '1–2 semaines • 5 réunions (Kick-Off + 2 Workshops + Delivery)',
+        eligibility: '> 5 VMs on-premise ou VMware',
+        outputs: [
+          '100+ dashboards interactifs — infrastructure, coûts, sizing, readiness',
+          'TCO Modelling — ex : $2.1M on-prem → $775K Azure = $1.3M/an économisés',
+          'Estate Analyses — apps mappées, serveurs, OS, dépendances réseau',
+          '6R Migration Treatments (Rehost, Refactor, Re-architect, Replace, Retain, Retire)',
+          'Wave Planning AI-assisted + Executive Report PDF prêt pour approbation budget',
+        ],
+        badge: '> 5 VMs', badgeColor: 'bg-blue-100 text-blue-700',
+        phases: ['Kick-Off & Scan', 'Post-Scan Planning', 'Workload Planning', 'Delivery'],
+      },
+      {
+        name: 'Azure Security Assessment', short: 'ASA', emoji: '🔐',
+        description: "Analyse approfondie des risques Azure : cloud infrastructures, identités, données et application protection. Critique pour les clients utilisant Azure OpenAI et Azure AI Foundry. Unifie la sécurité et gouvernance sur le cycle de vie cloud et IA.",
+        tool: 'CSAT — Hero : Defender for Cloud + Purview',
+        timeline: '1–2 semaines',
+        eligibility: 'TBC • Clients avec Azure actif',
+        outputs: [
+          'Secure Score Defender for Cloud (benchmark 80%) + CIS Controls',
+          'Azure Storage — 20 comptes TLS ≤1.1, 27 avec public blob access',
+          'Azure SQL Databases — 16 BDD sans audit activé',
+          'Azure Policy compliance + Network Security Groups findings',
+          'Multi-Cloud : MFA gaps AWS, certificats expirés, accès non sécurisés',
+        ],
+        badge: 'Azure + AI', badgeColor: 'bg-purple-100 text-purple-700',
+        phases: ['Planning', 'Discovery', 'Analysis', 'Delivery'],
+      },
     ],
   },
   {
@@ -316,11 +426,59 @@ const ASSESSMENTS_DATA = [
     icon: Brain,
     color: 'from-purple-500 to-violet-600',
     bg: 'bg-purple-50', text: 'text-purple-700', border: 'border-purple-200',
-    description: 'Unlock AI-driven productivity and build the business case for Microsoft 365 Copilot',
+    description: 'IA sécurisée, adoption Copilot & migration dark-to-cloud',
+    solutionPlay: 'Secure AI Productivity • Copilot and Agents at Work',
+    toolPillar: 'CSAT (Secure AI, D2C) • Aucun outil (CMC)',
     assessments: [
-      { name: 'Secure AI Productivity', short: 'SAP', emoji: '🤖', description: 'Assesses readiness for Microsoft 365 Copilot deployment: data governance, identity hygiene, and license optimization. Maps AI use cases to business outcomes.', tool: 'M365 Assessment Tool + Copilot Readiness Dashboard', timeline: '2–3 weeks', eligibility: 'M365 E3/E5 customers, 50–300 seats', outputs: ['Copilot readiness score', 'Data sensitivity audit', 'Top 10 AI use cases', 'Deployment & adoption plan'], badge: 'AI Ready', badgeColor: 'bg-violet-100 text-violet-700' },
-      { name: 'Dark to Cloud', short: 'D2C', emoji: '🌐', description: 'Brings unmanaged or shadow-IT workloads into Microsoft cloud. Discovers rogue apps, unprotected devices, and data leaving the organization.', tool: 'Microsoft Defender for Cloud Apps (MCAS) + Entra ID', timeline: '4–6 weeks', eligibility: 'Customers with legacy/hybrid environments, GDPR concerns', outputs: ['Shadow IT inventory', 'Data exfiltration risk report', 'Entra ID consolidation plan', 'Conditional Access policies'], badge: 'Governance', badgeColor: 'bg-indigo-100 text-indigo-700' },
-      { name: 'Copilot Master Class', short: 'CMC', emoji: '✨', description: 'Hands-on AI adoption workshop for SMB decision-makers. Demonstrates ROI of Copilot for Sales, Finance, HR and Operations through live scenarios.', tool: 'Microsoft Copilot (M365 + Azure AI) + Teams', timeline: '1–2 days (workshop)', eligibility: 'All SMB customers, Executive sponsor required', outputs: ['Copilot ROI business case', 'Pilot user group plan', 'Change management playbook', 'Success metrics dashboard'], badge: 'Workshop', badgeColor: 'bg-pink-100 text-pink-700' },
+      {
+        name: 'Secure AI Productivity', short: 'SAP', emoji: '🤖',
+        description: "Analyse de la posture de sécurité pour adopter l'IA générative en toute sécurité : identity & data compliance, protection contre l'oversharing, détection de ChatGPT/DeepSeek/Gemini en interne et consolidation vers Microsoft Copilot.",
+        tool: 'CSAT — Hero : M365 E3/E5, Entra Suite, Purview',
+        timeline: '2–3 semaines',
+        eligibility: '> 30 sièges whitespace + > 10 sièges Copilot achetés',
+        outputs: [
+          'CIS Controls + Zero Trust Architecture + NIS 2.0 Readiness',
+          'M365 Copilot Readiness — Identity & Access Management, Endpoint Management',
+          'M365 Copilot Readiness — Data Security & Compliance, Threat Protection (400+ AI apps)',
+          'Browser LLM — ex : ChatGPT 6% endpoints (2446 visits), Gemini 1%, Claude 1%',
+          'Entra ID MFA gaps, 3rd party Gen AI governance, Copilot oversharing controls',
+        ],
+        badge: '10+ Copilot seats', badgeColor: 'bg-violet-100 text-violet-700',
+        phases: ['Planning', 'Discovery', 'Analysis', 'Delivery'],
+      },
+      {
+        name: 'Dark to Cloud', short: 'D2C', emoji: '🌐',
+        description: "Découverte de l'installation Microsoft on-premise et de l'environnement M365 existant. Recommandations licences selon l'usage observé. Cible les clients \"dark\" (non touchés par Microsoft) ou exposés à la concurrence Google Workspace. Exclusif SMB.",
+        tool: 'CSAT — Hero : M365 Business Premium / E3 / E5',
+        timeline: '1–2 semaines',
+        eligibility: '> 30 sièges (tous types) • Exclusif SMB',
+        outputs: [
+          'Windows Versions — EOS détectés (Win10, WinServer 2012) vulnérables aux exploits',
+          'Updates critiques — ex : 79 endpoints avec mises à jour critiques en attente',
+          'Shadow AI détecté + Browser LLM Usage dans les navigateurs',
+          'Business Case Analysis + Copilot options + vendor consolidation 3rd party',
+          'Recommandations : upgrade E3/E5, migration EA→CSP, Azure consumption',
+        ],
+        badge: 'SMB Exclusif', badgeColor: 'bg-indigo-100 text-indigo-700',
+        phases: ['Identify goals', 'Data collection', 'Infrastructure analysis', 'Action plan'],
+      },
+      {
+        name: 'Copilot Master Class', short: 'CMC', emoji: '✨',
+        description: "Workshop 4 phases pour maximiser l'adoption de M365 Copilot, Copilot Chat et les agents IA. Démo live use cases par département. 68% des travailleurs délèguent les tâches répétitives à l'IA — 61% des executives confirment une meilleure prise de décision.",
+        tool: 'Aucun outil de scan • Workshop immersif Copilot Chat + Teams',
+        timeline: '1–2 jours (workshop)',
+        eligibility: '> 30 sièges + > 10 sièges Copilot • Sponsor exécutif requis',
+        outputs: [
+          '1. Discover — Copilot Chat UI, skills et capacités',
+          '2. Enable — Prompting best practices + Copilot Prompt Gallery',
+          '3. Accelerate — Use cases Copilot par département/persona',
+          '4. Extend — Agents Copilot Studio pour automatiser les processus métier',
+          'Business case ROI + Plan d\'adoption + Success metrics dashboard',
+        ],
+        badge: 'Workshop', badgeColor: 'bg-pink-100 text-pink-700',
+        stats: ['68% délèguent les tâches répétitives à l\'IA', '52% utilisent l\'IA pour les 1ers drafts créatifs', '61% exécutifs : meilleure prise de décision'],
+        phases: ['Discover', 'Enable', 'Accelerate', 'Extend'],
+      },
     ],
   },
 ];
@@ -912,9 +1070,15 @@ export default function KnowledgeBasePage() {
                     <motion.div key={pillar.pillar} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: pi * 0.08 }}>
                       <div className={`flex items-center gap-4 mb-5 p-5 rounded-2xl border bg-gradient-to-r text-white ${pillar.color}`}>
                         <div className="p-3 bg-white/20 rounded-xl shrink-0"><PillarIcon className="w-6 h-6" /></div>
-                        <div>
+                        <div className="flex-1 min-w-0">
                           <h2 className="text-lg font-bold">{pillar.pillar}</h2>
                           <p className="text-sm text-white/80">{pillar.description}</p>
+                          {pillar.solutionPlay && (
+                            <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                              <span className="text-[10px] bg-white/15 px-2 py-0.5 rounded-full text-white/70">Solution Play : {pillar.solutionPlay}</span>
+                              {pillar.toolPillar && <span className="text-[10px] bg-white/15 px-2 py-0.5 rounded-full text-white/70">Outil : {pillar.toolPillar}</span>}
+                            </div>
+                          )}
                         </div>
                         <div className="ml-auto shrink-0">
                           <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold">{pillar.assessments.length} assessment{pillar.assessments.length > 1 ? 's' : ''}</span>
@@ -962,6 +1126,27 @@ export default function KnowledgeBasePage() {
                                 ))}
                               </ul>
                             </div>
+                            {a.stats && (
+                              <div className="mt-4 grid grid-cols-3 gap-1.5">
+                                {a.stats.map((stat, si) => (
+                                  <div key={si} className={`text-center rounded-xl p-2 ${pillar.bg}`}>
+                                    <p className={`text-[10px] leading-tight font-medium ${pillar.text}`}>{stat}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                            {a.phases && (
+                              <div className="mt-4 pt-3 border-t border-gray-100">
+                                <div className="flex items-center gap-1 flex-wrap">
+                                  {a.phases.map((phase, pi) => (
+                                    <span key={phase} className="flex items-center gap-1">
+                                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${pillar.bg} ${pillar.text}`}>{phase}</span>
+                                      {pi < a.phases.length - 1 && <ChevronRight className="w-3 h-3 text-gray-300" />}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
                           </motion.div>
                         ))}
                       </div>
@@ -970,13 +1155,33 @@ export default function KnowledgeBasePage() {
                 })}
               </div>
               <div className="mt-10 bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-7 text-white">
-                <div className="flex items-center gap-4">
+                <div className="flex items-start gap-4 mb-5">
                   <div className="p-3 bg-white/10 rounded-xl shrink-0"><Award className="w-6 h-6" /></div>
                   <div>
                     <h3 className="font-bold text-lg mb-1">Microsoft SMB Solution Assessments — FY26</h3>
-                    <p className="text-sm text-slate-300">All assessments are delivered by certified Microsoft partners. Nomination criteria apply. Contact your Microsoft representative to initiate an assessment for an eligible customer.</p>
+                    <p className="text-sm text-slate-300">Programme Microsoft global financé — livrés par des consultants techniques Microsoft certifiés avec le partenaire tout au long du processus. Durée : 1–2 semaines, 3–8h de temps client, 4 réunions structurées.</p>
                   </div>
                 </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white/5 rounded-xl p-4">
+                    <p className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-3">Critères de nomination (tous assessments)</p>
+                    <ul className="space-y-1.5 text-xs text-slate-400">
+                      <li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-blue-400 mt-1.5 shrink-0" />MCEM Stage 2 — Inspire &amp; Design</li>
+                      <li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-blue-400 mt-1.5 shrink-0" />Accord préalable du client sur l'assessment</li>
+                      <li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-blue-400 mt-1.5 shrink-0" />Aucun assessment précédent pour le même TPID</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white/5 rounded-xl p-4">
+                    <p className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-3">Éligibilité par assessment</p>
+                    <ul className="space-y-1.5 text-xs text-slate-400">
+                      <li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-emerald-400 mt-1.5 shrink-0" /><span><strong className="text-slate-300">Benchmark TCO</strong> : &gt; 5 VMs</span></li>
+                      <li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-emerald-400 mt-1.5 shrink-0" /><span><strong className="text-slate-300">Rapid Security, TPA, DSA, PCAP, BVA</strong> : &gt; 30 sièges</span></li>
+                      <li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-emerald-400 mt-1.5 shrink-0" /><span><strong className="text-slate-300">Secure AI, Dark to Cloud</strong> : &gt; 30 sièges whitespace</span></li>
+                      <li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-emerald-400 mt-1.5 shrink-0" /><span><strong className="text-slate-300">Copilot Master Class</strong> : &gt; 10 Copilot seats + &gt; 30 sièges</span></li>
+                    </ul>
+                  </div>
+                </div>
+                <p className="text-xs text-slate-500 mt-4 text-center">Contact : smbassessmenttriage@microsoft.com • Nomination partenaire : Partner Nomination Page • Microsoft interne : OneAsk</p>
               </div>
             </motion.div>
           )}
