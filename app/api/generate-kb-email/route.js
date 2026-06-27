@@ -22,8 +22,9 @@ export async function POST(request) {
       dy_bc: 'dynamics', dy_finance: 'dynamics',
       m365_business: 'm365', m365_e3: 'm365', m365_e5: 'm365', m365_copilot: 'm365',
       azure_migration: 'azure', azure_ai: 'azure', azure_infra: 'azure', azure_data: 'azure',
-      power_bi: 'power', power_apps: 'power', power_automate: 'power',
-      security_defender: 'security', security_sentinel: 'security', security_purview: 'security',
+      power_bi: 'power', power_apps: 'power', power_automate: 'power', copilot_studio: 'power',
+      security_defender: 'security', security_sentinel: 'security', security_purview: 'security', intune: 'security',
+      github_copilot: 'devtools',
     };
     const kbTopic   = KB_TOPIC_MAP[solution] || solution || 'm365';
     const kbContent = getKbByTopic(kbTopic);
@@ -41,8 +42,10 @@ export async function POST(request) {
       azure_migration: 'Azure Cloud Migration', azure_ai: 'Azure AI & OpenAI Service',
       azure_infra: 'Azure Infrastructure', azure_data: 'Azure Data & Analytics',
       power_bi: 'Power BI', power_apps: 'Power Apps', power_automate: 'Power Automate',
+      copilot_studio: 'Microsoft Copilot Studio',
       security_defender: 'Microsoft Defender', security_sentinel: 'Microsoft Sentinel',
-      security_purview: 'Microsoft Purview',
+      security_purview: 'Microsoft Purview', intune: 'Microsoft Intune',
+      github_copilot: 'GitHub Copilot', devtools: 'Developer Tools',
     };
     const solutionLabel = SOLUTION_LABELS[solution] || 'Microsoft solutions';
 

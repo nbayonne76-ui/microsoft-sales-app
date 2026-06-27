@@ -21,22 +21,25 @@ const KB_TOPIC_MAP = {
   m365_business: 'm365', m365_e3: 'm365', m365_e5: 'm365', m365_copilot: 'm365',
   // Azure
   azure_migration: 'azure', azure_ai: 'azure', azure_infra: 'azure', azure_data: 'azure',
-  // Power Platform
-  power_bi: 'power', power_apps: 'power', power_automate: 'power',
-  // Security
-  security_defender: 'security', security_sentinel: 'security', security_purview: 'security',
+  // Power Platform + Copilot Studio
+  power_bi: 'power', power_apps: 'power', power_automate: 'power', copilot_studio: 'power',
+  // Security + Intune
+  security_defender: 'security', security_sentinel: 'security', security_purview: 'security', intune: 'security',
+  // Developer Tools
+  github_copilot: 'devtools',
   // Bundles + legacy IDs (backward compat)
   bundles: 'bundles', m365: 'm365', azure: 'azure',
-  dynamics: 'dynamics', power: 'power', security: 'security',
+  dynamics: 'dynamics', power: 'power', security: 'security', devtools: 'devtools',
 };
 
 const KB_FILES_BY_TOPIC = {
-  m365:     ['m365-pricing-2025.md','m365-e3-vs-e5-decision-guide.md','m365-e7-frontier-worker-suite.md','microsoft-365-collaboration.md','microsoft-licensing-contracts-guide.md','csp-vs-mca-decision-guide.md'],
+  m365:     ['m365-pricing-2025.md','m365-e3-vs-e5-decision-guide.md','m365-e7-frontier-worker-suite.md','microsoft-365-collaboration.md','microsoft-licensing-contracts-guide.md','csp-vs-mca-decision-guide.md','m365-feature-availability-official.md'],
   azure:    ['azure-pricing-2025.md','azure-migration.md'],
   dynamics: ['dynamics-365-pricing-2025.md'],
-  power:    ['power-platform-digital.md'],
-  security: ['security-compliance.md'],
+  power:    ['power-platform-digital.md','copilot-studio-licensing.md'],
+  security: ['security-compliance.md','microsoft-intune-licensing.md','modern-workplace-security-framework.md'],
   bundles:  ['solution-bundles-pricing.md','microsoft-pricing-guide-2025.md'],
+  devtools: ['github-copilot-plans.md'],
 };
 
 function getKbFiles(solId) {
@@ -83,6 +86,7 @@ const SOLUTION_GROUPS = [
       { id: 'power_bi',       label: 'Power BI',        emoji: '📊', desc: 'Dashboards, rapports, self-service BI', color: 'from-yellow-500 to-orange-500' },
       { id: 'power_apps',     label: 'Power Apps',      emoji: '📱', desc: 'Apps métier no-code / low-code', color: 'from-orange-400 to-yellow-500' },
       { id: 'power_automate', label: 'Power Automate',  emoji: '⚙️', desc: 'RPA, flux intelligents, connecteurs', color: 'from-yellow-600 to-orange-600' },
+      { id: 'copilot_studio', label: 'Copilot Studio',  emoji: '🤖', desc: 'Agents IA custom, chatbots multicanal, Teams', color: 'from-violet-500 to-purple-600' },
     ],
   },
   {
@@ -92,6 +96,14 @@ const SOLUTION_GROUPS = [
       { id: 'security_defender', label: 'Microsoft Defender', emoji: '🛡️', desc: 'XDR, endpoint, identité, SIEM', color: 'from-red-500 to-rose-600' },
       { id: 'security_sentinel', label: 'Microsoft Sentinel',  emoji: '🔍', desc: 'SIEM/SOAR, threat intelligence cloud', color: 'from-rose-600 to-red-700' },
       { id: 'security_purview',  label: 'Microsoft Purview',   emoji: '🔒', desc: 'DLP, classification, RGPD, eDiscovery', color: 'from-red-600 to-rose-700' },
+      { id: 'intune',            label: 'Microsoft Intune',    emoji: '📱', desc: 'MDM/MAM, Plan 1→Suite, EPM, Remote Help', color: 'from-rose-500 to-red-600' },
+    ],
+  },
+  {
+    key: 'devtools', label: 'Developer Tools', emoji: '💻',
+    color: 'from-violet-500 to-purple-600',
+    solutions: [
+      { id: 'github_copilot', label: 'GitHub Copilot', emoji: '💻', desc: 'IA de développement — Business $19 · Enterprise $39/siège', color: 'from-violet-500 to-purple-600' },
     ],
   },
   {

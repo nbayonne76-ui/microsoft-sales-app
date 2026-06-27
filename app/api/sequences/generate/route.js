@@ -6,12 +6,21 @@ import { getKbByTopic } from '@/lib/kb-service';
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const SOLUTION_LABELS = {
-  m365:     'Microsoft 365',
-  azure:    'Microsoft Azure',
-  dynamics: 'Dynamics 365',
-  power:    'Power Platform',
-  security: 'Microsoft Security & Compliance',
-  bundles:  'Microsoft Solution Bundles',
+  m365:           'Microsoft 365',
+  azure:          'Microsoft Azure',
+  dynamics:       'Dynamics 365',
+  power:          'Power Platform',
+  copilot_studio: 'Microsoft Copilot Studio',
+  security:       'Microsoft Security & Compliance',
+  intune:         'Microsoft Intune',
+  github_copilot: 'GitHub Copilot',
+  bundles:        'Microsoft Solution Bundles',
+};
+
+const KB_TOPIC_MAP = {
+  copilot_studio: 'power',
+  intune:         'security',
+  github_copilot: 'devtools',
 };
 
 export async function POST(request) {
@@ -22,7 +31,8 @@ export async function POST(request) {
       return NextResponse.json({ error: 'company is required' }, { status: 400 });
     }
 
-    const kbContent = getKbByTopic(solution, 10000);
+    const kbTopic = KB_TOPIC_MAP[solution] || solution;
+    const kbContent = getKbByTopic(kbTopic, 10000);
     const solutionLabel = SOLUTION_LABELS[solution] || solution;
     const sizeLabel = companySize === 'enterprise' ? 'Grand compte (300+ employés)' : companySize === 'startup' ? 'Startup (<50)' : 'PME (50-300 employés)';
 

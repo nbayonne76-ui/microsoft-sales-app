@@ -16,12 +16,15 @@ const fadeUp  = { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } 
 const stagger = { animate: { transition: { staggerChildren: 0.06 } } };
 
 const SOLUTIONS = [
-  { id: 'm365',     label: 'Microsoft 365',        emoji: '💼', color: 'from-blue-500 to-indigo-600'   },
-  { id: 'azure',    label: 'Microsoft Azure',       emoji: '☁️', color: 'from-sky-500 to-blue-600'     },
-  { id: 'dynamics', label: 'Dynamics 365',          emoji: '🎯', color: 'from-orange-500 to-red-600'   },
-  { id: 'power',    label: 'Power Platform',        emoji: '⚡', color: 'from-yellow-500 to-orange-500'},
-  { id: 'security', label: 'Security & Compliance', emoji: '🛡️', color: 'from-red-500 to-rose-600'    },
-  { id: 'bundles',  label: 'Solution Bundles',      emoji: '🎁', color: 'from-emerald-500 to-teal-600' },
+  { id: 'm365',           label: 'Microsoft 365',        emoji: '💼', color: 'from-blue-500 to-indigo-600'   },
+  { id: 'azure',          label: 'Microsoft Azure',       emoji: '☁️', color: 'from-sky-500 to-blue-600'     },
+  { id: 'dynamics',       label: 'Dynamics 365',          emoji: '🎯', color: 'from-orange-500 to-red-600'   },
+  { id: 'power',          label: 'Power Platform',        emoji: '⚡', color: 'from-yellow-500 to-orange-500'},
+  { id: 'copilot_studio', label: 'Copilot Studio',        emoji: '🤖', color: 'from-violet-500 to-purple-600'},
+  { id: 'security',       label: 'Security & Compliance', emoji: '🛡️', color: 'from-red-500 to-rose-600'    },
+  { id: 'intune',         label: 'Microsoft Intune',      emoji: '📱', color: 'from-rose-500 to-red-600'    },
+  { id: 'github_copilot', label: 'GitHub Copilot',        emoji: '💻', color: 'from-violet-600 to-purple-700'},
+  { id: 'bundles',        label: 'Solution Bundles',      emoji: '🎁', color: 'from-emerald-500 to-teal-600' },
 ];
 
 const PERSONAS = ['DSI / CTO', 'DG / CEO', 'CFO / DAF', 'Responsable IT', 'Directeur Commercial'];
