@@ -504,6 +504,33 @@ const ASSESSMENTS_DATA = [
   },
 ];
 
+// ── Search helpers ────────────────────────────────────────────────────────
+const ABBREVS = [
+  [/\bm365\b/gi,   'Microsoft 365'],
+  [/\bd365\b/gi,   'Dynamics 365'],
+  [/\bbc\b/gi,     'Business Central'],
+  [/\bf&o\b/gi,    'Finance Operations'],
+  [/\bscm\b/gi,    'Supply Chain'],
+  [/\bcrm\b/gi,    'Customer Relationship'],
+  [/\berp\b/gi,    'Enterprise Resource'],
+  [/\bai\b/gi,     'Artificial Intelligence copilot'],
+  [/\bazure\b/gi,  'Azure cloud'],
+];
+
+function expandSearch(raw) {
+  let s = raw.toLowerCase();
+  for (const [re, rep] of ABBREVS) s = s.replace(re, rep.toLowerCase());
+  return s;
+}
+
+function hit(fields, expanded, raw) {
+  const q = raw.toLowerCase();
+  return fields.some(f => {
+    const v = (f || '').toLowerCase();
+    return v.includes(q) || v.includes(expanded);
+  });
+}
+
 // ─────────────────────────────────────────────────────────────────────────
 export default function KnowledgeBasePage() {
   const { lang } = useLang();
@@ -557,31 +584,62 @@ export default function KnowledgeBasePage() {
       .catch(() => setDocContent('# Error loading document'));
   }, [selectedDoc]);
 
-  const azureSolutions = solutions.filter(s => s.category !== 'business');
+  const azureSolutions   = solutions.filter(s => s.category !== 'business');
   const dynamicsSolutions = solutions.filter(s => s.category === 'business');
 
+  const exp = search ? expandSearch(search) : '';
+
   const filteredAzure = azureSolutions.filter(s => {
-    const matchCat = catFilter === 'all' || s.category === catFilter;
-    const matchSearch = !search || [s.name, s.shortDescription, s.officialName].some(f => (f||'').toLowerCase().includes(search.toLowerCase()));
+    const matchCat    = catFilter === 'all' || s.category === catFilter;
+    const matchSearch = !search || hit([s.name, s.shortDescription, s.officialName, s.fullDescription, s.subcategory], exp, search);
     return matchCat && matchSearch;
   });
 
   const filteredDynamics = dynamicsSolutions.filter(s => {
-    const grp = SUB_TO_GROUP[s.subcategory] || 'all';
-    const matchGroup = d365Filter === 'all' || grp === d365Filter;
-    const matchSearch = !search || [s.name, s.shortDescription, s.officialName].some(f => (f||'').toLowerCase().includes(search.toLowerCase()));
+    const grp         = SUB_TO_GROUP[s.subcategory] || 'all';
+    const matchGroup  = d365Filter === 'all' || grp === d365Filter;
+    const matchSearch = !search || hit([s.name, s.shortDescription, s.officialName, s.fullDescription], exp, search);
     return matchGroup && matchSearch;
   });
 
   const filteredM365 = M365_PLANS.filter(p =>
     (m365Seg === 'all' || p.segment === m365Seg) &&
-    (!search || [p.name, p.description, p.bestFor].some(f => (f||'').toLowerCase().includes(search.toLowerCase())))
+    (!search || hit([p.name, p.shortName, p.description, p.bestFor, p.highlight, ...(p.services || [])], exp, search))
   );
 
   const filteredDocs = KB_DOCS.filter(d =>
     (docFilter === 'All' || d.category === docFilter) &&
-    (!search || d.title.toLowerCase().includes(search.toLowerCase()))
+    (!search || hit([d.title, d.desc, d.category], exp, search))
   );
+
+  // Cross-section search counts (ignore current filters when searching)
+  const searchCounts = search ? {
+    azure:    azureSolutions.filter(s => hit([s.name, s.shortDescription, s.officialName, s.fullDescription], exp, search)).length,
+    dynamics: dynamicsSolutions.filter(s => hit([s.name, s.shortDescription, s.officialName, s.fullDescription], exp, search)).length,
+    m365:     M365_PLANS.filter(p => hit([p.name, p.shortName, p.description, p.bestFor, ...(p.services || [])], exp, search)).length,
+    docs:     KB_DOCS.filter(d => hit([d.title, d.desc, d.category], exp, search)).length,
+  } : null;
+
+  // Auto-switch to the tab/sub-tab with most results when search changes
+  useEffect(() => {
+    if (!search || !searchCounts) return;
+    const currentCount =
+      tab === 'docs'        ? searchCounts.docs :
+      tab === 'assessments' ? 0 :
+      solTab === 'azure'    ? searchCounts.azure :
+      solTab === 'dynamics' ? searchCounts.dynamics :
+                              searchCounts.m365;
+    if (currentCount > 0) return; // already showing results
+    // Switch to the section with the most results
+    const best = Object.entries(searchCounts).sort((a,b) => b[1]-a[1])[0];
+    if (!best || best[1] === 0) return;
+    if (best[0] === 'docs') { setTab('docs'); return; }
+    setTab('solutions');
+    if (best[0] === 'dynamics') { setSolTab('dynamics'); setD365Filter('all'); }
+    else if (best[0] === 'm365') { setSolTab('m365'); setM365Seg('all'); }
+    else { setSolTab('azure'); setCatFilter('all'); }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
 
   // Switch sub-tab and clear selected solution
   const switchSolTab = (t) => { setSolTab(t); setSelectedSol(null); };
@@ -622,12 +680,33 @@ export default function KnowledgeBasePage() {
             <span className="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-medium">FY26 ✓</span>
           </motion.div>
 
-          <motion.div {...fadeUp} transition={{ delay: 0.12 }} className="relative max-w-xl mb-6">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-300" />
-            <input type="text" value={search} onChange={e => setSearch(e.target.value)}
-              placeholder={tr.searchPlaceholder}
-              className="w-full pl-12 pr-10 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-blue-300 focus:outline-none focus:border-blue-300 transition-colors" />
-            {search && <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-300 hover:text-white"><X className="w-4 h-4" /></button>}
+          <motion.div {...fadeUp} transition={{ delay: 0.12 }} className="mb-6 max-w-xl">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-300" />
+              <input type="text" value={search} onChange={e => setSearch(e.target.value)}
+                placeholder={tr.searchPlaceholder}
+                className="w-full pl-12 pr-10 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-blue-300 focus:outline-none focus:border-blue-300 transition-colors" />
+              {search && <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-300 hover:text-white"><X className="w-4 h-4" /></button>}
+            </div>
+            {searchCounts && (
+              <div className="flex gap-2 mt-2 flex-wrap">
+                {[
+                  { key: 'azure',    label: 'Azure',    count: searchCounts.azure,    action: () => { setTab('solutions'); setSolTab('azure');    setCatFilter('all');  } },
+                  { key: 'dynamics', label: 'Dynamics', count: searchCounts.dynamics, action: () => { setTab('solutions'); setSolTab('dynamics');  setD365Filter('all'); } },
+                  { key: 'm365',     label: 'M365',     count: searchCounts.m365,     action: () => { setTab('solutions'); setSolTab('m365');      setM365Seg('all');    } },
+                  { key: 'docs',     label: 'Docs',     count: searchCounts.docs,     action: () => { setTab('docs');                                                    } },
+                ].map(({ key, label, count, action }) => (
+                  <button key={key} onClick={action}
+                    className={`text-xs px-3 py-1 rounded-full transition-all ${
+                      count > 0
+                        ? 'bg-blue-500/30 text-blue-200 hover:bg-blue-500/50 cursor-pointer'
+                        : 'bg-white/5 text-blue-400/40 cursor-default'
+                    }`}>
+                    {count} {label}
+                  </button>
+                ))}
+              </div>
+            )}
           </motion.div>
 
           {/* Main tabs */}
