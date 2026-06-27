@@ -95,7 +95,7 @@ export default function M365PlansComparison() {
             <div className="flex items-center gap-2 text-sm">
               <LayoutGrid className="w-4 h-4 text-blue-600 shrink-0" />
               <span className="font-semibold text-blue-800">Feature Availability officielle</span>
-              <span className="text-blue-600">— Voir la disponibilité par plan pour Teams, Exchange, SharePoint, Copilot, Entra et 8 autres services</span>
+              <span className="text-blue-600">: Voir la disponibilité par plan pour Teams, Exchange, SharePoint, Copilot, Entra et 8 autres services</span>
             </div>
             <ArrowRight className="w-4 h-4 text-blue-500 shrink-0 group-hover:translate-x-1 transition-transform" />
           </Link>

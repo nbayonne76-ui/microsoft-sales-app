@@ -220,7 +220,7 @@ Key capabilities:
         category: 'management',
         subcategory: 'CI/CD & DevOps Platform',
         shortDescription: 'Cloud-based DevOps toolchain from Microsoft helping teams plan, develop, test, and deploy applications automatically. CI/CD, version control, agile project management, artifact management.',
-        fullDescription: `Azure DevOps est une cloud-based DevOps toolchain from Microsoft that helps teams plan, develop, test, et deploy applications automatically. Provides Continuous Integration & Continuous Deployment (CI/CD) pipelines, version control, agile project management, et artifact management — all in one unified platform.
+        fullDescription: `Azure DevOps est une cloud-based DevOps toolchain from Microsoft that helps teams plan, develop, test, et deploy applications automatically. Provides Continuous Integration & Continuous Deployment (CI/CD) pipelines, version control, agile project management, et artifact management : all in one unified platform.
 
 Core components:
 - **Azure Repos (Version Control)** - Git repositories ou Team Foundation Version Control (TFVC). Branching, pull requests, code reviews. GitHub, Bitbucket, external Git support.

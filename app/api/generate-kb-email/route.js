@@ -70,7 +70,7 @@ TYPE : ${TYPE_GUIDES[emailType] || TYPE_GUIDES.prospection}
 
 STRUCTURE : OBJET (<60 chars) · SALUTATION · HOOK · PROBLÈME · SOLUTION (données KB) · ROI · CTA · SIGNATURE Nicolas BAYONNE
 
-KNOWLEDGE BASE — ${solutionLabel} (${kbFiles.join(', ')}) :
+KNOWLEDGE BASE : ${solutionLabel} (${kbFiles.join(', ')}) :
 ${kbContent}`;
 
     const userPrompt = `Email de ${emailType} pour :

@@ -252,7 +252,7 @@ const solutions = [
     officialName: "Azure AI Services (Cognitive Services)",
     category: "ai-ml",
     subcategory: "cognitive-apis",
-    shortDescription: "Suite d'APIs IA prêtes à l'emploi: vision, speech, langage, décision — sans expertise ML requise.",
+    shortDescription: "Suite d'APIs IA prêtes à l'emploi: vision, speech, langage, décision : sans expertise ML requise.",
     fullDescription: "Azure AI Services (ex Cognitive Services) est une suite d'APIs IA permettant d'ajouter vision, speech, langage naturel et capacités décisionnelles à toute application sans expertise ML. 30+ services disponibles via APIs REST.",
     keyFeatures: JSON.stringify(["Vision: OCR, Object Detection, Face, Custom Vision","Speech: STT, TTS, Speaker Recognition, Translation","Language: Sentiment, NER, Key Phrases, Translation","Decision: Anomaly Detector, Content Moderator, Personalizer","Document Intelligence (Form Recognizer)","Language Understanding (CLU)","Azure Bot Service integration","SDKs multi-langages"]),
     benefits: JSON.stringify(["IA sans expertise ML","Mise en oeuvre en heures","APIs simples REST","Scale automatique"]),

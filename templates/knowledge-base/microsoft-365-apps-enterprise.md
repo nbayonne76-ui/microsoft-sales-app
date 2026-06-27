@@ -1,6 +1,6 @@
-# Microsoft 365 Apps — Guide Enterprise 2026
+# Microsoft 365 Apps : Guide Enterprise 2026
 
-*Source : Microsoft Learn (learn.microsoft.com/microsoft-365-apps) — Mis à jour juin 2026*
+*Source : Microsoft Learn (learn.microsoft.com/microsoft-365-apps) : Mis à jour juin 2026*
 
 ---
 
@@ -147,7 +147,7 @@ Microsoft propose **Cloud Update**, un service cloud de gestion des mises à jou
 
 ---
 
-## 7. OFFICE LTSC 2024 — VERSION PERPÉTUELLE
+## 7. OFFICE LTSC 2024 : VERSION PERPÉTUELLE
 
 Pour les organisations qui ne peuvent pas migrer vers le cloud ou qui ont des besoins spécifiques (déconnecté, conformité stricte) :
 
@@ -194,10 +194,10 @@ Ces deux produits ne sont pas inclus dans Microsoft 365 Apps et nécessitent des
 
 ### Arguments migration vers M365 Apps
 - **Sécurité** : Office 2016/2019 = vulnérabilités non patchées → risque cyber
-- **IA** : Seul M365 Apps permet d'activer Copilot IA — pas l'Office perpétuel
+- **IA** : Seul M365 Apps permet d'activer Copilot IA : pas l'Office perpétuel
 - **Coût TCO** : Licences perpétuelles + maintenance IT > abonnement M365 sur 3 ans
 - **Flexibilité** : Installation sur 5 appareils par utilisateur (PC, Mac, tablette, mobile)
 
 ---
 
-*Source : learn.microsoft.com/microsoft-365-apps — Mise à jour : Juin 2026*
+*Source : learn.microsoft.com/microsoft-365-apps : Mise à jour : Juin 2026*

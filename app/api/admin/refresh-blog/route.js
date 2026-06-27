@@ -36,7 +36,7 @@ export async function POST(request) {
     const result = await runAgent(topic);
 
     const durationMs = Date.now() - startedAt;
-    console.log(`[refresh-blog] Done in ${durationMs}ms — ${result.article.slug}`);
+    console.log(`[refresh-blog] Done in ${durationMs}ms : ${result.article.slug}`);
 
     return NextResponse.json({
       success: true,
@@ -56,7 +56,7 @@ export async function POST(request) {
   }
 }
 
-// GET — status + available topics (no auth required)
+// GET : status + available topics (no auth required)
 export async function GET() {
   const configured = !!process.env.REFRESH_SECRET && !!process.env.OPENAI_API_KEY;
   return NextResponse.json({

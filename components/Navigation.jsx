@@ -84,7 +84,7 @@ export default function Navigation({
             <p className="text-blue-300 text-[10px] truncate">by Nicolas BAYONNE</p>
           </div>
         )}
-        {/* Close button — mobile only */}
+        {/* Close button : mobile only */}
         {isMobile && (
           <button
             onClick={onMobileClose}
@@ -169,7 +169,7 @@ export default function Navigation({
           {!isCollapsed && <span>{lang === 'en' ? '🇫🇷 Français' : '🇬🇧 English'}</span>}
         </button>
 
-        {/* Collapse toggle — desktop only */}
+        {/* Collapse toggle : desktop only */}
         {!isMobile && (
           <button
             onClick={() => setCollapsed(c => !c)}

@@ -9,7 +9,7 @@ const solutions = [
     officialName: "Dynamics 365 Business Central",
     category: "business",
     subcategory: "erp-smb",
-    shortDescription: "ERP tout-en-un pour PME — Finance, Ventes, Achats, Stock, Projets, Fabrication avec Copilot IA intégré.",
+    shortDescription: "ERP tout-en-un pour PME : Finance, Ventes, Achats, Stock, Projets, Fabrication avec Copilot IA intégré.",
     fullDescription: "Business Central est la solution ERP de référence Microsoft pour les PME (5–250 employés). Elle automatise et connecte la finance, les ventes, les achats, l'inventaire, la gestion de projets, la fabrication et les services. Hautement configurable, elle intègre nativement Microsoft 365 (Outlook, Teams, Excel), Power Platform, et embarque Copilot IA pour des gains de productivité immédiats. Déploiement cloud en 4–12 semaines.",
     keyFeatures: JSON.stringify([
       "Finance complète : grand livre, comptabilité fournisseurs/clients, trésorerie, actifs immobilisés",
@@ -166,7 +166,7 @@ const solutions = [
     officialName: "Dynamics 365 Finance",
     category: "business",
     subcategory: "erp-enterprise",
-    shortDescription: "ERP financier global avec IA — Grand Livre, AP/AR, Trésorerie, Budgets, Conformité, Copilot pour Finance.",
+    shortDescription: "ERP financier global avec IA : Grand Livre, AP/AR, Trésorerie, Budgets, Conformité, Copilot pour Finance.",
     fullDescription: "Dynamics 365 Finance est la solution ERP Microsoft pour les opérations financières mondiales des moyennes et grandes entreprises. Elle couvre le Grand Livre, la gestion des comptes fournisseurs et clients, la trésorerie, la planification budgétaire, les actifs immobilisés, le leasing d'actifs et la conformité réglementaire internationale. Finance Insights intègre l'IA pour prédire les paiements clients et prévoir les flux de trésorerie. Copilot for Finance réduit le travail manuel de saisie et de réconciliation.",
     keyFeatures: JSON.stringify([
       "Grand Livre : plan comptable flexible, dimensions financières, hiérarchies",
@@ -564,7 +564,7 @@ const solutions = [
     officialName: "Copilot for Sales (Microsoft 365)",
     category: "business",
     subcategory: "ai-sales-assistant",
-    shortDescription: "IA commerciale dans Outlook, Teams et Word — capture CRM automatique, préparation réunions et emails de suivi.",
+    shortDescription: "IA commerciale dans Outlook, Teams et Word : capture CRM automatique, préparation réunions et emails de suivi.",
     fullDescription: "Copilot for Sales (anciennement Viva Sales) est un assistant IA commercial qui s'intègre à Microsoft 365 (Outlook, Teams, Word) et se connecte à n'importe quel CRM (D365 Sales, Salesforce). Il capture automatiquement les données CRM depuis les emails, suggère des contenus personnalisés, génère des résumés de réunions et enrichit les opportunités sans que le commercial quitte son email ou Teams.",
     keyFeatures: JSON.stringify([
       "Capture CRM automatique depuis Outlook (leads, contacts, activités)",

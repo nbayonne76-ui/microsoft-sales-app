@@ -19,7 +19,7 @@ const UPDATES = {
     keyFeaturesEn: J([
       "Sales Qualification Agent: researches leads, evaluates fit, sends outreach, engages leads autonomously 24/7",
       "Sales Opportunity Agent: researches opportunities, surfaces emerging risks, highlights promising deals",
-      "Sales Close Agent: manages end-to-end sales cycle autonomously — engagement, recommendations, objections, closure",
+      "Sales Close Agent: manages end-to-end sales cycle autonomously : engagement, recommendations, objections, closure",
       "Sales Research Agent: solves complex business questions through natural language dialog with sales data",
       "Recommended Actions Agent: prioritized actions to help sellers focus on the most effective tasks",
       "Sales agent in Microsoft 365 Copilot: conversational agent in M365 Copilot for searching and acting on sales data",
@@ -44,7 +44,7 @@ const UPDATES = {
 
   'Dynamics 365 Customer Service': {
     keyFeaturesEn: J([
-      "Case Management Agent: automates full case lifecycle — create, update, resolve, close (GA)",
+      "Case Management Agent: automates full case lifecycle : create, update, resolve, close (GA)",
       "Customer Knowledge Management Agent: extracts knowledge from cases, maintains articles in real time (GA)",
       "Quality Evaluation Agent: autonomous assessment of customer interactions using supervisor-defined framework (GA)",
       "Customer Intent Agent: identifies most common intents from conversations across all channels (GA)",
@@ -73,7 +73,7 @@ const UPDATES = {
     keyFeaturesEn: J([
       "Customer Assist Agent: autonomous self-service with real-time human agent handoff for routine issues",
       "Quality Assurance Agent: real-time quality, compliance, and coaching insights",
-      "Service Operations Agent: configuration and governance — reduces specialized IT expertise needed",
+      "Service Operations Agent: configuration and governance : reduces specialized IT expertise needed",
       "Customer Intent Agent: discovers intents from conversations across all channels",
       "Customer Intent Agent for Voice: discovers intents autonomously for voice contact center",
       "Customer Knowledge Management Agent: auto-maintains knowledge articles from case insights",
@@ -83,13 +83,13 @@ const UPDATES = {
       "Custom AI Agents via Copilot Studio for workflow-specific automation",
       "Copilot: suggested responses, conversation summaries, universal knowledge interface",
       "Multichannel: voice, SMS, web, mobile, email, social",
-      "Works with existing CRMs via connectors — no CRM replacement required",
+      "Works with existing CRMs via connectors : no CRM replacement required",
       "Microsoft Dataverse as single source of truth for all interactions"
     ]),
     keyFeatures: J([
       "Customer Assist Agent : libre-service autonome avec handoff humain en temps réel",
       "Quality Assurance Agent : qualité, conformité et coaching en temps réel",
-      "Service Operations Agent : configuration et gouvernance — réduit la dépendance IT",
+      "Service Operations Agent : configuration et gouvernance : réduit la dépendance IT",
       "Customer Intent Agent : découverte des intentions sur tous les canaux",
       "Customer Intent Agent for Voice : découverte autonome des intentions pour la voix",
       "Customer Knowledge Management Agent : maintenance automatique des articles de connaissance",
@@ -108,7 +108,7 @@ const UPDATES = {
     keyFeaturesEn: J([
       "Time Entry Agent: auto-generates draft time entries from project assignments, bookings, and history (Production Ready Preview)",
       "Expense Agent: extracts receipt data, generates expense entries, groups by trip or project (Production Ready Preview)",
-      "Approvals Agent: reviews time/expense/material against policy — marks 'Ready for approval' or 'Needs review' (Production Ready Preview)",
+      "Approvals Agent: reviews time/expense/material against policy : marks 'Ready for approval' or 'Needs review' (Production Ready Preview)",
       "Copilot in time entry: simplified weekly time capture workflow",
       "Copilot for project: generates preliminary WBS from project name and description",
       "Form fill assistance, find data in view, visualize data, row summaries, timeline highlights",
@@ -118,7 +118,7 @@ const UPDATES = {
     keyFeatures: J([
       "Time Entry Agent : génération automatique de brouillons de saisies de temps (Production Ready Preview)",
       "Expense Agent : extraction des reçus, création des entrées de frais, groupement par voyage/projet (Production Ready Preview)",
-      "Approvals Agent : revue des temps/frais/matériaux contre les politiques — Prêt ou À réviser (Production Ready Preview)",
+      "Approvals Agent : revue des temps/frais/matériaux contre les politiques : Prêt ou À réviser (Production Ready Preview)",
       "Copilot pour la saisie de temps : flux simplifié de capture hebdomadaire",
       "Copilot pour projet : génération de WBS préliminaire depuis nom et description",
       "Form fill assistance, recherche en langage naturel, visualisation données, résumés",
@@ -147,9 +147,9 @@ const UPDATES = {
     keyFeaturesEn: J([
       "Supplier Communications Agent: automates supplier communications for delivery risk management based on user-defined rules (Production Ready Preview)",
       "Copilot AI summaries: quick overview of key page information personalized for the current user",
-      "Analyze demand plans with Copilot: natural language analysis — trends, anomalies, accuracy with visualizations",
+      "Analyze demand plans with Copilot: natural language analysis : trends, anomalies, accuracy with visualizations",
       "Workload insights with Copilot: insights on warehouse work and workforce in the mobile app",
-      "AI-powered demand forecasting with explainable models — complete MRP in minutes",
+      "AI-powered demand forecasting with explainable models : complete MRP in minutes",
       "DDMRP dynamic stock buffers to eliminate stockouts",
       "Copilot-assisted sourcing decisions and supply risk assessment",
       "Procurement: automated approvals, vendor performance tracking with Power BI",
@@ -176,7 +176,7 @@ const UPDATES = {
 
   'Dynamics 365 Finance': {
     keyFeaturesEn: J([
-      "Account Reconciliation Agent: proactive continuous subledger-to-general ledger reconciliation — resolves differences autonomously (Production Ready Preview)",
+      "Account Reconciliation Agent: proactive continuous subledger-to-general ledger reconciliation : resolves differences autonomously (Production Ready Preview)",
       "Finance Agent in Microsoft 365 Copilot: natural language financial queries from M365 (Preview)",
       "Copilot-assisted invoice capture, workflows and collections automation",
       "Collections coordinator summary: AI-generated summary and reminder letters",
@@ -218,16 +218,16 @@ const NEW_SOLUTIONS = [
     officialName: 'Sales in Microsoft 365 Copilot',
     category: 'business',
     subcategory: 'crm-sales',
-    shortDescription: "Brings Dynamics 365 Sales data and AI insights directly into Microsoft 365 — enriching Outlook, Teams, and M365 Copilot with CRM context for every seller interaction.",
-    shortDescriptionFr: "Intègre les données Dynamics 365 Sales et les insights IA directement dans Microsoft 365 — enrichissant Outlook, Teams et M365 Copilot avec le contexte CRM pour chaque interaction commerciale.",
+    shortDescription: "Brings Dynamics 365 Sales data and AI insights directly into Microsoft 365 : enriching Outlook, Teams, and M365 Copilot with CRM context for every seller interaction.",
+    shortDescriptionFr: "Intègre les données Dynamics 365 Sales et les insights IA directement dans Microsoft 365 : enrichissant Outlook, Teams et M365 Copilot avec le contexte CRM pour chaque interaction commerciale.",
     fullDescription: "Sales in Microsoft 365 Copilot (formerly Copilot for Sales) is a Microsoft 365 extension that brings CRM data and AI sales intelligence into the tools sellers already use daily. In Outlook: email summaries enriched with CRM insights, AI-drafted email responses with sales context, opportunity summaries, chronological view of customer interactions, and opportunity risk/action insights. In Teams: meeting preparation cards with real-time opportunity data, daily digest of next 5 sales meetings, sales insights in Teams meeting recaps, Planner task creation from conversations. Cross-app: the Sales agent enables Lead Research and Outreach with comprehensive lead company research, recent news, and tailored outreach strategy. Works with Dynamics 365 Sales and third-party CRMs.",
     fullDescriptionFr: "Sales in Microsoft 365 Copilot (anciennement Copilot for Sales) est une extension M365 qui apporte les données CRM et l'intelligence commerciale IA dans les outils que les vendeurs utilisent déjà au quotidien. Dans Outlook : résumés d'emails enrichis d'insights CRM, réponses email rédigées par IA avec contexte de vente, résumés d'opportunités, vue chronologique des interactions client, insights risques/actions sur les opportunités. Dans Teams : meeting prep cards avec données d'opportunité en temps réel, digest quotidien des 5 prochaines réunions, insights de vente dans les récapitulatifs de réunion Teams, création de tâches Planner. Cross-app : l'agent Sales permet le Lead Research and Outreach avec recherche complète sur les leads.",
     keyFeaturesEn: J([
       "Outlook: email summaries enriched with CRM sales insights",
       "Outlook: AI-drafted email responses with sales context from CRM",
-      "Outlook: opportunity summary — customer questions, concerns, notes",
+      "Outlook: opportunity summary : customer questions, concerns, notes",
       "Outlook: chronological view of all customer interactions",
-      "Outlook: opportunity insights — risks and upcoming actions",
+      "Outlook: opportunity insights : risks and upcoming actions",
       "Teams: meeting preparation card with real-time opportunity data",
       "Teams: daily digest of next 5 upcoming sales meetings",
       "Teams: sales insights in Teams meeting recap",
@@ -238,9 +238,9 @@ const NEW_SOLUTIONS = [
     keyFeatures: J([
       "Outlook : résumés d'emails enrichis d'insights CRM",
       "Outlook : réponses email rédigées par IA avec contexte de vente",
-      "Outlook : résumé d'opportunité — questions, préoccupations, notes client",
+      "Outlook : résumé d'opportunité : questions, préoccupations, notes client",
       "Outlook : vue chronologique de toutes les interactions client",
-      "Outlook : insights d'opportunité — risques et actions à venir",
+      "Outlook : insights d'opportunité : risques et actions à venir",
       "Teams : meeting preparation card avec données d'opportunité en temps réel",
       "Teams : digest quotidien des 5 prochaines réunions commerciales",
       "Teams : insights de vente dans les récapitulatifs de réunion",
@@ -250,14 +250,14 @@ const NEW_SOLUTIONS = [
     ]),
     benefits: J([
       "Préparation des réunions client sans quitter Teams ou Outlook",
-      "Réduction du temps de saisie CRM — l'IA enrichit les données automatiquement",
+      "Réduction du temps de saisie CRM : l'IA enrichit les données automatiquement",
       "Contexte commercial complet à portée de main dans chaque email",
       "Cohérence des informations entre CRM et communications quotidiennes",
       "Onboarding accéléré des nouveaux vendeurs avec les insights IA guidés"
     ]),
     benefitsEn: J([
       "Customer meeting prep without leaving Teams or Outlook",
-      "Reduced CRM data entry time — AI enriches data automatically",
+      "Reduced CRM data entry time : AI enriches data automatically",
       "Full commercial context in every email without switching apps",
       "Consistent information between CRM and daily communications",
       "Faster new seller onboarding with AI-guided insights"
@@ -290,12 +290,12 @@ const NEW_SOLUTIONS = [
     caseStudyUrls: JSON.stringify([]),
     competitors: JSON.stringify(["Salesforce Einstein for Outlook", "Clari", "Gong"]),
     customerCases: JSON.stringify([]),
-    marketPosition: "Native Microsoft 365 CRM extension — no third-party connector required",
+    marketPosition: "Native Microsoft 365 CRM extension : no third-party connector required",
     salesContext: "Target sellers who spend time switching between Outlook/Teams and their CRM. ROI pitch: sellers gain 30+ minutes/day by accessing CRM context directly in M365.",
     sellingScenarios: JSON.stringify([
-      "Seller preparing for a key customer meeting — gets full opportunity context in Teams",
-      "Sales manager reviewing team pipeline — gets AI-prioritized action recommendations",
-      "New seller onboarding — guided by AI insights in familiar M365 tools"
+      "Seller preparing for a key customer meeting : gets full opportunity context in Teams",
+      "Sales manager reviewing team pipeline : gets AI-prioritized action recommendations",
+      "New seller onboarding : guided by AI insights in familiar M365 tools"
     ]),
     useCases: JSON.stringify(["Préparation de réunion client", "Réponse email contextuelle", "Qualification et recherche de leads", "Suivi des opportunités depuis Outlook"]),
     useCasesEn: JSON.stringify(["Customer meeting preparation", "Contextual email response", "Lead qualification and research", "Opportunity tracking from Outlook"]),
@@ -309,8 +309,8 @@ const NEW_SOLUTIONS = [
     officialName: 'Service in Microsoft 365 Copilot',
     category: 'business',
     subcategory: 'crm-service',
-    shortDescription: "Brings customer service CRM data and AI capabilities directly into Microsoft 365 — enriching Outlook and Teams with case summaries, resolution notes, and knowledge for service agents.",
-    shortDescriptionFr: "Intègre les données CRM de service client et les capacités IA directement dans Microsoft 365 — enrichissant Outlook et Teams avec des résumés de cas, notes de résolution et connaissances pour les agents.",
+    shortDescription: "Brings customer service CRM data and AI capabilities directly into Microsoft 365 : enriching Outlook and Teams with case summaries, resolution notes, and knowledge for service agents.",
+    shortDescriptionFr: "Intègre les données CRM de service client et les capacités IA directement dans Microsoft 365 : enrichissant Outlook et Teams avec des résumés de cas, notes de résolution et connaissances pour les agents.",
     fullDescription: "Service in Microsoft 365 Copilot (formerly Copilot for Service) extends Microsoft 365 with AI-powered customer service capabilities. In Outlook: AI-generated case summaries for quick context understanding, suggested replies enriched with case and conversation details from CRM, email and meeting saving to CRM. In Teams: AI case summary directly in Teams, chat with service data in M365 Copilot, view and update CRM records without leaving Teams. Cross-app capabilities: ask questions and get answers without manual searching, auto-generate case summaries, generate resolution notes from case details and emails, generate conversation summaries for calls and chats, write context-aware email drafts. Works with Dynamics 365 Customer Service and third-party CRMs.",
     fullDescriptionFr: "Service in Microsoft 365 Copilot (anciennement Copilot for Service) étend Microsoft 365 avec des capacités de service client IA. Dans Outlook : résumés de cas IA pour comprendre rapidement le contexte, réponses suggérées enrichies des détails du cas CRM, sauvegarde des emails/réunions dans le CRM. Dans Teams : résumé de cas IA dans Teams, chat avec les données de service dans M365 Copilot, vue et mise à jour des enregistrements CRM sans quitter Teams. Capacités cross-app : questions/réponses sans recherche manuelle, génération automatique de résumés de cas, notes de résolution, résumés de conversations, rédaction d'emails contextuels. Compatible avec Dynamics 365 Customer Service et CRM tiers.",
     keyFeaturesEn: J([
@@ -320,7 +320,7 @@ const NEW_SOLUTIONS = [
       "Teams: AI case summary directly in Teams",
       "Teams: chat with service data in Microsoft 365 Copilot (preview)",
       "Teams: view and update CRM records without leaving Teams",
-      "Cross-app: Ask a question — fast answers without manual search",
+      "Cross-app: Ask a question : fast answers without manual search",
       "Cross-app: Auto-generate case summaries",
       "Cross-app: Generate resolution notes from case details and emails",
       "Cross-app: Generate conversation summaries for calls and chats",
@@ -343,14 +343,14 @@ const NEW_SOLUTIONS = [
     ]),
     benefits: J([
       "Résolution plus rapide des cas grâce au contexte IA immédiat",
-      "Réduction du temps de saisie CRM — emails et réunions sauvegardés automatiquement",
+      "Réduction du temps de saisie CRM : emails et réunions sauvegardés automatiquement",
       "Cohérence des réponses client grâce aux suggestions IA contextuelles",
       "Accès au CRM sans quitter Teams ou Outlook",
       "Meilleure conformité grâce aux notes de résolution générées automatiquement"
     ]),
     benefitsEn: J([
       "Faster case resolution with immediate AI context",
-      "Reduced CRM data entry — emails and meetings saved automatically",
+      "Reduced CRM data entry : emails and meetings saved automatically",
       "Consistent customer responses through contextual AI suggestions",
       "CRM access without leaving Teams or Outlook",
       "Better compliance with automatically generated resolution notes"
@@ -383,12 +383,12 @@ const NEW_SOLUTIONS = [
     caseStudyUrls: JSON.stringify([]),
     competitors: JSON.stringify(["Salesforce Einstein for Service", "Zendesk AI"]),
     customerCases: JSON.stringify([]),
-    marketPosition: "Native Microsoft 365 customer service extension — no third-party connector required",
+    marketPosition: "Native Microsoft 365 customer service extension : no third-party connector required",
     salesContext: "Target service organizations where agents spend time switching between Outlook/Teams and their CRM. ROI: agents save 20-30 minutes/day accessing case context directly in M365.",
     sellingScenarios: JSON.stringify([
-      "Service agent receiving a customer email — gets instant case context in Outlook without switching to CRM",
-      "Service manager tracking team performance — reviews case summaries in Teams",
-      "Agent closing a case — auto-generates resolution notes and knowledge article draft"
+      "Service agent receiving a customer email : gets instant case context in Outlook without switching to CRM",
+      "Service manager tracking team performance : reviews case summaries in Teams",
+      "Agent closing a case : auto-generates resolution notes and knowledge article draft"
     ]),
     useCases: JSON.stringify(["Résolution de cas depuis Outlook", "Préparation aux interactions client dans Teams", "Génération de notes de résolution", "Mise à jour CRM depuis M365"]),
     useCasesEn: JSON.stringify(["Case resolution from Outlook", "Customer interaction prep in Teams", "Resolution note generation", "CRM update from M365"]),
@@ -402,14 +402,14 @@ const NEW_SOLUTIONS = [
     officialName: 'Finance Agent',
     category: 'business',
     subcategory: 'erp-finance',
-    shortDescription: "Standalone AI agent that brings Dynamics 365 Finance data and financial intelligence directly into Microsoft 365 Copilot — natural language queries on financial data without leaving M365.",
-    shortDescriptionFr: "Agent IA autonome qui apporte les données Dynamics 365 Finance et l'intelligence financière directement dans Microsoft 365 Copilot — requêtes financières en langage naturel sans quitter M365.",
-    fullDescription: "Finance Agent is a distinct product from Dynamics 365 Finance, available within Microsoft 365 Copilot. It enables finance professionals to query financial data, get reports, and take actions using natural language directly in M365 Copilot — without switching to the Finance application. Users can ask questions like 'What are our overdue invoices this month?' or 'Show me cash flow for Q3' and get AI-generated answers grounded in their Dynamics 365 Finance data. The Finance Agent bridges the gap between finance decision-making and the everyday M365 productivity environment, making financial insights accessible to executives, controllers, and finance managers without requiring navigation through the Finance app.",
-    fullDescriptionFr: "Finance Agent est un produit distinct de Dynamics 365 Finance, disponible dans Microsoft 365 Copilot. Il permet aux professionnels de la finance d'interroger les données financières, d'obtenir des rapports et d'agir en langage naturel directement dans M365 Copilot — sans basculer vers l'application Finance. Les utilisateurs peuvent poser des questions comme 'Quelles sont nos factures en retard ce mois-ci ?' ou 'Montrez-moi les flux de trésorerie du T3' et obtenir des réponses IA ancrées dans leurs données Dynamics 365 Finance. Le Finance Agent comble le fossé entre la prise de décision financière et l'environnement de productivité M365 quotidien, rendant les insights financiers accessibles aux dirigeants, contrôleurs et responsables financiers.",
+    shortDescription: "Standalone AI agent that brings Dynamics 365 Finance data and financial intelligence directly into Microsoft 365 Copilot : natural language queries on financial data without leaving M365.",
+    shortDescriptionFr: "Agent IA autonome qui apporte les données Dynamics 365 Finance et l'intelligence financière directement dans Microsoft 365 Copilot : requêtes financières en langage naturel sans quitter M365.",
+    fullDescription: "Finance Agent is a distinct product from Dynamics 365 Finance, available within Microsoft 365 Copilot. It enables finance professionals to query financial data, get reports, and take actions using natural language directly in M365 Copilot : without switching to the Finance application. Users can ask questions like 'What are our overdue invoices this month?' or 'Show me cash flow for Q3' and get AI-generated answers grounded in their Dynamics 365 Finance data. The Finance Agent bridges the gap between finance decision-making and the everyday M365 productivity environment, making financial insights accessible to executives, controllers, and finance managers without requiring navigation through the Finance app.",
+    fullDescriptionFr: "Finance Agent est un produit distinct de Dynamics 365 Finance, disponible dans Microsoft 365 Copilot. Il permet aux professionnels de la finance d'interroger les données financières, d'obtenir des rapports et d'agir en langage naturel directement dans M365 Copilot : sans basculer vers l'application Finance. Les utilisateurs peuvent poser des questions comme 'Quelles sont nos factures en retard ce mois-ci ?' ou 'Montrez-moi les flux de trésorerie du T3' et obtenir des réponses IA ancrées dans leurs données Dynamics 365 Finance. Le Finance Agent comble le fossé entre la prise de décision financière et l'environnement de productivité M365 quotidien, rendant les insights financiers accessibles aux dirigeants, contrôleurs et responsables financiers.",
     keyFeaturesEn: J([
       "Natural language queries on Dynamics 365 Finance data from M365 Copilot",
       "Financial reports and summaries without navigating to the Finance application",
-      "Cash flow, overdue invoices, vendor balances — queried in plain language",
+      "Cash flow, overdue invoices, vendor balances : queried in plain language",
       "Bridges finance decision-making with everyday M365 productivity tools",
       "Available to executives, controllers, and finance managers without Finance app access",
       "Grounded in real-time Dynamics 365 Finance data"
@@ -417,7 +417,7 @@ const NEW_SOLUTIONS = [
     keyFeatures: J([
       "Requêtes en langage naturel sur les données Dynamics 365 Finance depuis M365 Copilot",
       "Rapports et résumés financiers sans naviguer vers l'application Finance",
-      "Flux de trésorerie, factures en retard, soldes fournisseurs — interrogés en langage naturel",
+      "Flux de trésorerie, factures en retard, soldes fournisseurs : interrogés en langage naturel",
       "Lien entre la prise de décision financière et les outils M365 quotidiens",
       "Accessible aux dirigeants, contrôleurs et responsables sans accès à l'app Finance",
       "Ancré dans les données Dynamics 365 Finance en temps réel"
@@ -446,7 +446,7 @@ const NEW_SOLUTIONS = [
     complexity: "Low",
     prerequisites: JSON.stringify(["Microsoft 365 Copilot", "Dynamics 365 Finance"]),
     integrations: JSON.stringify(["Microsoft 365 Copilot", "Dynamics 365 Finance", "Microsoft Teams", "Microsoft Outlook"]),
-    competitorComparison: "SAP Joule and Oracle Digital Assistant require switching to ERP. Finance Agent brings financial intelligence directly into M365 — where executives already work.",
+    competitorComparison: "SAP Joule and Oracle Digital Assistant require switching to ERP. Finance Agent brings financial intelligence directly into M365 : where executives already work.",
     salesPriority: "Medium",
     isActive: true,
     isFeatured: false,
@@ -465,9 +465,9 @@ const NEW_SOLUTIONS = [
     marketPosition: "First financial AI agent natively embedded in M365 Copilot with live ERP data",
     salesContext: "Pitch to CFOs and finance leaders who want financial insights in Teams/Outlook without training on D365 Finance. Complement to D365 Finance deals.",
     sellingScenarios: JSON.stringify([
-      "CFO in a board meeting wants real-time cash flow data — queries Finance Agent in Teams",
-      "Controller reviewing month-end close — asks Finance Agent about outstanding reconciliations",
-      "Finance manager receiving an email — queries overdue AR status without opening Finance app"
+      "CFO in a board meeting wants real-time cash flow data : queries Finance Agent in Teams",
+      "Controller reviewing month-end close : asks Finance Agent about outstanding reconciliations",
+      "Finance manager receiving an email : queries overdue AR status without opening Finance app"
     ]),
     useCases: JSON.stringify(["Requêtes financières depuis Teams/Outlook", "Rapports de trésorerie en temps réel", "Suivi des factures en retard", "Préparation aux réunions du COMEX"]),
     useCasesEn: JSON.stringify(["Financial queries from Teams/Outlook", "Real-time cash flow reports", "Overdue invoice tracking", "Executive meeting preparation"]),
@@ -481,8 +481,8 @@ const NEW_SOLUTIONS = [
     officialName: 'Microsoft Sustainability Manager',
     category: 'business',
     subcategory: 'sustainability-esg',
-    shortDescription: "AI-powered ESG and sustainability management solution — tracks emissions, automates CSRD reporting, and uses Copilot to analyze ESG documents and generate regulatory disclosures.",
-    shortDescriptionFr: "Solution IA de gestion ESG et développement durable — suivi des émissions, automatisation du reporting CSRD, et utilisation de Copilot pour analyser les documents ESG et générer les divulgations réglementaires.",
+    shortDescription: "AI-powered ESG and sustainability management solution : tracks emissions, automates CSRD reporting, and uses Copilot to analyze ESG documents and generate regulatory disclosures.",
+    shortDescriptionFr: "Solution IA de gestion ESG et développement durable : suivi des émissions, automatisation du reporting CSRD, et utilisation de Copilot pour analyser les documents ESG et générer les divulgations réglementaires.",
     fullDescription: "Microsoft Sustainability Manager is an industry solution built on Dynamics 365 and Power Platform that helps organizations measure, track, and report on their environmental, social, and governance (ESG) performance. It enables organizations to comply with mandatory reporting frameworks including CSRD (Corporate Sustainability Reporting Directive), GHG Protocol, and other global standards. AI capabilities include: Copilot for document analysis (upload ESG documents and ask questions), calculation model creation from natural language descriptions, automated report generation for emissions and CSRD, natural language data queries (assessments, metrics, organizational unit revenue), and fact-finding for qualitative ESG disclosures. The platform integrates with Microsoft 365, Power BI, and Azure for comprehensive sustainability intelligence. Particularly relevant for EU organizations subject to CSRD mandatory reporting requirements starting 2024-2027 depending on company size.",
     fullDescriptionFr: "Microsoft Sustainability Manager est une solution sectorielle construite sur Dynamics 365 et Power Platform qui aide les organisations à mesurer, suivre et reporter leurs performances ESG (Environnement, Social, Gouvernance). Elle permet de se conformer aux cadres de reporting obligatoires incluant la CSRD (Corporate Sustainability Reporting Directive), le Protocole GHG et d'autres standards mondiaux. Les capacités IA incluent : Copilot pour l'analyse de documents ESG (upload et questions en langage naturel), création de modèles de calcul par description en langage naturel, génération automatique de rapports d'émissions et CSRD, requêtes de données en langage naturel, et identification de faits pour les divulgations ESG qualitatives. Particulièrement pertinent pour les entreprises européennes soumises à la CSRD depuis 2024-2027 selon la taille de l'entreprise.",
     keyFeaturesEn: J([
@@ -510,32 +510,32 @@ const NEW_SOLUTIONS = [
       "Solution sectorielle : construite sur Dynamics 365 + Power Platform"
     ]),
     benefits: J([
-      "Conformité CSRD automatisée — obligatoire pour les grandes entreprises européennes",
+      "Conformité CSRD automatisée : obligatoire pour les grandes entreprises européennes",
       "Réduction du temps de préparation des rapports ESG",
       "Données ESG fiables et auditables pour les investisseurs et régulateurs",
       "Intelligence ESG accessible en langage naturel sans expertise technique",
-      "Intégration avec les systèmes Microsoft existants — pas de silo de données ESG"
+      "Intégration avec les systèmes Microsoft existants : pas de silo de données ESG"
     ]),
     benefitsEn: J([
-      "Automated CSRD compliance — mandatory for large European companies",
+      "Automated CSRD compliance : mandatory for large European companies",
       "Reduced ESG report preparation time",
       "Reliable, auditable ESG data for investors and regulators",
       "ESG intelligence accessible in natural language without technical expertise",
-      "Integration with existing Microsoft systems — no ESG data silo"
+      "Integration with existing Microsoft systems : no ESG data silo"
     ]),
     targetIndustries: JSON.stringify(["Manufacturing", "Financial Services", "Retail", "Energy", "All industries subject to CSRD"]),
     idealCustomerSize: "Grandes entreprises européennes soumises à la CSRD (+250 employés)",
     idealCustomerSizeEn: "Large European companies subject to CSRD (250+ employees)",
     targetPersonas: JSON.stringify(["CSO (Chief Sustainability Officer)", "CFO", "Compliance Officer", "ESG Manager", "Board Members"]),
     pricingModel: "Licence mensuelle par solution",
-    estimatedCost: "Nous consulter — solution sectorielle Dynamics 365",
-    estimatedCostEn: "Contact Microsoft — Dynamics 365 industry solution",
+    estimatedCost: "Nous consulter : solution sectorielle Dynamics 365",
+    estimatedCostEn: "Contact Microsoft : Dynamics 365 industry solution",
     implementationTime: "2-4 mois",
     implementationTimeEn: "2-4 months",
     complexity: "Medium",
     prerequisites: JSON.stringify(["Microsoft 365", "Power Platform recommended"]),
     integrations: JSON.stringify(["Microsoft 365", "Power BI", "Azure", "Dynamics 365", "Power Platform"]),
-    competitorComparison: "SAP Sustainability and IBM Envizi are the main competitors. Microsoft Sustainability Manager differentiates through native M365/Copilot integration, AI-powered document analysis, and CSRD-specific automation — at a lower TCO than standalone ESG platforms.",
+    competitorComparison: "SAP Sustainability and IBM Envizi are the main competitors. Microsoft Sustainability Manager differentiates through native M365/Copilot integration, AI-powered document analysis, and CSRD-specific automation : at a lower TCO than standalone ESG platforms.",
     salesPriority: "High",
     isActive: true,
     isFeatured: false,
@@ -552,10 +552,10 @@ const NEW_SOLUTIONS = [
     competitors: JSON.stringify(["SAP Sustainability", "IBM Envizi", "Watershed", "Persefoni"]),
     customerCases: JSON.stringify([]),
     marketPosition: "Only ESG solution natively integrated with M365 and Copilot for automated CSRD compliance",
-    salesContext: "CSRD compliance is mandatory for EU companies +250 employees (2024 for large companies, 2025 for listed SMEs). This is a regulatory pressure sale — the question is not 'if' but 'how' they comply. Microsoft Sustainability Manager is the only solution that integrates with their existing Microsoft stack.",
+    salesContext: "CSRD compliance is mandatory for EU companies +250 employees (2024 for large companies, 2025 for listed SMEs). This is a regulatory pressure sale : the question is not 'if' but 'how' they comply. Microsoft Sustainability Manager is the only solution that integrates with their existing Microsoft stack.",
     sellingScenarios: JSON.stringify([
-      "CFO facing CSRD compliance deadline — needs automated reporting",
-      "CSO building ESG strategy — needs data collection and Scope 3 tracking",
+      "CFO facing CSRD compliance deadline : needs automated reporting",
+      "CSO building ESG strategy : needs data collection and Scope 3 tracking",
       "Board requiring ESG KPI dashboard for investor reporting"
     ]),
     useCases: JSON.stringify(["Reporting CSRD automatisé", "Suivi des émissions Scope 1-2-3", "Tableaux de bord ESG pour investisseurs", "Conformité réglementaire NIS2 + CSRD"]),
@@ -590,4 +590,4 @@ for (const sol of NEW_SOLUTIONS) {
 }
 
 fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2), 'utf-8');
-console.log(`\n✅ Done — ${updated} updated, ${added} added. Total: ${data.length} solutions.`);
+console.log(`\n✅ Done : ${updated} updated, ${added} added. Total: ${data.length} solutions.`);

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(grep -n \"CORS\\\\|cors\\\\|origins\\\\|middleware\" /mnt/c/Erpscraper/backend/main.py)",
+      "Read(//mnt/c/Erpscraper/backend/**)",
+      "Bash(grep -rn \"^---$\" /home/v-nbayonne/microsoft-sales-app/templates/knowledge-base/)"
+    ]
+  }
+}

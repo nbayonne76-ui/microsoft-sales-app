@@ -4,7 +4,7 @@ import { join } from 'path';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 
-// Load solutions from static JSON — no DB dependency, works on Vercel/Railway
+// Load solutions from static JSON : no DB dependency, works on Vercel/Railway
 let _cache = null;
 
 function loadSolutions() {

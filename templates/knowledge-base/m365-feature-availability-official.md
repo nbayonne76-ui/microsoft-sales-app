@@ -1,11 +1,11 @@
-# Microsoft 365 — Feature Availability Officielle
-*Source : Microsoft Learn Service Descriptions (learn.microsoft.com) — Mise à jour juin 2026*
+# Microsoft 365 : Feature Availability Officielle
+*Source : Microsoft Learn Service Descriptions (learn.microsoft.com) : Mise à jour juin 2026*
 
 ---
 
 ## INDEX
 
-1. [Platform M365/O365 — Features transversales](#1-platform-m365o365)
+1. [Platform M365/O365 : Features transversales](#1-platform-m365o365)
 2. [Microsoft 365 Copilot](#2-microsoft-365-copilot)
 3. [Microsoft Teams](#3-microsoft-teams)
 4. [Exchange Online](#4-exchange-online)
@@ -69,7 +69,7 @@
 
 ## 2. Microsoft 365 Copilot
 
-**Prix** : $30/u/m — Add-on (ne peut pas être acheté seul)  
+**Prix** : $30/u/m : Add-on (ne peut pas être acheté seul)  
 **Prérequis** : M365 E3/E5/F1/F3, O365 E1/E3/E5/F3, Business Basic/Standard/Premium, Teams Essentials/Enterprise
 
 ### Feature Availability par Cloud
@@ -304,7 +304,7 @@ Inclus dans Microsoft 365 Copilot ou disponible comme add-on ($3/u/m).
 ¹⁵ Nécessite M365 E5, O365 E5, EMS E5, M365 Compliance, ou M365 E5 Info Protection  
 ¹⁶ Non disponible pour O365 E3  
 
-**Note** : Office 2016 et Office 2019 — fin de support le 14 octobre 2025, sans extension ni security updates.
+**Note** : Office 2016 et Office 2019 : fin de support le 14 octobre 2025, sans extension ni security updates.
 
 ### Office sur Mac
 Disponible pour : M365 Apps Enterprise, Office LTSC 2021 pour Mac
@@ -315,7 +315,7 @@ Apps NON disponibles sur Mac : Publisher, Access, InfoPath
 
 ## 9. Office for the Web
 
-### Word for the web — Différences vs Desktop
+### Word for the web : Différences vs Desktop
 
 | Feature | Web | Desktop |
 |---------|-----|---------|
@@ -337,7 +337,7 @@ Apps NON disponibles sur Mac : Publisher, Access, InfoPath
 | Real-time co-authoring | Oui | Oui |
 | Table of Contents | Oui | Oui |
 
-### Excel for the web — Différences vs Desktop
+### Excel for the web : Différences vs Desktop
 
 | Feature | Web | Desktop |
 |---------|-----|---------|
@@ -356,7 +356,7 @@ Apps NON disponibles sur Mac : Publisher, Access, InfoPath
 | Surveys | Oui | Non |
 | Rename file while open | Oui | Non |
 
-### PowerPoint for the web — Différences vs Desktop
+### PowerPoint for the web : Différences vs Desktop
 
 | Feature | Web | Desktop |
 |---------|-----|---------|

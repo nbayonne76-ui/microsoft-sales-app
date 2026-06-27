@@ -19,7 +19,7 @@ async function sleep(ms) {
 async function generateDescriptions(solution) {
   const prompt = `You are a Microsoft Azure technical writer.
 Rewrite the following solution descriptions in TWO languages: clean English and clean French.
-NO mixing of languages — each output must be 100% in its target language.
+NO mixing of languages : each output must be 100% in its target language.
 No markdown syntax like **bold** in the output.
 
 Solution: "${solution.officialName}"

@@ -119,7 +119,7 @@ export default function ClientsPage() {
                 </div>
                 <p className="text-blue-200 text-sm">{selected.industry}{selected.employeeCount ? ` · ${selected.employeeCount} emp.` : ''}</p>
                 {selected.contactName && (
-                  <p className="text-blue-300 text-sm mt-1">👤 {selected.contactName}{selected.contactRole ? ` — ${selected.contactRole}` : ''}</p>
+                  <p className="text-blue-300 text-sm mt-1">👤 {selected.contactName}{selected.contactRole ? ` : ${selected.contactRole}` : ''}</p>
                 )}
               </div>
               <div className="flex gap-2">
@@ -150,7 +150,7 @@ export default function ClientsPage() {
                 { label: lang === 'fr' ? 'Interactions' : 'Interactions', value: patterns.totalInteractions, color: 'text-blue-600', bg: 'bg-blue-50' },
                 { label: lang === 'fr' ? 'Taux réponse' : 'Response rate', value: `${patterns.responseRate || 0}%`, color: 'text-emerald-600', bg: 'bg-emerald-50' },
                 { label: lang === 'fr' ? 'Positifs' : 'Positive', value: patterns.sentimentDistribution?.positive || 0, color: 'text-purple-600', bg: 'bg-purple-50' },
-                { label: lang === 'fr' ? 'Dernière int.' : 'Last contact', value: patterns.lastInteraction?.daysSince != null ? `${patterns.lastInteraction.daysSince}j` : '—', color: 'text-orange-600', bg: 'bg-orange-50' },
+                { label: lang === 'fr' ? 'Dernière int.' : 'Last contact', value: patterns.lastInteraction?.daysSince != null ? `${patterns.lastInteraction.daysSince}j` : ':', color: 'text-orange-600', bg: 'bg-orange-50' },
               ].map(({ label, value, color, bg }) => (
                 <div key={label} className={`${bg} rounded-2xl p-5`}>
                   <p className={`text-2xl font-black ${color}`}>{value}</p>
@@ -307,7 +307,7 @@ export default function ClientsPage() {
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1 min-w-0">
                         <h3 className="font-bold text-gray-900 truncate group-hover:text-blue-600 transition-colors">{client.company}</h3>
-                        <p className="text-xs text-gray-500 mt-0.5 truncate">{client.industry || '—'}</p>
+                        <p className="text-xs text-gray-500 mt-0.5 truncate">{client.industry || ':'}</p>
                       </div>
                       <span className={`ml-2 shrink-0 px-2.5 py-1 rounded-full text-xs font-semibold border ${seg.color}`}>
                         {seg.label}

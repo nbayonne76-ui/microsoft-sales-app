@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Microsoft Partner Sales Intelligence",
-  description: "AI-powered sales intelligence platform for Microsoft Partner Account Managers — Account Intel, Email Generator, Sequences & Knowledge Base.",
+  description: "AI-powered sales intelligence platform for Microsoft Partner Account Managers : Account Intel, Email Generator, Sequences & Knowledge Base.",
   keywords: ["Microsoft", "sales intelligence", "account manager", "copilot", "AI", "B2B", "Partner Account Manager"],
   authors: [{ name: "Nicolas BAYONNE" }],
 };

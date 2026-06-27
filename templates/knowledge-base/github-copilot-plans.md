@@ -1,6 +1,6 @@
-# GitHub Copilot — Plans & Pricing 2026
+# GitHub Copilot : Plans & Pricing 2026
 
-*Source : GitHub Docs (docs.github.com/copilot) — Mis à jour juin 2026*
+*Source : GitHub Docs (docs.github.com/copilot) : Mis à jour juin 2026*
 
 ---
 
@@ -18,8 +18,8 @@ GitHub Copilot est l'assistant IA de développement de Microsoft/GitHub. Il offr
 
 | Plan | Prix | Pour qui |
 |------|------|---------|
-| **Copilot Free** | Gratuit | Développeurs individuels — accès limité |
-| **Copilot Student** | Gratuit (étudiants vérifiés) | Étudiants — completions illimitées |
+| **Copilot Free** | Gratuit | Développeurs individuels : accès limité |
+| **Copilot Student** | Gratuit (étudiants vérifiés) | Étudiants : completions illimitées |
 | **Copilot Pro** | $10/mois | Développeurs professionnels |
 | **Copilot Pro+** | $39/mois | Utilisateurs avancés (modèles premium) |
 | **Copilot Max** | $100/mois | Power users, volume élevé |
@@ -53,7 +53,7 @@ GitHub Copilot est l'assistant IA de développement de Microsoft/GitHub. Il offr
 
 ---
 
-## Copilot Business — Pour les organisations
+## Copilot Business : Pour les organisations
 
 **Prix : $19/siège/mois**
 
@@ -74,7 +74,7 @@ GitHub Copilot est l'assistant IA de développement de Microsoft/GitHub. Il offr
 
 ---
 
-## Copilot Enterprise — Pour les grandes entreprises
+## Copilot Enterprise : Pour les grandes entreprises
 
 **Prix : $39/siège/mois**
 
@@ -133,8 +133,8 @@ L'agent autonome de développement de GitHub Copilot :
 
 | Produit | Relation avec GitHub Copilot |
 |---------|------------------------------|
-| Microsoft 365 Copilot | Produit distinct — focus productivity M365, pas code |
-| Azure DevOps | Integration partielle — GitHub est le hub principal |
+| Microsoft 365 Copilot | Produit distinct : focus productivity M365, pas code |
+| Azure DevOps | Integration partielle : GitHub est le hub principal |
 | VS Code | Microsoft développe VS Code + extension GitHub Copilot officielle |
 | Azure | GitHub Actions → Azure Deployments intégrés |
 | Microsoft Entra | SSO possible via Entra pour GitHub Enterprise |
@@ -147,7 +147,7 @@ L'agent autonome de développement de GitHub Copilot :
 |---------------|---------------|
 | Développeur individuel, budget limité | **Copilot Pro** ($10/mois) |
 | Équipe dev 5-200 personnes | **Copilot Business** ($19/siège) |
-| Grande entreprise avec repo documentaire interne | **Copilot Enterprise** ($39/siège) — knowledge bases |
+| Grande entreprise avec repo documentaire interne | **Copilot Enterprise** ($39/siège) : knowledge bases |
 | DSI avec Azure + GitHub Enterprise | **Copilot Enterprise** + Azure DevOps intégration |
 | Client déjà sur M365 E5 | Cross-sell GitHub Copilot Business/Enterprise (distinct mais complémentaire) |
 

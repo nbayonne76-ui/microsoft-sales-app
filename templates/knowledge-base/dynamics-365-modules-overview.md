@@ -1,4 +1,4 @@
-# Dynamics 365 — Catalogue Complet des Modules
+# Dynamics 365 : Catalogue Complet des Modules
 *Source : ngenioussolutions.com/blog/dynamics-365-modules-list/*
 *Architecture modulaire : les organisations paient uniquement les modules utilisés*
 
@@ -140,14 +140,14 @@ Microsoft Dynamics 365 est une suite cloud intégrant ERP, CRM, IA et Réalité 
 
 **Sous-modules :**
 
-**Customer Insights — Data :**
+**Customer Insights : Data :**
 - Profils clients unifiés depuis CRM, ERP et autres systèmes
 - Segmentation comportementale et démographique par IA
 - Analyses prédictives : churn et probabilité d'achat
 - Recommandations next-best-action
 - Intégration Power BI pour la visualisation des données
 
-**Customer Insights — Journeys (ex-Marketing) :**
+**Customer Insights : Journeys (ex-Marketing) :**
 - Orchestration de parcours multicanaux
 - Personnalisation et déclencheurs d'engagement
 - Lead scoring et nurturing automatisés
@@ -166,7 +166,7 @@ Microsoft Dynamics 365 est une suite cloud intégrant ERP, CRM, IA et Réalité 
 - Sales Accelerator avec guidance de tâches priorisées
 - Prévisions de revenus prédictives
 
-*Note : Sales Insights est inclus dans les licences Dynamics 365 Sales Enterprise et Premium — pas de licence séparée nécessaire.*
+*Note : Sales Insights est inclus dans les licences Dynamics 365 Sales Enterprise et Premium : pas de licence séparée nécessaire.*
 
 ---
 
@@ -180,7 +180,7 @@ Microsoft Dynamics 365 est une suite cloud intégrant ERP, CRM, IA et Réalité 
 - Workspace Trésorerie avec vue centralisée
 - Intégration de données externes et internes
 
-*Note : Finance Insights est inclus dans Dynamics 365 Finance — pas de licence séparée nécessaire.*
+*Note : Finance Insights est inclus dans Dynamics 365 Finance : pas de licence séparée nécessaire.*
 
 ---
 

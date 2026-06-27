@@ -104,7 +104,7 @@
 
 ## 2. NOUVEAUX PLANS 2026
 
-### Microsoft 365 E7 — The Frontier Worker Suite (GA : 1er mai 2026)
+### Microsoft 365 E7 : The Frontier Worker Suite (GA : 1er mai 2026)
 
 Le plan Enterprise le plus complet de Microsoft. Combine en un seul bundle :
 
@@ -195,7 +195,7 @@ Couche d'intelligence qui personnalise Copilot pour chaque utilisateur :
 
 ---
 
-## 5. TABLEAU COMPARATIF RAPIDE — PLANS ENTERPRISE
+## 5. TABLEAU COMPARATIF RAPIDE : PLANS ENTERPRISE
 
 | Feature | E3 ($36) | E5 ($57) | E7 ($99) |
 |---------|----------|----------|----------|
@@ -215,4 +215,4 @@ Couche d'intelligence qui personnalise Copilot pour chaque utilisateur :
 
 ---
 
-*Sources : microsoft.com/microsoft-365/enterprise/microsoft-365-plans-and-pricing — Mise à jour juin 2026*
+*Sources : microsoft.com/microsoft-365/enterprise/microsoft-365-plans-and-pricing : Mise à jour juin 2026*

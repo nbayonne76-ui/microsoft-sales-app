@@ -1,4 +1,4 @@
-# Azure & Cloud — Mise à jour KB (2026-06-27)
+# Azure & Cloud : Mise à jour KB (2026-06-27)
 
 ## Dernières annonces
 - **Model Context Protocol (MCP) pour les débutants** → Facilite l'intégration des modèles d'IA avec les bases de données et les API internes sans code supplémentaire.

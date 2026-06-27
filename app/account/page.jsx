@@ -98,7 +98,7 @@ export default function AccountIntelPage() {
   const [snippetCount, setSnippetCount] = useState(0);
   const [error, setError] = useState(null); // { type, message, hint }
 
-  // Persistent history (localStorage) — useEffect évite l'incompatibilité SSR
+  // Persistent history (localStorage) : useEffect évite l'incompatibilité SSR
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
 
@@ -144,8 +144,8 @@ export default function AccountIntelPage() {
         type: 'timeout',
         message: lang === 'fr' ? 'Délai d\'analyse dépassé' : 'Analysis timed out',
         hint: lang === 'fr'
-          ? 'L\'analyse prend plus de 60 secondes. Réessayez — les données sont mises en cache.'
-          : 'Analysis took over 60 seconds. Retry — data is cached.',
+          ? 'L\'analyse prend plus de 60 secondes. Réessayez : les données sont mises en cache.'
+          : 'Analysis took over 60 seconds. Retry : data is cached.',
       };
     }
     if (!navigator.onLine || e.message === 'Failed to fetch') {
@@ -218,8 +218,8 @@ export default function AccountIntelPage() {
       const srcLabel = Object.entries(data.sourcesUsed || {})
         .filter(([, v]) => v).map(([k]) => k).join(' + ') || 'KB';
       toast.success(lang === 'fr'
-        ? `Dossier généré — ${data.snippetCount || 0} sources (${srcLabel})`
-        : `Briefing generated — ${data.snippetCount || 0} sources (${srcLabel})`);
+        ? `Dossier généré : ${data.snippetCount || 0} sources (${srcLabel})`
+        : `Briefing generated : ${data.snippetCount || 0} sources (${srcLabel})`);
     } catch (e) {
       setError(classifyError(e, null, capturedQuery));
       toast.error(e.message);
@@ -374,7 +374,7 @@ export default function AccountIntelPage() {
                     ].map(i => (
                       <div key={i.label} className="bg-white/10 rounded-xl px-4 py-2 text-center min-w-[80px]">
                         <p className="text-slate-400 text-[10px] uppercase tracking-wider">{i.label}</p>
-                        <p className="text-white font-semibold text-sm mt-0.5">{i.value || '—'}</p>
+                        <p className="text-white font-semibold text-sm mt-0.5">{i.value || ':'}</p>
                       </div>
                     ))}
                     {/* Export PDF */}
@@ -523,7 +523,7 @@ export default function AccountIntelPage() {
                           <span className={`text-xs font-bold uppercase tracking-wider ${item.text}`}>{item.label}</span>
                         </div>
                         <p className="text-xs text-gray-600 leading-relaxed">
-                          {intel.pestel?.[item.key] || '—'}
+                          {intel.pestel?.[item.key] || ':'}
                         </p>
                       </div>
                     );

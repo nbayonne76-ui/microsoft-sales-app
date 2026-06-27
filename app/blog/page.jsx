@@ -92,8 +92,8 @@ export default function BlogPage() {
               </h1>
               <p className="text-blue-200 text-sm">
                 {isFr
-                  ? 'Articles expert + actualités live — mis à jour toutes les heures'
-                  : 'Expert articles + live news — updated every hour'}
+                  ? 'Articles expert + actualités live : mis à jour toutes les heures'
+                  : 'Expert articles + live news : updated every hour'}
               </p>
             </div>
           </motion.div>

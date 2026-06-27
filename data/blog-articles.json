@@ -546,7 +546,7 @@
           "type": "list",
           "items": [
             "🔭 Observe: real-time visibility across all agents deployed in your organization",
-            "⚙️ Govern: guardrails, agent lifecycle management, compliance and data retention — audit-ready",
+            "⚙️ Govern: guardrails, agent lifecycle management, compliance and data retention : audit-ready",
             "🛡️ Secure: secure agent identities, control access to resources, prevent data oversharing"
           ]
         },
@@ -616,7 +616,7 @@
         },
         {
           "type": "p",
-          "text": "Avec M365 E7, Copilot gagne Work IQ — une couche d'intelligence qui apprend votre style, vos habitudes et votre contexte métier. Copilot ne répond plus de façon générique : il répond en connaissant votre secteur, vos clients et vos processus."
+          "text": "Avec M365 E7, Copilot gagne Work IQ : une couche d'intelligence qui apprend votre style, vos habitudes et votre contexte métier. Copilot ne répond plus de façon générique : il répond en connaissant votre secteur, vos clients et vos processus."
         },
         {
           "type": "h2",
@@ -675,7 +675,7 @@
         },
         {
           "type": "p",
-          "text": "With M365 E7, Copilot gains Work IQ — an intelligence layer that learns your style, habits, and business context. Copilot no longer responds generically: it responds knowing your industry, your clients, and your processes."
+          "text": "With M365 E7, Copilot gains Work IQ : an intelligence layer that learns your style, habits, and business context. Copilot no longer responds generically: it responds knowing your industry, your clients, and your processes."
         },
         {
           "type": "h2",
@@ -824,7 +824,7 @@
     "featured": false,
     "fr": {
       "title": "Dynamics 365 Sales : comment transformer votre pipeline commercial",
-      "excerpt": "Dynamics 365 Sales n'est plus un simple CRM — c'est une plateforme de vente IA-native qui prédit les deals à risque, automatise les séquences d'engagement et connecte vos données métier à Copilot.",
+      "excerpt": "Dynamics 365 Sales n'est plus un simple CRM : c'est une plateforme de vente IA-native qui prédit les deals à risque, automatise les séquences d'engagement et connecte vos données métier à Copilot.",
       "sections": [
         {
           "type": "intro",
@@ -874,7 +874,7 @@
     },
     "en": {
       "title": "Dynamics 365 Sales: How to Transform Your Commercial Pipeline",
-      "excerpt": "Dynamics 365 Sales is no longer just a CRM — it's an AI-native sales platform that predicts at-risk deals, automates engagement sequences, and connects your business data to Copilot.",
+      "excerpt": "Dynamics 365 Sales is no longer just a CRM : it's an AI-native sales platform that predicts at-risk deals, automates engagement sequences, and connects your business data to Copilot.",
       "sections": [
         {
           "type": "intro",

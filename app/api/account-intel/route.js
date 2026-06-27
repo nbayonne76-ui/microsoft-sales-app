@@ -15,7 +15,7 @@ const TRANCHE = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SOURCE 1 — French Gov API (free, no key, reliable)
+// SOURCE 1 : French Gov API (free, no key, reliable)
 // ─────────────────────────────────────────────────────────────────────────────
 async function fetchGovData(name) {
   try {
@@ -41,7 +41,7 @@ async function fetchGovData(name) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SOURCE 2 — DuckDuckGo via Jina Reader (free, no key)
+// SOURCE 2 : DuckDuckGo via Jina Reader (free, no key)
 // ─────────────────────────────────────────────────────────────────────────────
 async function ddgSearch(query) {
   try {
@@ -61,7 +61,7 @@ async function ddgSearch(query) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SOURCE 3 — Jina Reader: fetch company website (free, no key)
+// SOURCE 3 : Jina Reader: fetch company website (free, no key)
 // ─────────────────────────────────────────────────────────────────────────────
 async function fetchWebsite(url) {
   try {
@@ -80,7 +80,7 @@ async function fetchWebsite(url) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SOURCE 4 — Tavily (has key, AI-optimized)
+// SOURCE 4 : Tavily (has key, AI-optimized)
 // ─────────────────────────────────────────────────────────────────────────────
 async function tavilySearch(query) {
   const key = process.env.TAVILY_API_KEY;
@@ -98,7 +98,7 @@ async function tavilySearch(query) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PIPELINE — 6 fixed searches always run in parallel (no AI randomness)
+// PIPELINE : 6 fixed searches always run in parallel (no AI randomness)
 // ─────────────────────────────────────────────────────────────────────────────
 async function runSearchPipeline(companyName) {
   const enc = encodeURIComponent;
@@ -106,19 +106,19 @@ async function runSearchPipeline(companyName) {
   // Run all 6 searches in parallel
   const [govData, newsResults, itSignals, jobSignals, websiteSearch, tavilyNews] = await Promise.allSettled([
 
-    // 1. Gov registry — employees, SIREN, city, NAF (always first)
+    // 1. Gov registry : employees, SIREN, city, NAF (always first)
     fetchGovData(companyName),
 
-    // 2. DDG — recent news & press
+    // 2. DDG : recent news & press
     ddgSearch(`"${companyName}" actualités 2024 2025`),
 
-    // 3. DDG — digital/cloud/IT signals
+    // 3. DDG : digital/cloud/IT signals
     ddgSearch(`"${companyName}" transformation digitale cloud Microsoft Azure informatique`),
 
-    // 4. DDG — IT job postings (signals investment)
+    // 4. DDG : IT job postings (signals investment)
     ddgSearch(`"${companyName}" recrutement DSI architecte cloud développeur informatique`),
 
-    // 5. DDG — find official website then fetch it
+    // 5. DDG : find official website then fetch it
     ddgSearch(`"${companyName}" site officiel`).then(async (snippet) => {
       // Extract first URL from snippet if found
       if (!snippet) return null;
@@ -129,7 +129,7 @@ async function runSearchPipeline(companyName) {
       return snippet;
     }),
 
-    // 6. Tavily — deep news & business intelligence
+    // 6. Tavily : deep news & business intelligence
     tavilySearch(`${companyName} stratégie IT budget numérique investissement technologie`),
   ]);
 
@@ -146,7 +146,7 @@ async function runSearchPipeline(companyName) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// ANALYSIS — single GPT call with all gathered data
+// ANALYSIS : single GPT call with all gathered data
 // ─────────────────────────────────────────────────────────────────────────────
 async function analyze(companyName, pipeline, kbContent) {
   const { gov, news, it, jobs, website, tavily } = pipeline;
@@ -239,8 +239,8 @@ Génère le dossier commercial complet. Retourne UNIQUEMENT ce JSON valide (sans
     {"angle": "...", "hook": "...", "solution": "...", "persona": "..."}
   ],
   "keyQuestions": ["Q découverte SWOT", "Q PESTEL", "Q budget/timeline", "Q concurrents internes"],
-  "competitorRisk": "AWS|Google|SAP|Salesforce — justification basée sur secteur",
-  "quickWin": "deal rapide — pourquoi maintenant — interlocuteur"
+  "competitorRisk": "AWS|Google|SAP|Salesforce : justification basée sur secteur",
+  "quickWin": "deal rapide : pourquoi maintenant : interlocuteur"
 }`;
 
   const response = await openai.chat.completions.create({
@@ -257,7 +257,7 @@ Génère le dossier commercial complet. Retourne UNIQUEMENT ce JSON valide (sans
   try {
     intel = JSON.parse(jsonMatch[0]);
   } catch {
-    // GPT occasionally emits trailing commas or NaN — strip and retry
+    // GPT occasionally emits trailing commas or NaN : strip and retry
     const cleaned = jsonMatch[0]
       .replace(/,\s*([}\]])/g, '$1')   // trailing commas
       .replace(/:\s*NaN/g, ': null')    // NaN values

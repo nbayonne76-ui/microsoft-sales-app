@@ -1,10 +1,10 @@
-# 🏗️ Dynamics 365 Finance & Operations — Architecture des Modules
+# 🏗️ Dynamics 365 Finance & Operations : Architecture des Modules
 
 > **Dynamics 365 F&O** désigne les deux applications ERP enterprise de Microsoft : **Dynamics 365 Finance** (gestion financière) et **Dynamics 365 Supply Chain Management** (opérations). Utilisées ensemble ou séparément, elles partagent une base de données unifiée et des données maîtres communes.
 
 ---
 
-## 📐 Vue d'ensemble — Les deux applications
+## 📐 Vue d'ensemble : Les deux applications
 
 | | 💰 Dynamics 365 Finance | ⚙️ Supply Chain Management |
 |---|---|---|
@@ -94,7 +94,7 @@
 
 ---
 
-## 🔄 Flux de données — Comment les modules se connectent
+## 🔄 Flux de données : Comment les modules se connectent
 
 ### Flux Procure-to-Pay (Achats → Paiements)
 
@@ -168,7 +168,7 @@ Ces données sont communes aux deux applications et créent la **source unique d
 | **Entités légales** | ✅ Consolidation | ✅ Stocks interco |
 | **Centres de coûts** | ✅ Analytique | ✅ Cost Accounting |
 
-> 💡 **Avantage clé** : Contrairement à des systèmes séparés, D365 F&O permet à toutes les équipes (finance, achats, logistique, production) de travailler sur les mêmes données en temps réel — sans réconciliation manuelle.
+> 💡 **Avantage clé** : Contrairement à des systèmes séparés, D365 F&O permet à toutes les équipes (finance, achats, logistique, production) de travailler sur les mêmes données en temps réel : sans réconciliation manuelle.
 
 ---
 

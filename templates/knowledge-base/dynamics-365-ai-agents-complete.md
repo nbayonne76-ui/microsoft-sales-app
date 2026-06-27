@@ -1,5 +1,5 @@
-# Dynamics 365 — Agents IA & Copilot : Référence complète
-*Source : Microsoft Learn — learn.microsoft.com/en-us/dynamics365/ — Mis à jour juin 2026*
+# Dynamics 365 : Agents IA & Copilot : Référence complète
+*Source : Microsoft Learn : learn.microsoft.com/en-us/dynamics365/ : Mis à jour juin 2026*
 
 ---
 
@@ -10,7 +10,7 @@ Ces fonctionnalités sont disponibles dans **tous** les produits Dynamics 365 ba
 | Fonctionnalité | Description | Statut |
 |---|---|---|
 | **Microsoft 365 Copilot** | Résumés, suggestions et actions guidées dans l'app basés sur les données org | Preview |
-| **Agent feed** | Supervision des agents IA directement dans l'app — fil d'activité complet de ce que font les agents | Preview |
+| **Agent feed** | Supervision des agents IA directement dans l'app : fil d'activité complet de ce que font les agents | Preview |
 | **Power Apps MCP Server** | Permet aux agents d'automatiser les tâches répétitives avec revue humaine intégrée | Preview |
 | **Form fill assistance** | Auto-complétion des champs par IA basée sur le contexte | GA |
 | **Find data in a view** | Recherche en langage naturel dans les vues sans filtres complexes | Preview |
@@ -48,7 +48,7 @@ Ces fonctionnalités sont disponibles dans **tous** les produits Dynamics 365 ba
 | **Autofill fields** | Auto-complétion des champs basée sur les données BC et l'IA |
 | **Chat with Copilot** | Questions sur les données Business Central en langage naturel |
 | **Map e-documents to purchase order lines** | Rapprochement IA des lignes de factures avec les commandes d'achat |
-| **Bank account reconciliation** | Rapprochement bancaire automatisé — identifie les transactions non rapprochées |
+| **Bank account reconciliation** | Rapprochement bancaire automatisé : identifie les transactions non rapprochées |
 | **Sales line suggestion** | Suggestions de lignes sur devis, commandes, factures |
 | **Suggest substitute items** | Alternatives IA en cas de rupture de stock |
 | **Summarize records** | Résumé IA de clients, articles, commandes |
@@ -59,7 +59,7 @@ Ces fonctionnalités sont disponibles dans **tous** les produits Dynamics 365 ba
 
 ## Dynamics 365 Customer Insights
 
-### Customer Insights — Data
+### Customer Insights : Data
 
 | Fonctionnalité | Description |
 |---|---|
@@ -68,7 +68,7 @@ Ces fonctionnalités sont disponibles dans **tous** les produits Dynamics 365 ba
 | **Environment status summary** | Résumé de l'état de l'environnement basé sur l'impact business |
 | **Segment creation** | Création de segments sans connaissance du schéma de données |
 
-### Customer Insights — Journeys
+### Customer Insights : Journeys
 
 | Fonctionnalité | Description |
 |---|---|
@@ -79,7 +79,7 @@ Ces fonctionnalités sont disponibles dans **tous** les produits Dynamics 365 ba
 | **Recommend images** | Recommandation d'images cohérentes avec le contexte visuel et textuel |
 | **Rewrite and improve content** | Amélioration et reformulation du contenu |
 
-**ROI documenté** : 324% sur 3 ans (Forrester Consulting) — 75% de temps économisé sur le développement des parcours — moins de 6 mois de retour sur investissement.
+**ROI documenté** : 324% sur 3 ans (Forrester Consulting) : 75% de temps économisé sur le développement des parcours : moins de 6 mois de retour sur investissement.
 
 ---
 
@@ -94,15 +94,15 @@ Ces fonctionnalités sont disponibles dans **tous** les produits Dynamics 365 ba
 | **Quality Evaluation Agent** | Évaluations autonomes et assistées des interactions clients avec framework défini par les superviseurs | GA |
 | **Customer Intent Agent** | Identifie les intentions les plus fréquentes depuis les conversations omnicanales | GA |
 | **Customer Intent Agent for Voice** | Découverte autonome des intentions spécifiquement pour les canaux voix | GA |
-| **Intent-driven routing** | Routage des interactions basé sur les intentions détectées — dirige chaque cas vers le meilleur agent | GA |
-| **Rollout manager** | Adoption guidée et contrôlée des agents IA en phases — pour les administrateurs IA | GA |
+| **Intent-driven routing** | Routage des interactions basé sur les intentions détectées : dirige chaque cas vers le meilleur agent | GA |
+| **Rollout manager** | Adoption guidée et contrôlée des agents IA en phases : pour les administrateurs IA | GA |
 | **Agent insights dashboard** | Visibilité temps réel sur les KPIs et tendances opérationnelles des agents IA | GA |
 
 ### Copilot
 
 | Fonctionnalité | Description |
 |---|---|
-| **Ask a question** | Questions sur les données en temps réel — disponible au démarrage dans le panneau droit |
+| **Ask a question** | Questions sur les données en temps réel : disponible au démarrage dans le panneau droit |
 | **Auto prompts** | Suggestions de prompts contextuelles selon le cas ou la conversation active |
 | **Proactive prompts** | Prompts proactifs sans saisie pour prioriser les cas et résoudre les requêtes |
 | **Summarize conversations** | Résumé des conversations chat et voix |
@@ -126,12 +126,12 @@ Ces fonctionnalités sont disponibles dans **tous** les produits Dynamics 365 ba
 
 | Fonctionnalité | Description |
 |---|---|
-| **Natural language questions** | Questions en langage naturel sur les données du système — bibliothèque de prompts prédéfinis |
+| **Natural language questions** | Questions en langage naturel sur les données du système : bibliothèque de prompts prédéfinis |
 | **AI-powered work order update** | Mise à jour des ordres de travail en langage naturel (texte ou voix) dans l'app mobile |
 | **Work order summaries** | Résumés à la demande d'un ordre de travail : statut, priorité, activités, prochaines actions |
 | **Inspection template creation** | Conversion de PDFs/images en modèles d'inspection éditables par Copilot |
 
-**ROI documenté** : 346% (Forrester Consulting) — 42,65 M$ de bénéfices sur 3 ans — retour en moins de 6 mois.
+**ROI documenté** : 346% (Forrester Consulting) : 42,65 M$ de bénéfices sur 3 ans : retour en moins de 6 mois.
 
 ---
 
@@ -141,7 +141,7 @@ Ces fonctionnalités sont disponibles dans **tous** les produits Dynamics 365 ba
 
 | Agent | Description | Statut |
 |---|---|---|
-| **Account Reconciliation Agent** | Rapprochement continu et proactif entre les sous-livres et le grand livre — résout les écarts de façon autonome | Production Ready Preview |
+| **Account Reconciliation Agent** | Rapprochement continu et proactif entre les sous-livres et le grand livre : résout les écarts de façon autonome | Production Ready Preview |
 
 ### Copilot
 
@@ -195,7 +195,7 @@ Ces fonctionnalités sont disponibles dans **tous** les produits Dynamics 365 ba
 |---|---|---|
 | **Time Entry Agent** | Génère automatiquement des brouillons de saisies de temps basés sur les affectations projet, réservations et historique | Production Ready Preview |
 | **Expense Agent** | Extraction des données de reçus, création des entrées de frais, groupement en rapports par voyage ou projet | Production Ready Preview |
-| **Approvals Agent** | Revue initiale des temps, frais et matériaux contre les politiques définies — marque Prêt pour approbation ou À réviser | Production Ready Preview |
+| **Approvals Agent** | Revue initiale des temps, frais et matériaux contre les politiques définies : marque Prêt pour approbation ou À réviser | Production Ready Preview |
 
 ### Copilot
 
@@ -219,8 +219,8 @@ Ces fonctionnalités sont disponibles dans **tous** les produits Dynamics 365 ba
 
 | Fonctionnalité | Description |
 |---|---|
-| **AI summaries** | Aperçu rapide des informations clés de la page — lignes de commandes, articles en entrepôt, factures en retard |
-| **Analyze demand plans** | Analyse des plans de demande : tendances, anomalies, précision — en langage naturel avec visualisations |
+| **AI summaries** | Aperçu rapide des informations clés de la page : lignes de commandes, articles en entrepôt, factures en retard |
+| **Analyze demand plans** | Analyse des plans de demande : tendances, anomalies, précision : en langage naturel avec visualisations |
 | **Workload insights** | Insights sur les en-têtes de travail, lignes de prélèvement et réception disponibles en entrepôt |
 
 **Reconnaissances** : Leader dans 3 Gartner Magic Quadrant ERP Cloud 2025. Leader IDC MarketScape ERP Enterprise avec IA 2025. SLA 99,9%.
@@ -300,7 +300,7 @@ Solution ESG et conformité CSRD avec capacités IA complètes :
 | **Microsoft for Healthcare** | Santé, hôpitaux, cliniques | Dynamics 365 + Power Platform |
 | **Microsoft for Nonprofit** | ONG, associations | Dynamics 365 + Power Platform |
 | **Microsoft for Retail** | Commerce de détail, grande distribution | Dynamics 365 Commerce + Power Platform |
-| **Microsoft for Sustainability** | Toutes industries — conformité ESG/CSRD | Sustainability Manager + Power Platform |
+| **Microsoft for Sustainability** | Toutes industries : conformité ESG/CSRD | Sustainability Manager + Power Platform |
 
 ---
 
@@ -310,13 +310,13 @@ Solution ESG et conformité CSRD avec capacités IA complètes :
 |---|---|
 | **GA** (Generally Available) | Disponible pour tous les clients, inclus dans le support Microsoft |
 | **Production Ready Preview** | Fonctionnalité complète, recommandée pour la production, SLA en cours de définition |
-| **Preview** | Fonctionnalité en cours de validation — disponible mais sans SLA de production |
+| **Preview** | Fonctionnalité en cours de validation : disponible mais sans SLA de production |
 
 ---
 
 ## Arguments de vente IA pour Account Managers
 
-**Message clé** : Dynamics 365 n'est plus un ERP/CRM classique — c'est une plateforme agentique où les agents IA travaillent 24h/24 pour qualifier des leads, réconcilier des comptes, optimiser les plannings, et résoudre des cas clients de manière autonome.
+**Message clé** : Dynamics 365 n'est plus un ERP/CRM classique : c'est une plateforme agentique où les agents IA travaillent 24h/24 pour qualifier des leads, réconcilier des comptes, optimiser les plannings, et résoudre des cas clients de manière autonome.
 
 **Différenciation concurrentielle** :
 - Seule plateforme avec agents IA natifs dans le CRM (pas d'intégration tierce)
@@ -325,6 +325,6 @@ Solution ESG et conformité CSRD avec capacités IA complètes :
 - MCP Server pour connecter les agents à n'importe quelle donnée ERP sans développement
 - Leader Gartner dans Sales Force Automation, Customer Service, et Cloud ERP 2025
 
-**Pour les clients sur Salesforce** : Dynamics 365 Sales intègre nativement Teams, Outlook, et LinkedIn — chez Salesforce c'est une intégration tierce. Lenovo a migré 70% de ses équipes mondiales de Salesforce vers D365 Sales.
+**Pour les clients sur Salesforce** : Dynamics 365 Sales intègre nativement Teams, Outlook, et LinkedIn : chez Salesforce c'est une intégration tierce. Lenovo a migré 70% de ses équipes mondiales de Salesforce vers D365 Sales.
 
 **Pour les clients sur SAP** : Le Supplier Communications Agent automatise ce qui est encore manuel dans SAP. L'Account Reconciliation Agent élimine les réconciliations de fin de période. Le MCP Server permet aux agents IA d'interagir avec les données ERP sans code personnalisé.

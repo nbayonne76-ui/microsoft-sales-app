@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 
-// Called daily at 06:00 UTC by Vercel cron — warms the ISR cache for /api/blog/news
+// Called daily at 06:00 UTC by Vercel cron : warms the ISR cache for /api/blog/news
 export async function GET() {
   try {
     revalidatePath('/api/blog/news');
 
-    // Build base URL — fix operator-precedence: evaluate || before ?
+    // Build base URL : fix operator-precedence: evaluate || before ?
     const base = process.env.NEXTAUTH_URL
       ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
 

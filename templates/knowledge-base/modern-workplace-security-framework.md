@@ -1,6 +1,6 @@
-# Modern Workplace — Framework Sécurité & Infrastructure Microsoft 365
+# Modern Workplace : Framework Sécurité & Infrastructure Microsoft 365
 
-*Source : Présentation Microsoft "Microsoft 365 — The World's Productivity Cloud" (Office of Government Procurement, 27 mai 2025)*
+*Source : Présentation Microsoft "Microsoft 365 : The World's Productivity Cloud" (Office of Government Procurement, 27 mai 2025)*
 
 ---
 
@@ -15,12 +15,12 @@
 | Défi | Description |
 |------|-------------|
 | **Distracted Workforce** | Employés distraits par la multiplicité des outils, notifications et applications |
-| **Disconnected Systems** | Systèmes déconnectés les uns des autres — silos d'information et de communication |
+| **Disconnected Systems** | Systèmes déconnectés les uns des autres : silos d'information et de communication |
 | **Security & Compliance Risk** | Risques croissants de cybersécurité et de non-conformité réglementaire |
 
 ---
 
-## 2. THE MODERN WORKPLACE FRAMEWORK — LES 4 PHASES
+## 2. THE MODERN WORKPLACE FRAMEWORK : LES 4 PHASES
 
 Microsoft structure le parcours Modern Workplace en 4 phases séquentielles :
 
@@ -51,17 +51,17 @@ Management        Apps Mgmt         & Collaboration   Protection &
 
 ---
 
-## 3. M365 E3 — LES 5 PILIERS DE SÉCURITÉ POUR COPILOT
+## 3. M365 E3 : LES 5 PILIERS DE SÉCURITÉ POUR COPILOT
 
 Avant de déployer Microsoft 365 Copilot, Microsoft recommande de sécuriser l'accès selon 5 piliers :
 
-### Pilier 1 — Gouverner les accès (Microsoft Entra ID P1)
+### Pilier 1 : Gouverner les accès (Microsoft Entra ID P1)
 - Connexion à M365 avec une identité corporate unique et gérée (SSO)
 - Évaluation des tentatives de connexion basée sur : appartenance groupe, localisation IP, état de l'appareil, application
 - Décisions d'accès via **Conditional Access Policies** : Allow / Require MFA / Limit access / Password reset
 - Surveillance des événements critiques + tokens d'accès révocables immédiatement
 
-### Pilier 2 — Réduire le risque device (Microsoft Intune)
+### Pilier 2 : Réduire le risque device (Microsoft Intune)
 - S'assurer que les apps M365 (dont Copilot) sont correctement installées et à jour
 - Limiter l'usage des apps de travail (Copilot compris) sur les appareils personnels
 - **App Protection Policies** :
@@ -69,7 +69,7 @@ Avant de déployer Microsoft 365 Copilot, Microsoft recommande de sécuriser l'a
   - Restreindre le copier/coller vers des apps non-professionnelles
 - Effacement des données professionnelles si appareil perdu ou dissocié de l'entreprise
 
-### Pilier 3 — Protéger contre les menaces (Exchange Online Protection + Defender for Endpoint P1 + Intune + Windows E3)
+### Pilier 3 : Protéger contre les menaces (Exchange Online Protection + Defender for Endpoint P1 + Intune + Windows E3)
 - **Email** : Protection anti-spam et anti-malware des utilisateurs Copilot via Exchange Online Protection
 - **Devices** : Réduire la surface d'attaque sur les endpoints accédant à Copilot (Word, Excel inclus)
 - Anti-malware nouvelle génération sur appareils corporate et appareils personnels (profil pro Android)
@@ -77,30 +77,30 @@ Avant de déployer Microsoft 365 Copilot, Microsoft recommande de sécuriser l'a
 - Network protection + Network Firewall contre accès à des domaines dangereux
 - Blocage/autorisation des devices amovibles (USB) dans Windows 11
 
-### Pilier 4 — Sécuriser et gouverner les données (Microsoft Purview)
+### Pilier 4 : Sécuriser et gouverner les données (Microsoft Purview)
 - Les données consommées/traitées par Copilot sont **limitées aux permissions de l'utilisateur**
 - Copilot hérite des **sensitivity labels** des documents sensibles et les applique à ses outputs
 - Si Copilot génère des données sensibles sauvegardées dans M365 → les **DLP policies s'appliquent**
 - Les interactions Copilot sont **retenues et loggées** (audit, recherche, détection violations)
 - Suppression des données inactives pour réduire les insights obsolètes
 
-### Pilier 5 — Découvrir l'usage des apps IA (Microsoft Entra Cloud App Discovery)
+### Pilier 5 : Découvrir l'usage des apps IA (Microsoft Entra Cloud App Discovery)
 - **Découvrir et évaluer les risques** sur 400+ apps IA dans l'organisation
 - **Bloquer l'accès** aux apps IA web découvertes via Defender for Endpoint web protection
 
 ---
 
-## 4. ZERO TRUST — LES 3 PRINCIPES EN ACTION
+## 4. ZERO TRUST : LES 3 PRINCIPES EN ACTION
 
 | Principe | Description | Outils Microsoft |
 |----------|-------------|-----------------|
 | **Verify Explicitly** | Authentifier et autoriser en permanence selon TOUS les points de données (identité, localisation, santé device, workload, classification données, anomalies) | Conditional Access + Device Compliance |
-| **Use Least Privilege Access** | Limiter l'accès utilisateur avec JIT/JEA (Just In Time / Just Enough Access) — protéger données ET productivité | Local users/groups, Endpoint Privilege Management, RBAC |
+| **Use Least Privilege Access** | Limiter l'accès utilisateur avec JIT/JEA (Just In Time / Just Enough Access) : protéger données ET productivité | Local users/groups, Endpoint Privilege Management, RBAC |
 | **Assume Breach** | Minimiser le blast radius en cas de brèche, prévenir les mouvements latéraux | Device Configuration, Intune + MDE |
 
 ---
 
-## 5. MICROSOFT ENTRA ID — SYSTÈME MODERNE DE GESTION DES IDENTITÉS
+## 5. MICROSOFT ENTRA ID : SYSTÈME MODERNE DE GESTION DES IDENTITÉS
 
 ### Ce que fait Microsoft Entra ID
 Entra ID est la plateforme de gestion des identités cloud qui centralise :
@@ -116,7 +116,7 @@ Entra ID est la plateforme de gestion des identités cloud qui centralise :
 | **Passwordless** | Authentification sans mot de passe |
 | **PIM** | Privileged Identity Management (accès privilégiés) |
 | **B2B/B2C** | Identités pour partenaires et clients externes |
-| **Synchro AD** | PHS, PTA, Fed — synchronisation avec Active Directory on-premises |
+| **Synchro AD** | PHS, PTA, Fed : synchronisation avec Active Directory on-premises |
 
 ### Authentification Multi-Facteur (MFA)
 
@@ -171,13 +171,13 @@ Basse usabilité ─────────────────────
 
 ---
 
-## 6. MICROSOFT INTUNE — GESTION UNIFIÉE DES ENDPOINTS
+## 6. MICROSOFT INTUNE : GESTION UNIFIÉE DES ENDPOINTS
 
 ### Positionnement
 
 **Leader reconnu par Forrester (Q4 2023) et IDC MarketScape (2024)**
 
-Citation Forrester : *"Cette nouvelle approche plateforme aide les clients à simplifier la gestion, réduire les coûts, et transformer les expériences avec l'IA et l'automatisation — des facteurs qui permettent à Microsoft de vastement surpasser les autres sur des métriques clés comme les appareils sous gestion et la croissance du chiffre d'affaires."*
+Citation Forrester : *"Cette nouvelle approche plateforme aide les clients à simplifier la gestion, réduire les coûts, et transformer les expériences avec l'IA et l'automatisation : des facteurs qui permettent à Microsoft de vastement surpasser les autres sur des métriques clés comme les appareils sous gestion et la croissance du chiffre d'affaires."*
 
 Citation IDC : *"Intune exemplifie l'engagement de Microsoft à fournir des solutions de gestion transparentes, sécurisées et efficaces pour les appareils dans l'entreprise."*
 
@@ -185,7 +185,7 @@ Citation IDC : *"Intune exemplifie l'engagement de Microsoft à fournir des solu
 
 | Pilier | Description |
 |--------|-------------|
-| **Simplifier et consolider** | Réduire coûts et complexité en passant au cloud — unifier gestion endpoints et outils sécurité en un seul endroit |
+| **Simplifier et consolider** | Réduire coûts et complexité en passant au cloud : unifier gestion endpoints et outils sécurité en un seul endroit |
 | **Renforcer la sécurité Zero Trust** | Mitiger les menaces et améliorer la conformité sur TOUS les appareils |
 | **Améliorer l'expérience** | Gérer proactivement les expériences utilisateur via IA et automatisation |
 
@@ -194,17 +194,17 @@ Citation IDC : *"Intune exemplifie l'engagement de Microsoft à fournir des solu
 - **Corporately owned** : Appareils appartenant à l'entreprise (toutes plateformes)
 - **Unenrolled and BYO** : Appareils personnels (BYOD) avec App Protection Policies
 
-### Cloud-Native Endpoints — Définition
+### Cloud-Native Endpoints : Définition
 
 Les **cloud-native endpoints** sont des appareils qui peuvent être déployés depuis n'importe où. Ils reçoivent applications et configurations dynamiquement depuis le cloud et peuvent être facilement réinitialisés.
 
 **4 bénéfices :**
-1. Améliorer la sécurité et la conformité — avec outils construits sur le même fabric
-2. Réduire les coûts et la complexité — via provisioning et monitoring cloud
-3. Avancer avec l'innovation — avec insights IA et analytics
-4. Améliorer la productivité — en exploitant la puissance du Microsoft Cloud
+1. Améliorer la sécurité et la conformité : avec outils construits sur le même fabric
+2. Réduire les coûts et la complexité : via provisioning et monitoring cloud
+3. Avancer avec l'innovation : avec insights IA et analytics
+4. Améliorer la productivité : en exploitant la puissance du Microsoft Cloud
 
-### Windows Autopilot — Déploiement Flexible (Hybrid Work)
+### Windows Autopilot : Déploiement Flexible (Hybrid Work)
 
 **Pour les utilisateurs :**
 - Drop ship appareils directement aux utilisateurs (à domicile)
@@ -216,12 +216,12 @@ Les **cloud-native endpoints** sont des appareils qui peuvent être déployés d
 - Choix entre multiple modes de déploiement
 - Deploy from anywhere
 
-**Chemin recommandé — Nouveaux appareils :**
+**Chemin recommandé : Nouveaux appareils :**
 ```
 Deploy via Windows Autopilot → Join to Microsoft Entra → Automatically enroll in Microsoft Intune
 ```
 
-### ROI Mesuré (Forrester TEI — Total Economic Impact M365 E3)
+### ROI Mesuré (Forrester TEI : Total Economic Impact M365 E3)
 *97% des répondants IT ont rapporté des gains d'efficacité pour le déploiement des mises à jour endpoints*
 
 | Métrique | Résultat |
@@ -232,7 +232,7 @@ Deploy via Windows Autopilot → Join to Microsoft Entra → Automatically enrol
 
 ---
 
-## 7. MICROSOFT DEFENDER FOR ENDPOINT — P1 vs P2
+## 7. MICROSOFT DEFENDER FOR ENDPOINT : P1 vs P2
 
 ### Architecture générale (6 domaines fonctionnels)
 
@@ -255,7 +255,7 @@ Deploy via Windows Autopilot → Join to Microsoft Entra → Automatically enrol
 
 ### Détail par domaine
 
-#### ASR — Attack Surface Reduction (P1)
+#### ASR : Attack Surface Reduction (P1)
 Réduction de la surface d'attaque via 8 mécanismes :
 
 | Mécanisme | Fonctionnalité |
@@ -263,30 +263,30 @@ Réduction de la surface d'attaque via 8 mécanismes :
 | **ASR Rules** | Contrôle granulaire des paramètres de sécurité |
 | **HW-based Isolation (Application Guard)** | Ouverture sites/documents non fiables dans containers isolés (sandbox) |
 | **Application Control** | Blocage applications non fiables via approche whitelist (circle of trust) |
-| **Controlled Folder Access** | Blocage accès apps non fiables aux dossiers protégés — réduit risque ransomware |
+| **Controlled Folder Access** | Blocage accès apps non fiables aux dossiers protégés : réduit risque ransomware |
 | **Network Protection** | Blocage accès destinations internet à basse réputation (MS Intelligence, SmartScreen) |
 | **Web Protection** | Filtrage contenu web malveillant (threat) ou inadapté (content filtering) |
 | **Exploit Protection** | Techniques de mitigation des attaques (CFG, DEP, ASLR, heap integrity...) |
 | **Device Control** | Blocage devices spécifiques (USB), drivers, imprimantes non approuvées |
 
-#### NGP — Next Generation Protection (P1)
+#### NGP : Next Generation Protection (P1)
 Antivirus nouvelle génération :
 - Analyse comportementale en temps réel
 - Blocage malware file-based ET file-less
 - Blocage activités malveillantes des applications
 - Classements AV-TEST et SE Labs : top des comparatifs sectoriels
 
-#### EDR — Endpoint Detection & Response (P2 principal, certaines fonctions P1)
+#### EDR : Endpoint Detection & Response (P2 principal, certaines fonctions P1)
 - Détection et réponse avancées aux incidents
 - Advanced Hunting (threat hunting proactif)
 - Security Score
 - Security Management
 
-#### TVM — Threat & Vulnerability Management (P2)
+#### TVM : Threat & Vulnerability Management (P2)
 - Gestion continue des vulnérabilités
 - Visibilité temps réel sur l'exposition aux risques
 
-#### AIR — Auto Investigation & Remediation (P2)
+#### AIR : Auto Investigation & Remediation (P2)
 - Investigation automatisée des alertes
 - Remédiation automatique
 - Deception + User Containment
@@ -295,7 +295,7 @@ Antivirus nouvelle génération :
 #### Microsoft Threat Experts (P2)
 - Service de threat hunting managé par des experts Microsoft
 
-### Administration — Portail Microsoft 365 Defender
+### Administration : Portail Microsoft 365 Defender
 
 Le portail unifié (security.microsoft.com) permet :
 - Visualisation et gestion des incidents et alertes
@@ -403,7 +403,7 @@ Le portail unifié (security.microsoft.com) permet :
 
 ---
 
-## 9. QUESTIONS DE DÉCOUVERTE COMMERCIALE — SÉCURITÉ MODERN WORKPLACE
+## 9. QUESTIONS DE DÉCOUVERTE COMMERCIALE : SÉCURITÉ MODERN WORKPLACE
 
 ### Sur l'identité et l'accès
 - "Comment gérez-vous aujourd'hui les accès de vos employés aux applications cloud ?"
@@ -431,7 +431,7 @@ Le portail unifié (security.microsoft.com) permet :
 
 ---
 
-## 10. CHIFFRES ROI À CITER — MODERN WORKPLACE
+## 10. CHIFFRES ROI À CITER : MODERN WORKPLACE
 
 ### Microsoft Intune (Forrester TEI M365 E3, oct. 2022)
 - **97%** des IT pros ont rapporté des gains d'efficacité sur le déploiement des endpoints
@@ -446,5 +446,5 @@ Le portail unifié (security.microsoft.com) permet :
 
 ---
 
-*Source : Présentation Microsoft "Microsoft 365 — The World's Productivity Cloud", Office of Government Procurement, 27 mai 2025*
+*Source : Présentation Microsoft "Microsoft 365 : The World's Productivity Cloud", Office of Government Procurement, 27 mai 2025*
 *Complété par : Microsoft Learn (learn.microsoft.com)*

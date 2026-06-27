@@ -1,5 +1,5 @@
-# Microsoft 365 — Licensing FAQ (Official)
-*Source : Microsoft 365 Modern Work Licensing FAQ — Last updated April 1, 2024*
+# Microsoft 365 : Licensing FAQ (Official)
+*Source : Microsoft 365 Modern Work Licensing FAQ : Last updated April 1, 2024*
 *Note : Les prix ne sont pas inclus dans ce document car ils évoluent régulièrement. Consulter le pricelist Microsoft en vigueur.*
 
 ---
@@ -15,14 +15,14 @@ Refer to https://www.microsoft.com/en-us/Licensing/product-licensing/microsoft-3
 **Q3. Is there a path to specific premium features for M365 E3 customers that don't want the full E5?**
 Yes. Multiple options:
 
-**Option 1 — Add M365 E5 Security and/or M365 E5 Compliance (or mini-suites):**
-- **M365 E5 Security** (add-on) — includes Microsoft Defender for Office 365 Plan 2, Defender for Cloud Apps, Azure AD Plan 2, Defender for Identity, Defender for Endpoint, Safe Documents
-- **M365 E5 Compliance** (add-on) — includes M365 E5 Information Protection & Governance, Insider Risk Management, eDiscovery & Audit
-- **M365 Information Protection & Governance** (add-on) — includes Defender for Cloud Apps, Communication DLP (Teams), auto classification, Records Management, Customer Key, Advanced Message Encryption, Endpoint DLP
-- **M365 Insider Risk Management** (add-on) — includes Insider Risk Management, Communication Compliance, Information Barriers, Customer Lockbox, Privileged Access Management
-- **M365 eDiscovery & Audit** (add-on) — includes Audit (Premium) and eDiscovery (Premium)
+**Option 1 : Add M365 E5 Security and/or M365 E5 Compliance (or mini-suites):**
+- **M365 E5 Security** (add-on) : includes Microsoft Defender for Office 365 Plan 2, Defender for Cloud Apps, Azure AD Plan 2, Defender for Identity, Defender for Endpoint, Safe Documents
+- **M365 E5 Compliance** (add-on) : includes M365 E5 Information Protection & Governance, Insider Risk Management, eDiscovery & Audit
+- **M365 Information Protection & Governance** (add-on) : includes Defender for Cloud Apps, Communication DLP (Teams), auto classification, Records Management, Customer Key, Advanced Message Encryption, Endpoint DLP
+- **M365 Insider Risk Management** (add-on) : includes Insider Risk Management, Communication Compliance, Information Barriers, Customer Lockbox, Privileged Access Management
+- **M365 eDiscovery & Audit** (add-on) : includes Audit (Premium) and eDiscovery (Premium)
 
-**Option 2 — Add individual E5 standalone SKUs:**
+**Option 2 : Add individual E5 standalone SKUs:**
 - Microsoft Defender for Office 365 Plan 1
 - Microsoft Defender for Office 365 Plan 2
 - Microsoft Defender for Cloud Apps
@@ -75,7 +75,7 @@ Refer to the Microsoft Product Terms.
 Yes. The customer must manually assign the Unified SKU licenses to their users.
 
 **Q11. How to differentiate Original vs. Unified on pricelists?**
-Look at the SKU description and/or PFAM name — explicitly labeled "Original" or "Unified."
+Look at the SKU description and/or PFAM name : explicitly labeled "Original" or "Unified."
 
 **Q12. What about mid-term transitions from Original to Unified?**
 Mid-term transitions require a revised CPS with credit/rebill and are highly discouraged.
@@ -137,7 +137,7 @@ Yes.
 
 ---
 
-## Microsoft 365 Pricing Updates — Context & Policy
+## Microsoft 365 Pricing Updates : Context & Policy
 
 **Q25. Which SKUs were impacted by the March 2022 price update?**
 - Enterprise: Office 365 E1, Office 365 E3, Office 365 E5, Microsoft 365 E3
@@ -191,7 +191,7 @@ Microsoft regularly evaluates pricing based on value delivered to customers. The
 ## Scheduler (Retired)
 
 **Q37. What is Scheduler?**
-Enabled users to delegate scheduling to a digital personal assistant (Cortana) by email — scheduling meetings with internal and external attendees.
+Enabled users to delegate scheduling to a digital personal assistant (Cortana) by email : scheduling meetings with internal and external attendees.
 
 **Q38. Current status?**
 Scheduler has been retired (late 2023). No new customer purchases. Use alternative scheduling capabilities included in existing M365 licenses.
@@ -210,7 +210,7 @@ Commercial, WW Commercial Public Sector (non-US), Education, and Non-profit.
 ## Universal Print
 
 **Q42. What is Universal Print?**
-A cloud-based print solution managed via Microsoft cloud services — no on-premises print servers required.
+A cloud-based print solution managed via Microsoft cloud services : no on-premises print servers required.
 
 **Q43. Is Universal Print included in existing plans?**
 
@@ -287,7 +287,7 @@ EA/EAS only.
 Commercial (incl. WW Commercial Public Sector) and Non-profit.
 
 **Q58. Can partial migrations be done?**
-Yes — some or all users in a tenant may transfer their data. The SKU applies per user.
+Yes : some or all users in a tenant may transfer their data. The SKU applies per user.
 
 **Q59. SKU reference:**
 | PFAM | Description | SKU # |
@@ -295,19 +295,19 @@ Yes — some or all users in a tenant may transfer their data. The SKU applies p
 | Cross Tenant Data Migration | Cross Tenant Data Migration Fee Per User | VZ4-00001 |
 
 **Q60. How long is the license valid?**
-Valid for one user's mailbox and OneDrive migration. Single use — expires after one use or one year after purchase.
+Valid for one user's mailbox and OneDrive migration. Single use : expires after one use or one year after purchase.
 
 **Q61. Can commercial customers migrate to a GCC tenant?**
 No. Available between commercial tenants only.
 
 **Q62. Can a phased approach be used?**
-Yes. OneDrive and Exchange Online mailbox migrations are scheduled independently. However, all mailbox data (emails, calendar, tasks) or the entire OneDrive site is migrated — partial content subsets are not supported.
+Yes. OneDrive and Exchange Online mailbox migrations are scheduled independently. However, all mailbox data (emails, calendar, tasks) or the entire OneDrive site is migrated : partial content subsets are not supported.
 
 **Q63. What about SharePoint data?**
 Not covered by this SKU. SharePoint migration availability is TBD.
 
 **Q64. What happens to the source mailbox after migration?**
-The source mailbox is deleted (undiscoverable, unavailable, inaccessible) — including mailboxes on litigation/retention hold. Teams data and messages are NOT migrated.
+The source mailbox is deleted (undiscoverable, unavailable, inaccessible) : including mailboxes on litigation/retention hold. Teams data and messages are NOT migrated.
 
 **Q65. What's the difference between Cross-tenant user data migration and VL tenant-to-tenant migration?**
 - **Cross-tenant user data migration**: moves existing user data to a new commercial tenant
@@ -349,7 +349,7 @@ Commercial (incl. WW Commercial Public Sector) and Non-profit.
 - Customers with a preference or obligation for local data storage
 
 **Q75. Is there a minimum purchase requirement?**
-Yes — EVERY user subscription within the tenant must be licensed for ADR to apply:
+Yes : EVERY user subscription within the tenant must be licensed for ADR to apply:
 - M365 F1, F3, E3, or E5
 - O365 F3, E1, E3, or E5
 - Exchange Online Plan 1 or 2
@@ -377,15 +377,15 @@ Australia, Brazil, Canada, France, Germany, India, Japan, Korea, Norway, Qatar, 
 *Note: US not included (data residency provided at regional level). Singapore currently only for specific government customers.*
 
 **Q79. Is ADR available for new datacenter regions (Poland, Israel, Italy, Spain, etc.)?**
-Yes — ADR will be available at GA of Microsoft 365 for each new local region geo. For new regions, ADR is required for data residency commitments and migration from macro-regions.
+Yes : ADR will be available at GA of Microsoft 365 for each new local region geo. For new regions, ADR is required for data residency commitments and migration from macro-regions.
 
-**Q80. ADR vs. Multi-Geo capabilities — what's the difference?**
-- **ADR**: data location at the tenant level — for customers in a specific single country
-- **Multi-Geo**: data location at the user/site/group/team level — for multinational customers needing data in multiple geographies simultaneously
+**Q80. ADR vs. Multi-Geo capabilities : what's the difference?**
+- **ADR**: data location at the tenant level : for customers in a specific single country
+- **Multi-Geo**: data location at the user/site/group/team level : for multinational customers needing data in multiple geographies simultaneously
 
-**Q81. ADR vs. EU Data Boundary (EUDB) — what's the difference?**
+**Q81. ADR vs. EU Data Boundary (EUDB) : what's the difference?**
 - **ADR**: for M365 customers wanting data at rest in local datacenter regions (many geographies)
-- **EUDB**: commitment to process and store data regionally within the European Union — available to customers in EU and EFTA countries; no additional purchase required
+- **EUDB**: commitment to process and store data regionally within the European Union : available to customers in EU and EFTA countries; no additional purchase required
 
 **Q82. Is there an ADR SKU for Education?**
 Yes. Available to Education customers via EES since November 2021. See Microsoft 365 Advanced Data Residency for EDU resources on OnRamp.

@@ -12,7 +12,7 @@ function decodeEntities(str = '') {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// RSS FEEDS — chaque feed a une catégorie FIXE et explicite.
+// RSS FEEDS : chaque feed a une catégorie FIXE et explicite.
 // Aucune détection textuelle pour ces sources : la source est la vérité.
 // ─────────────────────────────────────────────────────────────────────────────
 const RSS_FEEDS = [
@@ -70,7 +70,7 @@ function parseRSS(xml, source, category) {
       source:     itemSource,
       sourceType: 'rss',
       date:       date.toISOString(),
-      category,   // catégorie FIXE du feed — jamais calculée
+      category,   // catégorie FIXE du feed : jamais calculée
     });
   }
   return items;
@@ -88,7 +88,7 @@ async function fetchRSS({ url, source, category }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TAVILY — catégorie FIXE par requête
+// TAVILY : catégorie FIXE par requête
 // ─────────────────────────────────────────────────────────────────────────────
 const TAVILY_QUERIES = [
   { q: 'Microsoft 365 Teams Outlook SharePoint update announcement 2026', category: 'Microsoft 365'  },
@@ -128,7 +128,7 @@ async function fetchTavily() {
           source:     (() => { try { return new URL(item.url).hostname.replace('www.', ''); } catch { return 'web'; } })(),
           sourceType: 'tavily',
           date:       date.toISOString(),
-          category,   // catégorie FIXE de la requête — jamais calculée
+          category,   // catégorie FIXE de la requête : jamais calculée
         });
       }
     });

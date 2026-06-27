@@ -76,7 +76,7 @@ function MessageBubble({ msg, onCopy, copied }) {
           {msg.streaming && <StreamingDots />}
         </div>
 
-        {/* Copy button — assistant only */}
+        {/* Copy button : assistant only */}
         {!isUser && !msg.streaming && msg.content && (
           <button
             onClick={() => onCopy(msg.content)}
@@ -198,7 +198,7 @@ export default function TrueAIAgent() {
               });
               setStreaming(false);
             }
-          } catch { /* malformed line — skip */ }
+          } catch { /* malformed line : skip */ }
         }
       }
     } catch (err) {
@@ -272,7 +272,7 @@ export default function TrueAIAgent() {
       {/* ── Messages area ──────────────────────────────────────────── */}
       <div className="flex-1 overflow-y-auto px-4 py-6 space-y-5">
         {isEmpty ? (
-          /* Empty state — slash command suggestions */
+          /* Empty state : slash command suggestions */
           <div className="flex flex-col items-center justify-center h-full gap-8 text-center px-4">
             <div>
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center mx-auto mb-4 shadow-lg">

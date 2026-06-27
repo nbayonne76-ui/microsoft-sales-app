@@ -1,6 +1,6 @@
-# Microsoft 365 pour Travailleurs de Terrain (Frontline Workers) — Guide 2026
+# Microsoft 365 pour Travailleurs de Terrain (Frontline Workers) : Guide 2026
 
-*Source : Microsoft Learn (learn.microsoft.com/microsoft-365/frontline) — Mis à jour juin 2026*
+*Source : Microsoft Learn (learn.microsoft.com/microsoft-365/frontline) : Mis à jour juin 2026*
 
 ---
 
@@ -42,7 +42,7 @@ Les **travailleurs de terrain (Frontline Workers)** sont les employés qui :
 
 ## 3. APPLICATIONS SPÉCIFIQUES AUX FRONTLINE WORKERS
 
-### 📅 Microsoft Shifts — Gestion des plannings
+### 📅 Microsoft Shifts : Gestion des plannings
 - Création et gestion des horaires (managers)
 - Vue des plannings par les employés (mobile)
 - Demandes de congés, échanges de créneaux entre collègues
@@ -51,41 +51,41 @@ Les **travailleurs de terrain (Frontline Workers)** sont les employés qui :
 - **Shifts Connectors** : intégration avec systèmes WFM existants (Blue Yonder, Kronos UKG, Zebra, Reflexis)
 - Déploiement à grande échelle : templates pour gérer des milliers de plannings depuis l'admin center
 
-### 🔊 Walkie Talkie (Teams) — Communication push-to-talk
+### 🔊 Walkie Talkie (Teams) : Communication push-to-talk
 - Communication voix instantanée type talkie-walkie dans Teams
 - Disponible sur smartphones (iOS, Android)
 - Compatible avec appareils dédiés certifiés (Zebra, Honeywell, Samsung DeX)
 - Canaux : chaque canal Teams peut devenir un canal walkie-talkie
 - Idéal : équipes en magasin, entrepôts, hôpitaux, usines
 
-### ✅ Approvals — Flux d'approbation
+### ✅ Approvals : Flux d'approbation
 - Demander/approuver des actions directement dans Teams
 - Templates d'approbation préconfigurés
 - Intégration Power Automate pour workflows complexes
 - Audit trail : historique de toutes les approbations
 - Cas d'usage : demandes de congés, vérifications qualité, achats, incidents
 
-### 📋 Updates (Mises à jour) — Rapports et check-ins
+### 📋 Updates (Mises à jour) : Rapports et check-ins
 - Formulaires de suivi récurrents (rapport de fin de poste, ouverture/fermeture)
 - Templates visuels avec photos
 - Envoi mobile facile
 - Managers reçoivent toutes les mises à jour centralisées
 
-### 🗓️ Virtual Appointments — Rendez-vous client/patient
+### 🗓️ Virtual Appointments : Rendez-vous client/patient
 - Planification de rendez-vous B2C dans Teams
 - Expérience client simple : clic sur lien → navigateur web (pas besoin de Teams)
 - Salle d'attente virtuelle avec file d'attente
 - SMS de rappel automatique (Teams Premium requis)
 - Idéal : téléconsultations médicales, rendez-vous en banque, conseil retail
 
-### 📝 Lists — Listes de tâches et processus
+### 📝 Lists : Listes de tâches et processus
 - Checklists numériques remplaçant les formulaires papier
 - Templates préconfigurés (inspection qualité, inventaire, incidents)
 - Disponible dans Teams, SharePoint, mobile
 - Co-édition en temps réel
 - Intégration Power Automate pour alertes et workflows
 
-### 📊 Planner — Gestion des tâches d'équipe
+### 📊 Planner : Gestion des tâches d'équipe
 - Tableaux kanban pour suivre les tâches
 - Assignation de tâches aux membres de l'équipe
 - Intégration Teams : volet Planner dans chaque canal d'équipe
@@ -94,7 +94,7 @@ Les **travailleurs de terrain (Frontline Workers)** sont les employés qui :
 
 ---
 
-## 4. FRONTLINE AGENT — IA pour travailleurs de terrain (2026)
+## 4. FRONTLINE AGENT : IA pour travailleurs de terrain (2026)
 
 **Frontline Agent** est un agent IA spécialement conçu pour les travailleurs terrain, disponible dans Teams.
 
@@ -102,7 +102,7 @@ Les **travailleurs de terrain (Frontline Workers)** sont les employés qui :
 - **Réduit le temps de recherche** : répond aux questions en langage naturel à partir de SharePoint et des messages Teams
 - **Résumé de poste** : synthèse des informations clés au début de chaque shift (mises à jour, instructions, incidents)
 - **Handover de fin de shift** : aide à rédiger les transmissions de poste
-- Opère dans le cadre de sécurité existant (Purview, Intune) — pas de données qui sortent
+- Opère dans le cadre de sécurité existant (Purview, Intune) : pas de données qui sortent
 
 ### Disponibilité
 - Rolling out en 2026 dans Microsoft 365 Copilot
@@ -244,4 +244,4 @@ Les **travailleurs de terrain (Frontline Workers)** sont les employés qui :
 
 ---
 
-*Source : learn.microsoft.com/microsoft-365/frontline — Mise à jour : Juin 2026*
+*Source : learn.microsoft.com/microsoft-365/frontline : Mise à jour : Juin 2026*

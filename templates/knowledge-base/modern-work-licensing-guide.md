@@ -1,5 +1,5 @@
 # Modern Work + Security Licensing Guide (SCIM+P)
-*Source : Microsoft Modern Work Licensing Deck — PEJ-00008 (Oct 2024)*
+*Source : Microsoft Modern Work Licensing Deck : PEJ-00008 (Oct 2024)*
 
 ---
 
@@ -44,7 +44,7 @@
 
 ---
 
-## 3. Microsoft 365 E5 — Valeur ajoutée vs E3
+## 3. Microsoft 365 E5 : Valeur ajoutée vs E3
 
 M365 E5 ajoute 4 piliers sur M365 E3 :
 
@@ -81,7 +81,7 @@ Les clients peuvent ajouter la valeur E5 par composant ou faire un step-up compl
 
 ---
 
-## 4. Microsoft 365 E5 Security — Détail ($12/u/m)
+## 4. Microsoft 365 E5 Security : Détail ($12/u/m)
 
 Contient les 7 composants suivants :
 
@@ -100,7 +100,7 @@ Contient les 7 composants suivants :
 
 ---
 
-## 5. Microsoft 365 E5 Compliance — Détail ($12/u/m)
+## 5. Microsoft 365 E5 Compliance : Détail ($12/u/m)
 
 Trois sous-suites :
 
@@ -128,7 +128,7 @@ Trois sous-suites :
 
 ---
 
-## 6. Microsoft Intune Suite — Packaging ($10/u/m)
+## 6. Microsoft Intune Suite : Packaging ($10/u/m)
 
 | Composant | Prix standalone | Description |
 |-----------|----------------|-------------|
@@ -143,7 +143,7 @@ Trois sous-suites :
 
 ---
 
-## 7. Microsoft Entra Suite — Packaging ($12/u/m)
+## 7. Microsoft Entra Suite : Packaging ($12/u/m)
 
 | Composant | Prix standalone | Description |
 |-----------|----------------|-------------|
@@ -175,7 +175,7 @@ Trois sous-suites :
 | Windows 10 E3 | ✗ | ● |
 | Power Apps/Automate | ✗ | ● (2000 req/jour) |
 
-### F5 Security & Compliance — Add-ons FLW
+### F5 Security & Compliance : Add-ons FLW
 
 | Suite | Prix | Contenu |
 |-------|------|---------|
@@ -198,7 +198,7 @@ Trois sous-suites :
 
 ---
 
-## 9. Plans SMB — Microsoft 365 Business (300 users max)
+## 9. Plans SMB : Microsoft 365 Business (300 users max)
 
 ### Comparaison plans Business
 
@@ -221,7 +221,7 @@ Trois sous-suites :
 
 ---
 
-## 10. Teams Licensing — Voice Services
+## 10. Teams Licensing : Voice Services
 
 ### Teams Phone Standard
 - **Prix** : $8/u/m commercial ; $4/u/m FLW
@@ -244,7 +244,7 @@ Trois sous-suites :
 | Audio Conf (legacy) | $2.50/u/m | 60 min/u/mois → tous pays Zone A |
 | Extended Dial-out USA/CAN | $4/u/m | Illimité US/Canada (50k min max) |
 
-*Note : Le SKU $0 doit être acquis et assigné manuellement — il n'est PAS ajouté automatiquement.*
+*Note : Le SKU $0 doit être acquis et assigné manuellement : il n'est PAS ajouté automatiquement.*
 
 ### Teams Phone with Calling Plan (bundle)
 | Zone utilisateur | Prix |
@@ -273,19 +273,19 @@ Teams Rooms Pro inclut : Teams Phone Standard, Intune, Entra ID P1, Defender for
 
 ---
 
-## 12. Microsoft Viva Suite — Pricing & Features
+## 12. Microsoft Viva Suite : Pricing & Features
 
 ### Tarification
 | Offre | Prix commercial | Prix faculty |
 |-------|----------------|-------------|
 | Viva Suite complet | $12/u/m | $2.25/u/m |
-| Viva Workplace Analytics & Employee Feedback | $6/u/m | — |
-| Viva Employee Communications & Communities | $2/u/m (intro) | — |
+| Viva Workplace Analytics & Employee Feedback | $6/u/m | : |
+| Viva Employee Communications & Communities | $2/u/m (intro) | : |
 | Viva Learning | $4/u/m | $1/u/m |
 | Viva Insights | $4/u/m | $1/u/m |
 | Viva Goals | $6/u/m | $1.20/u/m |
-| Viva Glint | $2/u/m | — |
-| Viva Pulse | $2/u/m | — |
+| Viva Glint | $2/u/m | : |
+| Viva Pulse | $2/u/m | : |
 
 ### Ce qui est inclus dans M365 (sans Viva payant)
 - **M365 F1/F3/E3** : Viva Learning basique (Teams app, création onglets, search/share, Microsoft Learn + 125 cours LinkedIn Learning), Viva Engage (Communities, Conversations, Storyline), Viva Connections, Personal Insights (E3/O365 E1+)
@@ -315,16 +315,16 @@ Teams Rooms Pro inclut : Teams Phone Standard, Intune, Entra ID P1, Defender for
 | De → Vers | SKU | Prix step-up |
 |-----------|-----|-------------|
 | O365 E3 → M365 E3 | AAD-86538 | $13/u/m |
-| EMS E3 → M365 E3 | AAD-86550 | — |
-| M365 F3 → M365 E3 | AAD-33120 | — |
+| EMS E3 → M365 E3 | AAD-86550 | : |
+| M365 F3 → M365 E3 | AAD-33120 | : |
 | M365 E3 → M365 E5 | AAD-33237 | $21/u/m |
-| O365 E5 → M365 E5 | AAD-86532 | — |
+| O365 E5 → M365 E5 | AAD-86532 | : |
 | M365 E3 → M365 E5 Security | PEJ-00002 | $12/u/m |
 | M365 E3 → M365 E5 Compliance | PEP-00002 | $12/u/m |
-| Defender for Office 365 P1 → P2 | FSZ-00004 | — |
-| Defender for Endpoint P1 → P2 | QLS-00007 | — |
-| Viva Learning → Viva Suite | IM3-00008 | — |
-| Viva Insights → Viva Suite | IM3-00009 | — |
+| Defender for Office 365 P1 → P2 | FSZ-00004 | : |
+| Defender for Endpoint P1 → P2 | QLS-00007 | : |
+| Viva Learning → Viva Suite | IM3-00008 | : |
+| Viva Insights → Viva Suite | IM3-00009 | : |
 
 ### Standard vs Non-standard Base License
 - **Standard** : Le SKU de base est mappé automatiquement au step-up dans les systèmes commerce → commande simplifiée
@@ -369,18 +369,18 @@ Teams Rooms Pro inclut : Teams Phone Standard, Intune, Entra ID P1, Defender for
 ### Microsoft Intune Add-ons
 | Add-on | Prix | Notes |
 |--------|------|-------|
-| Intune Plan 1 | Inclus M365 E3/Business Premium/F1/F3 | — |
+| Intune Plan 1 | Inclus M365 E3/Business Premium/F1/F3 | : |
 | Intune Plan 2 | $4/u/m | Prérequis Intune P1 |
 | Intune Suite | $10/u/m | Prérequis Intune P1 |
-| Intune Remote Help | $3.50/u/m | — |
-| Intune Advanced Analytics | $5/u/m | — |
-| Intune Enterprise App Management | $2/u/m | — |
-| Microsoft Cloud PKI | $2/u/m | — |
-| Intune Endpoint Privilege Management | $3/u/m | — |
+| Intune Remote Help | $3.50/u/m | : |
+| Intune Advanced Analytics | $5/u/m | : |
+| Intune Enterprise App Management | $2/u/m | : |
+| Microsoft Cloud PKI | $2/u/m | : |
+| Intune Endpoint Privilege Management | $3/u/m | : |
 
 ---
 
-## 15. Canaux de licensing — Comparaison
+## 15. Canaux de licensing : Comparaison
 
 | Programme | Taille org | Produits | Engagement |
 |-----------|-----------|----------|------------|
@@ -393,7 +393,7 @@ Teams Rooms Pro inclut : Teams Phone Standard, Intune, Entra ID P1, Defender for
 
 ---
 
-## 16. Microsoft 365 Apps — Licensing
+## 16. Microsoft 365 Apps : Licensing
 
 ### Comparaison Office client
 | Feature | Office LTSC Standard | LTSC Professional | M365 Apps for Business | M365 Apps for Enterprise |
@@ -446,7 +446,7 @@ Teams Rooms Pro inclut : Teams Phone Standard, Intune, Entra ID P1, Defender for
 
 ---
 
-## 19. Copilot Studio — Summary
+## 19. Copilot Studio : Summary
 
 | Plan | Prix | Output | Canaux |
 |------|------|--------|--------|

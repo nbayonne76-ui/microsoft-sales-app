@@ -46,7 +46,7 @@ export default function SidebarLayout({ children }) {
         <div className="min-h-screen bg-gray-50">
           {/* Presentation mode banner */}
           <div className="fixed top-0 left-0 right-0 z-50 bg-ms-blue text-white text-xs flex items-center justify-between px-4 py-1.5 no-print">
-            <span className="flex items-center gap-1.5"><Presentation className="h-3.5 w-3.5" /> Mode présentation — Ctrl+Shift+P pour quitter</span>
+            <span className="flex items-center gap-1.5"><Presentation className="h-3.5 w-3.5" /> Mode présentation : Ctrl+Shift+P pour quitter</span>
             <button onClick={() => setPresentationMode(false)} className="hover:text-white/70 transition-colors">
               <X className="h-4 w-4" />
             </button>

@@ -1,6 +1,6 @@
-# Microsoft Copilot Studio — Licensing & Plans 2026
+# Microsoft Copilot Studio : Licensing & Plans 2026
 
-*Source : Microsoft Learn (learn.microsoft.com/microsoft-copilot-studio) — Mis à jour juin 2026*
+*Source : Microsoft Learn (learn.microsoft.com/microsoft-copilot-studio) : Mis à jour juin 2026*
 
 ---
 
@@ -12,7 +12,7 @@ Copilot Studio (anciennement Power Virtual Agents) est la plateforme Microsoft d
 
 ## Les 2 plans principaux
 
-### 1. Copilot Studio — Plan Teams (inclus dans certains M365)
+### 1. Copilot Studio : Plan Teams (inclus dans certains M365)
 Inclus dans les abonnements Microsoft 365 sélectionnés (M365 Business Standard, Business Premium, E3, E5).
 
 | Capacité | Plan Teams |
@@ -31,7 +31,7 @@ Inclus dans les abonnements Microsoft 365 sélectionnés (M365 Business Standard
 
 ---
 
-### 2. Copilot Studio — Abonnement Standalone (payant)
+### 2. Copilot Studio : Abonnement Standalone (payant)
 Le plan complet qui débloque toutes les capacités de la plateforme.
 
 | Capacité | Plan Standalone |
@@ -61,15 +61,15 @@ La licence standalone nécessite **deux éléments** :
 
 ---
 
-## Copilot Credits — Monnaie de consommation
+## Copilot Credits : Monnaie de consommation
 
 Depuis septembre 2025, la consommation est mesurée en **Copilot Credits** (remplacement des "messages").
 
 | Mode d'achat | Description |
 |--------------|-------------|
 | **Prepaid pack** | Abonnement annuel avec un pool de Copilot Credits |
-| **Pay-as-you-go** | Facturation Azure mensuelle — paiement à l'usage réel |
-| **Prepurchase Plan** | Copilot Credit Commit Units (CCCUs) — pool cross-produits Microsoft |
+| **Pay-as-you-go** | Facturation Azure mensuelle : paiement à l'usage réel |
+| **Prepurchase Plan** | Copilot Credit Commit Units (CCCUs) : pool cross-produits Microsoft |
 
 - Les crédits non utilisés **ne sont pas reportés** d'un mois à l'autre
 - La capacité est mutualisée (**poolée**) au niveau du tenant
@@ -123,7 +123,7 @@ Copilot Studio est disponible dans le cloud **US Government Community Cloud (GCC
 
 | Scénario | Recommandation |
 |----------|---------------|
-| Bot FAQ interne Teams, client déjà M365 E3/E5 | **Plan Teams inclus** — pas de coût additionnel |
+| Bot FAQ interne Teams, client déjà M365 E3/E5 | **Plan Teams inclus** : pas de coût additionnel |
 | Chatbot multicanal (web + Teams + WhatsApp) | **Standalone Copilot Studio** |
 | Étendre Microsoft 365 Copilot avec IA custom | **M365 Copilot + Copilot Studio** |
 | Centre de contact IA avec hand-off agent humain | **Copilot Studio Standalone + D365 Customer Service** |

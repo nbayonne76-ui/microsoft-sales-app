@@ -26,7 +26,7 @@ const QUICK_ACTIONS = [
   { href: '/email-generator', icon: Mail,       label: 'Email Generator',      desc: 'Emails B2B ultra-personnalisés depuis la KB',            color: 'from-blue-600 to-indigo-600'  },
   { href: '/ai-agent',        icon: Brain,      label: 'Microsoft AI Agent',   desc: '/brief · /email · /swot · /prix · /pitch',              color: 'from-violet-600 to-purple-700' },
   { href: '/sequences',       icon: Zap,        label: 'Séquences',           desc: '3 phases · 7 touches · Plan de prospection IA',         color: 'from-emerald-600 to-teal-600'  },
-  { href: '/knowledge-base',  icon: BookOpen,   label: 'Knowledge Base',      desc: 'Noyau de l\'app — 62 solutions · prix · 25 guides KB',        color: 'from-gray-600 to-slate-700'    },
+  { href: '/knowledge-base',  icon: BookOpen,   label: 'Knowledge Base',      desc: 'Noyau de l\'app : 62 solutions · prix · 25 guides KB',        color: 'from-gray-600 to-slate-700'    },
 ];
 
 function StreamingDots() {
@@ -209,7 +209,7 @@ export default function DashboardHome() {
           <div className="flex items-center gap-2 mb-4">
             <BookOpen className="h-5 w-5 text-indigo-500" />
             <h2 className="font-semibold text-gray-800 text-sm">
-              {lang === 'fr' ? 'Knowledge Base — Noyau de l\'application' : 'Knowledge Base — App nucleus'}
+              {lang === 'fr' ? 'Knowledge Base : Noyau de l\'application' : 'Knowledge Base : App nucleus'}
             </h2>
             <span className="ml-auto text-xs text-gray-400">
               {lang === 'fr' ? 'Alimente tous les onglets' : 'Powers all tabs'}

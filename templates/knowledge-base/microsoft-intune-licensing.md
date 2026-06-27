@@ -1,12 +1,12 @@
-# Microsoft Intune — Plans & Licensing 2026
+# Microsoft Intune : Plans & Licensing 2026
 
-*Source : Microsoft Learn (learn.microsoft.com/mem/intune) — Mis à jour juin 2026*
+*Source : Microsoft Learn (learn.microsoft.com/mem/intune) : Mis à jour juin 2026*
 
 ---
 
 ## Qu'est-ce que Microsoft Intune ?
 
-Microsoft Intune est la solution Microsoft de **gestion unifiée des endpoints** (UEM — Unified Endpoint Management). Il permet de gérer et sécuriser les appareils (Windows, macOS, iOS, Android) et les applications d'une organisation depuis le cloud.
+Microsoft Intune est la solution Microsoft de **gestion unifiée des endpoints** (UEM : Unified Endpoint Management). Il permet de gérer et sécuriser les appareils (Windows, macOS, iOS, Android) et les applications d'une organisation depuis le cloud.
 
 ---
 
@@ -14,9 +14,9 @@ Microsoft Intune est la solution Microsoft de **gestion unifiée des endpoints**
 
 | Plan | Description | Ce qui est inclus dans M365 |
 |------|-------------|----------------------------|
-| **Intune Plan 1** | Service de base — MDM/MAM cloud | M365 E3, E5, E7, Business Premium, EMS E3/E5 |
-| **Intune Plan 2** | Additif au Plan 1 — capacités endpoint avancées | M365 E5, Microsoft 365 E7 (via Intune Suite) |
-| **Intune Suite** | Additif au Plan 1 — endpoint management + security unifiés. Inclut le Plan 2 | M365 E5 Security add-on, Intune Suite standalone |
+| **Intune Plan 1** | Service de base : MDM/MAM cloud | M365 E3, E5, E7, Business Premium, EMS E3/E5 |
+| **Intune Plan 2** | Additif au Plan 1 : capacités endpoint avancées | M365 E5, Microsoft 365 E7 (via Intune Suite) |
+| **Intune Suite** | Additif au Plan 1 : endpoint management + security unifiés. Inclut le Plan 2 | M365 E5 Security add-on, Intune Suite standalone |
 
 ---
 
@@ -33,14 +33,14 @@ Microsoft Intune est la solution Microsoft de **gestion unifiée des endpoints**
 | EMS E3 | Plan 1 |
 | EMS E5 | Plan 1 |
 
-> **Règle clé** : La plupart des clients obtiennent Intune Plan 1 dans leur bundle M365 — les capacités avancées nécessitent Plan 2 ou Suite en add-on.
+> **Règle clé** : La plupart des clients obtiennent Intune Plan 1 dans leur bundle M365 : les capacités avancées nécessitent Plan 2 ou Suite en add-on.
 
 ---
 
-## Intune Plan 1 — Fonctionnalités de base
+## Intune Plan 1 : Fonctionnalités de base
 
 - Gestion MDM Windows, macOS, iOS, Android
-- Gestion MAM (Mobile Application Management) — sans inscription appareil
+- Gestion MAM (Mobile Application Management) : sans inscription appareil
 - Politiques de conformité et d'accès conditionnel (avec Entra ID P1/P2)
 - Déploiement d'applications
 - Windows Autopilot
@@ -52,7 +52,7 @@ Microsoft Intune est la solution Microsoft de **gestion unifiée des endpoints**
 
 ---
 
-## Intune Plan 2 — Capacités avancées (add-on)
+## Intune Plan 2 : Capacités avancées (add-on)
 
 Inclut tout du Plan 1 plus :
 
@@ -66,14 +66,14 @@ Inclut tout du Plan 1 plus :
 
 ---
 
-## Intune Suite — Toutes les capacités (add-on premium)
+## Intune Suite : Toutes les capacités (add-on premium)
 
 Inclut Plan 2 + :
 
 | Capacité | Description |
 |----------|-------------|
-| **Endpoint Privilege Management (EPM)** | Least privilege — élévation ponctuelle approuvée sans droits admin permanents |
-| **Microsoft Cloud PKI** | CA managée par Microsoft — émission, renouvellement, révocation de certificats |
+| **Endpoint Privilege Management (EPM)** | Least privilege : élévation ponctuelle approuvée sans droits admin permanents |
+| **Microsoft Cloud PKI** | CA managée par Microsoft : émission, renouvellement, révocation de certificats |
 | **Enterprise App Management** | Catalogue d'applications Win32 Microsoft-hosted avec paramètres d'installation |
 | **Remote Help** (inclus) | Voir Plan 2 |
 | **Advanced Analytics** (inclus) | Voir Plan 2 |
@@ -124,16 +124,16 @@ Prérequis pour l'auto-enrollment co-management :
 
 ---
 
-## Comparatif commercial — Arguments de vente
+## Comparatif commercial : Arguments de vente
 
 | Situation client | Recommandation |
 |-----------------|---------------|
-| Client M365 E3, besoin gestion basique MDM | **Intune Plan 1 inclus** — rien à vendre |
+| Client M365 E3, besoin gestion basique MDM | **Intune Plan 1 inclus** : rien à vendre |
 | Client M365 E3, besoin helpdesk remote | **Intune Plan 2 add-on** (+Remote Help) |
 | Client avec employés sans droits admin, sécurité élevée | **Intune Suite** (EPM = zero admin rights) |
 | Client avec beaucoup de certificats internes | **Intune Suite** (Cloud PKI) |
 | Client gérant kiosques / tablettes partagées | **Device-only license** |
-| Client M365 E5 | Vérifier si Intune Suite inclus — souvent déjà couvert |
+| Client M365 E5 | Vérifier si Intune Suite inclus : souvent déjà couvert |
 
 ---
 

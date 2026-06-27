@@ -1,4 +1,4 @@
-# Microsoft 365 E7 — The Frontier Worker Suite
+# Microsoft 365 E7 : The Frontier Worker Suite
 
 ## Disponibilité Générale : 1er mai 2026
 
@@ -22,7 +22,7 @@ Microsoft 365 E7 est le nouveau plan Enterprise premium qui regroupe en un seul 
 ## 2. CONTENU DÉTAILLÉ DU PLAN
 
 ### Productivité
-- **Microsoft 365 apps** : Word, Excel, PowerPoint, Outlook, OneNote — création et édition sur tous appareils
+- **Microsoft 365 apps** : Word, Excel, PowerPoint, Outlook, OneNote : création et édition sur tous appareils
 - **OneDrive & SharePoint** : partage, gestion et collaboration sur le contenu d'équipe (1 TB+ storage)
 - **Teams** : réunions, chat, appels intégrés
 - **Windows Enterprise** : sécuriser, gérer et exécuter le travail sur les appareils enterprise
@@ -30,8 +30,8 @@ Microsoft 365 E7 est le nouveau plan Enterprise premium qui regroupe en un seul 
 - **Power BI Pro** : transformer les données en insights partagés et actionnables
 
 ### Sécurité & Conformité
-- **Entra** : gestion des identités et des accès — niveau **Suite** (supérieur à P2)
-- **Microsoft Defender** (P2) : protection endpoint, email, identité, cloud — menaces avancées
+- **Entra** : gestion des identités et des accès : niveau **Suite** (supérieur à P2)
+- **Microsoft Defender** (P2) : protection endpoint, email, identité, cloud : menaces avancées
 - **Microsoft Purview** : sécurité des données, DLP, protection des informations, risque interne, insider risk pour agents
 - **Microsoft Intune** : gestion des endpoints et des appareils
 
@@ -46,16 +46,16 @@ Microsoft 365 E7 est le nouveau plan Enterprise premium qui regroupe en un seul 
 - **Agents pré-construits inclus** :
   - Word Agent, Excel Agent, PowerPoint Agent (transformer vos idées en livrables)
   - Researcher Agent, Analyst Agent (recherche approfondie et analyse de données)
-  - Facilitator Agent (Teams — nécessite licence Teams), SharePoint Agent
+  - Facilitator Agent (Teams : nécessite licence Teams), SharePoint Agent
   - App Builder Agent, Workflows Agent (automatisation et RPA)
 
-### Gestion des Agents (Microsoft Agent 365 — NOUVEAU)
+### Gestion des Agents (Microsoft Agent 365 : NOUVEAU)
 - **Observe** : visibilité totale sur les agents, leur usage, performance, comportement et signaux de risque
 - **Govern** : guardrails pour agents et utilisateurs, intégration IT avec supervision, audit-ready, conformité et rétention des données
 - **Secure** : sécuriser les identités des agents, contrôler l'accès aux ressources, prévenir le data oversharing, défendre contre les menaces
 
 
-## 3. MICROSOFT AGENT 365 — LE PLAN DE CONTRÔLE DES AGENTS
+## 3. MICROSOFT AGENT 365 : LE PLAN DE CONTRÔLE DES AGENTS
 
 ### Pourquoi c'est différent
 Microsoft Agent 365 permet d'**étendre l'infrastructure existante de gestion des utilisateurs aux agents IA** :
@@ -91,7 +91,7 @@ Microsoft Agent 365 permet d'**étendre l'infrastructure existante de gestion de
 - **+75%** plus rapide pour l'onboarding des employés
 
 
-## 5. POURQUOI M365 E7 MAINTENANT — CONTEXTE MARCHÉ
+## 5. POURQUOI M365 E7 MAINTENANT : CONTEXTE MARCHÉ
 
 ### L'IA agentique s'accélère
 - **1,3 milliard** d'agents IA prévus d'ici 2028 (IDC)
@@ -108,17 +108,17 @@ Microsoft Agent 365 permet d'**étendre l'infrastructure existante de gestion de
 
 ## 6. CAS CLIENTS CONCRETS
 
-### Lumen — Enrichir l'expérience employé
+### Lumen : Enrichir l'expérience employé
 - **Problème** : tâches chronophages à faible valeur empêchaient les commerciaux de se concentrer sur les clients
 - **Solution** : IA et solutions agentiques intégrées dans les workflows de recherche et prospection
 - **Résultats** : +94% d'amélioration du temps de prospection client · $50M de valeur annuelle projetée · Doublement de la productivité en cours
 
-### Microsoft (usage interne) — Observabilité sécurité
+### Microsoft (usage interne) : Observabilité sécurité
 - **Problème** : analystes sécurité submergés par les alertes, perte de temps en investigations manuelles, manque de compétences
 - **Solution** : approche IA-first intégrée dans toute la stack sécurité
 - **Résultats** : -90% du temps de réponse aux incidents · Upskilling des analystes juniors au niveau senior
 
-### St. Luke's — Sécurité santé
+### St. Luke's : Sécurité santé
 - **Problème** : menaces émergentes difficiles à identifier rapidement
 - **Solution** : outils IA activés sur toute la stack sécurité, vue agentique consolidée (alertes, contrôle d'accès, vulnérabilités)
 - **Résultats** : ~200 heures/mois économisées · Temps de reporting réduit de plusieurs heures à quelques minutes
@@ -153,7 +153,7 @@ Microsoft Agent 365 permet d'**étendre l'infrastructure existante de gestion de
 ### Arguments clés
 1. **Bundle économique** : M365 E5 ($60) + Entra Suite ($12) + Copilot ($30) + Agent 365 ($15) = $117 séparément vs **$99 en bundle E7** → économie de $18/user/mois
 2. **Seul plan avec Agent 365** : aucun autre plan inclut le plan de contrôle des agents (Observe/Govern/Secure)
-3. **Zero Trust complet** : Entra Suite (niveau superieur à E5 P2) — gouvernance du cycle de vie des identités incluse
+3. **Zero Trust complet** : Entra Suite (niveau superieur à E5 P2) : gouvernance du cycle de vie des identités incluse
 4. **Disponible sans Teams** : $90.45/user/mois pour les tenants sans Teams
 
 ### Questions de découverte

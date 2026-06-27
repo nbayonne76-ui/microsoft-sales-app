@@ -1,10 +1,10 @@
-# Dynamics 365 — Guide Licensing, Implémentation & TCO
-*Source : topdynamicspartners.com — Guide indépendant basé sur des centaines d'implémentations réelles*
+# Dynamics 365 : Guide Licensing, Implémentation & TCO
+*Source : topdynamicspartners.com : Guide indépendant basé sur des centaines d'implémentations réelles*
 *Note : Vérifier les prix actuels sur le pricelist Microsoft en vigueur*
 
 ---
 
-## 1. Attach Licensing — Économies Clés à Connaître
+## 1. Attach Licensing : Économies Clés à Connaître
 
 **Principe** : Le premier module Dynamics 365 est au prix plein. Les modules suivants sont disponibles en "Attach" (licence complémentaire) à prix réduit.
 
@@ -29,7 +29,7 @@
 
 ---
 
-## 2. Décisions par Industrie — Quelle Suite pour Quel Secteur
+## 2. Décisions par Industrie : Quelle Suite pour Quel Secteur
 
 | Secteur | Modules prioritaires | Modules optionnels |
 |---|---|---|
@@ -68,9 +68,9 @@
 
 ---
 
-## 4. TCO sur 1 an — Scénarios Réels
+## 4. TCO sur 1 an : Scénarios Réels
 
-### Scénario A : Finance seul — 50 utilisateurs (PME)
+### Scénario A : Finance seul : 50 utilisateurs (PME)
 - Licences : ~$126K/an
 - Implémentation : $250K–$400K
 - Environnements non-production : $5K–$10K
@@ -78,13 +78,13 @@
 - **Année 1 Total : $413K–$608K**
 - **Année 2+ (récurrent) : $148K–$178K**
 
-### Scénario B : Finance + SCM — 150 utilisateurs (ETI)
+### Scénario B : Finance + SCM : 150 utilisateurs (ETI)
 - Licences : ~$432K/an
 - Implémentation : $400K–$700K
 - **Année 1 Total : $917K–$1,3M**
 - **Année 2+ : $474K–$604K**
 
-### Scénario C : Multi-modules global — 500 utilisateurs (Grand Compte)
+### Scénario C : Multi-modules global : 500 utilisateurs (Grand Compte)
 - Licences : ~$1,44M/an
 - Implémentation : $800K–$1,5M
 - **Année 1 Total : $2,5M–$3,6M**
@@ -118,7 +118,7 @@
 
 ---
 
-## 6. Coûts Cachés — À Anticiper Avec le Client
+## 6. Coûts Cachés : À Anticiper Avec le Client
 
 ### Environnements non-production
 - Sandbox : $400–$600/mois
@@ -142,14 +142,14 @@
 
 ---
 
-## 7. ⚠️ Enforcement Licences — Janvier 2026 (CRITIQUE)
+## 7. ⚠️ Enforcement Licences : Janvier 2026 (CRITIQUE)
 
 **Microsoft a démarré l'enforcement strict des licences en janvier 2026.**
 
 Ce que ça signifie pour vos clients :
 - **Télémétrie automatique** de l'usage comparée aux licences achetées
 - Audits déclenchés si écarts significatifs
-- **Fin de la période de grâce** — remédiation obligatoire
+- **Fin de la période de grâce** : remédiation obligatoire
 - Facturation rétroactive possible pour les usages non licenciés
 
 **Recommandations immédiates pour vos clients** :
@@ -178,7 +178,7 @@ Ce que ça signifie pour vos clients :
 
 ---
 
-## 9. Migration Legacy — Calendrier Officiel
+## 9. Migration Legacy : Calendrier Officiel
 
 | Produit | Statut | Fin de support |
 |---|---|---|
@@ -211,7 +211,7 @@ Ce que ça signifie pour vos clients :
 - Phaser le déploiement pour réduire le coût initial
 - Aligner les négociations avec l'exercice fiscal Microsoft (fin juin)
 - Demander un audit de conformité en échange de remises
-- Revue annuelle des licences — déclasser les inactifs en Team Member
+- Revue annuelle des licences : déclasser les inactifs en Team Member
 
 ---
 
@@ -245,8 +245,8 @@ Ce que ça signifie pour vos clients :
 
 **Vs SAP** :
 - "Dynamics 365 Finance + SCM coûte 30–40% moins cher en TCO 5 ans que SAP S/4HANA Cloud pour les ETI"
-- "Implémentation 6–12 mois vs 12–24 pour SAP — ROI plus rapide"
-- "Intégration native M365 et Copilot — SAP nécessite des connecteurs tiers"
+- "Implémentation 6–12 mois vs 12–24 pour SAP : ROI plus rapide"
+- "Intégration native M365 et Copilot : SAP nécessite des connecteurs tiers"
 
 **Vs Oracle** :
 - "TCO comparable sur 5 ans mais avec une intégration Microsoft native que Oracle ne peut pas offrir"
@@ -257,5 +257,5 @@ Ce que ça signifie pour vos clients :
 - "Attach licensing pour passer de Sales à Sales+Customer Service+Field Service à coût réduit"
 
 **Pour les clients GP** :
-- "Les nouvelles licences GP sont fermées depuis avril 2026 — c'est le moment de planifier la migration"
+- "Les nouvelles licences GP sont fermées depuis avril 2026 : c'est le moment de planifier la migration"
 - "Business Central reprend 80% des fonctionnalités GP avec l'IA et le cloud en plus"

@@ -404,7 +404,7 @@ export default function HotLeadsPage() {
                       trend={engagement.trend}
                     />
                   ) : (
-                    <span className="text-gray-400">—</span>
+                    <span className="text-gray-400">:</span>
                   )}
                 </td>
                 <td>{lead.priority}</td>

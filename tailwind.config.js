@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         ms: {
-          blue:    '#0078D4',   // Microsoft Blue — CTA principal
+          blue:    '#0078D4',   // Microsoft Blue : CTA principal
           blueDark:'#005A9E',   // hover
           dark:    '#243A5E',   // header / sidebar
           light:   '#50E6FF',   // accent

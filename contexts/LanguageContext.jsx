@@ -157,8 +157,8 @@ export const t = {
       allPlans: 'All plans',
       frontlinePlans: 'Frontline Workers',
       // M365 Copilot banner
-      copilotBannerTitle: 'Microsoft 365 Copilot — Add-on available on all Enterprise & Business Standard/Premium plans',
-      copilotBannerDesc: 'Generative AI in Teams, Outlook, Word, Excel, PowerPoint, OneNote + Microsoft 365 Chat — see Pricing Guides for pricing',
+      copilotBannerTitle: 'Microsoft 365 Copilot : Add-on available on all Enterprise & Business Standard/Premium plans',
+      copilotBannerDesc: 'Generative AI in Teams, Outlook, Word, Excel, PowerPoint, OneNote + Microsoft 365 Chat : see Pricing Guides for pricing',
       pricingNoteCount: 'plan',
       pricingNoteIn: 'pricing available in the',
       // M365 card sections
@@ -336,8 +336,8 @@ export const t = {
       allPlans: 'Tous les plans',
       frontlinePlans: 'Frontline Workers',
       // M365 Copilot banner
-      copilotBannerTitle: 'Microsoft 365 Copilot — Add-on disponible sur tous les plans Enterprise & Business Standard/Premium',
-      copilotBannerDesc: 'IA générative dans Teams, Outlook, Word, Excel, PowerPoint, OneNote + Microsoft 365 Chat — voir Pricing Guides pour les tarifs',
+      copilotBannerTitle: 'Microsoft 365 Copilot : Add-on disponible sur tous les plans Enterprise & Business Standard/Premium',
+      copilotBannerDesc: 'IA générative dans Teams, Outlook, Word, Excel, PowerPoint, OneNote + Microsoft 365 Chat : voir Pricing Guides pour les tarifs',
       pricingNoteCount: 'plan',
       pricingNoteIn: "tarifs disponibles dans l'onglet",
       // M365 card sections

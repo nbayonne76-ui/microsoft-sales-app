@@ -103,7 +103,7 @@ const SOLUTION_GROUPS = [
     key: 'devtools', label: 'Developer Tools', emoji: '💻',
     color: 'from-violet-500 to-purple-600',
     solutions: [
-      { id: 'github_copilot', label: 'GitHub Copilot', emoji: '💻', desc: 'IA de développement — Business $19 · Enterprise $39/siège', color: 'from-violet-500 to-purple-600' },
+      { id: 'github_copilot', label: 'GitHub Copilot', emoji: '💻', desc: 'IA de développement : Business $19 · Enterprise $39/siège', color: 'from-violet-500 to-purple-600' },
     ],
   },
   {
@@ -306,15 +306,15 @@ export default function KBEmailGenerator() {
       {/* ── Content ───────────────────────────────────────────────────────── */}
       <div className="max-w-4xl mx-auto px-6 py-10">
 
-        {/* Banner — pré-rempli depuis Account Intelligence */}
+        {/* Banner : pré-rempli depuis Account Intelligence */}
         {fromIntel && (
           <motion.div {...fadeUp}
             className="mb-6 flex items-center gap-3 px-4 py-3 bg-indigo-50 border border-indigo-200 rounded-xl text-sm text-indigo-700">
             <span className="text-lg">✨</span>
             <span className="flex-1">
               {lang === 'fr'
-                ? <>Formulaire pré-rempli depuis <strong>Account Intelligence</strong>{form.companyName ? ` — ${form.companyName}` : ''}</>
-                : <>Form pre-filled from <strong>Account Intelligence</strong>{form.companyName ? ` — ${form.companyName}` : ''}</>}
+                ? <>Formulaire pré-rempli depuis <strong>Account Intelligence</strong>{form.companyName ? ` : ${form.companyName}` : ''}</>
+                : <>Form pre-filled from <strong>Account Intelligence</strong>{form.companyName ? ` : ${form.companyName}` : ''}</>}
             </span>
             <Link href="/account" className="flex items-center gap-1 text-xs text-indigo-500 hover:text-indigo-700 shrink-0">
               <ArrowLeft className="w-3 h-3" />
@@ -324,7 +324,7 @@ export default function KBEmailGenerator() {
         )}
         <AnimatePresence mode="wait">
 
-          {/* STEP 1 — Choose solution */}
+          {/* STEP 1 : Choose solution */}
           {step === 1 && (
             <motion.div key="step1" {...fadeUp} variants={stagger} initial="initial" animate="animate" exit="exit">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">{lang === 'fr' ? 'Quelle solution pitchez-vous ?' : 'Which solution are you pitching?'}</h2>
@@ -364,7 +364,7 @@ export default function KBEmailGenerator() {
             </motion.div>
           )}
 
-          {/* STEP 2 — Details form */}
+          {/* STEP 2 : Details form */}
           {step === 2 && (
             <motion.div key="step2" {...fadeUp} initial="initial" animate="animate" exit="exit" className="space-y-6">
 
@@ -383,7 +383,7 @@ export default function KBEmailGenerator() {
               {/* ── Main 2-col grid ─────────────────────────────────────────── */}
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-                {/* LEFT col (3/5) — Account + Challenge */}
+                {/* LEFT col (3/5) : Account + Challenge */}
                 <div className="lg:col-span-3 space-y-5">
 
                   {/* Account card */}
@@ -435,7 +435,7 @@ export default function KBEmailGenerator() {
                   </div>
                 </div>
 
-                {/* RIGHT col (2/5) — Email settings */}
+                {/* RIGHT col (2/5) : Email settings */}
                 <div className="lg:col-span-2 space-y-5">
 
                   {/* Email type */}
@@ -505,7 +505,7 @@ export default function KBEmailGenerator() {
                     </motion.div>
                     <span className="text-white">{tr.generating}</span>
                     <span className="text-blue-200 text-sm font-normal">
-                      {lang === 'fr' ? '— lecture de la KB…' : '— reading KB…'}
+                      {lang === 'fr' ? ': lecture de la KB…' : ': reading KB…'}
                     </span>
                   </>
                 ) : (
@@ -521,7 +521,7 @@ export default function KBEmailGenerator() {
             </motion.div>
           )}
 
-          {/* STEP 3 — Result */}
+          {/* STEP 3 : Result */}
           {step === 3 && result && (
             <motion.div key="step3" {...fadeUp} initial="initial" animate="animate" exit="exit">
               {/* Top bar */}
@@ -541,7 +541,7 @@ export default function KBEmailGenerator() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Email preview — 2/3 */}
+                {/* Email preview : 2/3 */}
                 <div className="md:col-span-2 space-y-4">
                   {/* Subject */}
                   <div className="gradient-border">
@@ -582,7 +582,7 @@ export default function KBEmailGenerator() {
                   </div>
                 </div>
 
-                {/* Sidebar — 1/3 */}
+                {/* Sidebar : 1/3 */}
                 <div className="space-y-4">
                   {/* Recommended plan */}
                   {result.recommendedPlan && (

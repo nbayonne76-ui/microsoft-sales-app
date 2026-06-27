@@ -1,6 +1,6 @@
-# Microsoft Teams — Guide complet 2026
+# Microsoft Teams : Guide complet 2026
 
-*Source : Microsoft Learn (learn.microsoft.com/microsoftteams) — Mis à jour juin 2026*
+*Source : Microsoft Learn (learn.microsoft.com/microsoftteams) : Mis à jour juin 2026*
 
 ---
 
@@ -48,7 +48,7 @@ Teams est inclus dans la quasi-totalité des plans Microsoft 365 Business et Ent
 
 ---
 
-## 3. MICROSOFT TEAMS PREMIUM — Add-on IA et Sécurité
+## 3. MICROSOFT TEAMS PREMIUM : Add-on IA et Sécurité
 
 **Prix** : Add-on payant (en plus de la licence Teams incluse dans M365)
 **Important** : Depuis le 1er avril 2026, certaines fonctionnalités précédemment Teams Premium exclusives ont été intégrées dans **Teams Enterprise** (inclus dans M365 E3/E5). Teams Premium conserve les fonctionnalités avancées.
@@ -89,7 +89,7 @@ Teams est inclus dans la quasi-totalité des plans Microsoft 365 Business et Ent
 
 ---
 
-## 4. MICROSOFT TEAMS PHONE — Téléphonie Cloud
+## 4. MICROSOFT TEAMS PHONE : Téléphonie Cloud
 
 Teams Phone transforme Teams en système téléphonique d'entreprise complet, remplaçant les PBX traditionnels.
 
@@ -116,7 +116,7 @@ Teams Phone transforme Teams en système téléphonique d'entreprise complet, re
 - **Teams Phone Standard** : ~$10/user/mois (add-on E3/E5)
 - **Teams Phone with Calling Plan** : Bundle licence + forfait appels
 - **Teams Phone Mobile** : Licence Teams Phone + plan mobile opérateur certifié
-- Inclus dans **Microsoft 365 E5** (Teams Phone System inclus — forfait appels séparé)
+- Inclus dans **Microsoft 365 E5** (Teams Phone System inclus : forfait appels séparé)
 
 ---
 
@@ -203,4 +203,4 @@ Microsoft propose le programme **FastTrack** pour accélérer le déploiement Te
 
 ---
 
-*Source : learn.microsoft.com/microsoftteams — Mise à jour : Juin 2026*
+*Source : learn.microsoft.com/microsoftteams : Mise à jour : Juin 2026*

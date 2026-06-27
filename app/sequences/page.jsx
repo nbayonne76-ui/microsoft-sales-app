@@ -188,7 +188,7 @@ export default function SequencesPage() {
   const [statuses,  setStatuses]  = useState({}); // { "phaseIdx-touchIdx": status }
   const [copiedId,  setCopiedId]  = useState(null);
 
-  // Persistent saved sequences (localStorage) — useEffect évite l'incompatibilité SSR
+  // Persistent saved sequences (localStorage) : useEffect évite l'incompatibilité SSR
   const [saved, setSaved] = useState([]);
 
   useEffect(() => {
@@ -225,7 +225,7 @@ export default function SequencesPage() {
         const saved = JSON.parse(localStorage.getItem(`seq-statuses-${data.company}`) || '{}');
         setStatuses(saved);
       } catch { setStatuses({}); }
-      toast.success(lang === 'fr' ? `Séquence générée — ${data.tokensUsed} tokens` : `Sequence generated — ${data.tokensUsed} tokens`);
+      toast.success(lang === 'fr' ? `Séquence générée : ${data.tokensUsed} tokens` : `Sequence generated : ${data.tokensUsed} tokens`);
     } catch (e) {
       toast.error(e.message || (lang === 'fr' ? 'Erreur de génération' : 'Generation error'));
     } finally {
@@ -474,7 +474,7 @@ export default function SequencesPage() {
                         {phase.phase}
                       </div>
                       <div>
-                        <p className="text-white font-bold text-sm">{lang === 'fr' ? 'Phase' : 'Phase'} {phase.phase} — {phase.name}</p>
+                        <p className="text-white font-bold text-sm">{lang === 'fr' ? 'Phase' : 'Phase'} {phase.phase} : {phase.name}</p>
                         <p className="text-white/80 text-xs">{phase.description}</p>
                       </div>
                       <span className="ml-auto text-white/70 text-xs">{phase.touches?.length} {lang === 'fr' ? 'touches' : 'touches'}</span>

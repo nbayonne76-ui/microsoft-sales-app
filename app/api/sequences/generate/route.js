@@ -40,7 +40,7 @@ export async function POST(request) {
 Tu dois créer un plan de séquence de prospection en 3 phases et 7 touches pour une cible commerciale précise.
 RÈGLE ABSOLUE : tous les prix, fonctionnalités et plans doivent venir EXCLUSIVEMENT de la Knowledge Base.
 
-KNOWLEDGE BASE — ${solutionLabel} :
+KNOWLEDGE BASE : ${solutionLabel} :
 ${kbContent}`;
 
     const userPrompt = `Crée une séquence de prospection complète pour :
@@ -64,7 +64,7 @@ Retourne UNIQUEMENT un objet JSON valide :
     { "phase": 3, "name": "Closing", "color": "green", "description": "Proposition formelle", "touches": [] }
   ]
 }
-Structure : Phase 1 — 3 touches (J0, J3, J7) · Phase 2 — 2 touches (J14, J21) · Phase 3 — 2 touches (J30, J45).`;
+Structure : Phase 1 : 3 touches (J0, J3, J7) · Phase 2 : 2 touches (J14, J21) · Phase 3 : 2 touches (J30, J45).`;
 
     const response = await openai.chat.completions.create({
       model: 'gpt-4o',

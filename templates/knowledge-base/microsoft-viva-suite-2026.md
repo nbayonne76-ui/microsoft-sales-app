@@ -1,6 +1,6 @@
-# Microsoft Viva — Guide complet de la suite Employee Experience 2026
+# Microsoft Viva : Guide complet de la suite Employee Experience 2026
 
-*Source : Microsoft Learn (learn.microsoft.com/viva) — Mis à jour juin 2026*
+*Source : Microsoft Learn (learn.microsoft.com/viva) : Mis à jour juin 2026*
 
 ---
 
@@ -21,7 +21,7 @@ Viva est accessible depuis Microsoft Teams, SharePoint, Outlook et le web. Chaqu
 
 ## 2. LES 8 APPLICATIONS MICROSOFT VIVA
 
-### 📢 Viva Amplify — Communication corporate multicanal
+### 📢 Viva Amplify : Communication corporate multicanal
 
 **Ce que ça fait :** Centralise la création, la publication et le reporting des campagnes de communication interne. Les communicants peuvent atteindre tous les employés via Outlook, Teams et SharePoint depuis une seule interface.
 
@@ -37,7 +37,7 @@ Viva est accessible depuis Microsoft Teams, SharePoint, Outlook et le web. Chaqu
 
 ---
 
-### 🏠 Viva Connections — Intranet dans Teams
+### 🏠 Viva Connections : Intranet dans Teams
 
 **Ce que ça fait :** Transforme Microsoft Teams en portail intranet personnalisé. Chaque employé voit un tableau de bord adapté à son rôle, sa région et ses intérêts.
 
@@ -53,7 +53,7 @@ Viva est accessible depuis Microsoft Teams, SharePoint, Outlook et le web. Chaqu
 
 ---
 
-### 💬 Viva Engage — Réseau social d'entreprise
+### 💬 Viva Engage : Réseau social d'entreprise
 
 **Ce que ça fait :** Facilite les connexions entre employés, communautés et leadership dans toute l'organisation. Successor de Yammer, Viva Engage est intégré dans Teams.
 
@@ -70,7 +70,7 @@ Viva est accessible depuis Microsoft Teams, SharePoint, Outlook et le web. Chaqu
 
 ---
 
-### 📊 Viva Glint — Sondages d'engagement employé
+### 📊 Viva Glint : Sondages d'engagement employé
 
 **Ce que ça fait :** Solution "voice of the employee" permettant de mesurer et améliorer l'engagement des employés à grande échelle avec des enquêtes scientifiquement validées.
 
@@ -88,7 +88,7 @@ Viva est accessible depuis Microsoft Teams, SharePoint, Outlook et le web. Chaqu
 
 ---
 
-### 🎯 Viva Goals — OKR et alignement stratégique
+### 🎯 Viva Goals : OKR et alignement stratégique
 
 **Ce que ça fait :** Aligne les équipes sur les priorités stratégiques de l'organisation via la méthode OKR (Objectives & Key Results). Intégré dans Teams.
 
@@ -104,7 +104,7 @@ Viva est accessible depuis Microsoft Teams, SharePoint, Outlook et le web. Chaqu
 
 ---
 
-### 🧠 Viva Insights — Analytics bien-être et productivité
+### 🧠 Viva Insights : Analytics bien-être et productivité
 
 **Ce que ça fait :** Fournit des insights basés sur les données de travail Microsoft 365 (emails, réunions, chats) pour améliorer le bien-être et la productivité. Données privées et agrégées.
 
@@ -129,7 +129,7 @@ Viva est accessible depuis Microsoft Teams, SharePoint, Outlook et le web. Chaqu
 
 ---
 
-### 📚 Viva Learning — Formation intégrée dans Teams
+### 📚 Viva Learning : Formation intégrée dans Teams
 
 **Ce que ça fait :** Agrège les contenus de formation de multiples sources dans une seule expérience Teams. Les managers peuvent assigner des formations directement.
 
@@ -150,7 +150,7 @@ Viva est accessible depuis Microsoft Teams, SharePoint, Outlook et le web. Chaqu
 
 ---
 
-### 💡 Viva Pulse — Feedback manager en temps réel
+### 💡 Viva Pulse : Feedback manager en temps réel
 
 **Ce que ça fait :** Permet aux managers et team leads de solliciter du feedback ponctuel et ciblé auprès de leurs équipes avec des enquêtes courtes.
 
@@ -181,7 +181,7 @@ Microsoft 365 Copilot est intégré dans chaque application Viva avec des capaci
 | **Viva Engage** | Résumé des discussions communautaires |
 | **Viva Glint** | Analyse et synthèse des commentaires libres |
 | **Viva Insights** | Copilot Dashboard pour mesurer l'adoption M365 Copilot |
-| **Viva Learning** | Copilot Academy — parcours d'adoption |
+| **Viva Learning** | Copilot Academy : parcours d'adoption |
 | **Viva Pulse** | Aide à créer des questions de sondage pertinentes |
 
 ---
@@ -192,7 +192,7 @@ Microsoft 365 Copilot est intégré dans chaque application Viva avec des capaci
 
 | Plan | Ce qu'il inclut | Idéal pour |
 |------|----------------|------------|
-| **Viva inclus dans M365** | Viva Connections, Viva Engage (basique), Viva Insights (Personal) | Tous les clients M365 — pas de surcoût |
+| **Viva inclus dans M365** | Viva Connections, Viva Engage (basique), Viva Insights (Personal) | Tous les clients M365 : pas de surcoût |
 | **Viva Suite** | Toutes les apps Viva (8 apps) | Organisations cherchant une EXP complète |
 | **Applications individuelles** | Glint, Goals, Learning, Pulse, Amplify (séparément) | Besoin ciblé sur une app spécifique |
 
@@ -228,10 +228,10 @@ Qualtrics (feedback croisé avec analytics)
 - "Comment alignez-vous les objectifs opérationnels sur la stratégie de l'entreprise ?"
 
 ### Arguments ROI à utiliser
-- Réduction du turnover : **coût d'un turnover = 6-9 mois de salaire** — améliorer l'engagement réduit ce coût
+- Réduction du turnover : **coût d'un turnover = 6-9 mois de salaire** : améliorer l'engagement réduit ce coût
 - Enquête Microsoft Work Trend Index : **87% des employés** veulent que leur employeur les aide à gérer leur énergie et productivité
 - Entreprises avec fort engagement employé : **23% plus rentables** (Gallup 2024)
 
 ---
 
-*Source : learn.microsoft.com/viva — Mise à jour : Juin 2026*
+*Source : learn.microsoft.com/viva : Mise à jour : Juin 2026*

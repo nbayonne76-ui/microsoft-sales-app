@@ -1,6 +1,6 @@
 /**
  * Shared utilities for Microsoft blog agents.
- * CommonJS — runs as standalone Node.js scripts.
+ * CommonJS : runs as standalone Node.js scripts.
  */
 
 const fs   = require('fs');
@@ -224,7 +224,7 @@ ${newsText}
 
 Génère un document markdown avec ces sections :
 
-# ${config.domainLabel} — Mise à jour KB (${today})
+# ${config.domainLabel} : Mise à jour KB (${today})
 
 ## Dernières annonces
 (bullet points : nom de la feature → impact business concis)
@@ -280,13 +280,13 @@ function saveArticle(article) {
 // ── Main runner ───────────────────────────────────────────────────────────────
 
 async function runAgent(config) {
-  console.log(`\n🤖 ${config.domainLabel} Agent — ${new Date().toISOString()}`);
+  console.log(`\n🤖 ${config.domainLabel} Agent : ${new Date().toISOString()}`);
   console.log('─'.repeat(50));
 
   loadEnv();
 
   if (!process.env.OPENAI_API_KEY) {
-    console.error('❌ OPENAI_API_KEY not set — abort');
+    console.error('❌ OPENAI_API_KEY not set : abort');
     process.exit(1);
   }
 
@@ -303,7 +303,7 @@ async function runAgent(config) {
     .slice(0, 12);
 
   if (allItems.length === 0) {
-    console.warn('⚠️  No news items found — skipping article generation');
+    console.warn('⚠️  No news items found : skipping article generation');
     return;
   }
 

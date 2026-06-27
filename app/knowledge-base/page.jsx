@@ -53,36 +53,36 @@ const SUB_TO_GROUP = {
 
 // ── Pricing docs & KB documents ─────────────────────────────────────────
 const KB_DOCS = [
-  { id: 'm365-pricing',    title: 'M365 Pricing 2025',               file: 'm365-pricing-2025.md',                  category: 'M365',     emoji: '💼', featured: true,  desc: 'Tarifs complets Business & Enterprise — Copilot add-on, remises CSP, comparatif plans' },
-  { id: 'm365-e7',         title: 'M365 E7 — Frontier Worker Suite', file: 'm365-e7-frontier-worker-suite.md',      category: 'M365',     emoji: '🚀', featured: true,  desc: 'Nouveau plan Frontline Workers — couverture terrain, appareils partagés, tarif dédié' },
-  { id: 'e3-vs-e5',        title: 'M365 E3 vs E5 Guide',             file: 'm365-e3-vs-e5-decision-guide.md',       category: 'M365',     emoji: '📊', featured: true,  desc: 'Aide à la décision E3/E5 — tableau comparatif, critères de choix, ROI sécurité avancée' },
-  { id: 'o365-e3-e5',      title: 'Office 365 E3 & E5 Plans',        file: 'm365-pricing-2025.md',                  category: 'M365',     emoji: '📧', featured: false, desc: 'Plans Office 365 purs — messagerie & apps sans gouvernance avancée' },
-  { id: 'licensing',       title: 'Licensing & Contracts',            file: 'microsoft-licensing-contracts-guide.md',category: 'M365',     emoji: '📄', featured: true,  desc: 'Guide complet contrats EA, CSP, MCA — clauses clés, renouvellements, audit de licences' },
-  { id: 'csp-vs-mca',      title: 'CSP vs MCA Decision',             file: 'csp-vs-mca-decision-guide.md',          category: 'M365',     emoji: '🤝', featured: false, desc: 'Choisir entre Cloud Solution Provider et Microsoft Customer Agreement — critères et impacts' },
-  { id: 'm365-collab',     title: 'M365 Collaboration',              file: 'microsoft-365-collaboration.md',        category: 'M365',     emoji: '✨', featured: false, desc: 'Teams, SharePoint, Loop — cas d\'usage collaboration moderne et productivité équipe' },
-  { id: 'teams-guide',     title: 'Microsoft Teams — Guide 2026',    file: 'microsoft-teams-guide-2026.md',         category: 'M365',     emoji: '💬', featured: true,  isNew: true, desc: 'Guide complet Teams 2026 — plans, features par cloud (Commercial/GCC/DoD), appels et réunions' },
-  { id: 'viva-suite',      title: 'Microsoft Viva Suite 2026',       file: 'microsoft-viva-suite-2026.md',          category: 'M365',     emoji: '🌟', featured: false, isNew: true, desc: 'Suite Employee Experience — Viva Engage, Insights, Learning, Goals, Amplify — disponibilité par plan' },
-  { id: 'm365-apps-ent',   title: 'M365 Apps Enterprise 2026',       file: 'microsoft-365-apps-enterprise.md',      category: 'M365',     emoji: '🖥️', featured: false, isNew: true, desc: 'Apps desktop & web enterprise — déploiement, mise à jour, activation, Cloud Desktop' },
-  { id: 'm365-frontline',  title: 'Frontline Workers M365',          file: 'microsoft-365-frontline-workers.md',    category: 'M365',     emoji: '👷', featured: false, isNew: true, desc: 'Plans F1/F3/F6 — appareils partagés, walkie-talkie Teams, tâches terrain, Shifts' },
-  { id: 'modern-work-lic', title: 'Modern Work Licensing (SCIM+P)',  file: 'modern-work-licensing-guide.md',        category: 'M365',     emoji: '📋', featured: true,  isNew: true, desc: 'Guide licences SCIM+P officiel Microsoft — M365 Business/Enterprise, Security add-ons, attach rules' },
-  { id: 'feat-avail',      title: 'Feature Availability Officielle', file: 'm365-feature-availability-official.md', category: 'M365',     emoji: '📑', featured: true,  isNew: true, desc: '13 services documentés Microsoft Learn — tableaux de disponibilité par plan (Teams, Exchange, SharePoint, OneDrive, Copilot…)' },
-  { id: 'azure-pricing',   title: 'Azure Pricing 2025',              file: 'azure-pricing-2025.md',                 category: 'Azure',    emoji: '☁️', featured: true,  desc: 'Tarifs Azure IaaS/PaaS — compute, storage, réseau, réductions Reserved Instances' },
-  { id: 'azure-migration', title: 'Azure Migration',                 file: 'azure-migration.md',                    category: 'Azure',    emoji: '🚀', featured: false, desc: 'Playbook de migration cloud — assessment, lift & shift, modernisation, TCO calculator' },
-  { id: 'dynamics-fo-arch',    title: 'D365 F&O — Architecture des Modules',      file: 'dynamics-365-fo-modules-architecture.md',         category: 'Dynamics', emoji: '🏗️', featured: true,  isNew: true, desc: 'Architecture complète F&O — 8 modules Finance + 12 modules SCM, flux de données, patterns par industrie, cas clients RandGroup' },
-  { id: 'dynamics-ai-agents',  title: 'D365 — Agents IA & Copilot Complet',        file: 'dynamics-365-ai-agents-complete.md',               category: 'Dynamics', emoji: '🤖', featured: true,  isNew: true, desc: 'Référence complète des agents IA par produit — GA, Preview, Production Ready — arguments vente vs SAP/Salesforce' },
-  { id: 'dynamics-licensing',  title: 'D365 — Licensing, TCO & Implémentation',    file: 'dynamics-365-licensing-implementation-guide.md',   category: 'Dynamics', emoji: '💰', featured: true,  isNew: true, desc: 'Attach licensing ($300K–$500K économies/an), TCO 3 scénarios, enforcement Jan 2026, EOL Guides/Remote Assist, négociation volume' },
-  { id: 'dynamics-modules',    title: 'D365 — Catalogue Complet des Modules',      file: 'dynamics-365-modules-overview.md',                 category: 'Dynamics', emoji: '📦', featured: false, isNew: true, desc: 'Catalogue 20+ modules ERP/CRM/IA/Réalité Mixte — interconnexions, positionnement concurrentiel, ERP Industry Framework' },
-  { id: 'dynamics-faq',        title: 'D365 M365 — Licensing FAQ Officielle',      file: 'm365-licensing-faq.md',                            category: 'Dynamics', emoji: '❓', featured: false, isNew: true, desc: '84 Q&A officielles Microsoft — Original vs Unified SKUs, Universal Print, Advanced Data Residency, Cross-tenant migration' },
-  { id: 'dynamics',            title: 'Dynamics 365 Pricing',                      file: 'dynamics-365-pricing-2025.md',                     category: 'Dynamics', emoji: '🎯', featured: false, desc: 'Tarifs D365 Sales, Customer Service, BC, Finance & SCM — licences attach rules' },
-  { id: 'power',           title: 'Power Platform',                  file: 'power-platform-digital.md',             category: 'Power',    emoji: '⚡', featured: false, desc: 'Power BI, Power Apps, Power Automate — licences, capacités Premium et connecteurs' },
-  { id: 'copilot-studio',  title: 'Copilot Studio — Licensing 2026', file: 'copilot-studio-licensing.md',           category: 'Power',    emoji: '🤖', featured: true,  isNew: true, desc: 'Plans Teams vs Standalone, Copilot Credits, canaux de déploiement, intégration M365 Copilot' },
-  { id: 'security',        title: 'Security & Compliance',           file: 'security-compliance.md',                category: 'Security', emoji: '🛡️', featured: false, desc: 'Defender, Sentinel, Purview — couverture Zero Trust, conformité RGPD & NIS2' },
-  { id: 'intune',          title: 'Microsoft Intune — Plans 2026',   file: 'microsoft-intune-licensing.md',         category: 'Security', emoji: '📱', featured: true,  isNew: true, desc: 'Intune Plan 1 vs Plan 2 vs Suite — MDM/MAM, Remote Help, EPM, Cloud PKI, disponibilité par plan M365' },
-  { id: 'modern-wp-sec',  title: 'Modern Workplace Security FW',    file: 'modern-workplace-security-framework.md', category: 'Security', emoji: '🔒', featured: true,  isNew: true, desc: 'Framework sécurité M365 — Zero Trust, Conditional Access, MFA, Defender for Business, conformité RGPD' },
-  { id: 'bundles',         title: 'Solutions Bundles & Promotions',  file: 'microsoft-promotions-2026.md',          category: 'Bundles',  emoji: '🏷️', featured: true,  desc: 'Offres bundles 2026 — remises combos M365+D365, promotions partenaires actives' },
-  { id: 'pricing-guide',   title: 'Full Pricing Guide 2025',         file: 'microsoft-pricing-guide-2025.md',       category: 'Bundles',  emoji: '📋', featured: false, desc: 'Guide tarifaire unifié — tous produits Microsoft, grille partenaire CSP complète' },
-  { id: 'solution-bundles',title: 'Solution Bundles & Pricing',      file: 'solution-bundles-pricing.md',           category: 'Bundles',  emoji: '🎯', featured: false, desc: 'Templates propositions commerciales — bundles courants, pricing rapide par secteur' },
-  { id: 'github-copilot',  title: 'GitHub Copilot — Plans 2026',     file: 'github-copilot-plans.md',               category: 'Developer',emoji: '💻', featured: true,  isNew: true, desc: 'Copilot Free/Pro/Business/Enterprise — features IDE, coding agent, knowledge bases, pricing $10-$39/mois' },
+  { id: 'm365-pricing',    title: 'M365 Pricing 2025',               file: 'm365-pricing-2025.md',                  category: 'M365',     emoji: '💼', featured: true,  desc: 'Tarifs complets Business & Enterprise : Copilot add-on, remises CSP, comparatif plans' },
+  { id: 'm365-e7',         title: 'M365 E7 : Frontier Worker Suite', file: 'm365-e7-frontier-worker-suite.md',      category: 'M365',     emoji: '🚀', featured: true,  desc: 'Nouveau plan Frontline Workers : couverture terrain, appareils partagés, tarif dédié' },
+  { id: 'e3-vs-e5',        title: 'M365 E3 vs E5 Guide',             file: 'm365-e3-vs-e5-decision-guide.md',       category: 'M365',     emoji: '📊', featured: true,  desc: 'Aide à la décision E3/E5 : tableau comparatif, critères de choix, ROI sécurité avancée' },
+  { id: 'o365-e3-e5',      title: 'Office 365 E3 & E5 Plans',        file: 'm365-pricing-2025.md',                  category: 'M365',     emoji: '📧', featured: false, desc: 'Plans Office 365 purs : messagerie & apps sans gouvernance avancée' },
+  { id: 'licensing',       title: 'Licensing & Contracts',            file: 'microsoft-licensing-contracts-guide.md',category: 'M365',     emoji: '📄', featured: true,  desc: 'Guide complet contrats EA, CSP, MCA : clauses clés, renouvellements, audit de licences' },
+  { id: 'csp-vs-mca',      title: 'CSP vs MCA Decision',             file: 'csp-vs-mca-decision-guide.md',          category: 'M365',     emoji: '🤝', featured: false, desc: 'Choisir entre Cloud Solution Provider et Microsoft Customer Agreement : critères et impacts' },
+  { id: 'm365-collab',     title: 'M365 Collaboration',              file: 'microsoft-365-collaboration.md',        category: 'M365',     emoji: '✨', featured: false, desc: 'Teams, SharePoint, Loop : cas d\'usage collaboration moderne et productivité équipe' },
+  { id: 'teams-guide',     title: 'Microsoft Teams : Guide 2026',    file: 'microsoft-teams-guide-2026.md',         category: 'M365',     emoji: '💬', featured: true,  isNew: true, desc: 'Guide complet Teams 2026 : plans, features par cloud (Commercial/GCC/DoD), appels et réunions' },
+  { id: 'viva-suite',      title: 'Microsoft Viva Suite 2026',       file: 'microsoft-viva-suite-2026.md',          category: 'M365',     emoji: '🌟', featured: false, isNew: true, desc: 'Suite Employee Experience : Viva Engage, Insights, Learning, Goals, Amplify : disponibilité par plan' },
+  { id: 'm365-apps-ent',   title: 'M365 Apps Enterprise 2026',       file: 'microsoft-365-apps-enterprise.md',      category: 'M365',     emoji: '🖥️', featured: false, isNew: true, desc: 'Apps desktop & web enterprise : déploiement, mise à jour, activation, Cloud Desktop' },
+  { id: 'm365-frontline',  title: 'Frontline Workers M365',          file: 'microsoft-365-frontline-workers.md',    category: 'M365',     emoji: '👷', featured: false, isNew: true, desc: 'Plans F1/F3/F6 : appareils partagés, walkie-talkie Teams, tâches terrain, Shifts' },
+  { id: 'modern-work-lic', title: 'Modern Work Licensing (SCIM+P)',  file: 'modern-work-licensing-guide.md',        category: 'M365',     emoji: '📋', featured: true,  isNew: true, desc: 'Guide licences SCIM+P officiel Microsoft : M365 Business/Enterprise, Security add-ons, attach rules' },
+  { id: 'feat-avail',      title: 'Feature Availability Officielle', file: 'm365-feature-availability-official.md', category: 'M365',     emoji: '📑', featured: true,  isNew: true, desc: '13 services documentés Microsoft Learn : tableaux de disponibilité par plan (Teams, Exchange, SharePoint, OneDrive, Copilot…)' },
+  { id: 'azure-pricing',   title: 'Azure Pricing 2025',              file: 'azure-pricing-2025.md',                 category: 'Azure',    emoji: '☁️', featured: true,  desc: 'Tarifs Azure IaaS/PaaS : compute, storage, réseau, réductions Reserved Instances' },
+  { id: 'azure-migration', title: 'Azure Migration',                 file: 'azure-migration.md',                    category: 'Azure',    emoji: '🚀', featured: false, desc: 'Playbook de migration cloud : assessment, lift & shift, modernisation, TCO calculator' },
+  { id: 'dynamics-fo-arch',    title: 'D365 F&O : Architecture des Modules',      file: 'dynamics-365-fo-modules-architecture.md',         category: 'Dynamics', emoji: '🏗️', featured: true,  isNew: true, desc: 'Architecture complète F&O : 8 modules Finance + 12 modules SCM, flux de données, patterns par industrie, cas clients RandGroup' },
+  { id: 'dynamics-ai-agents',  title: 'D365 : Agents IA & Copilot Complet',        file: 'dynamics-365-ai-agents-complete.md',               category: 'Dynamics', emoji: '🤖', featured: true,  isNew: true, desc: 'Référence complète des agents IA par produit : GA, Preview, Production Ready : arguments vente vs SAP/Salesforce' },
+  { id: 'dynamics-licensing',  title: 'D365 : Licensing, TCO & Implémentation',    file: 'dynamics-365-licensing-implementation-guide.md',   category: 'Dynamics', emoji: '💰', featured: true,  isNew: true, desc: 'Attach licensing ($300K–$500K économies/an), TCO 3 scénarios, enforcement Jan 2026, EOL Guides/Remote Assist, négociation volume' },
+  { id: 'dynamics-modules',    title: 'D365 : Catalogue Complet des Modules',      file: 'dynamics-365-modules-overview.md',                 category: 'Dynamics', emoji: '📦', featured: false, isNew: true, desc: 'Catalogue 20+ modules ERP/CRM/IA/Réalité Mixte : interconnexions, positionnement concurrentiel, ERP Industry Framework' },
+  { id: 'dynamics-faq',        title: 'D365 M365 : Licensing FAQ Officielle',      file: 'm365-licensing-faq.md',                            category: 'Dynamics', emoji: '❓', featured: false, isNew: true, desc: '84 Q&A officielles Microsoft : Original vs Unified SKUs, Universal Print, Advanced Data Residency, Cross-tenant migration' },
+  { id: 'dynamics',            title: 'Dynamics 365 Pricing',                      file: 'dynamics-365-pricing-2025.md',                     category: 'Dynamics', emoji: '🎯', featured: false, desc: 'Tarifs D365 Sales, Customer Service, BC, Finance & SCM : licences attach rules' },
+  { id: 'power',           title: 'Power Platform',                  file: 'power-platform-digital.md',             category: 'Power',    emoji: '⚡', featured: false, desc: 'Power BI, Power Apps, Power Automate : licences, capacités Premium et connecteurs' },
+  { id: 'copilot-studio',  title: 'Copilot Studio : Licensing 2026', file: 'copilot-studio-licensing.md',           category: 'Power',    emoji: '🤖', featured: true,  isNew: true, desc: 'Plans Teams vs Standalone, Copilot Credits, canaux de déploiement, intégration M365 Copilot' },
+  { id: 'security',        title: 'Security & Compliance',           file: 'security-compliance.md',                category: 'Security', emoji: '🛡️', featured: false, desc: 'Defender, Sentinel, Purview : couverture Zero Trust, conformité RGPD & NIS2' },
+  { id: 'intune',          title: 'Microsoft Intune : Plans 2026',   file: 'microsoft-intune-licensing.md',         category: 'Security', emoji: '📱', featured: true,  isNew: true, desc: 'Intune Plan 1 vs Plan 2 vs Suite : MDM/MAM, Remote Help, EPM, Cloud PKI, disponibilité par plan M365' },
+  { id: 'modern-wp-sec',  title: 'Modern Workplace Security FW',    file: 'modern-workplace-security-framework.md', category: 'Security', emoji: '🔒', featured: true,  isNew: true, desc: 'Framework sécurité M365 : Zero Trust, Conditional Access, MFA, Defender for Business, conformité RGPD' },
+  { id: 'bundles',         title: 'Solutions Bundles & Promotions',  file: 'microsoft-promotions-2026.md',          category: 'Bundles',  emoji: '🏷️', featured: true,  desc: 'Offres bundles 2026 : remises combos M365+D365, promotions partenaires actives' },
+  { id: 'pricing-guide',   title: 'Full Pricing Guide 2025',         file: 'microsoft-pricing-guide-2025.md',       category: 'Bundles',  emoji: '📋', featured: false, desc: 'Guide tarifaire unifié : tous produits Microsoft, grille partenaire CSP complète' },
+  { id: 'solution-bundles',title: 'Solution Bundles & Pricing',      file: 'solution-bundles-pricing.md',           category: 'Bundles',  emoji: '🎯', featured: false, desc: 'Templates propositions commerciales : bundles courants, pricing rapide par secteur' },
+  { id: 'github-copilot',  title: 'GitHub Copilot : Plans 2026',     file: 'github-copilot-plans.md',               category: 'Developer',emoji: '💻', featured: true,  isNew: true, desc: 'Copilot Free/Pro/Business/Enterprise : features IDE, coding agent, knowledge bases, pricing $10-$39/mois' },
 ];
 
 const DOC_CATEGORIES = ['All','M365','Azure','Dynamics','Power','Security','Bundles','Developer'];
@@ -97,7 +97,7 @@ const CAT_DOC_STYLE = {
   Developer:{ gradient: 'from-violet-500 to-purple-600',  light: 'bg-violet-50',  badge: 'bg-violet-100 text-violet-700 border-violet-200',     bar: 'bg-violet-500',  ring: 'hover:ring-violet-200' },
 };
 
-// ── Modern Work — M365 Plans (no pricing — see Pricing Guides tab) ───────
+// ── Modern Work : M365 Plans (no pricing : see Pricing Guides tab) ───────
 const M365_SEGMENTS = [
   { id: 'all',        label: 'Tous les plans',        emoji: '📋' },
   { id: 'business',   label: 'Business ≤ 300',        emoji: '🏢' },
@@ -127,7 +127,7 @@ const M365_PLANS = [
     name: 'Microsoft 365 Business Basic', shortName: 'Business Basic',
     emoji: '☁️',
     description: 'Services cloud complets (Teams, Exchange, SharePoint, OneDrive) avec applications web et mobiles. Aucune installation desktop requise.',
-    apps: ['Applications web & mobiles — Word, Excel, PowerPoint, Outlook'],
+    apps: ['Applications web & mobiles : Word, Excel, PowerPoint, Outlook'],
     services: ['Teams (meetings, chat, channels)', 'Exchange 50 GB / mailbox', 'SharePoint', 'OneDrive 1 TB', 'Microsoft Defender (basique)', 'Entra ID (basique)'],
     notIncluded: ['Applications desktop installées'],
     bestFor: 'Start-ups & équipes remote-first, usage navigateur prédominant, budget optimisé',
@@ -142,8 +142,8 @@ const M365_PLANS = [
     apps: ['Word', 'Excel', 'PowerPoint', 'Outlook', 'OneNote', 'Access (PC)', 'Publisher (PC)'],
     services: ['Teams (meetings, calls, channels)', 'Exchange 50 GB', 'SharePoint', 'OneDrive 1 TB', 'Bookings', 'Forms', 'Lists', 'Planner', 'Stream', 'Clipchamp'],
     notIncluded: ['Sécurité avancée (Defender for Business)', 'Gestion des appareils (Intune)', 'Protection des données (AIP P1)'],
-    bestFor: 'PME souhaitant la productivité complète avec collaboration — meilleur rapport fonctionnel Business',
-    highlight: 'Le plan le plus populaire PME — apps desktop + Teams + collaboration complète',
+    bestFor: 'PME souhaitant la productivité complète avec collaboration : meilleur rapport fonctionnel Business',
+    highlight: 'Le plan le plus populaire PME : apps desktop + Teams + collaboration complète',
     badge: '⭐ Le plus populaire',
     badgeColor: 'bg-blue-100 text-blue-700',
     color: 'border-blue-300',
@@ -171,7 +171,7 @@ const M365_PLANS = [
     apps: ['Applications web et mobiles uniquement'],
     services: ['Teams', 'Exchange 50 GB', 'SharePoint', 'OneDrive 1 TB', 'Compliance basique (audit, eDiscovery basique)'],
     notIncluded: ['Applications desktop', 'Sécurité avancée', 'Gestion des appareils', 'Windows Enterprise'],
-    bestFor: 'Grandes organisations cherchant un point d\'entrée cloud minimal — upgrade E3 conseillé',
+    bestFor: 'Grandes organisations cherchant un point d\'entrée cloud minimal : upgrade E3 conseillé',
     highlight: null,
     badge: '💡 Point d\'entrée',
     badgeColor: 'bg-slate-100 text-slate-600',
@@ -181,12 +181,12 @@ const M365_PLANS = [
     id: 'o365-e3', segment: 'enterprise',
     name: 'Office 365 E3', shortName: 'O365 E3',
     emoji: '📧',
-    description: 'Suite Office 365 Enterprise complète : applications desktop + conformité avancée (DLP, eDiscovery, audit, legal hold). Sans Windows Enterprise ni Intune — idéal si la gestion des appareils est déjà couverte.',
+    description: 'Suite Office 365 Enterprise complète : applications desktop + conformité avancée (DLP, eDiscovery, audit, legal hold). Sans Windows Enterprise ni Intune : idéal si la gestion des appareils est déjà couverte.',
     apps: ['Word', 'Excel', 'PowerPoint', 'Outlook', 'OneNote', 'Access (PC)', 'Publisher (PC)'],
     services: ['Teams', 'Exchange 100 GB', 'SharePoint', 'OneDrive illimité', 'Microsoft Purview (DLP, eDiscovery, audit, legal hold)', 'Microsoft Forms, Lists, Planner, Stream', 'Microsoft Bookings'],
     notIncluded: ['Windows Enterprise', 'Microsoft Intune (MDM/MAM)', 'Microsoft Entra ID P1 (Conditional Access avancé)', 'Azure Information Protection P1'],
     bestFor: 'Organisations ayant déjà Windows + device management via un autre contrat, cherchant productivité complète + conformité sans payer Windows',
-    highlight: 'Productivité + conformité pure Office 365 — sans les composants Windows/EMS (différence clé vs M365 E3)',
+    highlight: 'Productivité + conformité pure Office 365 : sans les composants Windows/EMS (différence clé vs M365 E3)',
     badge: '📧 Office 365 Only',
     badgeColor: 'bg-sky-100 text-sky-700',
     color: 'border-sky-200',
@@ -201,7 +201,7 @@ const M365_PLANS = [
     services: ['Tout Office 365 E3 inclus', 'Microsoft Defender for Office 365 Plan 2 (anti-phishing avancé, investigation automatique, Attack Simulator)', 'Microsoft Purview E5 Compliance (eDiscovery avancé, Insider Risk Management, Communication Compliance)', 'Microsoft Purview E5 Information Protection (classification automatique, DLP avancé)', 'Power BI Pro', 'Audio Conferencing (numéros dial-in réunions)', 'Microsoft Teams Phone System'],
     notIncluded: ['Windows Enterprise', 'Microsoft Intune', 'Microsoft Entra ID P2', 'Microsoft Defender for Identity', 'Microsoft Defender for Endpoint'],
     bestFor: 'Organisations ayant Windows/Intune via un autre contrat, nécessitant sécurité email maximale, conformité avancée et téléphonie cloud intégrée',
-    highlight: 'Sécurité email maximale (Defender P2) + Purview E5 + Power BI Pro + Audio Conferencing — pure Office 365',
+    highlight: 'Sécurité email maximale (Defender P2) + Purview E5 + Power BI Pro + Audio Conferencing : pure Office 365',
     badge: '🔒 Sécurité & Conformité Max O365',
     badgeColor: 'bg-teal-100 text-teal-700',
     color: 'border-teal-300',
@@ -229,7 +229,7 @@ const M365_PLANS = [
     apps: ['Tout M365 E3 inclus'],
     services: ['Defender for Office 365 P2 (XDR email & collaboratif)', 'Microsoft Defender for Identity (menaces Active Directory)', 'Microsoft Defender for Cloud Apps (CASB)', 'Microsoft Entra ID P2 (PIM, Identity Protection, Access Reviews)', 'Azure Information Protection P2 (classification automatique)', 'Microsoft Purview E5 Compliance (IRM, Insider Risk, Communication Compliance)', 'Power BI Pro', 'Audio Conferencing + Phone System'],
     notIncluded: [],
-    bestFor: 'Grandes entreprises avec exigences maximales : NIS2, RGPD, DORA, HIPAA, FCA — sécurité + conformité + analytics',
+    bestFor: 'Grandes entreprises avec exigences maximales : NIS2, RGPD, DORA, HIPAA, FCA : sécurité + conformité + analytics',
     highlight: 'XDR complet + Compliance maximale + Power BI Pro + Téléphonie cloud intégrée',
     badge: '🔐 Sécurité & Compliance Max',
     badgeColor: 'bg-purple-100 text-purple-700',
@@ -237,24 +237,24 @@ const M365_PLANS = [
   },
   {
     id: 'm365-e7', segment: 'enterprise',
-    name: 'Microsoft 365 E7 — Frontier Worker Suite', shortName: 'M365 E7',
+    name: 'Microsoft 365 E7 : Frontier Worker Suite', shortName: 'M365 E7',
     emoji: '🚀',
     description: 'Le plan Enterprise premium tout-en-un : M365 E5 + Entra Suite (Zero Trust complet) + Microsoft 365 Copilot (IA intégrée) + Microsoft Agent 365 (plan de contrôle des agents IA). Disponibilité générale : 1er mai 2026.',
     apps: ['Tout M365 E5 inclus', 'Microsoft 365 Copilot (Word, Excel, PowerPoint, Outlook, Teams)', 'Work IQ (intelligence personnalisée)', 'Agent Builder & Copilot Studio'],
     services: [
-      'Microsoft Entra Suite (Zero Trust complet — Private Access, Internet Access, ID Governance, Verified ID)',
-      'Microsoft Agent 365 — Observe : visibilité temps réel sur tous les agents',
-      'Microsoft Agent 365 — Govern : guardrails + lifecycle + audit agents',
-      'Microsoft Agent 365 — Secure : identités agents + DLP + menaces IA',
+      'Microsoft Entra Suite (Zero Trust complet : Private Access, Internet Access, ID Governance, Verified ID)',
+      'Microsoft Agent 365 : Observe : visibilité temps réel sur tous les agents',
+      'Microsoft Agent 365 : Govern : guardrails + lifecycle + audit agents',
+      'Microsoft Agent 365 : Secure : identités agents + DLP + menaces IA',
       'Pre-built agents : Word, Excel, PowerPoint, Researcher, Analyst, Facilitator, SharePoint, Workflows',
       'Agent Marketplace (3P) : 1 400+ connecteurs',
       'Power BI Pro',
       'Teams Phone System + Audio Conferencing',
     ],
     notIncluded: [],
-    bestFor: 'Organisations souhaitant adopter l\'IA agentique à grande échelle avec sécurité et gouvernance maximales — le seul plan incluant Agent 365',
-    highlight: 'M365 E5 + Entra Suite + Copilot + Agent 365 — le seul plan avec plan de contrôle des agents IA',
-    badge: '🚀 Frontier Worker Suite — GA Mai 2026',
+    bestFor: 'Organisations souhaitant adopter l\'IA agentique à grande échelle avec sécurité et gouvernance maximales : le seul plan incluant Agent 365',
+    highlight: 'M365 E5 + Entra Suite + Copilot + Agent 365 : le seul plan avec plan de contrôle des agents IA',
+    badge: '🚀 Frontier Worker Suite : GA Mai 2026',
     badgeColor: 'bg-gradient-to-r from-blue-100 to-purple-100 text-purple-700',
     color: 'border-purple-400',
     pricing: '$99/user/mois (avec Teams) · $90.45 sans Teams (à partir du 1/7/26)',
@@ -270,7 +270,7 @@ const M365_PLANS = [
     services: ['Defender for Office 365 Plan 2 (anti-phishing avancé, investigations)', 'Microsoft Defender for Identity (menaces AD & identité)', 'Microsoft Defender for Cloud Apps (CASB & Shadow IT)', 'Microsoft Entra ID P2 (PIM, Identity Protection, Access Reviews)'],
     notIncluded: ['Purview E5 Compliance', 'Power BI Pro', 'Audio Conferencing'],
     bestFor: 'Organisations M365 E3 voulant la sécurité XDR complète sans passer à E5 intégral',
-    highlight: 'Sécurité XDR maximale en add-on sur M365 E3 — l\'accélérateur sécurité idéal',
+    highlight: 'Sécurité XDR maximale en add-on sur M365 E3 : l\'accélérateur sécurité idéal',
     badge: '⚡ Add-on sur M365 E3',
     badgeColor: 'bg-red-100 text-red-700',
     color: 'border-red-200',
@@ -282,9 +282,9 @@ const M365_PLANS = [
     emoji: '👷',
     description: 'Plan économique deskless : Teams chat, SharePoint, Yammer pour les travailleurs sans poste fixe. Applications web & mobiles uniquement.',
     apps: ['Applications web & mobiles uniquement'],
-    services: ['Teams (chat + contenu — sans meetings/calls planifiés)', 'SharePoint (lecture + commentaires)', 'Yammer / Viva Engage', 'Microsoft Stream', 'Planner dans Teams', 'Viva Connections'],
+    services: ['Teams (chat + contenu : sans meetings/calls planifiés)', 'SharePoint (lecture + commentaires)', 'Yammer / Viva Engage', 'Microsoft Stream', 'Planner dans Teams', 'Viva Connections'],
     notIncluded: ['Exchange / boîte mail dédiée', 'Teams meetings & calls complets', 'OneDrive (2 GB max)', 'Applications desktop'],
-    bestFor: 'Travailleurs terrain retail / manufacture pour communication interne — sans besoin messagerie propre',
+    bestFor: 'Travailleurs terrain retail / manufacture pour communication interne : sans besoin messagerie propre',
     highlight: null,
     badge: '💡 Deskless Basic',
     badgeColor: 'bg-orange-100 text-orange-700',
@@ -299,14 +299,14 @@ const M365_PLANS = [
     services: ['Teams complet (meetings, calls, shifts scheduling)', 'Exchange 2 GB / mailbox', 'SharePoint', 'OneDrive 2 GB', 'Microsoft Intune (MDM/MAM)', 'Viva Connections + Viva Engage', 'Power Apps (usage limité)'],
     notIncluded: ['Applications desktop', 'Microsoft Entra ID P1', 'Azure Information Protection P1'],
     bestFor: 'Équipes terrain avec coordination avancée (shifts, dossiers, maintenance) et gestion des appareils',
-    highlight: 'Teams complet + Exchange + Intune — la suite terrain professionnalisée',
+    highlight: 'Teams complet + Exchange + Intune : la suite terrain professionnalisée',
     badge: '✅ Terrain Complet',
     badgeColor: 'bg-orange-100 text-orange-700',
     color: 'border-orange-300',
   },
 ];
 
-// ── Assessments data — FY26 SMB Assessment Desk (source PDF officiel) ────
+// ── Assessments data : FY26 SMB Assessment Desk (source PDF officiel) ────
 const ASSESSMENTS_DATA = [
   {
     pillar: 'Security',
@@ -325,9 +325,9 @@ const ASSESSMENTS_DATA = [
         eligibility: '> 30 sièges • Standard offering',
         outputs: [
           'Score CIS v8.1 + Microsoft 365 Secure Score (cible : 80%+)',
-          'Entra ID Admin Accounts — MFA gaps, comptes expirés, Domain Admins',
-          'Browser-Based LLM Usage — ChatGPT, DeepSeek, Gemini, Claude détectés',
-          'Endpoint Secure Configuration — BitLocker, PowerShell 2.0, antivirus',
+          'Entra ID Admin Accounts : MFA gaps, comptes expirés, Domain Admins',
+          'Browser-Based LLM Usage : ChatGPT, DeepSeek, Gemini, Claude détectés',
+          'Endpoint Secure Configuration : BitLocker, PowerShell 2.0, antivirus',
           'M365 Copilot Readiness + Plan d\'action court/long terme',
         ],
         badge: 'Standard', badgeColor: 'bg-orange-100 text-orange-700',
@@ -336,11 +336,11 @@ const ASSESSMENTS_DATA = [
       {
         name: 'Threat Protection Assessment', short: 'TPA', emoji: '🛡️',
         description: "Vue exhaustive on-premise et cloud de la posture sécurité. CIS Controls, Zero Trust Architecture, Azure Secure Score, AWS/GitHub security insights et score de conformité NIS 2.0. Plan d'action pour infrastructures hybrides.",
-        tool: 'CSAT — Defender for Office 365 / Defender for Endpoint',
+        tool: 'CSAT : Defender for Office 365 / Defender for Endpoint',
         timeline: '1–2 semaines',
         eligibility: '> 30 sièges • Comptes Corporate / Mid-Market',
         outputs: [
-          'Company Maturity Score (CIS Controls — 4 niveaux : Basic → Dynamic)',
+          'Company Maturity Score (CIS Controls : 4 niveaux : Basic → Dynamic)',
           'Quick Wins, Zero Trust Architecture, Azure & Microsoft Secure Scores',
           'AWS security settings + GitHub security settings',
           'Recommended Action Plan pour infrastructures hybrides',
@@ -357,7 +357,7 @@ const ASSESSMENTS_DATA = [
         eligibility: '> 30 sièges',
         outputs: [
           'Company Maturity Score (CIS Controls) + NIS 2.0 Directive Readiness',
-          'Data Protection — SharePoint PII, Cloud Storage, DMARC/DKIM/SPF',
+          'Data Protection : SharePoint PII, Cloud Storage, DMARC/DKIM/SPF',
           'Data governance insights + M365 Copilot security & governance',
           'Browser-Based LLM Usage + 3rd party Gen AI detection',
           'Plan d\'action : data management & protection contre les menaces',
@@ -368,14 +368,14 @@ const ASSESSMENTS_DATA = [
       {
         name: 'Protect Cloud, AI Platforms & Apps', short: 'PCAP', emoji: '☁️',
         description: "Analyse des risques Azure : cloud infrastructures, identity, data et application protection. Essentiel pour les clients avec Azure OpenAI et Azure AI Foundry. Hero offerings : Defender for Cloud + Purview.",
-        tool: 'CSAT — Hero : Defender for Cloud + Purview',
+        tool: 'CSAT : Hero : Defender for Cloud + Purview',
         timeline: 'TBC',
         eligibility: 'Clients Azure actif • Azure OpenAI / Foundry',
         outputs: [
           'Maturity Score (CIS Controls, Zero Trust, Azure Secure Score)',
           'Azure Policy compliance (ex : 13%) + Azure Network Security Groups',
-          'Cloud Storage Accounts — TLS, chiffrement, public access',
-          'Multi-Cloud scan — AWS MFA (76 identités), 15 certificats expirés',
+          'Cloud Storage Accounts : TLS, chiffrement, public access',
+          'Multi-Cloud scan : AWS MFA (76 identités), 15 certificats expirés',
           'Recommended Action Plan pour cloud infrastructure & AI apps',
         ],
         badge: 'Azure AI', badgeColor: 'bg-cyan-100 text-cyan-700',
@@ -390,8 +390,8 @@ const ASSESSMENTS_DATA = [
         outputs: [
           '3-year Breakdown of Estimated Costs (licences, migration, formation)',
           '3-year Breakdown of Estimated Benefits (consolidation fournisseurs, ROI)',
-          'Eliminate Redundant Solutions — ex : 15+ vendors à $63/user/mois',
-          'Economic Impact — ex : $9.4M, ROI 176%, Payback 8 mois',
+          'Eliminate Redundant Solutions : ex : 15+ vendors à $63/user/mois',
+          'Economic Impact : ex : $9.4M, ROI 176%, Payback 8 mois',
           'Business case exécutif prêt à présenter au CISO/CIO',
         ],
         badge: 'Inclus partout', badgeColor: 'bg-green-100 text-green-700',
@@ -411,13 +411,13 @@ const ASSESSMENTS_DATA = [
       {
         name: 'Azure Benchmark TCO', short: 'TCO', emoji: '📊',
         description: "Vue data-driven de l'environnement actuel et du plan de migration Azure. Utilise Dr Migrate : outil Microsoft agentless (sans agent, sans install) déployé dans 75+ pays auprès de +2000 clients. Coûts, priorités, wave planning et prochaines étapes concrètes.",
-        tool: 'Dr Migrate + DMC (agentless — ~5MB/VM, ~2% CPU, ~1000 VMs/heure)',
+        tool: 'Dr Migrate + DMC (agentless : ~5MB/VM, ~2% CPU, ~1000 VMs/heure)',
         timeline: '1–2 semaines • 5 réunions (Kick-Off + 2 Workshops + Delivery)',
         eligibility: '> 5 VMs on-premise ou VMware',
         outputs: [
-          '100+ dashboards interactifs — infrastructure, coûts, sizing, readiness',
-          'TCO Modelling — ex : $2.1M on-prem → $775K Azure = $1.3M/an économisés',
-          'Estate Analyses — apps mappées, serveurs, OS, dépendances réseau',
+          '100+ dashboards interactifs : infrastructure, coûts, sizing, readiness',
+          'TCO Modelling : ex : $2.1M on-prem → $775K Azure = $1.3M/an économisés',
+          'Estate Analyses : apps mappées, serveurs, OS, dépendances réseau',
           '6R Migration Treatments (Rehost, Refactor, Re-architect, Replace, Retain, Retire)',
           'Wave Planning AI-assisted + Executive Report PDF prêt pour approbation budget',
         ],
@@ -427,13 +427,13 @@ const ASSESSMENTS_DATA = [
       {
         name: 'Azure Security Assessment', short: 'ASA', emoji: '🔐',
         description: "Analyse approfondie des risques Azure : cloud infrastructures, identités, données et application protection. Critique pour les clients utilisant Azure OpenAI et Azure AI Foundry. Unifie la sécurité et gouvernance sur le cycle de vie cloud et IA.",
-        tool: 'CSAT — Hero : Defender for Cloud + Purview',
+        tool: 'CSAT : Hero : Defender for Cloud + Purview',
         timeline: '1–2 semaines',
         eligibility: 'TBC • Clients avec Azure actif',
         outputs: [
           'Secure Score Defender for Cloud (benchmark 80%) + CIS Controls',
-          'Azure Storage — 20 comptes TLS ≤1.1, 27 avec public blob access',
-          'Azure SQL Databases — 16 BDD sans audit activé',
+          'Azure Storage : 20 comptes TLS ≤1.1, 27 avec public blob access',
+          'Azure SQL Databases : 16 BDD sans audit activé',
           'Azure Policy compliance + Network Security Groups findings',
           'Multi-Cloud : MFA gaps AWS, certificats expirés, accès non sécurisés',
         ],
@@ -454,14 +454,14 @@ const ASSESSMENTS_DATA = [
       {
         name: 'Secure AI Productivity', short: 'SAP', emoji: '🤖',
         description: "Analyse de la posture de sécurité pour adopter l'IA générative en toute sécurité : identity & data compliance, protection contre l'oversharing, détection de ChatGPT/DeepSeek/Gemini en interne et consolidation vers Microsoft Copilot.",
-        tool: 'CSAT — Hero : M365 E3/E5, Entra Suite, Purview',
+        tool: 'CSAT : Hero : M365 E3/E5, Entra Suite, Purview',
         timeline: '2–3 semaines',
         eligibility: '> 30 sièges whitespace + > 10 sièges Copilot achetés',
         outputs: [
           'CIS Controls + Zero Trust Architecture + NIS 2.0 Readiness',
-          'M365 Copilot Readiness — Identity & Access Management, Endpoint Management',
-          'M365 Copilot Readiness — Data Security & Compliance, Threat Protection (400+ AI apps)',
-          'Browser LLM — ex : ChatGPT 6% endpoints (2446 visits), Gemini 1%, Claude 1%',
+          'M365 Copilot Readiness : Identity & Access Management, Endpoint Management',
+          'M365 Copilot Readiness : Data Security & Compliance, Threat Protection (400+ AI apps)',
+          'Browser LLM : ex : ChatGPT 6% endpoints (2446 visits), Gemini 1%, Claude 1%',
           'Entra ID MFA gaps, 3rd party Gen AI governance, Copilot oversharing controls',
         ],
         badge: '10+ Copilot seats', badgeColor: 'bg-violet-100 text-violet-700',
@@ -470,12 +470,12 @@ const ASSESSMENTS_DATA = [
       {
         name: 'Dark to Cloud', short: 'D2C', emoji: '🌐',
         description: "Découverte de l'installation Microsoft on-premise et de l'environnement M365 existant. Recommandations licences selon l'usage observé. Cible les clients \"dark\" (non touchés par Microsoft) ou exposés à la concurrence Google Workspace. Exclusif SMB.",
-        tool: 'CSAT — Hero : M365 Business Premium / E3 / E5',
+        tool: 'CSAT : Hero : M365 Business Premium / E3 / E5',
         timeline: '1–2 semaines',
         eligibility: '> 30 sièges (tous types) • Exclusif SMB',
         outputs: [
-          'Windows Versions — EOS détectés (Win10, WinServer 2012) vulnérables aux exploits',
-          'Updates critiques — ex : 79 endpoints avec mises à jour critiques en attente',
+          'Windows Versions : EOS détectés (Win10, WinServer 2012) vulnérables aux exploits',
+          'Updates critiques : ex : 79 endpoints avec mises à jour critiques en attente',
           'Shadow AI détecté + Browser LLM Usage dans les navigateurs',
           'Business Case Analysis + Copilot options + vendor consolidation 3rd party',
           'Recommandations : upgrade E3/E5, migration EA→CSP, Azure consumption',
@@ -485,15 +485,15 @@ const ASSESSMENTS_DATA = [
       },
       {
         name: 'Copilot Master Class', short: 'CMC', emoji: '✨',
-        description: "Workshop 4 phases pour maximiser l'adoption de M365 Copilot, Copilot Chat et les agents IA. Démo live use cases par département. 68% des travailleurs délèguent les tâches répétitives à l'IA — 61% des executives confirment une meilleure prise de décision.",
+        description: "Workshop 4 phases pour maximiser l'adoption de M365 Copilot, Copilot Chat et les agents IA. Démo live use cases par département. 68% des travailleurs délèguent les tâches répétitives à l'IA : 61% des executives confirment une meilleure prise de décision.",
         tool: 'Aucun outil de scan • Workshop immersif Copilot Chat + Teams',
         timeline: '1–2 jours (workshop)',
         eligibility: '> 30 sièges + > 10 sièges Copilot • Sponsor exécutif requis',
         outputs: [
-          '1. Discover — Copilot Chat UI, skills et capacités',
-          '2. Enable — Prompting best practices + Copilot Prompt Gallery',
-          '3. Accelerate — Use cases Copilot par département/persona',
-          '4. Extend — Agents Copilot Studio pour automatiser les processus métier',
+          '1. Discover : Copilot Chat UI, skills et capacités',
+          '2. Enable : Prompting best practices + Copilot Prompt Gallery',
+          '3. Accelerate : Use cases Copilot par département/persona',
+          '4. Extend : Agents Copilot Studio pour automatiser les processus métier',
           'Business case ROI + Plan d\'adoption + Success metrics dashboard',
         ],
         badge: 'Workshop', badgeColor: 'bg-pink-100 text-pink-700',
@@ -786,7 +786,7 @@ export default function KnowledgeBasePage() {
                   </div>
 
                   {m365Seg !== 'features' && (
-                    <p className="text-sm text-gray-500 mb-4">{filteredM365.length} {tr.pricingNoteCount}{filteredM365.length > 1 ? 's' : ''} — {tr.pricingNoteIn} <strong>{tr.documents}</strong></p>
+                    <p className="text-sm text-gray-500 mb-4">{filteredM365.length} {tr.pricingNoteCount}{filteredM365.length > 1 ? 's' : ''} : {tr.pricingNoteIn} <strong>{tr.documents}</strong></p>
                   )}
 
                   {/* ── Disponibilités Features view ──────────────── */}
@@ -1007,7 +1007,7 @@ export default function KnowledgeBasePage() {
                 })}
               </div>
 
-              {/* ── Featured docs — cards larges ───────────────── */}
+              {/* ── Featured docs : cards larges ───────────────── */}
               {filteredDocs.filter(d => d.featured).length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
                   {filteredDocs.filter(d => d.featured).map((doc, i) => {
@@ -1054,7 +1054,7 @@ export default function KnowledgeBasePage() {
                 </div>
               )}
 
-              {/* ── Docs reguliers — grid 3 colonnes ───────────── */}
+              {/* ── Docs reguliers : grid 3 colonnes ───────────── */}
               {filteredDocs.filter(d => !d.featured).length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {filteredDocs.filter(d => !d.featured).map((doc, i) => {
@@ -1265,7 +1265,7 @@ export default function KnowledgeBasePage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-900 text-lg">Comment nominer un Solution Assessment</h3>
-                    <p className="text-sm text-gray-500">3 voies selon le type de nominateur — FY26 Q4 (depuis le 16 avril 2026)</p>
+                    <p className="text-sm text-gray-500">3 voies selon le type de nominateur : FY26 Q4 (depuis le 16 avril 2026)</p>
                   </div>
                 </div>
 
@@ -1323,11 +1323,11 @@ export default function KnowledgeBasePage() {
                   </div>
                 </div>
 
-                {/* Microsoft Internal — Étapes détaillées MDA */}
+                {/* Microsoft Internal : Étapes détaillées MDA */}
                 <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-6">
                   <div className="flex items-center gap-2 mb-5 flex-wrap">
                     <span className="text-xl">🏢</span>
-                    <h4 className="font-bold text-blue-900 text-base flex-1">Étapes détaillées — Microsoft Internal via MSX Deal Assistance</h4>
+                    <h4 className="font-bold text-blue-900 text-base flex-1">Étapes détaillées : Microsoft Internal via MSX Deal Assistance</h4>
                     <span className="text-[10px] bg-blue-600 text-white px-3 py-1 rounded-full font-bold uppercase tracking-wide">Live depuis 16 avr. 2026</span>
                   </div>
 
@@ -1362,23 +1362,23 @@ export default function KnowledgeBasePage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                     <div className="bg-white rounded-xl p-4 border border-blue-100">
                       <p className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3 flex items-center gap-1.5">
-                        <span>📋</span> Étape 4 — SA Core (champs obligatoires *)
+                        <span>📋</span> Étape 4 : SA Core (champs obligatoires *)
                       </p>
                       <ul className="space-y-1.5 text-xs text-gray-600">
-                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" /><span><strong>Solution Play</strong> — prérempli depuis l'opportunity</span></li>
-                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" /><span><strong>Est. Assessment Start Date</strong> — date estimée</span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" /><span><strong>Solution Play</strong> : prérempli depuis l'opportunity</span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" /><span><strong>Est. Assessment Start Date</strong> : date estimée</span></li>
                         <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" /><span><strong>Customer Contact Name & Email</strong></span></li>
-                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" /><span><strong>Customer Objectives</strong> — env. size, licences, timeline, plans post-assessment</span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" /><span><strong>Customer Objectives</strong> : env. size, licences, timeline, plans post-assessment</span></li>
                         <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-1.5 shrink-0" /><span className="text-gray-400">Migration Partner (optionnel)</span></li>
                       </ul>
                     </div>
                     <div className="bg-white rounded-xl p-4 border border-blue-100">
                       <p className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3 flex items-center gap-1.5">
-                        <span>⚙️</span> Étape 5 — Assessment Types
+                        <span>⚙️</span> Étape 5 : Assessment Types
                       </p>
                       <ul className="space-y-1.5 text-xs text-gray-600">
-                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" /><span><strong>Program</strong> — FY26 Solution Assessment Security / CAIP / AIBS</span></li>
-                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" /><span><strong>Initiative Name</strong> — lié au Program sélectionné</span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" /><span><strong>Program</strong> : FY26 Solution Assessment Security / CAIP / AIBS</span></li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" /><span><strong>Initiative Name</strong> : lié au Program sélectionné</span></li>
                         <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" /><span>Exemples Security : RSA, TPA, DSA, BVA, Protect Cloud AI Platform</span></li>
                         <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-1.5 shrink-0" /><span className="text-gray-400">Azure Accelerate → aller sur Azure Offer Navigator (AON)</span></li>
                       </ul>
@@ -1402,10 +1402,10 @@ export default function KnowledgeBasePage() {
                   </div>
                 </div>
 
-                {/* MDA Case Management — 5 stages */}
+                {/* MDA Case Management : 5 stages */}
                 <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-4 flex items-center gap-2">
-                    <Cog className="w-3.5 h-3.5" /> Après approbation — Case Management MDA (5 étapes)
+                    <Cog className="w-3.5 h-3.5" /> Après approbation : Case Management MDA (5 étapes)
                   </p>
                   <div className="flex items-center gap-2 overflow-x-auto pb-2">
                     {[
@@ -1428,7 +1428,7 @@ export default function KnowledgeBasePage() {
                   </div>
                   <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800 flex items-start gap-2">
                     <span className="shrink-0 mt-0.5">⚠️</span>
-                    <span><strong>Règle Case Owner :</strong> doit d'abord être ajouté au Case Team avant de pouvoir être assigné comme Case Manager. L'Actual Close Date doit être le jour même — pas de backdating ni de date future (audit).</span>
+                    <span><strong>Règle Case Owner :</strong> doit d'abord être ajouté au Case Team avant de pouvoir être assigné comme Case Manager. L'Actual Close Date doit être le jour même : pas de backdating ni de date future (audit).</span>
                   </div>
                 </div>
               </div>
@@ -1438,15 +1438,15 @@ export default function KnowledgeBasePage() {
                 <div className="flex items-start gap-4 mb-5">
                   <div className="p-3 bg-white/10 rounded-xl shrink-0"><Award className="w-6 h-6" /></div>
                   <div>
-                    <h3 className="font-bold text-lg mb-1">Microsoft SMB Solution Assessments — FY26</h3>
-                    <p className="text-sm text-slate-300">Programme Microsoft global financé — livrés par des consultants techniques Microsoft certifiés avec le partenaire tout au long du processus. Durée : 1–2 semaines, 3–8h de temps client, 4 réunions structurées.</p>
+                    <h3 className="font-bold text-lg mb-1">Microsoft SMB Solution Assessments : FY26</h3>
+                    <p className="text-sm text-slate-300">Programme Microsoft global financé : livrés par des consultants techniques Microsoft certifiés avec le partenaire tout au long du processus. Durée : 1–2 semaines, 3–8h de temps client, 4 réunions structurées.</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-white/5 rounded-xl p-4">
                     <p className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-3">Critères de nomination (tous assessments)</p>
                     <ul className="space-y-1.5 text-xs text-slate-400">
-                      <li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-blue-400 mt-1.5 shrink-0" />MCEM Stage 2 — Inspire &amp; Design</li>
+                      <li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-blue-400 mt-1.5 shrink-0" />MCEM Stage 2 : Inspire &amp; Design</li>
                       <li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-blue-400 mt-1.5 shrink-0" />Accord préalable du client sur l'assessment</li>
                       <li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-blue-400 mt-1.5 shrink-0" />Aucun assessment précédent pour le même TPID</li>
                     </ul>
@@ -1559,7 +1559,7 @@ const CAT_HERO = {
   'modern-work':'from-sky-500 via-sky-600 to-blue-700',
 };
 
-// ── Azure solution detail — rich 6-tab view ───────────────────────────────
+// ── Azure solution detail : rich 6-tab view ───────────────────────────────
 function SolutionDetail({ sol, catConfig, lang: langProp }) {
   const { lang: langCtx } = useLang();
   const lang = langProp || langCtx;
@@ -1602,11 +1602,11 @@ function SolutionDetail({ sol, catConfig, lang: langProp }) {
               {market.leader && <span className="px-3 py-1 bg-white/15 rounded-full text-xs">👑 Leader</span>}
             </div>
             <h2 className="text-2xl font-bold mb-2">{sol.officialName || sol.name}</h2>
-            <p className="text-white/85 text-sm leading-relaxed max-w-3xl">{(sol.fullDescription || sol.shortDescription || '').replace(/ [—–] /g, ': ')}</p>
+            <p className="text-white/85 text-sm leading-relaxed max-w-3xl">{(sol.fullDescription || sol.shortDescription || '').replace(/ [:–] /g, ': ')}</p>
             <div className="flex flex-wrap gap-3 mt-4">
               {[
-                sol.estimatedCost      && { l: tr.pricingInfo,    v: sol.estimatedCost.split('—')[0].split(' — ')[0].trim() },
-                sol.implementationTime && { l: tr.implementation, v: sol.implementationTime.split('—')[0].trim() },
+                sol.estimatedCost      && { l: tr.pricingInfo,    v: sol.estimatedCost.split(':')[0].split(' : ')[0].trim() },
+                sol.implementationTime && { l: tr.implementation, v: sol.implementationTime.split(':')[0].trim() },
                 sol.idealCustomerSize  && { l: tr.target,         v: sol.idealCustomerSize.split('(')[0].trim() },
                 sol.complexity         && { l: tr.complexity,     v: sol.complexity.charAt(0).toUpperCase() + sol.complexity.slice(1) },
               ].filter(Boolean).map((item, i) => (
@@ -1635,7 +1635,7 @@ function SolutionDetail({ sol, catConfig, lang: langProp }) {
                   <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><DollarSign className="w-4 h-4 text-emerald-500" /> Pricing</p>
                   <p className="text-sm font-semibold text-emerald-700 mb-1">{sol.pricingModel}</p>
                   <p className="text-xs text-gray-600">{sol.estimatedCost}</p>
-                  {sol.implementationTime && <p className="text-xs text-gray-400 mt-2">{tr.setupLabel} {sol.implementationTime.split('—')[0].trim()}</p>}
+                  {sol.implementationTime && <p className="text-xs text-gray-400 mt-2">{tr.setupLabel} {sol.implementationTime.split(':')[0].trim()}</p>}
                 </div>
               </div>
               {/* Key Stats */}
@@ -1709,7 +1709,7 @@ function SolutionDetail({ sol, catConfig, lang: langProp }) {
                   </p>
                   <ul className="space-y-2 max-h-[520px] overflow-y-auto pr-1">
                     {sol.keyFeatures.map((f, i) => {
-                      const raw = (typeof f === 'string' ? f : String(f)).replace(/ [—–] /g, ': ');
+                      const raw = (typeof f === 'string' ? f : String(f)).replace(/ [:–] /g, ': ');
                       const [title, ...rest] = raw.split(': ');
                       return (
                         <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
@@ -1730,7 +1730,7 @@ function SolutionDetail({ sol, catConfig, lang: langProp }) {
                     {sol.benefits.map((b, i) => (
                       <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
                         <TrendingUp className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />
-                        {(typeof b === 'string' ? b : String(b)).replace(/ [—–] /g, ': ')}
+                        {(typeof b === 'string' ? b : String(b)).replace(/ [:–] /g, ': ')}
                       </li>
                     ))}
                   </ul>
@@ -1849,7 +1849,7 @@ function SolutionDetail({ sol, catConfig, lang: langProp }) {
                 <div className="flex flex-wrap gap-2">
                   {integrations.map((int, i) => (
                     <span key={i} className="px-3 py-1.5 bg-cyan-50 text-cyan-700 text-xs rounded-full border border-cyan-100">
-                      {(typeof int === 'string' ? int : String(int)).split(' —')[0].split(' (')[0]}
+                      {(typeof int === 'string' ? int : String(int)).split(' :')[0].split(' (')[0]}
                     </span>
                   ))}
                 </div>
@@ -2015,11 +2015,11 @@ function DynamicsSolutionDetail({ sol, lang: langProp }) {
               {salesCtx.salesMotion && <span className="px-3 py-1 bg-white/15 rounded-full text-xs">{salesCtx.salesMotion}</span>}
             </div>
             <h2 className="text-2xl font-bold mb-2">{sol.officialName || sol.name}</h2>
-            <p className="text-white/85 text-sm leading-relaxed max-w-3xl">{(sol.fullDescription || sol.shortDescription || '').replace(/ [—–] /g, ': ')}</p>
+            <p className="text-white/85 text-sm leading-relaxed max-w-3xl">{(sol.fullDescription || sol.shortDescription || '').replace(/ [:–] /g, ': ')}</p>
             <div className="flex flex-wrap gap-3 mt-4">
               {[
-                sol.estimatedCost    && { l: tr.pricingInfo,     v: sol.estimatedCost.split('—')[0].split(' — ')[0].trim() },
-                sol.implementationTime&&{ l: tr.implementation,  v: sol.implementationTime.split('—')[0].split(' — ')[0].trim() },
+                sol.estimatedCost    && { l: tr.pricingInfo,     v: sol.estimatedCost.split(':')[0].split(' : ')[0].trim() },
+                sol.implementationTime&&{ l: tr.implementation,  v: sol.implementationTime.split(':')[0].split(' : ')[0].trim() },
                 sol.idealCustomerSize&&{ l: tr.target,           v: sol.idealCustomerSize.split('(')[0].trim() },
                 sol.complexity       &&{ l: tr.complexity,       v: sol.complexity.charAt(0).toUpperCase()+sol.complexity.slice(1) },
               ].filter(Boolean).map((item, i) => (
@@ -2049,7 +2049,7 @@ function DynamicsSolutionDetail({ sol, lang: langProp }) {
                   <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><DollarSign className="w-4 h-4 text-emerald-500" /> Pricing</p>
                   <p className="text-sm font-semibold text-emerald-700 mb-1">{sol.pricingModel}</p>
                   <p className="text-xs text-gray-600">{sol.estimatedCost}</p>
-                  {sol.implementationTime && <p className="text-xs text-gray-400 mt-2">Setup : {sol.implementationTime.split('—')[0].trim()}</p>}
+                  {sol.implementationTime && <p className="text-xs text-gray-400 mt-2">Setup : {sol.implementationTime.split(':')[0].trim()}</p>}
                 </div>
               </div>
               <div className="bg-white rounded-2xl border border-gray-100 p-5">
@@ -2123,7 +2123,7 @@ function DynamicsSolutionDetail({ sol, lang: langProp }) {
                   </p>
                   <ul className="space-y-2 max-h-[520px] overflow-y-auto pr-1">
                     {sol.keyFeatures.map((f, i) => {
-                      const raw = (typeof f === 'string' ? f : String(f)).replace(/ [—–] /g, ': ');
+                      const raw = (typeof f === 'string' ? f : String(f)).replace(/ [:–] /g, ': ');
                       const [title, ...rest] = raw.split(' : ');
                       return (
                         <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
@@ -2144,7 +2144,7 @@ function DynamicsSolutionDetail({ sol, lang: langProp }) {
                     {sol.benefits.map((b, i) => (
                       <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
                         <TrendingUp className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />
-                        {(typeof b === 'string' ? b : String(b)).replace(/ [—–] /g, ': ')}
+                        {(typeof b === 'string' ? b : String(b)).replace(/ [:–] /g, ': ')}
                       </li>
                     ))}
                   </ul>
@@ -2353,7 +2353,7 @@ function DynamicsSolutionDetail({ sol, lang: langProp }) {
                 <div className="flex flex-wrap gap-2">
                   {e2e.map((proc, i) => (
                     <span key={i} className="px-3 py-1.5 bg-teal-50 text-teal-700 text-xs rounded-lg border border-teal-100 font-medium">
-                      {proc.split(' —')[0].split(' :')[0]}
+                      {proc.split(' :')[0].split(' :')[0]}
                     </span>
                   ))}
                 </div>

@@ -271,8 +271,8 @@ export default function FeatureAvailabilityPage() {
         {/* Source note */}
         <p className="text-center text-xs text-gray-400 mt-6">
           {lang === 'fr'
-            ? 'Données extraites depuis Microsoft Learn Service Descriptions — Juin 2026'
-            : 'Data extracted from Microsoft Learn Service Descriptions — June 2026'}
+            ? 'Données extraites depuis Microsoft Learn Service Descriptions : Juin 2026'
+            : 'Data extracted from Microsoft Learn Service Descriptions : June 2026'}
         </p>
       </div>
     </div>
