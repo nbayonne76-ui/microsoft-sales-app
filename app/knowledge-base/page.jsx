@@ -506,15 +506,19 @@ const ASSESSMENTS_DATA = [
 
 // ── Search helpers ────────────────────────────────────────────────────────
 const ABBREVS = [
-  [/\bm365\b/gi,   'Microsoft 365'],
-  [/\bd365\b/gi,   'Dynamics 365'],
-  [/\bbc\b/gi,     'Business Central'],
-  [/\bf&o\b/gi,    'Finance Operations'],
-  [/\bscm\b/gi,    'Supply Chain'],
-  [/\bcrm\b/gi,    'Customer Relationship'],
-  [/\berp\b/gi,    'Enterprise Resource'],
-  [/\bai\b/gi,     'Artificial Intelligence copilot'],
-  [/\bazure\b/gi,  'Azure cloud'],
+  [/\bm365\b/gi,            'Microsoft 365'],
+  [/\bd365\b/gi,            'Dynamics 365'],
+  [/\bdynamic\s+365\b/gi,   'Dynamics 365'],   // typo: "Dynamic 365" → "Dynamics 365"
+  [/\bdynamics\b/gi,        'Dynamics 365'],
+  [/\bbc\b/gi,              'Business Central'],
+  [/\bf&o\b/gi,             'Finance Operations'],
+  [/\bscm\b/gi,             'Supply Chain'],
+  [/\bcrm\b/gi,             'Customer Relationship'],
+  [/\berp\b/gi,             'Enterprise Resource'],
+  [/\bai\b/gi,              'Artificial Intelligence copilot'],
+  [/\bazure\b/gi,           'Azure cloud'],
+  [/\bfield service\b/gi,   'Field Service technician'],
+  [/\bcopilot\b/gi,         'Copilot AI agent'],
 ];
 
 function expandSearch(raw) {
@@ -525,9 +529,12 @@ function expandSearch(raw) {
 
 function hit(fields, expanded, raw) {
   const q = raw.toLowerCase();
+  // Also try each individual word of the query (length > 2) for partial matching
+  const words = q.split(/\s+/).filter(w => w.length > 2);
   return fields.some(f => {
     const v = (f || '').toLowerCase();
-    return v.includes(q) || v.includes(expanded);
+    return v.includes(q) || v.includes(expanded) ||
+      (words.length > 1 && words.filter(w => v.includes(w)).length >= Math.ceil(words.length * 0.6));
   });
 }
 
@@ -590,20 +597,23 @@ export default function KnowledgeBasePage() {
   const exp = search ? expandSearch(search) : '';
 
   const filteredAzure = azureSolutions.filter(s => {
-    const matchCat    = catFilter === 'all' || s.category === catFilter;
+    // When search is active, ignore category filter
+    const matchCat    = !!search || catFilter === 'all' || s.category === catFilter;
     const matchSearch = !search || hit([s.name, s.shortDescription, s.officialName, s.fullDescription, s.subcategory], exp, search);
     return matchCat && matchSearch;
   });
 
   const filteredDynamics = dynamicsSolutions.filter(s => {
     const grp         = SUB_TO_GROUP[s.subcategory] || 'all';
-    const matchGroup  = d365Filter === 'all' || grp === d365Filter;
+    // When search is active, ignore sub-group filter so all Dynamics solutions are searched
+    const matchGroup  = !!search || d365Filter === 'all' || grp === d365Filter;
     const matchSearch = !search || hit([s.name, s.shortDescription, s.officialName, s.fullDescription], exp, search);
     return matchGroup && matchSearch;
   });
 
   const filteredM365 = M365_PLANS.filter(p =>
-    (m365Seg === 'all' || p.segment === m365Seg) &&
+    // When search is active, ignore segment filter
+    (!!search || m365Seg === 'all' || p.segment === m365Seg) &&
     (!search || hit([p.name, p.shortName, p.description, p.bestFor, p.highlight, ...(p.services || [])], exp, search))
   );
 
