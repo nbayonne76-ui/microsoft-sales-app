@@ -604,21 +604,22 @@ export default function KnowledgeBasePage() {
             </div>
           </motion.div>
 
-          <motion.div {...fadeUp} transition={{ delay: 0.08 }} className="flex gap-4 mb-6 text-sm flex-wrap">
+          <motion.div {...fadeUp} transition={{ delay: 0.08 }} className="flex items-center gap-1.5 mb-6 text-blue-300 text-xs flex-wrap">
             {[
-              ['☁️', azureSolutions.length || 39, 'Azure Solutions'],
-              ['🎯', dynamicsSolutions.length || 18, 'Dynamics 365'],
-              ['💼', M365_PLANS.length, 'M365 Plans'],
-              ['📄', KB_DOCS.length, 'Sales Library'],
-              ['🎯', 9, 'Assessments'],
-              ['📅', 'FY26', 'Up to date'],
-            ].map(([icon, n, label]) => (
-              <div key={label} className="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-2">
-                <span className="mr-1">{icon}</span>
-                <span className="font-bold text-lg">{n}</span>
-                <span className="text-blue-200 ml-2 text-xs">{label}</span>
-              </div>
+              ['☁️', azureSolutions.length || 39, 'Azure'],
+              ['🎯', dynamicsSolutions.length || 18, 'Dynamics'],
+              ['💼', M365_PLANS.length, 'M365'],
+              ['📄', KB_DOCS.length, 'Docs'],
+              ['🏁', 9, 'Assessments'],
+            ].map(([icon, n, label], i, arr) => (
+              <span key={label} className="flex items-center gap-1.5">
+                <span className="text-white font-semibold">{n}</span>
+                <span>{icon} {label}</span>
+                {i < arr.length - 1 && <span className="text-blue-600/60 mx-0.5">·</span>}
+              </span>
             ))}
+            <span className="text-blue-600/60 mx-0.5">·</span>
+            <span className="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-medium">FY26 ✓</span>
           </motion.div>
 
           <motion.div {...fadeUp} transition={{ delay: 0.12 }} className="relative max-w-xl mb-6">
