@@ -134,7 +134,7 @@ export const t = {
       subtitle: 'Microsoft pricing guides, licensing docs & assessment frameworks',
       searchPlaceholder: 'Search documents…',
       featured: 'Featured',
-      documents: 'Pricing Guides & Docs',
+      documents: 'Sales Library',
       assessments: 'Assessment Frameworks',
       solutions: 'Microsoft Solutions',
       allCategories: 'All',
@@ -158,7 +158,7 @@ export const t = {
       frontlinePlans: 'Frontline Workers',
       // M365 Copilot banner
       copilotBannerTitle: 'Microsoft 365 Copilot : Add-on available on all Enterprise & Business Standard/Premium plans',
-      copilotBannerDesc: 'Generative AI in Teams, Outlook, Word, Excel, PowerPoint, OneNote + Microsoft 365 Chat : see Pricing Guides for pricing',
+      copilotBannerDesc: 'Generative AI in Teams, Outlook, Word, Excel, PowerPoint, OneNote + Microsoft 365 Chat : see Sales Library for pricing',
       pricingNoteCount: 'plan',
       pricingNoteIn: 'pricing available in the',
       // M365 card sections
@@ -313,7 +313,7 @@ export const t = {
       subtitle: 'Guides tarifaires Microsoft, documents de licensing & frameworks d\'assessment',
       searchPlaceholder: 'Rechercher des documents…',
       featured: 'À la une',
-      documents: 'Guides tarifaires & docs',
+      documents: 'Sales Library',
       assessments: 'Frameworks d\'assessment',
       solutions: 'Solutions Microsoft',
       allCategories: 'Tous',
@@ -337,7 +337,7 @@ export const t = {
       frontlinePlans: 'Frontline Workers',
       // M365 Copilot banner
       copilotBannerTitle: 'Microsoft 365 Copilot : Add-on disponible sur tous les plans Enterprise & Business Standard/Premium',
-      copilotBannerDesc: 'IA générative dans Teams, Outlook, Word, Excel, PowerPoint, OneNote + Microsoft 365 Chat : voir Pricing Guides pour les tarifs',
+      copilotBannerDesc: 'IA générative dans Teams, Outlook, Word, Excel, PowerPoint, OneNote + Microsoft 365 Chat : voir Sales Library pour les tarifs',
       pricingNoteCount: 'plan',
       pricingNoteIn: "tarifs disponibles dans l'onglet",
       // M365 card sections

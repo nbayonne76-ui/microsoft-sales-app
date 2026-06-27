@@ -97,7 +97,7 @@ export default function KnowledgeBasePage() {
               <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Knowledge Base
               </h1>
-              <p className="text-gray-600">Solutions, Pricing Guides, Templates & Documentation</p>
+              <p className="text-gray-600">Solutions, Sales Library, Templates & Documentation</p>
             </div>
           </div>
         </div>
@@ -423,7 +423,7 @@ export default function KnowledgeBasePage() {
             <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto mt-12">
               <Card className="p-6 text-center">
                 <div className="text-4xl mb-4">💼</div>
-                <h3 className="font-bold mb-2">Pricing Guides</h3>
+                <h3 className="font-bold mb-2">Sales Library</h3>
                 <p className="text-sm text-gray-600">M365, Azure, Dynamics 365</p>
               </Card>
               <Card className="p-6 text-center">

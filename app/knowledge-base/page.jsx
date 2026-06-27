@@ -97,7 +97,7 @@ const CAT_DOC_STYLE = {
   Developer:{ gradient: 'from-violet-500 to-purple-600',  light: 'bg-violet-50',  badge: 'bg-violet-100 text-violet-700 border-violet-200',     bar: 'bg-violet-500',  ring: 'hover:ring-violet-200' },
 };
 
-// ── Modern Work : M365 Plans (no pricing : see Pricing Guides tab) ───────
+// ── Modern Work : M365 Plans (no pricing : see Sales Library tab) ───────
 const M365_SEGMENTS = [
   { id: 'all',        label: 'Tous les plans',        emoji: '📋' },
   { id: 'business',   label: 'Business ≤ 300',        emoji: '🏢' },
@@ -609,7 +609,7 @@ export default function KnowledgeBasePage() {
               ['☁️', azureSolutions.length || 39, 'Azure Solutions'],
               ['🎯', dynamicsSolutions.length || 18, 'Dynamics 365'],
               ['💼', M365_PLANS.length, 'M365 Plans'],
-              ['📄', KB_DOCS.length, 'Pricing Guides'],
+              ['📄', KB_DOCS.length, 'Sales Library'],
               ['🎯', 9, 'Assessments'],
               ['📅', 'FY26', 'Up to date'],
             ].map(([icon, n, label]) => (
