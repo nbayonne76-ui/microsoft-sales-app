@@ -26,7 +26,7 @@ const QUICK_ACTIONS = [
   { href: '/email-generator', icon: Mail,       label: 'Email Generator',      desc: 'Emails B2B ultra-personnalisés depuis la KB',            color: 'from-blue-600 to-indigo-600'  },
   { href: '/ai-agent',        icon: Brain,      label: 'Microsoft AI Agent',   desc: '/brief · /email · /swot · /prix · /pitch',              color: 'from-violet-600 to-purple-700' },
   { href: '/sequences',       icon: Zap,        label: 'Séquences',           desc: '3 phases · 7 touches · Plan de prospection IA',         color: 'from-emerald-600 to-teal-600'  },
-  { href: '/knowledge-base',  icon: BookOpen,   label: 'Knowledge Base',      desc: 'Noyau de l\'app — 62 solutions · prix · guides',        color: 'from-gray-600 to-slate-700'    },
+  { href: '/knowledge-base',  icon: BookOpen,   label: 'Knowledge Base',      desc: 'Noyau de l\'app — 62 solutions · prix · 22 guides KB',        color: 'from-gray-600 to-slate-700'    },
 ];
 
 function StreamingDots() {
