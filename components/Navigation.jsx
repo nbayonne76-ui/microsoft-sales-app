@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   Home, Mail, BookOpen, Sparkles, Globe,
-  MessageSquare, Zap, Newspaper,
+  MessageSquare, Zap, Newspaper, LayoutGrid,
   ChevronLeft, ChevronRight, Bot, X
 } from 'lucide-react';
 import { useLang, t } from '@/contexts/LanguageContext';
@@ -42,7 +42,8 @@ export default function Navigation({
       key: 'knowledge',
       label: tr.groups.knowledge,
       items: [
-        { href: '/knowledge-base', label: tr.knowledgeBase, icon: BookOpen },
+        { href: '/knowledge-base',      label: tr.knowledgeBase,      icon: BookOpen   },
+        { href: '/feature-availability', label: tr.featureAvailability, icon: LayoutGrid },
       ],
     },
     {
