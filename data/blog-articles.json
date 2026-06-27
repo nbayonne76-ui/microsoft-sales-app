@@ -1,5 +1,296 @@
 [
   {
+    "slug": "microsoft-365-copilot-enhancements-june-2026",
+    "category": "m365",
+    "date": "2026-06-27",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Améliorations de Microsoft 365 Copilot en juin 2026",
+      "excerpt": "Découvrez les dernières améliorations de Microsoft 365 Copilot et leur impact sur vos opérations d'entreprise.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Microsoft 365 continue d'évoluer avec des améliorations significatives de Copilot, renforçant la productivité et l'efficacité des entreprises."
+        },
+        {
+          "type": "h2",
+          "text": "Nouveautés de Microsoft 365 Copilot"
+        },
+        {
+          "type": "p",
+          "text": "L'introduction de GPT-5.5 Instant dans Microsoft 365 Copilot offre des réponses plus rapides et précises, améliorant l'expérience utilisateur globale."
+        },
+        {
+          "type": "h2",
+          "text": "Améliorations des fonctionnalités collaboratives"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Copilot Notebooks accessible à plus d'utilisateurs",
+            "Délégation des appels dans Teams Phone",
+            "Disponibilité générale de Copilot Cowork"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "Ces améliorations permettent aux entreprises d'optimiser leurs processus, de réduire les délais de réponse et d'améliorer la satisfaction client."
+        },
+        {
+          "type": "cta",
+          "text": "Comment ces nouveautés peuvent-elles transformer votre entreprise ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Microsoft 365 Copilot Enhancements in June 2026",
+      "excerpt": "Explore the latest Microsoft 365 Copilot enhancements and their impact on your business operations.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Microsoft 365 continues to evolve with significant Copilot enhancements, boosting productivity and efficiency for businesses."
+        },
+        {
+          "type": "h2",
+          "text": "What's New in Microsoft 365 Copilot"
+        },
+        {
+          "type": "p",
+          "text": "The introduction of GPT-5.5 Instant in Microsoft 365 Copilot offers faster and more accurate responses, enhancing overall user experience."
+        },
+        {
+          "type": "h2",
+          "text": "Enhancements in Collaborative Features"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Copilot Notebooks accessible to more users",
+            "Call delegation in Teams Phone",
+            "General availability of Copilot Cowork"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "These enhancements enable businesses to optimize processes, reduce response times, and improve customer satisfaction."
+        },
+        {
+          "type": "cta",
+          "text": "How can these updates transform your business?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "dynamics-365-ai-customer-experience-june-2026",
+    "category": "dynamics",
+    "date": "2026-06-27",
+    "readTime": "7 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Révolutionner l'expérience client avec Dynamics 365 et l'IA",
+      "excerpt": "Dynamics 365 transforme l'expérience client grâce à l'IA, optimisant les opérations et améliorant la satisfaction client.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Dans un monde où l'IA redéfinit les attentes, Dynamics 365 se positionne comme un leader en transformant l'expérience client. Découvrez comment ces innovations peuvent propulser votre entreprise."
+        },
+        {
+          "type": "h2",
+          "text": "L'IA au cœur de l'expérience client"
+        },
+        {
+          "type": "p",
+          "text": "Dynamics 365 intègre l'IA pour combler le fossé entre les capacités des employés et les besoins organisationnels, optimisant ainsi les opérations et améliorant la satisfaction client."
+        },
+        {
+          "type": "h2",
+          "text": "Optimisation des opérations avec Dynamics 365"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gestion de l'engagement des employés",
+            "Orchestration des conversations",
+            "Classification des emails"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "En intégrant ces outils, vos clients peuvent s'attendre à une amélioration de l'efficacité opérationnelle et de la satisfaction client, tout en réduisant les coûts et en augmentant la résilience."
+        },
+        {
+          "type": "cta",
+          "text": "Prêt à transformer votre expérience client ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Revolutionizing Customer Experience with Dynamics 365 and AI",
+      "excerpt": "Dynamics 365 leverages AI to transform customer experience, optimizing operations and enhancing customer satisfaction.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "In a world where AI is redefining expectations, Dynamics 365 stands out as a leader in transforming customer experience. Discover how these innovations can propel your business forward."
+        },
+        {
+          "type": "h2",
+          "text": "AI at the Heart of Customer Experience"
+        },
+        {
+          "type": "p",
+          "text": "Dynamics 365 integrates AI to bridge the gap between employee capabilities and organizational needs, optimizing operations and enhancing customer satisfaction."
+        },
+        {
+          "type": "h2",
+          "text": "Optimizing Operations with Dynamics 365"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Employee engagement management",
+            "Conversation orchestration",
+            "Email classification"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "By integrating these tools, your customers can expect improved operational efficiency and customer satisfaction, while reducing costs and increasing resilience."
+        },
+        {
+          "type": "cta",
+          "text": "Ready to transform your customer experience?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "azure-ai-integration-june-2026",
+    "category": "azure",
+    "date": "2026-06-27",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Intégration AI et Azure : Nouvelles avancées",
+      "excerpt": "Découvrez comment les dernières innovations d'Azure et de l'IA transforment la sécurité et l'efficacité des entreprises.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Les récentes annonces de Microsoft révèlent des avancées majeures dans l'intégration de l'IA et d'Azure, renforçant la sécurité et l'efficacité des infrastructures cloud."
+        },
+        {
+          "type": "h2",
+          "text": "Protocole de Contexte de Modèle (MCP)"
+        },
+        {
+          "type": "p",
+          "text": "Le MCP simplifie l'intégration des modèles d'IA avec les systèmes existants, éliminant le besoin de code personnalisé pour chaque connexion."
+        },
+        {
+          "type": "h2",
+          "text": "Protection Rowhammer sur Azure Cobalt 200"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sécurité mémoire avancée",
+            "Co-design matériel-logiciel",
+            "Protection à l'échelle du cloud"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "Ces innovations offrent une sécurité renforcée et une intégration simplifiée, permettant aux entreprises de se concentrer sur l'innovation plutôt que sur la gestion des infrastructures."
+        },
+        {
+          "type": "cta",
+          "text": "Êtes-vous prêt à transformer votre infrastructure ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Azure and AI Integration: New Advances",
+      "excerpt": "Explore how the latest Azure and AI innovations are transforming enterprise security and efficiency.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Recent Microsoft announcements reveal major advances in AI and Azure integration, enhancing cloud infrastructure security and efficiency."
+        },
+        {
+          "type": "h2",
+          "text": "Model Context Protocol (MCP)"
+        },
+        {
+          "type": "p",
+          "text": "MCP simplifies AI model integration with existing systems, eliminating the need for custom code for each connection."
+        },
+        {
+          "type": "h2",
+          "text": "Rowhammer Protection on Azure Cobalt 200"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Advanced memory security",
+            "Hardware-software co-design",
+            "Cloud-scale protection"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "These innovations offer enhanced security and simplified integration, allowing enterprises to focus on innovation rather than infrastructure management."
+        },
+        {
+          "type": "cta",
+          "text": "Are you ready to transform your infrastructure?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
     "slug": "azure-ai-security-june-2026",
     "category": "azure",
     "date": "2026-06-27",
