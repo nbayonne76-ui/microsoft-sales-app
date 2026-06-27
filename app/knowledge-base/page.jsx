@@ -69,14 +69,17 @@ const KB_DOCS = [
   { id: 'azure-migration', title: 'Azure Migration',                 file: 'azure-migration.md',                    category: 'Azure',    emoji: '🚀', featured: false, desc: 'Playbook de migration cloud — assessment, lift & shift, modernisation, TCO calculator' },
   { id: 'dynamics',        title: 'Dynamics 365 Pricing',            file: 'dynamics-365-pricing-2025.md',          category: 'Dynamics', emoji: '🎯', featured: true,  desc: 'Tarifs D365 Sales, Customer Service, BC, Finance & SCM — licences attach rules' },
   { id: 'power',           title: 'Power Platform',                  file: 'power-platform-digital.md',             category: 'Power',    emoji: '⚡', featured: false, desc: 'Power BI, Power Apps, Power Automate — licences, capacités Premium et connecteurs' },
+  { id: 'copilot-studio',  title: 'Copilot Studio — Licensing 2026', file: 'copilot-studio-licensing.md',           category: 'Power',    emoji: '🤖', featured: true,  desc: 'Plans Teams vs Standalone, Copilot Credits, canaux de déploiement, intégration M365 Copilot' },
   { id: 'security',        title: 'Security & Compliance',           file: 'security-compliance.md',                category: 'Security', emoji: '🛡️', featured: false, desc: 'Defender, Sentinel, Purview — couverture Zero Trust, conformité RGPD & NIS2' },
+  { id: 'intune',          title: 'Microsoft Intune — Plans 2026',   file: 'microsoft-intune-licensing.md',         category: 'Security', emoji: '📱', featured: true,  desc: 'Intune Plan 1 vs Plan 2 vs Suite — MDM/MAM, Remote Help, EPM, Cloud PKI, disponibilité par plan M365' },
   { id: 'modern-wp-sec',  title: 'Modern Workplace Security FW',    file: 'modern-workplace-security-framework.md', category: 'Security', emoji: '🔒', featured: true,  desc: 'Framework sécurité M365 — Zero Trust, Conditional Access, MFA, Defender for Business, conformité RGPD' },
   { id: 'bundles',         title: 'Solutions Bundles & Promotions',  file: 'microsoft-promotions-2026.md',          category: 'Bundles',  emoji: '🏷️', featured: true,  desc: 'Offres bundles 2026 — remises combos M365+D365, promotions partenaires actives' },
   { id: 'pricing-guide',   title: 'Full Pricing Guide 2025',         file: 'microsoft-pricing-guide-2025.md',       category: 'Bundles',  emoji: '📋', featured: false, desc: 'Guide tarifaire unifié — tous produits Microsoft, grille partenaire CSP complète' },
   { id: 'solution-bundles',title: 'Solution Bundles & Pricing',      file: 'solution-bundles-pricing.md',           category: 'Bundles',  emoji: '🎯', featured: false, desc: 'Templates propositions commerciales — bundles courants, pricing rapide par secteur' },
+  { id: 'github-copilot',  title: 'GitHub Copilot — Plans 2026',     file: 'github-copilot-plans.md',               category: 'Developer',emoji: '💻', featured: true,  desc: 'Copilot Free/Pro/Business/Enterprise — features IDE, coding agent, knowledge bases, pricing $10-$39/mois' },
 ];
 
-const DOC_CATEGORIES = ['All','M365','Azure','Dynamics','Power','Security','Bundles'];
+const DOC_CATEGORIES = ['All','M365','Azure','Dynamics','Power','Security','Bundles','Developer'];
 
 const CAT_DOC_STYLE = {
   M365:     { gradient: 'from-blue-500 to-indigo-600',    light: 'bg-blue-50',    badge: 'bg-blue-100 text-blue-700 border-blue-200',     bar: 'bg-blue-500',   ring: 'hover:ring-blue-200'  },
@@ -85,6 +88,7 @@ const CAT_DOC_STYLE = {
   Power:    { gradient: 'from-yellow-500 to-orange-500',  light: 'bg-yellow-50',  badge: 'bg-yellow-100 text-yellow-700 border-yellow-200', bar: 'bg-yellow-400', ring: 'hover:ring-yellow-200'},
   Security: { gradient: 'from-red-500 to-rose-600',       light: 'bg-red-50',     badge: 'bg-red-100 text-red-700 border-red-200',         bar: 'bg-red-500',    ring: 'hover:ring-red-200'   },
   Bundles:  { gradient: 'from-emerald-500 to-teal-600',   light: 'bg-emerald-50', badge: 'bg-emerald-100 text-emerald-700 border-emerald-200', bar: 'bg-emerald-500', ring: 'hover:ring-emerald-200'},
+  Developer:{ gradient: 'from-violet-500 to-purple-600',  light: 'bg-violet-50',  badge: 'bg-violet-100 text-violet-700 border-violet-200',     bar: 'bg-violet-500',  ring: 'hover:ring-violet-200' },
 };
 
 // ── Modern Work — M365 Plans (no pricing — see Pricing Guides tab) ───────
