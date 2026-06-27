@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { licensingPlans } from '../lib/m365-collaboration-tools';
-import { Check, X, Info, ChevronDown, ChevronUp, Search, Filter } from 'lucide-react';
+import { Check, X, Info, ChevronDown, ChevronUp, Search, Filter, LayoutGrid, ArrowRight } from 'lucide-react';
 
 export default function M365PlansComparison() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -80,7 +81,7 @@ export default function M365PlansComparison() {
       {/* Header */}
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-6">
-          <div className="mb-6">
+          <div className="mb-4">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
               📊 Comparaison Plans Microsoft 365
             </h1>
@@ -88,6 +89,16 @@ export default function M365PlansComparison() {
               Tous les plans de licence Microsoft 365 détaillés - {filteredPlans.length} plans disponibles
             </p>
           </div>
+
+          {/* Feature Availability CTA */}
+          <Link href="/feature-availability" className="flex items-center justify-between gap-3 px-4 py-3 mb-4 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl hover:border-blue-400 transition-colors group">
+            <div className="flex items-center gap-2 text-sm">
+              <LayoutGrid className="w-4 h-4 text-blue-600 shrink-0" />
+              <span className="font-semibold text-blue-800">Feature Availability officielle</span>
+              <span className="text-blue-600">— Voir la disponibilité par plan pour Teams, Exchange, SharePoint, Copilot, Entra et 8 autres services</span>
+            </div>
+            <ArrowRight className="w-4 h-4 text-blue-500 shrink-0 group-hover:translate-x-1 transition-transform" />
+          </Link>
 
           {/* Search */}
           <div className="relative mb-4">

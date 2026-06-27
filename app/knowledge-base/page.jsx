@@ -59,24 +59,24 @@ const KB_DOCS = [
   { id: 'licensing',       title: 'Licensing & Contracts',            file: 'microsoft-licensing-contracts-guide.md',category: 'M365',     emoji: '📄', featured: true,  desc: 'Guide complet contrats EA, CSP, MCA — clauses clés, renouvellements, audit de licences' },
   { id: 'csp-vs-mca',      title: 'CSP vs MCA Decision',             file: 'csp-vs-mca-decision-guide.md',          category: 'M365',     emoji: '🤝', featured: false, desc: 'Choisir entre Cloud Solution Provider et Microsoft Customer Agreement — critères et impacts' },
   { id: 'm365-collab',     title: 'M365 Collaboration',              file: 'microsoft-365-collaboration.md',        category: 'M365',     emoji: '✨', featured: false, desc: 'Teams, SharePoint, Loop — cas d\'usage collaboration moderne et productivité équipe' },
-  { id: 'teams-guide',     title: 'Microsoft Teams — Guide 2026',    file: 'microsoft-teams-guide-2026.md',         category: 'M365',     emoji: '💬', featured: true,  desc: 'Guide complet Teams 2026 — plans, features par cloud (Commercial/GCC/DoD), appels et réunions' },
-  { id: 'viva-suite',      title: 'Microsoft Viva Suite 2026',       file: 'microsoft-viva-suite-2026.md',          category: 'M365',     emoji: '🌟', featured: false, desc: 'Suite Employee Experience — Viva Engage, Insights, Learning, Goals, Amplify — disponibilité par plan' },
-  { id: 'm365-apps-ent',   title: 'M365 Apps Enterprise 2026',       file: 'microsoft-365-apps-enterprise.md',      category: 'M365',     emoji: '🖥️', featured: false, desc: 'Apps desktop & web enterprise — déploiement, mise à jour, activation, Cloud Desktop' },
-  { id: 'm365-frontline',  title: 'Frontline Workers M365',          file: 'microsoft-365-frontline-workers.md',    category: 'M365',     emoji: '👷', featured: false, desc: 'Plans F1/F3/F6 — appareils partagés, walkie-talkie Teams, tâches terrain, Shifts' },
-  { id: 'modern-work-lic', title: 'Modern Work Licensing (SCIM+P)',  file: 'modern-work-licensing-guide.md',        category: 'M365',     emoji: '📋', featured: true,  desc: 'Guide licences SCIM+P officiel Microsoft — M365 Business/Enterprise, Security add-ons, attach rules' },
-  { id: 'feat-avail',      title: 'Feature Availability Officielle', file: 'm365-feature-availability-official.md', category: 'M365',     emoji: '📑', featured: true,  desc: '13 services documentés Microsoft Learn — tableaux de disponibilité par plan (Teams, Exchange, SharePoint, OneDrive, Copilot…)' },
+  { id: 'teams-guide',     title: 'Microsoft Teams — Guide 2026',    file: 'microsoft-teams-guide-2026.md',         category: 'M365',     emoji: '💬', featured: true,  isNew: true, desc: 'Guide complet Teams 2026 — plans, features par cloud (Commercial/GCC/DoD), appels et réunions' },
+  { id: 'viva-suite',      title: 'Microsoft Viva Suite 2026',       file: 'microsoft-viva-suite-2026.md',          category: 'M365',     emoji: '🌟', featured: false, isNew: true, desc: 'Suite Employee Experience — Viva Engage, Insights, Learning, Goals, Amplify — disponibilité par plan' },
+  { id: 'm365-apps-ent',   title: 'M365 Apps Enterprise 2026',       file: 'microsoft-365-apps-enterprise.md',      category: 'M365',     emoji: '🖥️', featured: false, isNew: true, desc: 'Apps desktop & web enterprise — déploiement, mise à jour, activation, Cloud Desktop' },
+  { id: 'm365-frontline',  title: 'Frontline Workers M365',          file: 'microsoft-365-frontline-workers.md',    category: 'M365',     emoji: '👷', featured: false, isNew: true, desc: 'Plans F1/F3/F6 — appareils partagés, walkie-talkie Teams, tâches terrain, Shifts' },
+  { id: 'modern-work-lic', title: 'Modern Work Licensing (SCIM+P)',  file: 'modern-work-licensing-guide.md',        category: 'M365',     emoji: '📋', featured: true,  isNew: true, desc: 'Guide licences SCIM+P officiel Microsoft — M365 Business/Enterprise, Security add-ons, attach rules' },
+  { id: 'feat-avail',      title: 'Feature Availability Officielle', file: 'm365-feature-availability-official.md', category: 'M365',     emoji: '📑', featured: true,  isNew: true, desc: '13 services documentés Microsoft Learn — tableaux de disponibilité par plan (Teams, Exchange, SharePoint, OneDrive, Copilot…)' },
   { id: 'azure-pricing',   title: 'Azure Pricing 2025',              file: 'azure-pricing-2025.md',                 category: 'Azure',    emoji: '☁️', featured: true,  desc: 'Tarifs Azure IaaS/PaaS — compute, storage, réseau, réductions Reserved Instances' },
   { id: 'azure-migration', title: 'Azure Migration',                 file: 'azure-migration.md',                    category: 'Azure',    emoji: '🚀', featured: false, desc: 'Playbook de migration cloud — assessment, lift & shift, modernisation, TCO calculator' },
   { id: 'dynamics',        title: 'Dynamics 365 Pricing',            file: 'dynamics-365-pricing-2025.md',          category: 'Dynamics', emoji: '🎯', featured: true,  desc: 'Tarifs D365 Sales, Customer Service, BC, Finance & SCM — licences attach rules' },
   { id: 'power',           title: 'Power Platform',                  file: 'power-platform-digital.md',             category: 'Power',    emoji: '⚡', featured: false, desc: 'Power BI, Power Apps, Power Automate — licences, capacités Premium et connecteurs' },
-  { id: 'copilot-studio',  title: 'Copilot Studio — Licensing 2026', file: 'copilot-studio-licensing.md',           category: 'Power',    emoji: '🤖', featured: true,  desc: 'Plans Teams vs Standalone, Copilot Credits, canaux de déploiement, intégration M365 Copilot' },
+  { id: 'copilot-studio',  title: 'Copilot Studio — Licensing 2026', file: 'copilot-studio-licensing.md',           category: 'Power',    emoji: '🤖', featured: true,  isNew: true, desc: 'Plans Teams vs Standalone, Copilot Credits, canaux de déploiement, intégration M365 Copilot' },
   { id: 'security',        title: 'Security & Compliance',           file: 'security-compliance.md',                category: 'Security', emoji: '🛡️', featured: false, desc: 'Defender, Sentinel, Purview — couverture Zero Trust, conformité RGPD & NIS2' },
-  { id: 'intune',          title: 'Microsoft Intune — Plans 2026',   file: 'microsoft-intune-licensing.md',         category: 'Security', emoji: '📱', featured: true,  desc: 'Intune Plan 1 vs Plan 2 vs Suite — MDM/MAM, Remote Help, EPM, Cloud PKI, disponibilité par plan M365' },
-  { id: 'modern-wp-sec',  title: 'Modern Workplace Security FW',    file: 'modern-workplace-security-framework.md', category: 'Security', emoji: '🔒', featured: true,  desc: 'Framework sécurité M365 — Zero Trust, Conditional Access, MFA, Defender for Business, conformité RGPD' },
+  { id: 'intune',          title: 'Microsoft Intune — Plans 2026',   file: 'microsoft-intune-licensing.md',         category: 'Security', emoji: '📱', featured: true,  isNew: true, desc: 'Intune Plan 1 vs Plan 2 vs Suite — MDM/MAM, Remote Help, EPM, Cloud PKI, disponibilité par plan M365' },
+  { id: 'modern-wp-sec',  title: 'Modern Workplace Security FW',    file: 'modern-workplace-security-framework.md', category: 'Security', emoji: '🔒', featured: true,  isNew: true, desc: 'Framework sécurité M365 — Zero Trust, Conditional Access, MFA, Defender for Business, conformité RGPD' },
   { id: 'bundles',         title: 'Solutions Bundles & Promotions',  file: 'microsoft-promotions-2026.md',          category: 'Bundles',  emoji: '🏷️', featured: true,  desc: 'Offres bundles 2026 — remises combos M365+D365, promotions partenaires actives' },
   { id: 'pricing-guide',   title: 'Full Pricing Guide 2025',         file: 'microsoft-pricing-guide-2025.md',       category: 'Bundles',  emoji: '📋', featured: false, desc: 'Guide tarifaire unifié — tous produits Microsoft, grille partenaire CSP complète' },
   { id: 'solution-bundles',title: 'Solution Bundles & Pricing',      file: 'solution-bundles-pricing.md',           category: 'Bundles',  emoji: '🎯', featured: false, desc: 'Templates propositions commerciales — bundles courants, pricing rapide par secteur' },
-  { id: 'github-copilot',  title: 'GitHub Copilot — Plans 2026',     file: 'github-copilot-plans.md',               category: 'Developer',emoji: '💻', featured: true,  desc: 'Copilot Free/Pro/Business/Enterprise — features IDE, coding agent, knowledge bases, pricing $10-$39/mois' },
+  { id: 'github-copilot',  title: 'GitHub Copilot — Plans 2026',     file: 'github-copilot-plans.md',               category: 'Developer',emoji: '💻', featured: true,  isNew: true, desc: 'Copilot Free/Pro/Business/Enterprise — features IDE, coding agent, knowledge bases, pricing $10-$39/mois' },
 ];
 
 const DOC_CATEGORIES = ['All','M365','Azure','Dynamics','Power','Security','Bundles','Developer'];
@@ -944,6 +944,9 @@ export default function KnowledgeBasePage() {
                                   <span className="flex items-center gap-1 text-[10px] text-yellow-600 bg-yellow-50 px-2 py-0.5 rounded-full border border-yellow-200 font-semibold">
                                     <Star className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" /> Featured
                                   </span>
+                                  {doc.isNew && (
+                                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-700 border-emerald-200">New</span>
+                                  )}
                                 </div>
                                 <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors text-sm leading-snug">{doc.title}</h3>
                               </div>
@@ -981,7 +984,10 @@ export default function KnowledgeBasePage() {
                           <div className="flex items-start gap-2.5 mb-2.5">
                             <div className={`p-2 rounded-lg ${style.light} text-xl shrink-0`}>{doc.emoji}</div>
                             <div className="min-w-0">
-                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full border ${style.badge} block w-fit mb-1`}>{doc.category}</span>
+                              <div className="flex items-center gap-1 mb-1 flex-wrap">
+                                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full border ${style.badge}`}>{doc.category}</span>
+                                {doc.isNew && <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">New</span>}
+                              </div>
                               <h3 className="font-bold text-gray-900 text-xs group-hover:text-blue-600 transition-colors leading-snug">{doc.title}</h3>
                             </div>
                           </div>

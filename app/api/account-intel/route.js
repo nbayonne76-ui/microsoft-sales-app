@@ -228,7 +228,8 @@ Génère le dossier commercial complet. Retourne UNIQUEMENT ce JSON valide (sans
     {"role": "CFO / DAF", "painPoints": "enjeux financiers", "microsoftAngle": "argument TCO/ROI KB"}
   ],
   "topSolutions": [
-    {"product": "produit KB", "plan": "plan KB", "price": "prix KB exact", "whyFit": "lié au contexte réel", "roi": "ROI KB", "category": "m365|azure|dynamics|power|security", "priority": "must-have|high|medium"},
+    {"product": "produit KB (ex: M365 E5, Copilot Studio, GitHub Copilot, Intune Suite, D365 Sales…)", "plan": "plan KB exact", "price": "prix KB exact", "whyFit": "lié au contexte RÉEL collecté", "roi": "ROI KB chiffré", "category": "m365|azure|dynamics|power|security|devtools", "priority": "must-have|high|medium"},
+    {"product": "...", "plan": "...", "price": "...", "whyFit": "...", "roi": "...", "category": "...", "priority": "..."},
     {"product": "...", "plan": "...", "price": "...", "whyFit": "...", "roi": "...", "category": "...", "priority": "..."},
     {"product": "...", "plan": "...", "price": "...", "whyFit": "...", "roi": "...", "category": "...", "priority": "..."}
   ],

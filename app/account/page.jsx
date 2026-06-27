@@ -33,8 +33,9 @@ const CAT_COLORS = {
   dynamics: 'from-orange-500 to-red-500',
   power:    'from-yellow-500 to-orange-500',
   security: 'from-red-500 to-rose-600',
+  devtools: 'from-violet-500 to-purple-600',
 };
-const CAT_EMOJI = { m365: '💼', azure: '☁️', dynamics: '🎯', power: '⚡', security: '🛡️' };
+const CAT_EMOJI = { m365: '💼', azure: '☁️', dynamics: '🎯', power: '⚡', security: '🛡️', devtools: '💻' };
 
 const PRIORITY_COLORS = {
   'must-have': 'bg-red-100 text-red-700 border-red-200',
