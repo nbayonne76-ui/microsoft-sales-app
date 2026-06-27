@@ -1,0 +1,746 @@
+[
+  {
+    "slug": "azure-ai-security-june-2026",
+    "category": "azure",
+    "date": "2026-06-27",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Sécurisez votre IA avec Azure: Nouvelles avancées",
+      "excerpt": "Découvrez comment les dernières innovations d'Azure renforcent la sécurité et l'efficacité de vos solutions IA dans le cloud.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "La sécurité et l'efficacité des solutions IA sont cruciales pour les entreprises modernes. Azure innove avec des avancées qui transforment la manière dont les entreprises protègent et optimisent leurs opérations cloud."
+        },
+        {
+          "type": "h2",
+          "text": "Protocole de Contexte Modèle (MCP)"
+        },
+        {
+          "type": "p",
+          "text": "Le MCP permet aux modèles d'IA d'accéder aux données en temps réel sans besoin de code d'intégration manuel, améliorant ainsi l'efficacité et la sécurité des opérations."
+        },
+        {
+          "type": "h2",
+          "text": "Protection avancée de la mémoire avec Azure Cobalt 200"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Protection contre les vulnérabilités mémoire",
+            "Conception matérielle-software intégrée",
+            "Sécurité à l'échelle du cloud"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "Ces innovations permettent aux entreprises de renforcer leur sécurité tout en optimisant les performances de leurs solutions IA, offrant ainsi un avantage concurrentiel significatif."
+        },
+        {
+          "type": "cta",
+          "text": "Comment ces innovations peuvent-elles transformer votre entreprise?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Secure Your AI with Azure: New Advancements",
+      "excerpt": "Learn how Azure's latest innovations enhance the security and efficiency of your AI solutions in the cloud.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "The security and efficiency of AI solutions are crucial for modern enterprises. Azure is innovating with advancements that transform how businesses protect and optimize their cloud operations."
+        },
+        {
+          "type": "h2",
+          "text": "Model Context Protocol (MCP)"
+        },
+        {
+          "type": "p",
+          "text": "MCP allows AI models to access real-time data without the need for manual integration code, enhancing operational efficiency and security."
+        },
+        {
+          "type": "h2",
+          "text": "Advanced Memory Protection with Azure Cobalt 200"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Protection against memory vulnerabilities",
+            "Integrated hardware-software design",
+            "Cloud-scale security"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "These innovations enable businesses to strengthen security while optimizing AI solution performance, offering a significant competitive edge."
+        },
+        {
+          "type": "cta",
+          "text": "How can these innovations transform your business?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "microsoft-365-e7-frontier-worker-suite",
+    "category": "m365",
+    "date": "2026-05-20",
+    "readTime": "8 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": true,
+    "fr": {
+      "title": "Microsoft 365 E7 : le Frontier Worker Suite expliqué",
+      "excerpt": "Microsoft lance son plan Enterprise le plus ambitieux : M365 E7 regroupe M365 E5, Entra Suite, Microsoft 365 Copilot et Agent 365 en un seul bundle à $99/user/mois. Tout ce que les DSI doivent savoir avant le 1er mai 2026.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Le 1er mai 2026, Microsoft lance officiellement Microsoft 365 E7, baptisé \"The Frontier Worker Suite\". Ce nouveau plan Enterprise premium marque une rupture majeure : pour la première fois, productivité, sécurité Zero Trust, IA générative et gouvernance des agents IA sont réunis dans un seul abonnement."
+        },
+        {
+          "type": "h2",
+          "text": "Qu'est-ce que Microsoft 365 E7 ?"
+        },
+        {
+          "type": "p",
+          "text": "M365 E7 est la somme de quatre composants distincts : Microsoft 365 E5 (la base sécurisée), Microsoft Entra Suite (Zero Trust complet), Microsoft 365 Copilot (IA dans toutes les apps) et Microsoft Agent 365 (le plan de contrôle des agents IA)."
+        },
+        {
+          "type": "pricing",
+          "rows": [
+            {
+              "component": "Microsoft 365 E5 + Entra Suite",
+              "price": "$60/user/mois",
+              "note": "$51.45 sans Teams à partir du 1/7/26"
+            },
+            {
+              "component": "Microsoft Entra Suite",
+              "price": "$12/user/mois",
+              "note": "$9 pour clients E5 existants"
+            },
+            {
+              "component": "Microsoft 365 Copilot",
+              "price": "$30/user/mois",
+              "note": ""
+            },
+            {
+              "component": "Microsoft Agent 365",
+              "price": "$15/user/mois",
+              "note": "NOUVEAU"
+            },
+            {
+              "component": "M365 E7 (bundle)",
+              "price": "$99/user/mois",
+              "note": "Économie : $18/user/mois vs achat séparé",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Microsoft Agent 365 : la vraie nouveauté"
+        },
+        {
+          "type": "p",
+          "text": "Agent 365 est le composant véritablement inédit de E7. Il fournit trois capacités critiques pour les organisations qui déploient des agents IA à grande échelle :"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🔭 Observe : visibilité en temps réel sur tous les agents déployés dans l'organisation",
+            "⚙️ Govern : guardrails, cycle de vie des agents, conformité et rétention des données",
+            "🛡️ Secure : sécuriser les identités des agents, contrôler leurs accès, prévenir le data oversharing"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Work IQ : l'IA personnalisée à votre organisation"
+        },
+        {
+          "type": "p",
+          "text": "Work IQ est la couche d'intelligence qui personnalise Copilot pour chaque utilisateur et chaque organisation. Elle combine trois dimensions : Skills & Tools (instructions spécialisées), Context (mémoire des habitudes et workflows) et Data (fusion des signaux M365 + données métier via connecteurs)."
+        },
+        {
+          "type": "h2",
+          "text": "Pour qui est fait M365 E7 ?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Clients actuellement sur M365 E5 souhaitant intégrer Copilot + gouvernance agents",
+            "DSI / RSSI confrontés à la prolifération d'agents IA non contrôlés",
+            "Organisations +300 utilisateurs cherchant un plan IA complet, sécurisé, économique",
+            "Toute organisation soumise à NIS2, DORA, RGPD, HIPAA ou FCA"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Vous souhaitez évaluer l'impact de M365 E7 sur votre organisation ?",
+          "action": "Générer un dossier Account Intel",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Microsoft 365 E7: The Frontier Worker Suite Explained",
+      "excerpt": "Microsoft launches its most ambitious Enterprise plan: M365 E7 bundles M365 E5, Entra Suite, Microsoft 365 Copilot, and Agent 365 into a single $99/user/month package. Everything CIOs need to know.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "On May 1, 2026, Microsoft officially launched Microsoft 365 E7, branded \"The Frontier Worker Suite\". This new premium Enterprise plan marks a major shift: for the first time, productivity, Zero Trust security, generative AI, and AI agent governance are unified in a single subscription."
+        },
+        {
+          "type": "h2",
+          "text": "What is Microsoft 365 E7?"
+        },
+        {
+          "type": "p",
+          "text": "M365 E7 combines four distinct components: Microsoft 365 E5 (secure foundation), Microsoft Entra Suite (complete Zero Trust), Microsoft 365 Copilot (AI across all apps), and Microsoft Agent 365 (the AI agent control plane)."
+        },
+        {
+          "type": "pricing",
+          "rows": [
+            {
+              "component": "Microsoft 365 E5 + Entra Suite",
+              "price": "$60/user/month",
+              "note": "$51.45 without Teams from 1/7/26"
+            },
+            {
+              "component": "Microsoft Entra Suite",
+              "price": "$12/user/month",
+              "note": "$9 for existing E5 customers"
+            },
+            {
+              "component": "Microsoft 365 Copilot",
+              "price": "$30/user/month",
+              "note": ""
+            },
+            {
+              "component": "Microsoft Agent 365",
+              "price": "$15/user/month",
+              "note": "NEW"
+            },
+            {
+              "component": "M365 E7 (bundle)",
+              "price": "$99/user/month",
+              "note": "Save $18/user/month vs. buying separately",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Microsoft Agent 365: The Real Innovation"
+        },
+        {
+          "type": "p",
+          "text": "Agent 365 is the truly unprecedented component of E7. It delivers three critical capabilities for organizations deploying AI agents at scale:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🔭 Observe: real-time visibility across all agents deployed in your organization",
+            "⚙️ Govern: guardrails, agent lifecycle management, compliance and data retention — audit-ready",
+            "🛡️ Secure: secure agent identities, control access to resources, prevent data oversharing"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Work IQ: AI Personalized to Your Organization"
+        },
+        {
+          "type": "p",
+          "text": "Work IQ is the intelligence layer that personalizes Copilot for each user and organization. It combines three dimensions: Skills & Tools (specialized instructions), Context (memory of habits and workflows), and Data (M365 signals + business data via connectors)."
+        },
+        {
+          "type": "h2",
+          "text": "Who is M365 E7 for?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Customers currently on M365 E5 looking to add Copilot + agent governance",
+            "CIOs / CISOs facing uncontrolled AI agent proliferation",
+            "Organizations with 300+ users seeking a complete, secure, cost-effective AI plan",
+            "Any organization subject to NIS2, DORA, GDPR, HIPAA, or FCA"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Want to assess the impact of M365 E7 on your organization?",
+          "action": "Generate an Account Intel Dossier",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "microsoft-365-copilot-guide-entreprise",
+    "category": "copilot",
+    "date": "2026-05-15",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Microsoft 365 Copilot : le guide complet pour les entreprises",
+      "excerpt": "Microsoft 365 Copilot intègre l'IA générative dans Teams, Outlook, Word, Excel et PowerPoint. À $30/user/mois, il promet +30% de productivité. Mode d'emploi pour les entreprises françaises.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Microsoft 365 Copilot est l'assistant IA générative de Microsoft, intégré nativement dans toutes les applications de la suite M365. Alimenté par les grands modèles de langage d'OpenAI et ancré dans les données de votre organisation, il transforme la façon dont les équipes travaillent."
+        },
+        {
+          "type": "h2",
+          "text": "Copilot dans vos applications au quotidien"
+        },
+        {
+          "type": "list",
+          "items": [
+            "📧 Outlook : résume vos emails, rédige des réponses, priorise votre boîte de réception",
+            "💬 Teams : résumé automatique des réunions, transcription, points d'action extraits",
+            "📝 Word : génère, reformule et améliore vos documents à partir d'un brief",
+            "📊 Excel : analyse de données, formules complexes, insights business en langage naturel",
+            "📊 PowerPoint : crée des présentations complètes depuis un document Word ou un brief"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Work IQ : la mémoire professionnelle de Copilot"
+        },
+        {
+          "type": "p",
+          "text": "Avec M365 E7, Copilot gagne Work IQ — une couche d'intelligence qui apprend votre style, vos habitudes et votre contexte métier. Copilot ne répond plus de façon générique : il répond en connaissant votre secteur, vos clients et vos processus."
+        },
+        {
+          "type": "h2",
+          "text": "Les résultats clients mesurés"
+        },
+        {
+          "type": "list",
+          "items": [
+            "+30% d'efficacité développeur (CapitaLand, Gerdau)",
+            "+30% de productivité employés (DSB, Accenture)",
+            "-40% de temps sur le support client (PwC, Hitachi)",
+            "+94% d'amélioration du temps de prospection (Lumen)"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Prérequis et tarification"
+        },
+        {
+          "type": "p",
+          "text": "Microsoft 365 Copilot est disponible en add-on sur tous les plans Enterprise (E3, E5) et Business Standard/Premium. Tarif : $30/user/mois. Inclus dans M365 E7. Nécessite une licence M365 active et Entra ID P1 minimum."
+        },
+        {
+          "type": "cta",
+          "text": "Prêt à évaluer l'impact Copilot pour votre client ?",
+          "action": "Générer un email Copilot personnalisé",
+          "href": "/email-generator"
+        }
+      ]
+    },
+    "en": {
+      "title": "Microsoft 365 Copilot: The Complete Enterprise Guide",
+      "excerpt": "Microsoft 365 Copilot brings generative AI to Teams, Outlook, Word, Excel and PowerPoint. At $30/user/month, it promises +30% productivity gains. A guide for enterprise decision-makers.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Microsoft 365 Copilot is Microsoft's generative AI assistant, natively integrated across the entire M365 suite. Powered by OpenAI large language models and grounded in your organization's data, it transforms how teams work."
+        },
+        {
+          "type": "h2",
+          "text": "Copilot Across Your Daily Applications"
+        },
+        {
+          "type": "list",
+          "items": [
+            "📧 Outlook: summarizes emails, drafts replies, prioritizes your inbox",
+            "💬 Teams: automatic meeting summaries, transcription, extracted action items",
+            "📝 Word: generates, rewrites and improves documents from a brief",
+            "📊 Excel: data analysis, complex formulas, business insights in natural language",
+            "📊 PowerPoint: creates full presentations from a Word doc or brief"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Work IQ: Copilot's Professional Memory"
+        },
+        {
+          "type": "p",
+          "text": "With M365 E7, Copilot gains Work IQ — an intelligence layer that learns your style, habits, and business context. Copilot no longer responds generically: it responds knowing your industry, your clients, and your processes."
+        },
+        {
+          "type": "h2",
+          "text": "Measured Customer Results"
+        },
+        {
+          "type": "list",
+          "items": [
+            "+30% developer efficiency (CapitaLand, Gerdau)",
+            "+30% employee productivity (DSB, Accenture)",
+            "-40% time spent on customer support (PwC, Hitachi)",
+            "+94% improvement in prospecting time (Lumen)"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Prerequisites and Pricing"
+        },
+        {
+          "type": "p",
+          "text": "Microsoft 365 Copilot is available as an add-on on all Enterprise plans (E3, E5) and Business Standard/Premium. Price: $30/user/month. Included in M365 E7. Requires an active M365 license and Entra ID P1 minimum."
+        },
+        {
+          "type": "cta",
+          "text": "Ready to assess Copilot's impact for your client?",
+          "action": "Generate a personalized Copilot email",
+          "href": "/email-generator"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "azure-vs-aws-migration-cloud-2026",
+    "category": "azure",
+    "date": "2026-05-10",
+    "readTime": "7 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Azure vs AWS en 2026 : pourquoi les entreprises françaises choisissent Microsoft",
+      "excerpt": "AWS reste le leader mondial du cloud, mais Azure gagne du terrain en Europe grâce à sa souveraineté des données, son intégration M365 et son offre IA (Azure OpenAI). Comparatif objectif pour aider votre décision.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Le choix d'un fournisseur cloud est une décision stratégique qui engage votre organisation pour 5 à 10 ans. En 2026, Azure et AWS se disputent le marché enterprise, mais avec des propositions de valeur très différentes selon votre contexte."
+        },
+        {
+          "type": "h2",
+          "text": "Pourquoi Azure gagne en Europe"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🇫🇷 Souveraineté des données : régions Azure France Centre + France Sud, compliance RGPD native",
+            "🔗 Intégration M365 : si vous êtes sur M365/Office 365, Azure est l'extension naturelle",
+            "🤖 Azure OpenAI Service : accès aux modèles GPT-4, DALL·E et Whisper avec garanties enterprise",
+            "💰 Hybride : Azure Arc gère votre infrastructure on-premise ET cloud depuis un seul plan de contrôle"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Les arguments d'AWS"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Maturité et profondeur des services (plus de 250 services vs ~200 chez Azure)",
+            "Tarifs compétitifs sur le compute pur (EC2 vs Azure VM)",
+            "Meilleure tooling DevOps native (CodePipeline, CodeDeploy)"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Notre recommandation"
+        },
+        {
+          "type": "p",
+          "text": "Pour une entreprise française déjà sur M365 : Azure est le choix évident. L'intégration entre Entra ID, M365, Azure et Defender for Cloud crée une synergie que AWS ne peut pas répliquer. Pour une pure play cloud-native sans M365 : évaluez les deux selon vos workloads."
+        },
+        {
+          "type": "cta",
+          "text": "Besoin d'un dossier de migration Azure personnalisé ?",
+          "action": "Analyser votre compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Azure vs AWS in 2026: Why French Enterprises Choose Microsoft",
+      "excerpt": "AWS remains the global cloud leader, but Azure is gaining ground in Europe through data sovereignty, M365 integration, and AI capabilities (Azure OpenAI). An objective comparison to guide your decision.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Choosing a cloud provider is a strategic decision that commits your organization for 5 to 10 years. In 2026, Azure and AWS compete for the enterprise market, but with very different value propositions depending on your context."
+        },
+        {
+          "type": "h2",
+          "text": "Why Azure is Winning in Europe"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🇫🇷 Data sovereignty: Azure France Central + France South regions, native GDPR compliance",
+            "🔗 M365 integration: if you're on M365/Office 365, Azure is the natural extension",
+            "🤖 Azure OpenAI Service: access to GPT-4, DALL·E and Whisper with enterprise guarantees",
+            "💰 Hybrid: Azure Arc manages your on-premise AND cloud infrastructure from a single control plane"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "The Case for AWS"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Service depth and maturity (250+ services vs ~200 for Azure)",
+            "Competitive pricing on pure compute (EC2 vs Azure VM)",
+            "Better native DevOps tooling (CodePipeline, CodeDeploy)"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Our Recommendation"
+        },
+        {
+          "type": "p",
+          "text": "For a French organization already on M365: Azure is the obvious choice. The integration between Entra ID, M365, Azure, and Defender for Cloud creates a synergy AWS cannot replicate. For a pure cloud-native play without M365: evaluate both based on your workloads."
+        },
+        {
+          "type": "cta",
+          "text": "Need a personalized Azure migration dossier?",
+          "action": "Analyze your account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "dynamics-365-sales-guide-commercial",
+    "category": "dynamics",
+    "date": "2026-05-05",
+    "readTime": "5 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Dynamics 365 Sales : comment transformer votre pipeline commercial",
+      "excerpt": "Dynamics 365 Sales n'est plus un simple CRM — c'est une plateforme de vente IA-native qui prédit les deals à risque, automatise les séquences d'engagement et connecte vos données métier à Copilot.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Dynamics 365 Sales est le CRM enterprise de Microsoft, conçu pour les équipes commerciales B2B. En 2025/2026, avec l'intégration de Copilot for Sales, il devient une plateforme de vente augmentée par l'IA."
+        },
+        {
+          "type": "h2",
+          "text": "Les fonctionnalités clés"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🎯 Pipeline management : opportunités, leads scoring, forecasting IA",
+            "🤖 Copilot for Sales : résumés de réunions, next-best-action, emails générés automatiquement",
+            "📊 Sales Insights : prédiction des deals à risque, analyse des conversations (Teams + Gong)",
+            "🔗 Connecté à M365 : Teams, Outlook, SharePoint intégrés nativement",
+            "📱 Mobile first : appli iOS/Android pour les commerciaux terrain"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Dynamics 365 Sales vs Salesforce"
+        },
+        {
+          "type": "p",
+          "text": "Salesforce domine historiquement le marché CRM, mais Dynamics 365 Sales s'impose dans les organisations Microsoft-first. L'avantage décisif : l'intégration native M365/Teams/Outlook. Chez Salesforce, c'est une intégration tierce."
+        },
+        {
+          "type": "h2",
+          "text": "Tarification 2025"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Dynamics 365 Sales Professional : $65/user/mois",
+            "Dynamics 365 Sales Enterprise : $95/user/mois (avec Copilot for Sales)",
+            "Dynamics 365 Sales Premium : $135/user/mois (avec Sales Insights avancé)"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Comparer Dynamics 365 Sales pour votre prospect ?",
+          "action": "Générer un email Dynamics 365",
+          "href": "/email-generator"
+        }
+      ]
+    },
+    "en": {
+      "title": "Dynamics 365 Sales: How to Transform Your Commercial Pipeline",
+      "excerpt": "Dynamics 365 Sales is no longer just a CRM — it's an AI-native sales platform that predicts at-risk deals, automates engagement sequences, and connects your business data to Copilot.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Dynamics 365 Sales is Microsoft's enterprise CRM, designed for B2B sales teams. In 2025/2026, with the integration of Copilot for Sales, it has become an AI-augmented sales platform."
+        },
+        {
+          "type": "h2",
+          "text": "Key Features"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🎯 Pipeline management: opportunities, AI lead scoring, forecasting",
+            "🤖 Copilot for Sales: meeting summaries, next-best-action, auto-generated emails",
+            "📊 Sales Insights: at-risk deal prediction, conversation analysis (Teams + Gong)",
+            "🔗 Connected to M365: Teams, Outlook, SharePoint natively integrated",
+            "📱 Mobile first: iOS/Android app for field sales reps"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Dynamics 365 Sales vs Salesforce"
+        },
+        {
+          "type": "p",
+          "text": "Salesforce has historically dominated the CRM market, but Dynamics 365 Sales is gaining ground in Microsoft-first organizations. The decisive advantage: native M365/Teams/Outlook integration. With Salesforce, that's a third-party integration."
+        },
+        {
+          "type": "h2",
+          "text": "2025 Pricing"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Dynamics 365 Sales Professional: $65/user/month",
+            "Dynamics 365 Sales Enterprise: $95/user/month (with Copilot for Sales)",
+            "Dynamics 365 Sales Premium: $135/user/month (with advanced Sales Insights)"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Compare Dynamics 365 Sales for your prospect?",
+          "action": "Generate a Dynamics 365 email",
+          "href": "/email-generator"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "microsoft-purview-defender-nis2-rgpd",
+    "category": "securite",
+    "date": "2026-04-28",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "NIS2, RGPD & Microsoft Purview : la conformité simplifiée pour les DSI",
+      "excerpt": "La directive NIS2 est entrée en vigueur en octobre 2024. Microsoft Purview et Defender for Cloud offrent une réponse intégrée : DLP, classification automatique, audit trail et incident response en un seul tableau de bord.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "La directive NIS2 impose de nouvelles obligations de cybersécurité aux organisations européennes depuis octobre 2024. Pour les DSI et RSSI, la question n'est plus \"si\" mais \"comment\" se mettre en conformité efficacement sans exploser le budget."
+        },
+        {
+          "type": "h2",
+          "text": "Ce que NIS2 exige concrètement"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Notification d'incident sous 24h à l'ANSSI (rapport préliminaire) et 72h (rapport complet)",
+            "Gestion des risques cybersécurité documentée et testée",
+            "Sécurité de la chaîne d'approvisionnement (vos fournisseurs IT inclus)",
+            "Continuité d'activité et plan de reprise après sinistre",
+            "Sanctions : jusqu'à 10M€ ou 2% du CA mondial"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "La réponse Microsoft"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🔍 Microsoft Purview : classification automatique des données sensibles, DLP, audit complet",
+            "🛡️ Microsoft Defender XDR : détection et réponse unifiée (email, endpoint, identité, cloud)",
+            "🔐 Microsoft Entra ID Protection : Zero Trust, MFA adaptatif, détection des comptes compromis",
+            "📋 Microsoft Sentinel : SIEM/SOAR cloud-native avec playbooks d'automatisation des incidents"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Quel plan Microsoft pour la conformité NIS2 ?"
+        },
+        {
+          "type": "p",
+          "text": "La réponse minimale NIS2 pour une organisation Enterprise : Microsoft 365 E5 (inclut Purview E5 + Defender suite + Entra P2). Pour une conformité maximale avec gouvernance des agents IA : Microsoft 365 E7 (inclut tout E5 + Entra Suite + Agent 365)."
+        },
+        {
+          "type": "cta",
+          "text": "Évaluer votre posture NIS2 avec Microsoft ?",
+          "action": "Générer un dossier sécurité",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "NIS2, GDPR & Microsoft Purview: Compliance Simplified for CIOs",
+      "excerpt": "NIS2 came into force in October 2024. Microsoft Purview and Defender for Cloud offer an integrated response: DLP, automatic classification, audit trail, and incident response in a single dashboard.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "The NIS2 directive has imposed new cybersecurity obligations on European organizations since October 2024. For CIOs and CISOs, the question is no longer \"if\" but \"how\" to achieve compliance efficiently without breaking the budget."
+        },
+        {
+          "type": "h2",
+          "text": "What NIS2 Concretely Requires"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Incident notification within 24h to national authority (preliminary report) and 72h (full report)",
+            "Documented and tested cybersecurity risk management",
+            "Supply chain security (your IT vendors included)",
+            "Business continuity and disaster recovery plan",
+            "Penalties: up to €10M or 2% of global turnover"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Microsoft's Response"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🔍 Microsoft Purview: automatic sensitive data classification, DLP, full audit trail",
+            "🛡️ Microsoft Defender XDR: unified detection and response (email, endpoint, identity, cloud)",
+            "🔐 Microsoft Entra ID Protection: Zero Trust, adaptive MFA, compromised account detection",
+            "📋 Microsoft Sentinel: cloud-native SIEM/SOAR with incident automation playbooks"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Which Microsoft Plan for NIS2 Compliance?"
+        },
+        {
+          "type": "p",
+          "text": "The minimum NIS2 response for an Enterprise organization: Microsoft 365 E5 (includes Purview E5 + Defender suite + Entra P2). For maximum compliance with AI agent governance: Microsoft 365 E7 (includes all of E5 + Entra Suite + Agent 365)."
+        },
+        {
+          "type": "cta",
+          "text": "Assess your NIS2 posture with Microsoft?",
+          "action": "Generate a security dossier",
+          "href": "/account"
+        }
+      ]
+    }
+  }
+]

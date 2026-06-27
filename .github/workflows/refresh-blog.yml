@@ -1,0 +1,76 @@
+name: Refresh Microsoft Blog
+
+on:
+  schedule:
+    # Every day at 6:00 UTC (8:00 Paris time)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      agent:
+        description: 'Agent to run'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - azure
+          - dynamics
+          - modern-work
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+      DATABASE_URL: file:/tmp/dev.db
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # ── Agents ───────────────────────────────────────────────────────────────
+
+      - name: Run Azure Agent
+        if: ${{ github.event.inputs.agent == 'all' || github.event.inputs.agent == 'azure' || github.event_name == 'schedule' }}
+        continue-on-error: true
+        run: node scripts/agents/azure-agent.js
+
+      - name: Run Dynamics Agent
+        if: ${{ github.event.inputs.agent == 'all' || github.event.inputs.agent == 'dynamics' || github.event_name == 'schedule' }}
+        continue-on-error: true
+        run: node scripts/agents/dynamics-agent.js
+
+      - name: Run Modern Work Agent
+        if: ${{ github.event.inputs.agent == 'all' || github.event.inputs.agent == 'modern-work' || github.event_name == 'schedule' }}
+        continue-on-error: true
+        run: node scripts/agents/modern-work-agent.js
+
+      # ── Commit & push ─────────────────────────────────────────────────────────
+
+      - name: Commit updated articles
+        run: |
+          git config user.name "Microsoft Blog Agent"
+          git config user.email "agent@happi.ai"
+          git add data/blog-articles.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: refresh blog articles [$(date +'%Y-%m-%d')]"
+            git push
+            echo "✅ Pushed updated blog-articles.json"
+          fi
