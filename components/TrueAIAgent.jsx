@@ -4,12 +4,17 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { Brain, Send, Copy, Trash2, ChevronRight, CheckCheck, Zap } from 'lucide-react';
 
 const SLASH_COMMANDS = [
-  { cmd: '/brief',   label: 'Brief commercial',      example: '/brief Airbus',          color: 'blue' },
-  { cmd: '/email',   label: 'Angle email',            example: '/email TotalEnergies',   color: 'green' },
-  { cmd: '/pitch',   label: 'Pitch 2 min',            example: '/pitch Microsoft 365 E5', color: 'purple' },
-  { cmd: '/swot',    label: 'Analyse SWOT',           example: '/swot SNCF',             color: 'orange' },
-  { cmd: '/prix',    label: 'Prix & plans KB',        example: '/prix Copilot',          color: 'red' },
-  { cmd: '/compare', label: 'Comparaison produits',   example: '/compare E3 vs E5',      color: 'indigo' },
+  { cmd: '/brief',          label: 'Brief commercial',      example: '/brief Airbus',              color: 'blue'   },
+  { cmd: '/email',          label: 'Angle email',            example: '/email TotalEnergies',       color: 'green'  },
+  { cmd: '/pitch',          label: 'Pitch 2 min',            example: '/pitch Microsoft 365 E5',    color: 'purple' },
+  { cmd: '/swot',           label: 'Analyse SWOT',           example: '/swot SNCF',                 color: 'orange' },
+  { cmd: '/prix',           label: 'Prix & plans KB',        example: '/prix Copilot',              color: 'red'    },
+  { cmd: '/compare',        label: 'Comparaison produits',   example: '/compare E3 vs E5',          color: 'indigo' },
+  { cmd: '/feature',        label: 'Features par plan',      example: '/feature Teams',             color: 'teal'   },
+  { cmd: '/compare-plans',  label: 'Comparatif plans',       example: '/compare-plans E3 vs E5',    color: 'violet' },
+  { cmd: '/intune',         label: 'Intune Plans',           example: '/intune',                    color: 'slate'  },
+  { cmd: '/copilot-studio', label: 'Copilot Studio',         example: '/copilot-studio',            color: 'pink'   },
+  { cmd: '/github-copilot', label: 'GitHub Copilot',         example: '/github-copilot Business',   color: 'gray'   },
 ];
 
 const COLOR_MAP = {
@@ -19,6 +24,11 @@ const COLOR_MAP = {
   orange: 'bg-orange-100 text-orange-700 hover:bg-orange-200',
   red:    'bg-red-100 text-red-700 hover:bg-red-200',
   indigo: 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200',
+  teal:   'bg-teal-100 text-teal-700 hover:bg-teal-200',
+  violet: 'bg-violet-100 text-violet-700 hover:bg-violet-200',
+  slate:  'bg-slate-100 text-slate-700 hover:bg-slate-200',
+  pink:   'bg-pink-100 text-pink-700 hover:bg-pink-200',
+  gray:   'bg-gray-100 text-gray-700 hover:bg-gray-200',
 };
 
 const KB_TOPIC_COLORS = {
@@ -327,7 +337,7 @@ export default function TrueAIAgent() {
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKey}
-            placeholder="Pose une question ou tape /brief, /email, /swot…"
+            placeholder="Pose une question ou tape /brief, /feature Teams, /compare-plans E3 vs E5, /intune…"
             rows={1}
             className="flex-1 resize-none rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all max-h-32 overflow-y-auto"
             style={{ lineHeight: '1.5' }}

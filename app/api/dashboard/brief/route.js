@@ -21,20 +21,23 @@ ${kbContent}`;
     const userPrompt = `Génère le brief commercial du jour pour Nicolas. Structure :
 
 **3 PRIORITÉS DU JOUR :**
-1. [priorité commerciale concrète liée à une actualité ou tendance Microsoft]
-2. [priorité avec un angle de prospection spécifique]
-3. [priorité avec une action immédiate recommandée]
+1. [priorité commerciale concrète liée à une actualité ou tendance Microsoft — ex: Copilot, Intune Suite, GitHub Copilot, Release Wave 1]
+2. [priorité avec un angle de prospection spécifique sur un client ou secteur]
+3. [priorité avec une action immédiate recommandée et mesurable]
+
+**OPPORTUNITÉ PRODUIT DU JOUR :**
+[1 produit de la KB (Intune, Copilot Studio, GitHub Copilot, Teams, Viva…) avec angle commercial concret et profil client cible]
 
 **STAT DU JOUR :**
-[1 chiffre percutant tiré de la KB]
+[1 chiffre percutant tiré de la KB — prix, économies, adoption, ROI]
 
 **QUESTION DE QUALIFICATION À TESTER AUJOURD'HUI :**
-[1 question ouverte stratégique pour un RDV de découverte]
+[1 question ouverte stratégique pour un RDV de découverte — doit révéler un pain point lié aux solutions KB]
 
 **QUICK WIN :**
-[La deal la plus rapide à fermer cette semaine — pourquoi maintenant et qui contacter]
+[La deal la plus rapide à fermer cette semaine — produit, profil client, argument de closing et deadline]
 
-Sois direct, actionnable, commercial. Maximum 300 mots.`;
+Sois direct, actionnable, commercial. Maximum 350 mots.`;
 
     const stream = await openai.chat.completions.create({
       model: 'gpt-4o',

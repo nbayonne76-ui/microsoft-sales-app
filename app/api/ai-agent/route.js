@@ -35,6 +35,11 @@ COMMANDES RECONNUES :
 - /swot [entreprise] → Analyse SWOT rapide
 - /prix [produit] → Prix et plans depuis la KB
 - /compare [A] vs [B] → Comparaison depuis la KB
+- /feature [service] → Disponibilité des features par plan M365 (Teams, Exchange, SharePoint, OneDrive, Copilot, Entra…)
+- /compare-plans [E3] vs [E5] → Comparatif détaillé de deux plans M365 avec tableau features
+- /intune → Résumé Intune Plan 1 vs Plan 2 vs Suite + cas d'usage vendeur
+- /copilot-studio → Récap licences Copilot Studio (Teams vs Standalone) + pricing
+- /github-copilot → Plans GitHub Copilot Business vs Enterprise + ROI
 
 DOMAINES KB CHARGÉS : ${detectedTopics.join(', ') || 'tous'}
 
