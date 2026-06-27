@@ -189,6 +189,78 @@ Rules:
   return JSON.parse(raw);
 }
 
+// ── KB update generator ───────────────────────────────────────────────────────
+
+const KB_DIR  = path.join(__dirname, '../../templates/knowledge-base');
+const KB_FILENAME = {
+  azure:          'azure-recent-updates.md',
+  dynamics:       'dynamics-recent-updates.md',
+  'modern-work':  'm365-recent-updates.md',
+};
+
+async function generateKbUpdate(newsItems, config) {
+  const { OpenAI } = require('openai');
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  const today  = new Date().toISOString().split('T')[0];
+
+  const newsText = newsItems
+    .slice(0, 12)
+    .map((n, i) => `${i + 1}. [${n.date.slice(0, 10)}] ${n.title}\n   ${n.excerpt}`)
+    .join('\n\n');
+
+  const completion = await openai.chat.completions.create({
+    model: 'gpt-4o',
+    messages: [
+      {
+        role: 'system',
+        content: `Tu es un expert Microsoft qui crée des mises à jour de base de connaissances pour les Account Managers Microsoft en France. Ton contenu est utilisé directement par des outils IA (Account Intel, Email Generator, Agent IA) pour aider les commerciaux à préparer leurs rendez-vous clients. Format : markdown structuré, factuel, actionnable.`,
+      },
+      {
+        role: 'user',
+        content: `En te basant sur ces dernières actualités ${config.domainLabel}, crée une mise à jour structurée de la base de connaissances.
+
+ACTUALITÉS RÉCENTES :
+${newsText}
+
+Génère un document markdown avec ces sections :
+
+# ${config.domainLabel} — Mise à jour KB (${today})
+
+## Dernières annonces
+(bullet points : nom de la feature → impact business concis)
+
+## Ce qui change pour vos clients
+(impact pratique pour les DSI, RSSI, CTO)
+
+## Arguments de vente clés
+(3-5 points percutants pour les Account Managers)
+
+## Profil client cible
+(qui contacter suite à ces annonces : secteur, taille, rôle)
+
+## Questions clients fréquentes
+(2-3 Q&A sur les nouveautés)
+
+## Angle concurrentiel
+(comment Microsoft se différencie vs AWS, Salesforce, Google...)
+
+Rédige en français avec les termes techniques en anglais quand c'est l'usage standard.`,
+      },
+    ],
+    temperature: 0.3,
+    max_tokens: 2000,
+  });
+
+  return completion.choices[0]?.message?.content || '';
+}
+
+function saveKbFile(topic, content) {
+  const filename = KB_FILENAME[topic];
+  if (!filename || !content) return;
+  fs.writeFileSync(path.join(KB_DIR, filename), content, 'utf-8');
+  console.log(`📚 KB updated: ${filename}`);
+}
+
 // ── Article persistence ───────────────────────────────────────────────────────
 
 function saveArticle(article) {
@@ -235,11 +307,15 @@ async function runAgent(config) {
     return;
   }
 
-  console.log(`\n✍️  Generating article with GPT-4o (${allItems.length} news items)...`);
-  const article = await generateArticle(allItems, config);
+  console.log(`\n✍️  Generating article + KB update with GPT-4o (${allItems.length} news items)...`);
+  const [article, kbContent] = await Promise.all([
+    generateArticle(allItems, config),
+    generateKbUpdate(allItems, config),
+  ]);
 
   console.log(`\n📄 Article generated: "${article.fr?.title}"`);
   saveArticle(article);
+  saveKbFile(config.category === 'm365' ? 'modern-work' : config.category, kbContent);
   console.log('\n✅ Done!\n');
 }
 
