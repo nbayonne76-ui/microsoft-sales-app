@@ -1033,5 +1033,1255 @@
         }
       ]
     }
+  },
+  {
+    "slug": "technical-debt-dynamics-365-copilot",
+    "category": "dynamics",
+    "date": "2026-06-20",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "La dette technique dans Dynamics 365 : comment Copilot peut sauver votre ERP",
+      "excerpt": "Les customisations non maîtrisées, les intégrations anarchiques et les processus obsolètes coûtent cher. Découvrez comment l'IA et Copilot transforment la gouvernance D365.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "La dette technique dans Microsoft Dynamics 365 survient lorsque des développements précipités, des customisations non gérées ou des processus métier obsolètes s'accumulent — rendant le système plus difficile à maintenir, plus lent à mettre à jour et plus coûteux à gérer."
+        },
+        {
+          "type": "h2",
+          "text": "Qu'est-ce que la dette technique dans D365 ?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Customisations excessives (sur-dépendance au code développeur plutôt qu'aux solutions low-code)",
+            "Intégrations anarchiques et silos de données créant des risques de performance et de sécurité",
+            "Décalage de configuration avec les opérations métier actuelles"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Comment l'IA transforme la gouvernance D365"
+        },
+        {
+          "type": "p",
+          "text": "L'IA agit comme un moteur de gouvernance proactif, analysant les données pour identifier les problèmes avant qu'ils impactent les utilisateurs. Elle détecte les goulots d'étranglement, alerte sur les dérives de configuration et prédit les risques de mise à niveau."
+        },
+        {
+          "type": "h2",
+          "text": "Copilot : la gouvernance intégrée dans le quotidien"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Documentation automatique : génère des notes de version en temps réel",
+            "Guidance sur les bonnes pratiques : standards de code et conventions de nommage",
+            "Audit des rôles utilisateurs via le langage naturel",
+            "Dépannage guidé avec recommandations étape par étape"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Gouvernance traditionnelle vs intelligente"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Réactive → Proactive : résolution après impact vs prévention en amont",
+            "Manuelle → Automatisée : surveillance continue sans intervention humaine",
+            "Risque de mise à niveau élevé → Agilité continue",
+            "Coûts consultants élevés → TCO réduit"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Votre client accumule-t-il de la dette technique sur son ERP ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Technical Debt in Dynamics 365: How Copilot Can Save Your ERP",
+      "excerpt": "Unmanaged customizations, sprawling integrations, and outdated processes are costly. Learn how AI and Copilot transform D365 governance.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Technical debt in Microsoft Dynamics 365 arises when rushed development, unmanaged customizations, or outdated business processes accumulate — making systems harder to maintain, slower to upgrade, and costlier to manage."
+        },
+        {
+          "type": "h2",
+          "text": "What Is Technical Debt in D365?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Excessive customizations (over-reliance on developer code rather than low-code solutions)",
+            "Integration sprawl and data silos creating performance and security risks",
+            "Configuration misalignment with current business operations"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "How AI Transforms D365 Governance"
+        },
+        {
+          "type": "p",
+          "text": "AI acts as a proactive governance engine, analyzing data sets to identify issues before they impact users. It detects bottlenecks, alerts on configuration drift, and predicts upgrade risks during updates."
+        },
+        {
+          "type": "h2",
+          "text": "Copilot: Governance Embedded in Daily Workflows"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Automated documentation: generates real-time release notes",
+            "Best-practice guidance: coding standards and naming conventions",
+            "User role auditing via natural language",
+            "Guided troubleshooting with step-by-step recommendations"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Traditional vs Intelligent Governance"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Reactive → Proactive: fixes after impact vs prevention upfront",
+            "Manual → Automated: continuous monitoring without human intervention",
+            "High upgrade risk → Agile, continuously managed",
+            "Expensive consultants → Lower TCO"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Is your customer accumulating technical debt on their ERP?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "cloud-erp-market-growth-europe-mea-2026",
+    "category": "dynamics",
+    "date": "2026-06-21",
+    "readTime": "5 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Marché Cloud ERP en Europe et MEA : la vague de croissance 2026 que vous ne pouvez pas ignorer",
+      "excerpt": "Europe : +11,62% de CAGR. MEA : +17,2% de CAGR. Le marché Cloud ERP explose. Découvrez quels secteurs et quels pays tirent cette croissance et comment vous positionner.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Les organisations migrent massivement de leurs systèmes legacy vers des plateformes cloud, attirées par les insights temps réel et l'agilité opérationnelle. L'Europe affiche un CAGR de 11,62% et la région MEA atteint 17,2% sur la période 2025-2030."
+        },
+        {
+          "type": "h2",
+          "text": "Pourquoi l'adoption Cloud ERP s'accélère"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Transformation digitale remplaçant les systèmes legacy",
+            "Collaboration à distance nativement supportée",
+            "Coût maîtrisé via la tarification par abonnement",
+            "Intégration fluide avec les grandes plateformes (Microsoft, SAP, Oracle)"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Marchés et secteurs moteurs"
+        },
+        {
+          "type": "p",
+          "text": "En Europe, l'Allemagne, le Royaume-Uni, la France, les Pays-Bas et les pays nordiques mènent la transition dans les secteurs Manufacturing, Retail, BFSI et Services Professionnels. En MEA, les Émirats, l'Arabie Saoudite, l'Égypte et le Qatar sont portés par les initiatives gouvernementales de digitalisation."
+        },
+        {
+          "type": "h2",
+          "text": "Perspectives 2030 : les tendances émergentes"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Accélération du Cloud-first dans les mid-market",
+            "IA et analytique embarquée dans les ERP",
+            "Tableaux de bord ESG et reporting développement durable",
+            "Expansion des datacenters régionaux pour la souveraineté des données"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Votre client est-il prêt pour la vague Cloud ERP ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Cloud ERP Market Growth in Europe & MEA: The 2026 Surge You Can't Ignore",
+      "excerpt": "Europe: 11.62% CAGR. MEA: 17.2% CAGR. The Cloud ERP market is booming. Discover which sectors and countries are driving growth and how to position yourself.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Organizations are massively migrating from legacy systems to cloud platforms, drawn by real-time insights and operational agility. Europe shows an 11.62% CAGR and the MEA region reaches 17.2% over the 2025–2030 period."
+        },
+        {
+          "type": "h2",
+          "text": "Why Cloud ERP Adoption Is Accelerating"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Digital transformation replacing legacy systems",
+            "Remote collaboration natively supported",
+            "Cost efficiency through subscription pricing",
+            "Seamless integration with major platforms (Microsoft, SAP, Oracle)"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Key Markets and Sectors Driving Growth"
+        },
+        {
+          "type": "p",
+          "text": "In Europe, Germany, the UK, France, the Netherlands, and the Nordics lead the transition across Manufacturing, Retail, BFSI, and Professional Services. In MEA, UAE, Saudi Arabia, Egypt, and Qatar are propelled by government digital initiatives."
+        },
+        {
+          "type": "h2",
+          "text": "2030 Outlook: Emerging Trends"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Cloud-first acceleration in mid-market enterprises",
+            "AI and embedded analytics in ERP platforms",
+            "ESG reporting and sustainability dashboards",
+            "Regional datacenter expansion for data sovereignty"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Is your customer ready for the Cloud ERP wave?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "payables-sales-order-agents-business-central",
+    "category": "dynamics",
+    "date": "2026-06-22",
+    "readTime": "7 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Agents Payables et Sales Order dans Business Central : l'IA qui travaille pour vous",
+      "excerpt": "Présentés à Directions EMEA 2025, les nouveaux agents IA de Business Central automatisent la comptabilité fournisseurs et le traitement des commandes. Un tournant pour les PME.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Les entreprises modernes font face à des volumes de transactions croissants et à des exigences de conformité que les processus manuels ne peuvent plus absorber. Microsoft a répondu avec deux agents IA présentés à Directions EMEA 2025 : le Payables Agent et le Sales Order Agent pour Business Central."
+        },
+        {
+          "type": "h2",
+          "text": "Payables Agent : automatisation complète de la comptabilité fournisseurs"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Extraction intelligente : scanne les factures fournisseurs depuis PDFs, emails et pièces jointes",
+            "Classification automatique : inventaire, services, comptabilité générale, immobilisations",
+            "Recommandations d'approbation et de comptabilisation",
+            "Détection des doublons, vérification TVA/VAT, conformité multi-pays"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Sales Order Agent : traitement intelligent des commandes"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Traitement des emails clients, PDFs, bons de commande Excel",
+            "Validation de stock, prix, crédit client et dates de livraison",
+            "Création et comptabilisation automatique des commandes de vente",
+            "Signalement des commandes en retard et des informations manquantes"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Impact business pour vos clients"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Clôture mensuelle accélérée, précision financière renforcée",
+            "Moins d'erreurs de saisie, traitement plus rapide des commandes",
+            "Communication client automatisée",
+            "Scalabilité pour les entreprises à fort volume de transactions"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Ces agents peuvent-ils transformer les opérations de votre client ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Payables & Sales Order Agents in Business Central: AI That Works for You",
+      "excerpt": "Unveiled at Directions EMEA 2025, Business Central's new AI agents automate accounts payable and order processing. A game-changer for SMBs.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Modern businesses face mounting pressure from transaction volumes and compliance demands that manual processes cannot handle. Microsoft responded with two AI-powered agents unveiled at Directions EMEA 2025: the Payables Agent and the Sales Order Agent for Business Central."
+        },
+        {
+          "type": "h2",
+          "text": "Payables Agent: Full Accounts Payable Automation"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Intelligent extraction: scans vendor invoices from PDFs, emails, and attachments",
+            "Automatic classification: inventory, services, general ledger, fixed assets",
+            "Approval and posting recommendations",
+            "Duplicate detection, VAT checks, multi-country compliance"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Sales Order Agent: Intelligent Order Processing"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Processes customer emails, PDFs, Excel purchase orders",
+            "Validates stock, pricing, customer credit, and delivery dates",
+            "Creates and posts sales orders automatically",
+            "Flags delayed orders and missing information"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Business Impact for Your Customers"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Faster month-end closing, stronger financial accuracy",
+            "Fewer entry errors, faster order processing",
+            "Automated customer communication",
+            "Scalable automation for high-volume businesses"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Could these agents transform your customer's operations?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "copilot-features-dynamics-365-business-central",
+    "category": "copilot",
+    "date": "2026-06-23",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "7 fonctionnalités Copilot dans Dynamics 365 Business Central que vous n'utilisez pas encore",
+      "excerpt": "La plupart des utilisateurs n'exploitent que les fonctions basiques de Copilot. Voici 7 capacités avancées qui transforment la finance, les ventes et les opérations des PME.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Copilot dans Dynamics 365 Business Central devient rapidement l'un des outils IA les plus puissants pour les PME modernes — mais la majorité des utilisateurs n'exploitent que les fonctions de base. Voici 7 fonctionnalités avancées que vous devriez activer dès maintenant."
+        },
+        {
+          "type": "h2",
+          "text": "Les 7 fonctionnalités Copilot à activer"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rapprochement financier automatisé : correspondance des transactions, détection d'anomalies, clôture mensuelle accélérée",
+            "Traitement intelligent des commandes de vente : auto-complétion, suggestions de prix et détection des doublons",
+            "Prévision de stock intelligente : demande saisonnière, historique des ventes, performance fournisseurs",
+            "Rédaction contextuelle d'emails : communications clients générées depuis les statuts de commandes en temps réel",
+            "Suggestions de workflow : identification des tâches manuelles et recommandations Power Automate",
+            "Insights de performance en temps réel : trésorerie, pipeline commercial, rentabilité des projets",
+            "Analyse des risques fournisseurs : historique de livraison, fluctuations de prix, fiabilité de paiement"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Pour quels secteurs ?"
+        },
+        {
+          "type": "p",
+          "text": "Le retail, la distribution, l'industrie, la logistique et les services professionnels bénéficient le plus de ces fonctionnalités. Les PME avec des volumes élevés de transactions — stocks, commandes, factures — voient le ROI le plus rapide."
+        },
+        {
+          "type": "h2",
+          "text": "Ce que Copilot n'est pas"
+        },
+        {
+          "type": "p",
+          "text": "Copilot automatise les tâches répétitives mais ne remplace pas les équipes finance ou opérations. Il libère les experts pour qu'ils se concentrent sur la stratégie et les relations clients."
+        },
+        {
+          "type": "cta",
+          "text": "Votre client exploite-t-il tout le potentiel de Copilot Business Central ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "7 Copilot Features in Dynamics 365 Business Central You're Not Using Yet",
+      "excerpt": "Most users only leverage Copilot's basic capabilities. Here are 7 advanced features that transform finance, sales, and operations for SMBs.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Copilot in Dynamics 365 Business Central is quickly becoming one of the most powerful AI tools for modern SMBs — yet most users only leverage basic capabilities. Here are 7 advanced features you should activate now."
+        },
+        {
+          "type": "h2",
+          "text": "The 7 Copilot Features to Enable"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Automated financial reconciliation: transaction matching, anomaly detection, faster month-end closing",
+            "AI-powered sales order processing: auto-population, pricing suggestions, duplicate detection",
+            "Intelligent inventory forecasting: seasonal demand, sales history, supplier performance",
+            "Contextual email drafting: customer communications generated from real-time order statuses",
+            "Workflow suggestions: manual task identification and Power Automate recommendations",
+            "Real-time performance insights: cash flow, sales pipeline, project profitability",
+            "Vendor risk analysis: delivery history, price fluctuations, payment reliability"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Which Industries Benefit Most?"
+        },
+        {
+          "type": "p",
+          "text": "Retail, distribution, manufacturing, logistics, and professional services see the greatest impact. SMBs with high transaction volumes — inventory, orders, invoices — experience the fastest ROI."
+        },
+        {
+          "type": "h2",
+          "text": "What Copilot Is Not"
+        },
+        {
+          "type": "p",
+          "text": "Copilot automates repetitive tasks but does not replace finance or operations teams. It frees experts to focus on strategy and customer relationships."
+        },
+        {
+          "type": "cta",
+          "text": "Is your customer leveraging the full potential of Business Central Copilot?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "ai-erp-2026-business-central-smb-advantage",
+    "category": "dynamics",
+    "date": "2026-06-24",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "IA et ERP en 2026 : l'avantage Business Central pour les PME",
+      "excerpt": "L'ERP IA va au-delà de la simple gestion de données. Automatisation, analytique prédictive, agents intelligents : découvrez pourquoi Business Central donne aux PME l'avantage concurrentiel des grandes entreprises.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "L'ERP IA — les systèmes de planification des ressources d'entreprise enrichis de l'intelligence artificielle — ne se contentent plus d'enregistrer des données. Ils automatisent, prédisent, détectent les anomalies et personnalisent les tableaux de bord utilisateurs."
+        },
+        {
+          "type": "h2",
+          "text": "Les 4 capacités IA clés pour les PME"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Agents intelligents : gèrent les commandes de vente, la comptabilité fournisseurs, les stocks",
+            "Analytique prédictive : prévisionnent la demande, la trésorerie, les besoins de production",
+            "Interaction en langage naturel : posez vos questions à Copilot comme à un collaborateur",
+            "Conformité et reporting automatisés : génération de rapports avec intervention manuelle minimale"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Pourquoi les PME ont besoin d'un ERP IA en 2026"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Efficacité accrue : les tâches répétitives sont automatisées, les équipes se concentrent sur la stratégie",
+            "Décisions data-driven : les données consolidées se transforment en insights actionnables",
+            "Scalabilité sans complexité : gérez des opérations complexes sans augmenter les effectifs",
+            "Avantage concurrentiel : identifiez des opportunités de croissance avant vos concurrents"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Comment préparer votre PME à l'ERP IA"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Cartographier les processus actuels et identifier les opportunités d'automatisation",
+            "Investir dans l'infrastructure cloud",
+            "Former les équipes aux fonctionnalités IA et aux interactions Copilot",
+            "Commencer petit, scaler vite : implémenter dans un département pilote"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Votre client est-il prêt pour l'avantage ERP IA ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "AI ERP in 2026: The Business Central Advantage for SMBs",
+      "excerpt": "AI ERP goes beyond simple data management. Automation, predictive analytics, intelligent agents: discover why Business Central gives SMBs the competitive edge of large enterprises.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "AI ERP — enterprise resource planning systems enhanced with artificial intelligence — no longer just records data. They automate, predict, detect anomalies, and personalize user dashboards."
+        },
+        {
+          "type": "h2",
+          "text": "4 Key AI Capabilities for SMBs"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Intelligent agents: handle sales orders, accounts payable, inventory management",
+            "Predictive analytics: forecast demand, cash flow, production needs",
+            "Natural language interaction: ask Copilot questions in plain language",
+            "Automated compliance and reporting: generate reports with minimal manual input"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Why SMBs Need AI ERP in 2026"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Increased efficiency: repetitive tasks automated, teams focus on strategy",
+            "Data-driven decisions: consolidated data transforms into actionable insights",
+            "Scalability without complexity: manage complex operations without increasing headcount",
+            "Competitive advantage: identify growth opportunities before competitors"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "How to Prepare Your SMB for AI ERP"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Map current processes and identify automation opportunities",
+            "Invest in cloud infrastructure",
+            "Train teams on AI features and Copilot interactions",
+            "Start small, scale fast: implement in one pilot department first"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Is your customer ready for the AI ERP advantage?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "copilot-enable-business-central-guide",
+    "category": "copilot",
+    "date": "2026-06-25",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Comment activer et utiliser Copilot dans Dynamics 365 Business Central : guide étape par étape",
+      "excerpt": "Copilot dans Business Central automatise le rapprochement bancaire, génère des descriptions articles et suggère des workflows. Voici comment l'activer et en tirer le meilleur parti.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Copilot est désormais intégré dans les workflows quotidiens de Business Central, réduisant les tâches manuelles sur la création de fiches articles et la réconciliation financière. Mais encore faut-il savoir l'activer et l'utiliser correctement."
+        },
+        {
+          "type": "h2",
+          "text": "Prérequis avant d'activer Copilot"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Business Central Online uniquement (pas de déploiement on-premises)",
+            "Release Wave 2025 Wave 2 ou ultérieure",
+            "Configuration manuelle requise pour certaines fonctionnalités preview"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Comment activer Copilot dans Business Central"
+        },
+        {
+          "type": "list",
+          "items": [
+            "1. Ouvrir la barre de recherche (Tell Me) et taper \"Copilot\"",
+            "2. Accéder à la page \"Copilot & AI capabilities\"",
+            "3. Localiser les sections \"Rapprochement bancaire\" et \"Suggestions de texte marketing\"",
+            "4. Cliquer sur \"Activer\" pour chaque fonctionnalité souhaitée"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Cas d'usage concrets"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rapprochement bancaire : correspondance automatique des transactions, transfert vers le GL en un clic",
+            "Descriptions articles : génération de texte marketing depuis les attributs de la fiche article",
+            "Suggestions workflow : identification des tâches manuelles et recommandations Power Automate"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Problèmes courants et solutions"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Copilot non visible → vérifier l'environnement cloud et la version Release Wave",
+            "Fonctionnalités activées mais invisibles → contrôler les permissions et les ensembles de droits",
+            "Suggestions imprécises → améliorer la qualité des données et renseigner les attributs articles"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Votre client est-il prêt à activer Copilot dans Business Central ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "How to Enable and Use Copilot in Dynamics 365 Business Central: Step-by-Step Guide",
+      "excerpt": "Copilot in Business Central automates bank reconciliation, generates item descriptions, and suggests workflows. Here's how to enable it and get the most out of it.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Copilot is now integrated into everyday Business Central workflows, reducing manual effort across product creation and financial reconciliation. But you need to know how to activate and use it correctly."
+        },
+        {
+          "type": "h2",
+          "text": "Prerequisites Before Enabling Copilot"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Business Central Online only (no on-premises support)",
+            "Release Wave 2025 Wave 2 or later",
+            "Manual configuration required for some preview features"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "How to Enable Copilot in Business Central"
+        },
+        {
+          "type": "list",
+          "items": [
+            "1. Open the Search bar (Tell Me) and type \"Copilot\"",
+            "2. Access the \"Copilot & AI capabilities\" page",
+            "3. Locate the \"Bank account reconciliation\" and \"Marketing text suggestions\" sections",
+            "4. Click \"Activate\" for each desired feature"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Concrete Use Cases"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bank reconciliation: automatic transaction matching, one-click transfer to G/L",
+            "Item descriptions: marketing text generated from item card attributes",
+            "Workflow suggestions: manual task identification and Power Automate recommendations"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Common Issues and Solutions"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Copilot not visible → verify cloud environment and Release Wave version",
+            "Features enabled but not showing → check permissions and permission sets",
+            "Inaccurate suggestions → improve data quality and populate item attributes"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Is your customer ready to enable Copilot in Business Central?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "business-central-essentials-vs-premium",
+    "category": "dynamics",
+    "date": "2026-06-25",
+    "readTime": "7 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Business Central Essentials vs Premium : fonctionnalités, prix et différences clés (2026)",
+      "excerpt": "Essentials à 80 $/user/mois ou Premium à 110 $ ? Le choix dépend d'un seul critère : fabrication et service. Guide complet pour bien conseiller vos clients.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Le choix entre Essentials et Premium est décisif : il détermine les capacités du système, sa capacité à s'adapter à la croissance de l'entreprise et les coûts à long terme. La distinction fondamentale : Essentials couvre la finance, les ventes et les stocks ; Premium ajoute la fabrication et la gestion des services."
+        },
+        {
+          "type": "h2",
+          "text": "Business Central Essentials — pour qui ?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "PME de services (conseil, services professionnels)",
+            "Entreprises sans processus de fabrication ni de réparation",
+            "Gestion financière, ventes, achats, stocks, gestion de projets inclus",
+            "Tarif : 80 $/user/mois"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Business Central Premium — pour qui ?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Fabricants et entreprises de production (BOM, ordres de fabrication, gammes)",
+            "Distributeurs avec processus d'assemblage",
+            "Entreprises proposant réparation, maintenance ou contrats de service",
+            "Planification de la capacité et gestion avancée des ressources",
+            "Tarif : 110 $/user/mois"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Stratégie de licences mixtes"
+        },
+        {
+          "type": "p",
+          "text": "La plupart des organisations optimisent leurs coûts avec un mix : utilisateurs Premium pour les workflows de fabrication/service, utilisateurs Essentials pour les fonctions core, utilisateurs Team Member (8 $/user/mois) pour l'accès limité en lecture/reporting."
+        },
+        {
+          "type": "h2",
+          "text": "Passage d'Essentials à Premium"
+        },
+        {
+          "type": "p",
+          "text": "La migration est fluide : aucune reconstruction du système requise, les configurations et customisations existantes sont conservées, les données historiques et les enregistrements financiers restent intacts. Le passage se déclenche naturellement lors de l'introduction de workflows de fabrication ou de services de maintenance."
+        },
+        {
+          "type": "cta",
+          "text": "Quelle licence Business Central correspond au profil de votre client ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Business Central Essentials vs Premium: Features, Pricing & Key Differences (2026)",
+      "excerpt": "Essentials at $80/user/month or Premium at $110? The choice comes down to one criterion: manufacturing and service. A complete guide to advising your customers.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "The choice between Essentials and Premium is decisive: it determines system capabilities, scalability, and long-term costs. The core distinction: Essentials covers financials, sales, and inventory; Premium adds manufacturing and service management."
+        },
+        {
+          "type": "h2",
+          "text": "Business Central Essentials — For Whom?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Service-based SMBs (consulting, professional services)",
+            "Companies without manufacturing or repair operations",
+            "Financial management, sales, purchasing, inventory, project management included",
+            "Price: $80/user/month"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Business Central Premium — For Whom?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Manufacturers and production companies (BOM, production orders, routing)",
+            "Distributors with assembly processes",
+            "Companies offering repair, maintenance, or service contracts",
+            "Capacity planning and advanced resource management",
+            "Price: $110/user/month"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Mixed Licensing Strategy"
+        },
+        {
+          "type": "p",
+          "text": "Most organizations optimize costs with a mix: Premium users for manufacturing/service workflows, Essentials users for core functions, Team Member users ($8/user/month) for limited read/reporting access."
+        },
+        {
+          "type": "h2",
+          "text": "Upgrading from Essentials to Premium"
+        },
+        {
+          "type": "p",
+          "text": "The migration is seamless: no system rebuild required, existing configurations and customizations preserved, historical data and financial records remain intact. The upgrade is triggered naturally when introducing manufacturing workflows or maintenance services."
+        },
+        {
+          "type": "cta",
+          "text": "Which Business Central license matches your customer's profile?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "dynamics-365-crm-vs-salesforce",
+    "category": "dynamics",
+    "date": "2026-06-25",
+    "readTime": "8 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Dynamics 365 CRM vs Salesforce : quel CRM choisir en 2026 ?",
+      "excerpt": "Déploiement hybride vs cloud-only, Copilot vs Einstein, intégration Microsoft native vs AppExchange : le comparatif complet pour aider vos clients à faire le bon choix.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Dynamics 365 et Salesforce dominent le marché CRM mondial. Le choix entre les deux dépend de l'environnement technologique existant, des exigences opérationnelles et de la stratégie de croissance à long terme."
+        },
+        {
+          "type": "h2",
+          "text": "Comparatif rapide"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Déploiement : Dynamics 365 (cloud, on-premises, hybride) vs Salesforce (cloud uniquement)",
+            "IA : Microsoft Copilot vs Salesforce Einstein",
+            "Intégration : Microsoft 365, Teams, Power BI natifs vs AppExchange",
+            "Coût : TCO généralement inférieur pour Dynamics 365 avec l'écosystème Microsoft existant",
+            "Customisation : Power Platform low-code vs développement Apex/Lightning"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Avantages Dynamics 365 CRM"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Intégration native profonde avec Outlook, Teams, Excel, Power BI",
+            "Modules unifiés CRM + ERP (Sales, Customer Service, Field Service, Marketing)",
+            "Flexibilité de déploiement : cloud, on-premises ou hybride",
+            "Copilot intégré : rédaction d'emails, résumé de réunions, analyse des opportunités",
+            "Coût total de possession inférieur pour les clients déjà équipés Microsoft"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Quand choisir Dynamics 365 ?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "L'entreprise utilise déjà Microsoft 365, Teams ou Power BI",
+            "Un déploiement on-premises ou hybride est requis (réglementation, souveraineté des données)",
+            "Une approche low-code est privilégiée",
+            "Des capacités CRM et ERP unifiées sont nécessaires",
+            "La maîtrise budgétaire est une priorité"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Pricing 2026"
+        },
+        {
+          "type": "p",
+          "text": "Dynamics 365 Sales : 65 à 135 $/user/mois. Implémentation : 30 000 à 120 000 $. Salesforce Sales Cloud : 25 à 330 $/user/mois avec coûts additionnels pour Einstein IA et AppExchange. Le TCO Dynamics 365 est souvent inférieur grâce aux intégrations natives qui réduisent le besoin en middleware."
+        },
+        {
+          "type": "cta",
+          "text": "Votre client évalue Dynamics 365 face à Salesforce ?",
+          "action": "Générer un email commercial",
+          "href": "/email-generator"
+        }
+      ]
+    },
+    "en": {
+      "title": "Dynamics 365 CRM vs Salesforce: Which CRM to Choose in 2026?",
+      "excerpt": "Hybrid deployment vs cloud-only, Copilot vs Einstein, native Microsoft integration vs AppExchange: the complete comparison to help your customers make the right choice.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Dynamics 365 and Salesforce dominate the global CRM market. The choice between the two depends on the existing technology environment, operational requirements, and long-term growth strategy."
+        },
+        {
+          "type": "h2",
+          "text": "Quick Comparison"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Deployment: Dynamics 365 (cloud, on-premises, hybrid) vs Salesforce (cloud only)",
+            "AI: Microsoft Copilot vs Salesforce Einstein",
+            "Integration: native Microsoft 365, Teams, Power BI vs AppExchange marketplace",
+            "Cost: generally lower TCO for Dynamics 365 with existing Microsoft investments",
+            "Customization: Power Platform low-code vs Apex/Lightning development"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Dynamics 365 CRM Advantages"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Deep native integration with Outlook, Teams, Excel, Power BI",
+            "Unified CRM + ERP modules (Sales, Customer Service, Field Service, Marketing)",
+            "Deployment flexibility: cloud, on-premises, or hybrid",
+            "Copilot built-in: email drafting, meeting summaries, opportunity analysis",
+            "Lower total cost of ownership for existing Microsoft customers"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "When to Choose Dynamics 365?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "The company already uses Microsoft 365, Teams, or Power BI",
+            "On-premises or hybrid deployment is required (regulation, data sovereignty)",
+            "A low-code approach is preferred",
+            "Unified CRM and ERP capabilities are needed",
+            "Budget control is a priority"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "2026 Pricing"
+        },
+        {
+          "type": "p",
+          "text": "Dynamics 365 Sales: $65–$135/user/month. Implementation: $30K–$120K. Salesforce Sales Cloud: $25–$330/user/month with additional costs for Einstein AI and AppExchange. Dynamics 365 TCO is often lower thanks to native integrations reducing middleware requirements."
+        },
+        {
+          "type": "cta",
+          "text": "Is your customer evaluating Dynamics 365 against Salesforce?",
+          "action": "Generate a sales email",
+          "href": "/email-generator"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "migration-dynamics-gp-business-central",
+    "category": "dynamics",
+    "date": "2026-06-26",
+    "readTime": "7 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Migrer de Dynamics GP vers Business Central : le guide complet",
+      "excerpt": "Dynamics GP montre ses limites : coûts IT élevés, mobilité réduite, reporting insuffisant. Business Central offre le cloud, les mises à jour automatiques et l'IA. Voici comment réussir la migration.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "De nombreuses entreprises sous Dynamics GP font face à des coûts de maintenance croissants, une mobilité limitée et des capacités de reporting insuffisantes. Business Central apporte la modernisation cloud qu'elles recherchent — mais la migration exige une méthodologie rigoureuse."
+        },
+        {
+          "type": "h2",
+          "text": "Pourquoi migrer de Dynamics GP ?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Coûts IT et d'infrastructure en hausse constante",
+            "Mobilité et accès distant limités",
+            "Mises à jour manuelles coûteuses et dépendance aux outils tiers",
+            "Reporting et prise de décision en temps réel insuffisants",
+            "Exigences croissantes en sécurité et conformité"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "GP vs Business Central : les différences clés"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Déploiement : on-premises/IaaS → cloud natif",
+            "Licences : perpétuelles + frais annuels → abonnement par utilisateur",
+            "Mises à jour : manuelles (coût additionnel) → automatiques (incluses)",
+            "Reporting : Management/Jet Reports → intégré + Power BI natif",
+            "Intégration CRM : effort significatif → natif avec Dynamics 365 Sales"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Les 7 phases de migration"
+        },
+        {
+          "type": "list",
+          "items": [
+            "1. Audit de l'environnement : modules, customisations, intégrations, données",
+            "2. Revue des add-ons : identifier les remplacements via Business Central ou AppSource",
+            "3. Mapping et configuration : dimensions financières, groupes de comptabilisation, workflows",
+            "4. Migration des données : données maîtres et historique transactionnel",
+            "5. Tests système : finance, achats, ventes, stocks, intégrations",
+            "6. Formation utilisateurs : navigation, routines de comptabilisation, reporting",
+            "7. Go Live et support post-déploiement"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Votre client est encore sous Dynamics GP ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "How to Migrate from Dynamics GP to Dynamics 365 Business Central",
+      "excerpt": "Dynamics GP is showing its limits: rising IT costs, limited mobility, insufficient reporting. Business Central delivers cloud, automatic updates, and AI. Here's how to succeed in the migration.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Many companies running Dynamics GP face rising maintenance costs, limited mobility, and insufficient reporting capabilities. Business Central delivers the cloud modernization they need — but migration requires a rigorous methodology."
+        },
+        {
+          "type": "h2",
+          "text": "Why Migrate from Dynamics GP?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rising IT and infrastructure costs",
+            "Limited mobility and remote accessibility",
+            "Manual upgrades with additional costs and third-party tool dependence",
+            "Insufficient real-time reporting and decision-making capabilities",
+            "Growing security and compliance requirements"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "GP vs Business Central: Key Differences"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Deployment: on-premises/IaaS → cloud-native",
+            "Licensing: perpetual + annual fees → per-user subscription",
+            "Updates: manual (additional cost) → automatic (included)",
+            "Reporting: Management/Jet Reports → built-in + native Power BI",
+            "CRM integration: significant effort → native with Dynamics 365 Sales"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "The 7 Migration Phases"
+        },
+        {
+          "type": "list",
+          "items": [
+            "1. Environment audit: modules, customizations, integrations, data",
+            "2. Add-on review: identify replacements via Business Central or AppSource",
+            "3. Mapping and configuration: financial dimensions, posting groups, workflows",
+            "4. Data migration: master records and transactional history",
+            "5. System testing: finance, purchasing, sales, inventory, integrations",
+            "6. User training: navigation, posting routines, reporting",
+            "7. Go Live and post-deployment support"
+          ]
+        },
+        {
+          "type": "cta",
+          "text": "Is your customer still running Dynamics GP?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "business-central-vs-finance-supply-chain",
+    "category": "dynamics",
+    "date": "2026-06-26",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Business Central vs Finance & Supply Chain Management : quel ERP Microsoft pour votre entreprise ?",
+      "excerpt": "Simplicité et rapidité pour les PME vs contrôle avancé pour les multinationales. Le guide pour choisir entre les deux ERP phares de Microsoft Dynamics 365.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Microsoft propose deux ERP distincts dans la suite Dynamics 365 : Business Central cible les PME avec une interface intuitive et un déploiement rapide, tandis que Finance & Supply Chain Management s'adresse aux grandes entreprises nécessitant une gouvernance financière avancée et une couverture multi-pays."
+        },
+        {
+          "type": "h2",
+          "text": "Business Central — PME et croissance"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Interface intuitive avec tableaux de bord basés sur les rôles",
+            "Courbe d'apprentissage rapide, déploiement accéléré",
+            "Idéal pour entités uniques ou opérations régionales",
+            "Couverture : ~20 pays avec TVA/GST de base",
+            "Coût d'implémentation inférieur, scalable vers F&SCM"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Finance & Supply Chain Management — Grandes entreprises"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Consolidation multi-entités avancée avec règles d'élimination automatisées",
+            "Conformité IFRS/GAAP intégrée, reporting réglementaire automatisé",
+            "Couverture : 40+ pays avec moteurs fiscaux complexes (India GST…)",
+            "Audit enterprise-grade, contrôles de workflow et d'approbation avancés",
+            "Intercompany automation et consolidation multi-arbres"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Le critère décisif : taille et complexité opérationnelle"
+        },
+        {
+          "type": "p",
+          "text": "Choisissez Business Central si votre client est une PME cherchant rapidité et simplicité, sans opérations multinationales complexes. Choisissez Finance & Supply Chain Management si l'entreprise opère dans plusieurs entités légales, des pays aux réglementations complexes, ou nécessite une gouvernance financière avancée."
+        },
+        {
+          "type": "h2",
+          "text": "Le chemin de migration existe"
+        },
+        {
+          "type": "p",
+          "text": "Les deux solutions coexistent dans l'écosystème Microsoft. Une entreprise peut démarrer avec Business Central et migrer vers Finance & Supply Chain Management à mesure que ses opérations s'étendent — sans changer d'écosystème."
+        },
+        {
+          "type": "cta",
+          "text": "Quel ERP Microsoft correspond au profil de votre client ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Business Central vs Finance & Supply Chain Management: Which Microsoft ERP for Your Business?",
+      "excerpt": "Simplicity and speed for SMBs vs advanced control for multinationals. The guide to choosing between Microsoft's two flagship Dynamics 365 ERPs.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Microsoft offers two distinct ERPs in the Dynamics 365 suite: Business Central targets SMBs with an intuitive interface and rapid deployment, while Finance & Supply Chain Management serves large enterprises requiring advanced financial governance and multi-country coverage."
+        },
+        {
+          "type": "h2",
+          "text": "Business Central — SMBs and Growth Companies"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Intuitive interface with role-based dashboards",
+            "Quick learning curve, accelerated deployment",
+            "Ideal for single entities or regional operations",
+            "Coverage: ~20 countries with basic VAT/GST",
+            "Lower implementation cost, scalable to F&SCM"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Finance & Supply Chain Management — Large Enterprises"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Advanced multi-entity consolidation with automated elimination rules",
+            "Built-in IFRS/GAAP compliance, automated regulatory reporting",
+            "Coverage: 40+ countries with complex tax engines (India GST, etc.)",
+            "Enterprise-grade audit, advanced workflow and approval controls",
+            "Intercompany automation and multi-tree consolidation"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "The Decisive Criterion: Size and Operational Complexity"
+        },
+        {
+          "type": "p",
+          "text": "Choose Business Central if your customer is an SMB seeking speed and simplicity, without complex multinational operations. Choose Finance & Supply Chain Management if the company operates across multiple legal entities, countries with complex regulations, or requires advanced financial governance."
+        },
+        {
+          "type": "h2",
+          "text": "A Migration Path Exists"
+        },
+        {
+          "type": "p",
+          "text": "Both solutions coexist in the Microsoft ecosystem. A company can start with Business Central and migrate to Finance & Supply Chain Management as operations expand — without changing ecosystems."
+        },
+        {
+          "type": "cta",
+          "text": "Which Microsoft ERP matches your customer's profile?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
   }
 ]
