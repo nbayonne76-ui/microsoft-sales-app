@@ -11,6 +11,7 @@ import {
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useLang, t } from '@/contexts/LanguageContext';
+import { M365_TOOL_CATEGORIES, AVAIL_STYLES } from '@/lib/m365-tools-categories';
 
 const fadeUp = { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } };
 
@@ -100,127 +101,7 @@ const M365_SEGMENTS = [
   { id: 'features',   label: 'Disponibilités Features', emoji: '📊' },
 ];
 
-// ── Disponibilités Features — catalogue outils par catégorie ─────────────────
-const AVAIL = {
-  all:      { label: 'Tous plans',   bg: 'bg-gray-100',    text: 'text-gray-600',    border: 'border-gray-200'    },
-  business: { label: 'Business',    bg: 'bg-sky-100',     text: 'text-sky-700',     border: 'border-sky-200'     },
-  premium:  { label: 'Prem.',       bg: 'bg-indigo-100',  text: 'text-indigo-700',  border: 'border-indigo-200'  },
-  e3:       { label: 'E3+',         bg: 'bg-purple-100',  text: 'text-purple-700',  border: 'border-purple-200'  },
-  e5:       { label: 'E5',          bg: 'bg-violet-100',  text: 'text-violet-700',  border: 'border-violet-200'  },
-  frontline:{ label: 'Frontline',   bg: 'bg-emerald-100', text: 'text-emerald-700', border: 'border-emerald-200' },
-  addon:    { label: 'Add-on',      bg: 'bg-orange-100',  text: 'text-orange-700',  border: 'border-orange-200'  },
-};
-
-const M365_TOOL_CATEGORIES = [
-  {
-    id: 'core-productivity', letter: 'A', emoji: '🟦',
-    label: 'Core Productivity', sublabel: 'Cœur historique Modern Work — Office apps',
-    gradient: 'from-blue-500 to-blue-700', bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-800',
-    tools: [
-      { name: 'Word',         icon: '📝', desc: 'Traitement de texte',             avail: 'all',     note: 'Desktop inclus sauf Business Basic & F*' },
-      { name: 'Excel',        icon: '📊', desc: 'Tableur',                         avail: 'all',     note: 'Desktop inclus sauf Business Basic & F*' },
-      { name: 'PowerPoint',   icon: '📑', desc: 'Présentations',                   avail: 'all',     note: 'Desktop inclus sauf Business Basic & F*' },
-      { name: 'Outlook',      icon: '📧', desc: 'Messagerie & calendrier',         avail: 'all',     note: 'Inclus dans tous les plans' },
-      { name: 'OneNote',      icon: '📓', desc: 'Prise de notes',                  avail: 'all',     note: 'Inclus dans tous les plans' },
-      { name: 'Access (PC)',  icon: '🗄️', desc: 'Base de données locale',          avail: 'business',note: 'Business Standard/Premium, E3/E5 (PC uniquement)' },
-      { name: 'Publisher',    icon: '🖨️', desc: 'Publication desktop (déprécié)',  avail: 'business',note: 'Business Standard/Premium uniquement (PC)' },
-    ],
-  },
-  {
-    id: 'collaboration', letter: 'B', emoji: '🟩',
-    label: 'Collaboration & Content', sublabel: 'Pilier Modern Work — CRITIQUE',
-    gradient: 'from-emerald-500 to-green-600', bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-800',
-    tools: [
-      { name: 'Microsoft Teams',  icon: '💬', desc: 'Chat, réunions, canaux, appels', avail: 'all',     note: 'Inclus partout sauf Apps for Business' },
-      { name: 'SharePoint',       icon: '🔗', desc: 'Intranet, sites, GED',           avail: 'business',note: 'Depuis Business Basic — storage infra Teams' },
-      { name: 'OneDrive',         icon: '💾', desc: 'Stockage personnel cloud',        avail: 'all',     note: '1TB Business+, 2GB F1/F3, illimité E3/E5' },
-      { name: 'Exchange Online',  icon: '📬', desc: 'Messagerie cloud hébergée',       avail: 'business',note: '50GB Business, 100GB E3, illimité E5' },
-      { name: 'Loop',             icon: '🔄', desc: 'Collaboration temps réel',        avail: 'all',     note: 'Composants Loop inclus' },
-      { name: 'Viva Engage',      icon: '🌐', desc: 'Réseau social entreprise',        avail: 'e3',      note: 'Ex-Yammer — M365 E3/E5 et Business' },
-    ],
-  },
-  {
-    id: 'work-management', letter: 'C', emoji: '🟨',
-    label: 'Work Management', sublabel: 'Task & Project management complet',
-    gradient: 'from-amber-500 to-yellow-500', bg: 'bg-yellow-50', border: 'border-yellow-200', text: 'text-yellow-800',
-    tools: [
-      { name: 'Planner',     icon: '📋', desc: 'Tâches équipe simples (Kanban)',   avail: 'all',   note: 'Planner = team tasks simple — inclus partout' },
-      { name: 'Project',     icon: '📅', desc: 'PPM enterprise complet',           avail: 'addon', note: 'Add-on $10-55/u/m — Project Plan 1/3/5' },
-      { name: 'To Do',       icon: '✅', desc: 'Tâches personnelles',               avail: 'all',   note: 'Inclus dans tous les plans' },
-      { name: 'Lists',       icon: '📝', desc: 'Tracking métier configurable',      avail: 'all',   note: 'Inclus — 💡 Planner+Project+Lists = trio PPM' },
-    ],
-  },
-  {
-    id: 'power-platform', letter: 'D', emoji: '🟪',
-    label: 'Apps & Automation', sublabel: 'Power Platform (low-code)',
-    gradient: 'from-orange-400 to-amber-500', bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-800',
-    tools: [
-      { name: 'Power Apps',     icon: '📱', desc: 'Apps no-code / low-code',      avail: 'all',   note: 'Version M365 limitée — Premium = add-on' },
-      { name: 'Power Automate', icon: '⚙️', desc: 'RPA & automatisation flux',    avail: 'all',   note: 'Cloud flows M365 inclus — Premium = add-on' },
-      { name: 'Power BI',       icon: '📈', desc: 'BI, dashboards, rapports',     avail: 'addon', note: 'Pro $10/u/m — Premium per user $20/u/m' },
-    ],
-  },
-  {
-    id: 'employee-experience', letter: 'E', emoji: '🟧',
-    label: 'Employee Experience', sublabel: 'Suite Viva complète',
-    gradient: 'from-pink-500 to-rose-500', bg: 'bg-pink-50', border: 'border-pink-200', text: 'text-pink-800',
-    tools: [
-      { name: 'Viva Connections',  icon: '🔗', desc: 'Hub employé dans Teams',         avail: 'all',   note: 'Inclus M365 & O365 E1+' },
-      { name: 'Viva Insights',     icon: '💡', desc: 'Bien-être & productivité perso', avail: 'e3',    note: 'Personnel basique E1+, avancé = add-on' },
-      { name: 'Viva Learning',     icon: '📚', desc: 'Formation intégrée Teams',       avail: 'e3',    note: 'Base M365 inclus, Premium = add-on' },
-      { name: 'Viva Glint',        icon: '📊', desc: 'Enquêtes engagement employés',   avail: 'addon', note: 'Add-on payant (ex-Glint/Pulse)' },
-      { name: 'Viva Amplify',      icon: '📣', desc: 'Communication interne',          avail: 'e3',    note: 'Depuis M365 E3 — storytelling RH' },
-    ],
-  },
-  {
-    id: 'security-compliance', letter: 'F', emoji: '🟥',
-    label: 'Security & Compliance', sublabel: 'Indispensable pour pitcher E5',
-    gradient: 'from-red-500 to-rose-600', bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-800',
-    tools: [
-      { name: 'Microsoft Defender',  icon: '🛡️', desc: 'XDR endpoint & identité',        avail: 'premium', note: 'Basique tous plans, Defender P1 Business Premium, P2 E5' },
-      { name: 'Microsoft Purview',   icon: '🔒', desc: 'DLP, eDiscovery, conformité',    avail: 'e3',      note: 'Standard E3, Premium (Compliance suite) E5' },
-      { name: 'Entra ID',            icon: '🔑', desc: 'Identité & accès conditionnel',   avail: 'all',     note: 'Gratuit tous plans, P1=E3/Prem., P2=E5' },
-      { name: 'DLP / Audit',         icon: '🔍', desc: 'Prévention fuites & audit logs', avail: 'e3',      note: 'Depuis E3 / Business Premium (partiel)' },
-    ],
-  },
-  {
-    id: 'devices', letter: 'G', emoji: '🟫',
-    label: 'Cloud Endpoints / Devices', sublabel: 'Gestion et sécurité des appareils',
-    gradient: 'from-slate-500 to-gray-600', bg: 'bg-slate-50', border: 'border-slate-200', text: 'text-slate-800',
-    tools: [
-      { name: 'Microsoft Intune',      icon: '📱', desc: 'MDM/MAM — gestion appareils',  avail: 'premium', note: 'Business Premium, E3/E5, F1/F3 (Plan 1)' },
-      { name: 'Windows 11 Enterprise', icon: '🪟', desc: 'OS enterprise — E3 Step-Up',   avail: 'e3',      note: 'Depuis M365 E3 / Business Premium partial' },
-      { name: 'Windows 365',           icon: '💻', desc: 'PC Cloud (streaming bureau)',   avail: 'addon',   note: 'Add-on Cloud PC — 4GB/8GB/16GB RAM' },
-    ],
-  },
-  {
-    id: 'ai-copilot', letter: 'H', emoji: '🤖',
-    label: 'AI / Copilot', sublabel: 'Nouveau cœur de la suite Microsoft',
-    gradient: 'from-violet-500 to-purple-600', bg: 'bg-violet-50', border: 'border-violet-200', text: 'text-violet-800',
-    tools: [
-      { name: 'Microsoft 365 Copilot', icon: '🤖', desc: 'IA générative dans toutes les apps', avail: 'addon', note: '+$30/u/m sur E3/E5/Business — nécessite un plan M365' },
-      { name: 'Copilot Chat',          icon: '💬', desc: 'Chat IA web + work (Teams/M365)',    avail: 'all',   note: 'Inclus avec abonnement M365 — web gratuit' },
-      { name: 'Copilot Studio',        icon: '🎨', desc: 'Agents IA personnalisés',            avail: 'all',   note: 'Plan Teams inclus, Standalone = ~$200/tenant/m' },
-      { name: 'GitHub Copilot',        icon: '💻', desc: 'IA de développement',                avail: 'addon', note: 'Business $19/siège, Enterprise $39/siège' },
-    ],
-  },
-  {
-    id: 'other-services', letter: 'I', emoji: '🟦',
-    label: 'Autres Services', sublabel: 'Valeur cachée — souvent oubliés en vente',
-    gradient: 'from-cyan-500 to-teal-500', bg: 'bg-cyan-50', border: 'border-cyan-200', text: 'text-cyan-800',
-    tools: [
-      { name: 'Visio',        icon: '📐', desc: 'Diagrammes & processus',           avail: 'addon', note: 'Add-on Plan 1 ~$5/m, Plan 2 ~$15/m' },
-      { name: 'Bookings',     icon: '📆', desc: 'Réservations de créneaux',         avail: 'business', note: 'Business Standard/Premium, E3/E5' },
-      { name: 'Forms',        icon: '📋', desc: 'Formulaires & sondages',           avail: 'all',   note: 'Inclus partout sauf F1' },
-      { name: 'Stream',       icon: '🎬', desc: 'Vidéos & enregistrements Teams',   avail: 'all',   note: 'Basé sur SharePoint — inclus dans les plans' },
-      { name: 'Whiteboard',   icon: '🖊️', desc: 'Tableau blanc collaboratif',       avail: 'all',   note: 'Inclus dans tous les plans' },
-      { name: 'Sway',         icon: '🎭', desc: 'Présentations web interactives',   avail: 'all',   note: 'Inclus dans tous les plans' },
-      { name: 'Clipchamp',    icon: '🎥', desc: 'Édition vidéo simple (IA)',        avail: 'all',   note: 'Inclus M365 Business/Enterprise' },
-      { name: 'Places',       icon: '📍', desc: 'Gestion des espaces de travail',   avail: 'e3',    note: 'Teams Premium pour features avancées' },
-      { name: 'Designer',     icon: '🎨', desc: 'Design IA (Copilot Designer)',     avail: 'addon', note: 'Inclus avec M365 Copilot licence' },
-    ],
-  },
-];
+const AVAIL = AVAIL_STYLES;
 
 const M365_PLANS = [
   // ── BUSINESS ─────────────────────────────────────────────────────
@@ -923,19 +804,39 @@ export default function KnowledgeBasePage() {
                               </div>
                             </div>
                             {/* Tools grid */}
-                            <div className={`${cat.bg} p-4 grid grid-cols-1 sm:grid-cols-2 gap-2`}>
+                            <div className={`${cat.bg} p-4 grid grid-cols-1 gap-2`}>
                               {cat.tools.map((tool) => {
                                 const av = AVAIL[tool.avail] || AVAIL.all;
                                 return (
-                                  <div key={tool.name} className="flex items-start gap-2.5 bg-white rounded-xl p-3 border border-white shadow-sm">
-                                    <span className="text-lg shrink-0 mt-0.5">{tool.icon}</span>
-                                    <div className="min-w-0 flex-1">
-                                      <div className="flex items-center gap-1.5 flex-wrap mb-0.5">
-                                        <span className="font-bold text-gray-900 text-xs">{tool.name}</span>
-                                        <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full border ${av.bg} ${av.text} ${av.border} shrink-0`}>{av.label}</span>
+                                  <div key={tool.name} className="bg-white rounded-xl p-3.5 border border-white shadow-sm">
+                                    {/* Header */}
+                                    <div className="flex items-start gap-2.5 mb-2">
+                                      <span className="text-xl shrink-0 mt-0.5">{tool.icon}</span>
+                                      <div className="min-w-0 flex-1">
+                                        <div className="flex items-center gap-1.5 flex-wrap mb-0.5">
+                                          <span className="font-bold text-gray-900 text-sm">{tool.name}</span>
+                                          <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full border ${av.bg} ${av.text} ${av.border} shrink-0`}>{av.label}</span>
+                                        </div>
+                                        <p className="text-[11px] text-gray-400 leading-tight">{tool.note}</p>
                                       </div>
-                                      <p className="text-[10px] text-gray-500 leading-tight">{tool.note}</p>
                                     </div>
+                                    {/* Details */}
+                                    {tool.details && tool.details.length > 0 && (
+                                      <ul className="space-y-1 mb-2 ml-1">
+                                        {tool.details.map((d, di) => (
+                                          <li key={di} className="flex items-start gap-1.5 text-[11px] text-gray-600 leading-snug">
+                                            <span className="text-gray-300 shrink-0 mt-0.5">▸</span>
+                                            {d}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    )}
+                                    {/* Commercial angle */}
+                                    {tool.angle && (
+                                      <div className="mt-2 pt-2 border-t border-gray-100">
+                                        <p className="text-[11px] text-blue-600 font-medium leading-snug">💡 {tool.angle}</p>
+                                      </div>
+                                    )}
                                   </div>
                                 );
                               })}
