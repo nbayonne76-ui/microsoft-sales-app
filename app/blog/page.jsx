@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Newspaper, Rss, RefreshCw, Zap, BookOpen, Search, X, Mail } from 'lucide-react';
+import Link from 'next/link';
 import { useLang } from '@/contexts/LanguageContext';
 import { ARTICLES, BLOG_CATEGORIES } from '@/lib/blog-articles';
 import ArticleCard from '@/components/blog/ArticleCard';
