@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowLeft, Clock, User, Calendar, ExternalLink, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Clock, User, Calendar, ArrowRight, Linkedin, Link2, CheckCheck } from 'lucide-react';
 import { useLang } from '@/contexts/LanguageContext';
 import { getArticle, ARTICLES, CATEGORY_COLORS, CATEGORY_GRADIENTS } from '@/lib/blog-articles';
 
@@ -80,9 +80,38 @@ export default function ArticlePage({ params }) {
   const article = getArticle(params.slug);
   const isFr = lang === 'fr';
 
+  const [progress, setProgress]     = useState(0);
+  const [copied,   setCopied]       = useState(false);
+  const [pageUrl,  setPageUrl]      = useState('');
+
   useEffect(() => {
     if (!article) router.push('/blog');
   }, [article]);
+
+  useEffect(() => {
+    setPageUrl(window.location.href);
+    const onScroll = () => {
+      const el = document.documentElement;
+      const scrolled = el.scrollTop;
+      const total    = el.scrollHeight - el.clientHeight;
+      setProgress(total > 0 ? Math.min(100, (scrolled / total) * 100) : 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const copyLink = async () => {
+    await navigator.clipboard.writeText(pageUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const shareLinkedIn = () => {
+    window.open(
+      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`,
+      '_blank', 'noopener'
+    );
+  };
 
   if (!article) return null;
 
@@ -99,6 +128,14 @@ export default function ArticlePage({ params }) {
 
   return (
     <div className="min-h-screen bg-gray-50">
+
+      {/* ── Reading progress bar ──────────────────────────────────────────── */}
+      <div className="fixed top-0 left-0 right-0 z-50 h-0.5 bg-black/10">
+        <div
+          className={`h-full bg-gradient-to-r ${gradClass} transition-all duration-75`}
+          style={{ width: `${progress}%` }}
+        />
+      </div>
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <div className={`relative overflow-hidden bg-gradient-to-br ${gradClass} text-white py-14 px-8`}>
@@ -123,19 +160,39 @@ export default function ArticlePage({ params }) {
             {content.excerpt}
           </motion.p>
 
-          <motion.div {...fadeUp} transition={{ delay: 0.12 }} className="flex items-center gap-4 text-white/70 text-sm flex-wrap">
-            <span className="flex items-center gap-1.5">
-              <User className="w-4 h-4" /> {article.author}
-            </span>
-            <span className="text-white/40">·</span>
-            <span className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4" /> {article.readTime}
-            </span>
-            <span className="text-white/40">·</span>
-            <span className="flex items-center gap-1.5">
-              <Calendar className="w-4 h-4" />
-              {new Date(article.date).toLocaleDateString(isFr ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-            </span>
+          <motion.div {...fadeUp} transition={{ delay: 0.12 }} className="flex items-center justify-between gap-4 flex-wrap">
+            <div className="flex items-center gap-4 text-white/70 text-sm flex-wrap">
+              <span className="flex items-center gap-1.5">
+                <User className="w-4 h-4" /> {article.author}
+              </span>
+              <span className="text-white/40">·</span>
+              <span className="flex items-center gap-1.5">
+                <Clock className="w-4 h-4" /> {article.readTime}
+              </span>
+              <span className="text-white/40">·</span>
+              <span className="flex items-center gap-1.5">
+                <Calendar className="w-4 h-4" />
+                {new Date(article.date).toLocaleDateString(isFr ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </span>
+            </div>
+            {/* Share buttons */}
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={shareLinkedIn}
+                className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-white/15 hover:bg-white/25 rounded-lg transition-colors text-white/90"
+              >
+                <Linkedin className="w-3.5 h-3.5" /> LinkedIn
+              </button>
+              <button
+                onClick={copyLink}
+                className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-white/15 hover:bg-white/25 rounded-lg transition-colors text-white/90"
+              >
+                {copied
+                  ? <><CheckCheck className="w-3.5 h-3.5" /> {isFr ? 'Copié !' : 'Copied!'}</>
+                  : <><Link2 className="w-3.5 h-3.5" /> {isFr ? 'Copier le lien' : 'Copy link'}</>
+                }
+              </button>
+            </div>
           </motion.div>
         </div>
       </div>
