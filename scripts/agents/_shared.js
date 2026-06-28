@@ -1,7 +1,7 @@
 /**
  * Shared utilities for Microsoft blog agents.
  * Pipeline :
- *   RSS + Exa → Jina → Tavily fallback (collecte gratuite)
+ *   RSS + Exa → Linkup → Tavily fallback (collecte gratuite)
  *   → URL hash dedup (gratuit)
  *   → Keyword scorer (gratuit, 0 API)
  *   → GPT-4o-mini generator (OpenAI, article bilingue JSON + KB)
@@ -127,30 +127,6 @@ async function fetchExa(query) {
   } catch { return []; }
 }
 
-// ── Jina search — gratuit, sans clé ──────────────────────────────────────────
-
-async function fetchJina(query) {
-  try {
-    const res = await fetch(`https://s.jina.ai/${encodeURIComponent(query)}`, {
-      headers: {
-        'Accept': 'application/json',
-        'X-Return-Format': 'json',
-        'User-Agent': 'MicrosoftSalesApp/BlogAgent',
-      },
-      signal: AbortSignal.timeout(12000),
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return (data.data || []).slice(0, 5).map(r => ({
-      title:   (r.title || '').slice(0, 200),
-      excerpt: (r.content || r.description || '').replace(/<[^>]+>/g, ' ').trim().slice(0, 400),
-      url:     r.url || '',
-      date:    new Date().toISOString(),
-      source:  'Jina',
-    }));
-  } catch { return []; }
-}
-
 // ── Linkup deep research — fallback (linkup.so) ───────────────────────────────
 
 async function fetchLinkup(query) {
@@ -198,16 +174,12 @@ async function fetchTavily(query) {
   } catch { return []; }
 }
 
-// ── Chaîne : Exa → Jina → Linkup → Tavily ───────────────────────────────────
+// ── Chaîne : Exa → Linkup → Tavily ──────────────────────────────────────────
 
 async function fetchSearch(query) {
   let items = await fetchExa(query);
-  if (items.length === 0) {
-    console.log('   Exa empty → trying Jina (free)...');
-    items = await fetchJina(query);
-  }
   if (items.length === 0 && process.env.LINKUP_API_KEY) {
-    console.log('   Jina empty → trying Linkup...');
+    console.log('   Exa empty → trying Linkup...');
     items = await fetchLinkup(query);
   }
   if (items.length === 0) {
@@ -443,8 +415,8 @@ async function runAgent(config) {
   const rssItems = await fetchMultipleRSS(config.rssUrls);
   console.log(`   ${rssItems.length} items from ${config.rssUrls.length} RSS feeds`);
 
-  // 2. Exa → Jina → Tavily
-  console.log('🔍 Search chain: Exa → Jina → Tavily...');
+  // 2. Exa → Linkup → Tavily
+  console.log('🔍 Search chain: Exa → Linkup → Tavily...');
   const searchItems = await fetchSearch(config.searchQuery);
   console.log(`   ${searchItems.length} items from search (${searchItems[0]?.source || 'none'})`);
 
