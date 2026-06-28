@@ -1,38 +1,38 @@
 [
   {
-    "slug": "microsoft-365-copilot-enhancements-june-2026",
-    "category": "m365",
-    "date": "2026-06-27",
-    "readTime": "6 min",
+    "slug": "dynamics-365-ai-driven-customer-experience-june-2026",
+    "category": "dynamics",
+    "date": "2026-06-28",
+    "readTime": "7 min",
     "author": "Nicolas BAYONNE",
     "authorRole": "Microsoft Partner Account Manager",
     "featured": false,
     "fr": {
-      "title": "Améliorations de Microsoft 365 Copilot en juin 2026",
-      "excerpt": "Découvrez les dernières améliorations de Microsoft 365 Copilot et leur impact sur vos opérations d'entreprise.",
+      "title": "Leadership client avec Dynamics 365 et l'IA",
+      "excerpt": "Découvrez comment Dynamics 365 transforme l'expérience client grâce à l'IA, optimisant les opérations et renforçant la résilience des entreprises.",
       "sections": [
         {
           "type": "intro",
-          "text": "Microsoft 365 continue d'évoluer avec des améliorations significatives de Copilot, renforçant la productivité et l'efficacité des entreprises."
+          "text": "Dans un monde où l'IA redéfinit les modèles opérationnels, Dynamics 365 se positionne comme un acteur clé. Cet article explore les dernières innovations et leur impact sur l'expérience client."
         },
         {
           "type": "h2",
-          "text": "Nouveautés de Microsoft 365 Copilot"
+          "text": "L'IA au cœur de l'expérience client"
         },
         {
           "type": "p",
-          "text": "L'introduction de GPT-5.5 Instant dans Microsoft 365 Copilot offre des réponses plus rapides et précises, améliorant l'expérience utilisateur globale."
+          "text": "Dynamics 365 intègre l'IA pour combler le fossé entre les capacités des employés et le soutien organisationnel, créant un modèle opérationnel plus réactif et connecté."
         },
         {
           "type": "h2",
-          "text": "Améliorations des fonctionnalités collaboratives"
+          "text": "Optimisation des opérations avec Dynamics 365"
         },
         {
           "type": "list",
           "items": [
-            "Copilot Notebooks accessible à plus d'utilisateurs",
-            "Délégation des appels dans Teams Phone",
-            "Disponibilité générale de Copilot Cowork"
+            "Gestion de l'engagement des employés",
+            "Orchestration des conversations en temps réel",
+            "Modernisation des IVR avec l'IA"
           ]
         },
         {
@@ -41,42 +41,42 @@
         },
         {
           "type": "p",
-          "text": "Ces améliorations permettent aux entreprises d'optimiser leurs processus, de réduire les délais de réponse et d'améliorer la satisfaction client."
+          "text": "Les entreprises peuvent désormais offrir une expérience client plus fluide et personnalisée, tout en améliorant l'efficacité opérationnelle et en réduisant les coûts grâce à l'automatisation intelligente."
         },
         {
           "type": "cta",
-          "text": "Comment ces nouveautés peuvent-elles transformer votre entreprise ?",
+          "text": "Comment ces innovations peuvent-elles transformer votre entreprise ?",
           "action": "Analyser un compte",
           "href": "/account"
         }
       ]
     },
     "en": {
-      "title": "Microsoft 365 Copilot Enhancements in June 2026",
-      "excerpt": "Explore the latest Microsoft 365 Copilot enhancements and their impact on your business operations.",
+      "title": "AI-Driven Customer Experience with Dynamics 365",
+      "excerpt": "Explore how Dynamics 365 transforms customer experience with AI, optimizing operations and enhancing business resilience.",
       "sections": [
         {
           "type": "intro",
-          "text": "Microsoft 365 continues to evolve with significant Copilot enhancements, boosting productivity and efficiency for businesses."
+          "text": "In a world where AI is redefining operational models, Dynamics 365 stands out as a key player. This article explores the latest innovations and their impact on customer experience."
         },
         {
           "type": "h2",
-          "text": "What's New in Microsoft 365 Copilot"
+          "text": "AI at the Heart of Customer Experience"
         },
         {
           "type": "p",
-          "text": "The introduction of GPT-5.5 Instant in Microsoft 365 Copilot offers faster and more accurate responses, enhancing overall user experience."
+          "text": "Dynamics 365 integrates AI to bridge the gap between employee capabilities and organizational support, creating a more connected and responsive operating model."
         },
         {
           "type": "h2",
-          "text": "Enhancements in Collaborative Features"
+          "text": "Optimizing Operations with Dynamics 365"
         },
         {
           "type": "list",
           "items": [
-            "Copilot Notebooks accessible to more users",
-            "Call delegation in Teams Phone",
-            "General availability of Copilot Cowork"
+            "Employee engagement management",
+            "Real-time conversation orchestration",
+            "Modernizing IVR with AI"
           ]
         },
         {
@@ -85,11 +85,205 @@
         },
         {
           "type": "p",
-          "text": "These enhancements enable businesses to optimize processes, reduce response times, and improve customer satisfaction."
+          "text": "Businesses can now deliver a smoother, more personalized customer experience while improving operational efficiency and reducing costs through intelligent automation."
         },
         {
           "type": "cta",
-          "text": "How can these updates transform your business?",
+          "text": "How can these innovations transform your business?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "model-context-protocol-june-2026",
+    "category": "azure",
+    "date": "2026-06-28",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Protocole de Contexte Modèle : Révolution pour l'IA",
+      "excerpt": "Le Protocole de Contexte Modèle (MCP) transforme l'IA en permettant aux modèles d'interagir dynamiquement avec des outils en temps réel.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Le Protocole de Contexte Modèle (MCP) redéfinit l'interaction des modèles d'IA avec les outils externes, offrant une flexibilité et une réactivité sans précédent."
+        },
+        {
+          "type": "h2",
+          "text": "Comprendre le MCP"
+        },
+        {
+          "type": "p",
+          "text": "Le MCP permet aux modèles d'IA de découvrir et d'utiliser dynamiquement des outils sur un serveur, dépassant ainsi les API statiques."
+        },
+        {
+          "type": "h2",
+          "text": "Pourquoi c'est important"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Amélioration de l'efficacité",
+            "Réduction des coûts de développement",
+            "Adaptabilité en temps réel"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "Le MCP offre une flexibilité accrue pour les entreprises, permettant une meilleure intégration et une réponse rapide aux besoins changeants du marché."
+        },
+        {
+          "type": "cta",
+          "text": "Comment votre entreprise peut-elle bénéficier du MCP ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Model Context Protocol: A Game Changer for AI",
+      "excerpt": "The Model Context Protocol (MCP) revolutionizes AI by enabling models to dynamically interact with tools in real-time.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "The Model Context Protocol (MCP) redefines how AI models interact with external tools, offering unprecedented flexibility and responsiveness."
+        },
+        {
+          "type": "h2",
+          "text": "Understanding MCP"
+        },
+        {
+          "type": "p",
+          "text": "MCP allows AI models to dynamically discover and use tools on a server, moving beyond static APIs."
+        },
+        {
+          "type": "h2",
+          "text": "Why It Matters"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Enhanced efficiency",
+            "Reduced development costs",
+            "Real-time adaptability"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "MCP offers increased flexibility for enterprises, enabling better integration and swift response to changing market needs."
+        },
+        {
+          "type": "cta",
+          "text": "How can your business benefit from MCP?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "microsoft-365-copilot-enhancements-june-2026",
+    "category": "m365",
+    "date": "2026-06-28",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Nouveautés de Microsoft 365 Copilot : juin 2026",
+      "excerpt": "Découvrez les dernières améliorations de Microsoft 365 Copilot, y compris GPT-5.5 Instant et les nouvelles fonctionnalités de Teams Phone.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Microsoft 365 continue d'innover avec des mises à jour qui transforment la manière dont les entreprises collaborent et communiquent. Ce mois-ci, nous explorons les dernières avancées de Copilot."
+        },
+        {
+          "type": "h2",
+          "text": "Améliorations de GPT-5.5 Instant"
+        },
+        {
+          "type": "p",
+          "text": "La sortie de GPT-5.5 Instant dans Microsoft 365 Copilot promet des interactions plus rapides et plus intelligentes, optimisant ainsi la productivité et la réactivité des équipes."
+        },
+        {
+          "type": "h2",
+          "text": "Nouvelles fonctionnalités de Teams Phone"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Délégation d'appels avec Copilot",
+            "Agents vocaux personnalisés",
+            "Gestion unifiée des événements"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "Ces mises à jour permettent aux entreprises de mieux gérer les communications internes et externes, réduisant les temps d'attente et améliorant l'expérience client."
+        },
+        {
+          "type": "cta",
+          "text": "Comment ces fonctionnalités peuvent-elles transformer votre entreprise ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Microsoft 365 Copilot Enhancements: June 2026",
+      "excerpt": "Explore the latest enhancements in Microsoft 365 Copilot, including GPT-5.5 Instant and new Teams Phone features.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Microsoft 365 continues to innovate with updates that transform how businesses collaborate and communicate. This month, we delve into the latest advancements in Copilot."
+        },
+        {
+          "type": "h2",
+          "text": "Enhancements in GPT-5.5 Instant"
+        },
+        {
+          "type": "p",
+          "text": "The release of GPT-5.5 Instant in Microsoft 365 Copilot promises faster, smarter interactions, optimizing team productivity and responsiveness."
+        },
+        {
+          "type": "h2",
+          "text": "New Teams Phone Features"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Call delegation with Copilot",
+            "Custom voice agents",
+            "Unified event management"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "These updates enable businesses to better manage internal and external communications, reducing wait times and enhancing customer experience."
+        },
+        {
+          "type": "cta",
+          "text": "How can these features transform your business?",
           "action": "Analyze an account",
           "href": "/account"
         }
