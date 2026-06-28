@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Zap, Sparkles, Mail, Copy, CheckCheck, ChevronDown, ChevronUp,
   Building2, Target, Users, ArrowRight, RotateCcw, Plus, Trash2,
-  CheckCircle, Clock, MessageSquare, Phone, Video
+  CheckCircle, Clock, MessageSquare, Phone, Video, BookOpen, X, ExternalLink
 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
@@ -167,19 +167,28 @@ export default function SequencesPage() {
   const { lang } = useLang();
 
   // Form state
-  const [company,     setCompany]     = useState('');
-  const [solution,    setSolution]    = useState('m365');
-  const [persona,     setPersona]     = useState('DSI / CTO');
-  const [industry,    setIndustry]    = useState('');
-  const [companySize, setCompanySize] = useState('sme');
+  const [company,        setCompany]        = useState('');
+  const [solution,       setSolution]       = useState('m365');
+  const [persona,        setPersona]        = useState('DSI / CTO');
+  const [industry,       setIndustry]       = useState('');
+  const [companySize,    setCompanySize]    = useState('sme');
+  const [articleContext, setArticleContext] = useState(null); // { slug, title, excerpt }
 
-  // Pré-remplissage depuis Account Intel via URL params (client-only)
+  // Pré-remplissage depuis URL params (Account Intel ou Blog article)
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
-    if (p.get('company')) setCompany(decodeURIComponent(p.get('company')));
+    if (p.get('company'))  setCompany(decodeURIComponent(p.get('company')));
     if (p.get('solution') && SOLUTIONS.find(s => s.id === p.get('solution'))) setSolution(p.get('solution'));
     if (p.get('industry')) setIndustry(decodeURIComponent(p.get('industry')));
     if (['startup','sme','enterprise'].includes(p.get('size'))) setCompanySize(p.get('size'));
+    // Contexte article blog (Direction 1 : Blog → Séquences)
+    if (p.get('articleSlug') && p.get('articleTitle')) {
+      setArticleContext({
+        slug:    p.get('articleSlug'),
+        title:   decodeURIComponent(p.get('articleTitle')),
+        excerpt: p.get('articleExcerpt') ? decodeURIComponent(p.get('articleExcerpt')) : '',
+      });
+    }
   }, []);
 
   // Result state
@@ -215,7 +224,7 @@ export default function SequencesPage() {
       const res = await fetch('/api/sequences/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ company, solution, persona, industry, companySize }),
+        body: JSON.stringify({ company, solution, persona, industry, companySize, articleContext }),
       });
       const data = await res.json();
       if (!data.success) throw new Error(data.error);
@@ -231,7 +240,7 @@ export default function SequencesPage() {
     } finally {
       setLoading(false);
     }
-  }, [company, solution, persona, industry, companySize]);
+  }, [company, solution, persona, industry, companySize, articleContext]);
 
   const copyText = async (text, id) => {
     try {
@@ -386,6 +395,30 @@ export default function SequencesPage() {
               </div>
             </div>
           </div>
+
+          {/* ── Article contextuel ───────────────────────────────── */}
+          {articleContext && (
+            <div className="mb-5 flex items-start gap-3 bg-indigo-50 border border-indigo-200 rounded-xl p-4">
+              <BookOpen className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-1">
+                  {lang === 'fr' ? 'Article contextuel — accroche Touch #1' : 'Context article — Touch #1 hook'}
+                </p>
+                <p className="text-sm font-semibold text-gray-800 line-clamp-1">{articleContext.title}</p>
+                {articleContext.excerpt && (
+                  <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{articleContext.excerpt}</p>
+                )}
+                <Link href={`/blog/${articleContext.slug}`} target="_blank"
+                  className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-800 mt-1 font-medium">
+                  <ExternalLink className="w-3 h-3" />
+                  {lang === 'fr' ? 'Voir l\'article' : 'View article'}
+                </Link>
+              </div>
+              <button onClick={() => setArticleContext(null)} className="text-gray-400 hover:text-gray-600 shrink-0">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
 
           <motion.button
             onClick={generate}

@@ -4,11 +4,14 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowLeft, Clock, User, Calendar, ArrowRight, Linkedin, Link2, CheckCheck } from 'lucide-react';
+import { ArrowLeft, Clock, User, Calendar, ArrowRight, Linkedin, Link2, CheckCheck, Zap } from 'lucide-react';
 import { useLang } from '@/contexts/LanguageContext';
 import { getArticle, ARTICLES, CATEGORY_COLORS, CATEGORY_GRADIENTS, CATEGORY_LABELS, getArticleContent } from '@/lib/blog-articles';
 
 const fadeUp = { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } };
+
+// Mapping catégorie blog → solution séquences
+const BLOG_TO_SEQ = { m365: 'm365', azure: 'azure', dynamics: 'dynamics', copilot: 'copilot_studio', securite: 'security' };
 
 // ── Section renderers ────────────────────────────────────────────────────────
 function renderSection(section, i, isFr) {
@@ -209,6 +212,35 @@ export default function ArticlePage({ slug }) {
             <p className="text-sm text-gray-500">{article.authorRole}</p>
           </div>
         </div>
+
+        {/* ── CTA Séquence ─────────────────────────────────────────────────── */}
+        {(() => {
+          const seqSolution = BLOG_TO_SEQ[article.category] || 'm365';
+          const seqUrl = `/sequences?solution=${seqSolution}&articleSlug=${article.slug}&articleTitle=${encodeURIComponent(content.title)}&articleExcerpt=${encodeURIComponent((content.excerpt || '').slice(0, 200))}`;
+          return (
+            <Link href={seqUrl}>
+              <motion.div
+                {...fadeUp}
+                className="mt-4 flex items-center gap-4 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-2xl p-5 hover:shadow-md hover:border-indigo-300 transition-all group cursor-pointer"
+              >
+                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${gradClass} flex items-center justify-center shrink-0 shadow-sm`}>
+                  <Zap className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-900 text-sm group-hover:text-indigo-700 transition-colors">
+                    {isFr ? 'Créer une séquence basée sur cet article' : 'Create a sequence based on this article'}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {isFr
+                      ? 'Cet article devient l\'accroche du Touch #1 — 3 phases · 7 emails'
+                      : 'This article becomes the Touch #1 hook — 3 phases · 7 emails'}
+                  </p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-indigo-500 transition-colors shrink-0" />
+              </motion.div>
+            </Link>
+          );
+        })()}
 
         {/* Related articles */}
         {related.length > 0 && (

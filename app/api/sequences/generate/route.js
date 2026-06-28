@@ -25,7 +25,7 @@ const KB_TOPIC_MAP = {
 
 export async function POST(request) {
   try {
-    const { company, solution = 'm365', persona = 'DSI', industry, companySize = 'sme' } = await request.json();
+    const { company, solution = 'm365', persona = 'DSI', industry, companySize = 'sme', articleContext = null } = await request.json();
 
     if (!company?.trim()) {
       return NextResponse.json({ error: 'company is required' }, { status: 400 });
@@ -36,19 +36,27 @@ export async function POST(request) {
     const solutionLabel = SOLUTION_LABELS[solution] || solution;
     const sizeLabel = companySize === 'enterprise' ? 'Grand compte (300+ employés)' : companySize === 'startup' ? 'Startup (<50)' : 'PME (50-300 employés)';
 
+    // Accroche article blog (Direction 1 : Blog → Séquences)
+    const articleHook = articleContext?.title
+      ? `\n\nARTICLE CONTEXTUEL (accroche obligatoire pour le Touch #1) :
+Titre : "${articleContext.title}"
+Extrait : "${articleContext.excerpt || ''}"
+→ Le corps du Touch #1 DOIT faire référence à cet article de façon naturelle, ex : "Nous venons de publier une analyse sur ce sujet..." ou "Notre dernier article sur [thème] soulève exactement les enjeux que vous rencontrez..."`
+      : '';
+
     const systemPrompt = `Tu es Nicolas BAYONNE, Microsoft Partner Account Manager expert en vente consultative B2B.
 Tu dois créer un plan de séquence de prospection en 3 phases et 7 touches pour une cible commerciale précise.
 RÈGLE ABSOLUE : tous les prix, fonctionnalités et plans doivent venir EXCLUSIVEMENT de la Knowledge Base.
 
 KNOWLEDGE BASE : ${solutionLabel} :
-${kbContent}`;
+${kbContent}${articleHook}`;
 
     const userPrompt = `Crée une séquence de prospection complète pour :
 - Entreprise cible : "${company}"
 - Secteur : ${industry || 'non précisé'}
 - Taille : ${sizeLabel}
 - Interlocuteur cible : ${persona}
-- Solution à pitcher : ${solutionLabel}
+- Solution à pitcher : ${solutionLabel}${articleContext ? `\n- Article de référence (Touch #1) : "${articleContext.title}"` : ''}
 
 Retourne UNIQUEMENT un objet JSON valide :
 {
