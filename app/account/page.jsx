@@ -7,12 +7,13 @@ import {
   TrendingUp, TrendingDown, Shield, Zap, ChevronRight,
   RotateCcw, Lightbulb, Star, AlertTriangle, CheckCircle,
   Target, Users, DollarSign, Cpu, Leaf, Scale, BarChart3,
-  Flame, Eye, ArrowRight, RadioTower, Download, Clock, Trash2
+  Flame, Eye, ArrowRight, RadioTower, Download, Clock, Trash2, BookOpen
 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { Toaster } from '@/components/ui/sonner';
 import { useLang, t } from '@/contexts/LanguageContext';
+import { ARTICLES, CATEGORY_COLORS } from '@/lib/blog-articles';
 
 const fadeUp = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
 const stagger = { animate: { transition: { staggerChildren: 0.07 } } };
@@ -634,6 +635,48 @@ export default function AccountIntelPage() {
                   <p className="text-sm text-gray-700 leading-relaxed">{intel.competitorRisk}</p>
                 </motion.div>
               </div>
+
+              {/* ── Articles liés ────────────────────────────────── */}
+              {(() => {
+                const INTEL_TO_BLOG = { m365: 'm365', azure: 'azure', dynamics: 'dynamics', power: 'copilot', security: 'securite', devtools: 'azure' };
+                const topCats = [...new Set((intel.microsoft_solutions || []).map(s => INTEL_TO_BLOG[s.category]).filter(Boolean))].slice(0, 2);
+                const related = ARTICLES
+                  .filter(a => topCats.includes(a.category))
+                  .sort((a, b) => new Date(b.date) - new Date(a.date))
+                  .slice(0, 3);
+                if (related.length === 0) return null;
+                return (
+                  <motion.div variants={fadeUp} className="mt-6 pt-6 border-t border-gray-100">
+                    <div className="flex items-center gap-2 mb-3">
+                      <BookOpen className="h-4 w-4 text-gray-400" />
+                      <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
+                        {lang === 'fr' ? 'Articles récents sur ce sujet' : 'Recent articles on this topic'}
+                      </h4>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {related.map(a => {
+                        const c = lang === 'en' && a.en ? { ...a.fr, ...a.en } : a.fr;
+                        const cc = CATEGORY_COLORS[a.category] || 'bg-gray-100 text-gray-700 border-gray-200';
+                        return (
+                          <Link key={a.slug} href={`/blog/${a.slug}`}>
+                            <div className="bg-white rounded-xl border border-gray-100 p-3 hover:border-blue-200 hover:shadow-sm transition-all group h-full">
+                              <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold border ${cc} mb-2 inline-block`}>
+                                {a.category === 'dynamics' ? 'Dynamics 365' : a.category === 'm365' ? 'M365' : a.category === 'azure' ? 'Azure' : a.category === 'copilot' ? 'Copilot' : 'Sécurité'}
+                              </span>
+                              <p className="text-xs font-semibold text-gray-800 group-hover:text-blue-700 transition-colors line-clamp-2 leading-snug">
+                                {c.title}
+                              </p>
+                              <p className="text-[10px] text-gray-400 mt-1 flex items-center gap-1">
+                                <Clock className="w-2.5 h-2.5" />{a.readTime}
+                              </p>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                );
+              })()}
 
             </motion.div>
           )}

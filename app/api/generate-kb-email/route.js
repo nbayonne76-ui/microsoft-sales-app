@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { handleApiError } from '@/lib/api-error';
 import { getKbByTopic, getKbFiles } from '@/lib/kb-service';
+import articlesData from '../../../data/blog-articles.json';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -29,6 +30,19 @@ export async function POST(request) {
     const kbTopic   = KB_TOPIC_MAP[solution] || solution || 'm365';
     const kbContent = getKbByTopic(kbTopic);
     const kbFiles   = getKbFiles(kbTopic);
+
+    // Trouver l'article blog récent lié à la solution → hook d'actualité
+    const BLOG_CAT_MAP = {
+      m365: 'm365', azure: 'azure', dynamics: 'dynamics',
+      power: 'copilot', security: 'securite', bundles: 'm365', devtools: 'azure',
+    };
+    const blogCat = BLOG_CAT_MAP[kbTopic] || 'dynamics';
+    const recentArticle = articlesData
+      .filter(a => a.category === blogCat)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+    const recentHook = recentArticle
+      ? `\n\nACTUALITÉ RÉCENTE (à utiliser optionnellement comme hook contextuel) : "${recentArticle.fr?.title}" — ${(recentArticle.fr?.excerpt || '').slice(0, 160)}`
+      : '';
 
     const SOLUTION_LABELS = {
       m365: 'Microsoft 365', azure: 'Microsoft Azure',
@@ -71,7 +85,7 @@ TYPE : ${TYPE_GUIDES[emailType] || TYPE_GUIDES.prospection}
 STRUCTURE : OBJET (<60 chars) · SALUTATION · HOOK · PROBLÈME · SOLUTION (données KB) · ROI · CTA · SIGNATURE Nicolas BAYONNE
 
 KNOWLEDGE BASE : ${solutionLabel} (${kbFiles.join(', ')}) :
-${kbContent}`;
+${kbContent}${recentHook}`;
 
     const userPrompt = `Email de ${emailType} pour :
 Entreprise : ${companyName} | Contact : ${contactName || 'le décideur'} | Poste : ${contactRole || 'DSI/DG'}

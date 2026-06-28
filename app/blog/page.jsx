@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Newspaper, Rss, RefreshCw, Zap, BookOpen, Search, X } from 'lucide-react';
+import { Newspaper, Rss, RefreshCw, Zap, BookOpen, Search, X, Mail } from 'lucide-react';
 import { useLang } from '@/contexts/LanguageContext';
 import { ARTICLES, BLOG_CATEGORIES } from '@/lib/blog-articles';
 import ArticleCard from '@/components/blog/ArticleCard';
@@ -103,8 +103,8 @@ export default function BlogPage() {
             {[
               ['📝', ARTICLES.length, isFr ? 'articles experts' : 'expert articles'],
               ['⚡', '5', isFr ? 'catégories Microsoft' : 'Microsoft categories'],
-              ['🔄', isFr ? 'Mise à jour 1h' : 'Updated hourly', ''],
-              ['🌐', isFr ? 'Multi-sources (Exa + Jina + Tavily)' : 'Multi-source (Exa + Jina + Tavily)', ''],
+              ['🔄', isFr ? 'Mise à jour quotidienne' : 'Updated daily', ''],
+              ['🌐', isFr ? 'Multi-sources (Exa + Linkup + Tavily)' : 'Multi-source (Exa + Linkup + Tavily)', ''],
             ].map(([emoji, val, label], i) => (
               <div key={i} className="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-2">
                 <span className="mr-1">{emoji}</span>
@@ -129,6 +129,15 @@ export default function BlogPage() {
                 <X className="w-4 h-4" />
               </button>
             )}
+          </motion.div>
+
+          {/* Digest link */}
+          <motion.div {...fadeUp} transition={{ delay: 0.16 }} className="mt-4">
+            <Link href="/blog/digest"
+              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors">
+              <Mail className="w-4 h-4" />
+              {isFr ? 'Générer le digest hebdomadaire →' : 'Generate weekly digest →'}
+            </Link>
           </motion.div>
         </div>
       </div>
