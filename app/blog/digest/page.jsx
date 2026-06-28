@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Copy, CheckCheck, Calendar, Clock, ArrowLeft, Sparkles } from 'lucide-react';
 import Link from 'next/link';
-import { ARTICLES, CATEGORY_COLORS } from '@/lib/blog-articles';
+import { ARTICLES, getArticleContent } from '@/lib/blog-articles';
 import { useLang } from '@/contexts/LanguageContext';
 
 const BASE_URL = 'https://microsoft-sales-app.vercel.app';
@@ -17,7 +17,7 @@ function buildHtml(articles, lang) {
   const isFr   = lang === 'fr';
   const today  = new Date().toLocaleDateString(isFr ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   const items  = articles.map(a => {
-    const c     = lang === 'en' && a.en ? { ...a.fr, ...a.en } : a.fr;
+    const c     = getArticleContent(a, lang) || a.fr;
     const color = CAT_COLOR[a.category] || '#2563EB';
     const label = CAT_LABEL[a.category] || a.category;
     const emoji = CAT_EMOJI[a.category] || '📄';
@@ -135,8 +135,8 @@ export default function DigestPage() {
       .slice(0, 8);
   }, [days]);
 
-  const allArticles = useMemo(() => ARTICLES.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5), []);
-  const displayArticles = articles.length >= 2 ? articles : allArticles;
+  const fallbackArticles = useMemo(() => [...ARTICLES].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5), []);
+  const displayArticles  = articles.length >= 2 ? articles : fallbackArticles;
 
   const html = useMemo(() => buildHtml(displayArticles, lang), [displayArticles, lang]);
 

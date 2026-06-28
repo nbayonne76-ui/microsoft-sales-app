@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { toast } from 'sonner';
 import { Toaster } from '@/components/ui/sonner';
 import { useLang, t } from '@/contexts/LanguageContext';
-import { ARTICLES, CATEGORY_COLORS } from '@/lib/blog-articles';
+import { ARTICLES, CATEGORY_COLORS, CATEGORY_LABELS, INTEL_TO_BLOG, getArticleContent } from '@/lib/blog-articles';
 
 const fadeUp = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
 const stagger = { animate: { transition: { staggerChildren: 0.07 } } };
@@ -638,7 +638,6 @@ export default function AccountIntelPage() {
 
               {/* ── Articles liés ────────────────────────────────── */}
               {(() => {
-                const INTEL_TO_BLOG = { m365: 'm365', azure: 'azure', dynamics: 'dynamics', power: 'copilot', security: 'securite', devtools: 'azure' };
                 const topCats = [...new Set((intel.microsoft_solutions || []).map(s => INTEL_TO_BLOG[s.category]).filter(Boolean))].slice(0, 2);
                 const related = ARTICLES
                   .filter(a => topCats.includes(a.category))
@@ -655,13 +654,13 @@ export default function AccountIntelPage() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {related.map(a => {
-                        const c = lang === 'en' && a.en ? { ...a.fr, ...a.en } : a.fr;
+                        const c  = getArticleContent(a, lang);
                         const cc = CATEGORY_COLORS[a.category] || 'bg-gray-100 text-gray-700 border-gray-200';
                         return (
                           <Link key={a.slug} href={`/blog/${a.slug}`}>
                             <div className="bg-white rounded-xl border border-gray-100 p-3 hover:border-blue-200 hover:shadow-sm transition-all group h-full">
                               <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold border ${cc} mb-2 inline-block`}>
-                                {a.category === 'dynamics' ? 'Dynamics 365' : a.category === 'm365' ? 'M365' : a.category === 'azure' ? 'Azure' : a.category === 'copilot' ? 'Copilot' : 'Sécurité'}
+                                {CATEGORY_LABELS[a.category] || a.category}
                               </span>
                               <p className="text-xs font-semibold text-gray-800 group-hover:text-blue-700 transition-colors line-clamp-2 leading-snug">
                                 {c.title}

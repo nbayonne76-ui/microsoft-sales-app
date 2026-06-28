@@ -9,7 +9,7 @@ import {
   Newspaper, Calendar
 } from 'lucide-react';
 import { useLang, t } from '@/contexts/LanguageContext';
-import { ARTICLES } from '@/lib/blog-articles';
+import { ARTICLES, CATEGORY_COLORS, CATEGORY_LABELS, getArticleContent } from '@/lib/blog-articles';
 
 const fadeUp  = { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } };
 const stagger = { animate: { transition: { staggerChildren: 0.07 } } };
@@ -209,14 +209,7 @@ export default function DashboardHome() {
         {(() => {
           const latest = [...ARTICLES].sort((a, b) => new Date(b.date) - new Date(a.date))[0];
           if (!latest) return null;
-          const catColors = {
-            m365: 'bg-blue-100 text-blue-700 border-blue-200',
-            azure: 'bg-sky-100 text-sky-700 border-sky-200',
-            copilot: 'bg-purple-100 text-purple-700 border-purple-200',
-            dynamics: 'bg-orange-100 text-orange-700 border-orange-200',
-            securite: 'bg-red-100 text-red-700 border-red-200',
-          };
-          const catLabel = { m365: 'Microsoft 365', azure: 'Azure & Cloud', copilot: 'Copilot & IA', dynamics: 'Dynamics 365', securite: 'Sécurité' };
+          const c = getArticleContent(latest, lang);
           return (
             <motion.div {...fadeUp} transition={{ delay: 0.15 }} className="mb-8">
               <div className="flex items-center gap-2 mb-3">
@@ -229,14 +222,14 @@ export default function DashboardHome() {
                 <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:border-blue-200 hover:shadow-md transition-all group">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${catColors[latest.category] || 'bg-gray-100 text-gray-700 border-gray-200'}`}>
-                        {catLabel[latest.category] || latest.category}
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${CATEGORY_COLORS[latest.category] || 'bg-gray-100 text-gray-700 border-gray-200'}`}>
+                        {CATEGORY_LABELS[latest.category] || latest.category}
                       </span>
                       <h3 className="font-semibold text-gray-900 mt-2 mb-1 group-hover:text-blue-700 transition-colors line-clamp-1">
-                        {lang === 'fr' ? latest.fr?.title : (latest.en?.title || latest.fr?.title)}
+                        {c?.title}
                       </h3>
                       <p className="text-sm text-gray-500 line-clamp-2">
-                        {lang === 'fr' ? latest.fr?.excerpt : (latest.en?.excerpt || latest.fr?.excerpt)}
+                        {c?.excerpt}
                       </p>
                     </div>
                     <ArrowRight className="h-5 w-5 text-gray-300 group-hover:text-blue-500 transition-colors shrink-0 mt-1" />

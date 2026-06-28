@@ -301,7 +301,12 @@ Rules: slug = topic + month (e.g. "dynamics-copilot-agents-june-2026"), 6-8 sect
 
   const raw = completion.choices[0]?.message?.content;
   if (!raw) throw new Error('GPT-4o-mini returned empty response');
-  return JSON.parse(raw);
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    console.error('Invalid JSON from GPT-4o-mini:', raw.slice(0, 300));
+    throw new Error(`GPT-4o-mini returned invalid JSON: ${e.message}`);
+  }
 }
 
 // ── GPT-4o-mini — mise à jour KB ──────────────────────────────────────────────
@@ -437,12 +442,17 @@ async function runAgent(config) {
 
   const toGenerate = scored.length >= 3 ? scored : allItems.slice(0, 8);
 
-  // 5. GPT-4o-mini — article + KB en parallèle
+  // 5. GPT-4o-mini — article + KB en parallèle (allSettled : KB failure ne bloque pas l'article)
   console.log(`\n✍️  Generating with GPT-4o-mini (${toGenerate.length} items)...`);
-  const [article, kbContent] = await Promise.all([
+  const [articleResult, kbResult] = await Promise.allSettled([
     generateArticle(toGenerate, config),
     generateKbUpdate(toGenerate, config),
   ]);
+
+  if (articleResult.status === 'rejected') throw articleResult.reason;
+  const article   = articleResult.value;
+  const kbContent = kbResult.status === 'fulfilled' ? kbResult.value : '';
+  if (kbResult.status === 'rejected') console.warn('⚠️  KB update failed (non-blocking):', kbResult.reason?.message);
 
   console.log(`\n📄 Article: "${article.fr?.title}"`);
   console.log(`   Slug: ${article.slug}`);

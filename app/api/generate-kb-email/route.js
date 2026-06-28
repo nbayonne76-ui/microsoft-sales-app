@@ -105,7 +105,12 @@ JSON : {"subject":"...","body":"...\\n...","kbSources":["..."],"recommendedPlan"
       response_format: { type: 'json_object' },
     });
 
-    const result = JSON.parse(response.choices[0].message.content);
+    let result;
+    try {
+      result = JSON.parse(response.choices[0].message.content);
+    } catch {
+      return NextResponse.json({ error: 'GPT returned invalid JSON' }, { status: 502 });
+    }
 
     return NextResponse.json({
       success: true,

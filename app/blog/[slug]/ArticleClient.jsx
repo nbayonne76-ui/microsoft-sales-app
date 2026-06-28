@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, Clock, User, Calendar, ArrowRight, Linkedin, Link2, CheckCheck } from 'lucide-react';
 import { useLang } from '@/contexts/LanguageContext';
-import { getArticle, ARTICLES, CATEGORY_COLORS, CATEGORY_GRADIENTS } from '@/lib/blog-articles';
+import { getArticle, ARTICLES, CATEGORY_COLORS, CATEGORY_GRADIENTS, CATEGORY_LABELS, getArticleContent } from '@/lib/blog-articles';
 
 const fadeUp = { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } };
 
@@ -115,14 +115,10 @@ export default function ArticlePage({ slug }) {
 
   if (!article) return null;
 
-  const content = lang === 'en' && article.en ? { ...article.fr, ...article.en } : article.fr;
-  const colorClass  = CATEGORY_COLORS[article.category]    || 'bg-gray-100 text-gray-700';
-  const gradClass   = CATEGORY_GRADIENTS[article.category]  || 'from-blue-600 to-indigo-600';
-  const catLabel    = article.category === 'm365' ? 'Microsoft 365' :
-                      article.category === 'azure' ? 'Azure & Cloud' :
-                      article.category === 'copilot' ? (isFr ? 'Copilot & IA' : 'Copilot & AI') :
-                      article.category === 'dynamics' ? 'Dynamics 365' :
-                      (isFr ? 'Sécurité' : 'Security');
+  const content    = getArticleContent(article, lang);
+  const colorClass = CATEGORY_COLORS[article.category]    || 'bg-gray-100 text-gray-700';
+  const gradClass  = CATEGORY_GRADIENTS[article.category] || 'from-blue-600 to-indigo-600';
+  const catLabel   = CATEGORY_LABELS[article.category]    || article.category;
 
   const related = ARTICLES.filter(a => a.slug !== article.slug && a.category === article.category).slice(0, 2);
 
@@ -222,7 +218,7 @@ export default function ArticlePage({ slug }) {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {related.map((a) => {
-                const c = lang === 'en' && a.en ? { ...a.fr, ...a.en } : a.fr;
+                const c = getArticleContent(a, lang);
                 const cc = CATEGORY_COLORS[a.category] || 'bg-gray-100 text-gray-700';
                 return (
                   <Link key={a.slug} href={`/blog/${a.slug}`}>
