@@ -1,10 +1,10 @@
 /**
  * Shared utilities for Microsoft blog agents.
- * Pipeline (happi_brain pattern v2) :
- *   RSS + Exa → Jina fallback → Tavily fallback
- *   → URL hash dedup
- *   → Claude Haiku 4.5 scorer (keep ≥ 6)
- *   → Claude Sonnet 4.6 generator (article bilingue JSON + KB update)
+ * Pipeline :
+ *   RSS + Exa → Jina → Tavily fallback (collecte gratuite)
+ *   → URL hash dedup (gratuit)
+ *   → Keyword scorer (gratuit, 0 API)
+ *   → GPT-4o-mini generator (OpenAI, article bilingue JSON + KB)
  *   → blog-articles.json
  *
  * CommonJS : runs as standalone Node.js scripts (GitHub Actions).
@@ -41,14 +41,6 @@ function loadEnv() {
     const val = trimmed.slice(eq + 1).trim().replace(/^["']|["']$/g, '');
     if (!process.env[key]) process.env[key] = val;
   }
-}
-
-// ── Anthropic client ──────────────────────────────────────────────────────────
-
-function getAnthropicClient() {
-  const pkg = require('@anthropic-ai/sdk');
-  const Anthropic = pkg.default ?? pkg.Anthropic ?? pkg;
-  return new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 }
 
 // ── RSS fetcher ───────────────────────────────────────────────────────────────
@@ -123,7 +115,7 @@ async function fetchExa(query) {
   } catch { return []; }
 }
 
-// ── Jina search — gratuit, sans clé (fallback Exa) ────────────────────────────
+// ── Jina search — gratuit, sans clé ──────────────────────────────────────────
 
 async function fetchJina(query) {
   try {
@@ -170,7 +162,7 @@ async function fetchTavily(query) {
   } catch { return []; }
 }
 
-// ── Chaîne de recherche : Exa → Jina → Tavily (pattern happi_brain) ──────────
+// ── Chaîne : Exa → Jina → Tavily ─────────────────────────────────────────────
 
 async function fetchSearch(query) {
   let items = await fetchExa(query);
@@ -185,7 +177,7 @@ async function fetchSearch(query) {
   return items;
 }
 
-// ── URL hash dedup (pattern happi_brain #5) ───────────────────────────────────
+// ── URL hash dedup — gratuit ──────────────────────────────────────────────────
 
 function urlHash(url, title) {
   const raw = url ? url.trim() : title.trim().toLowerCase().slice(0, 120);
@@ -202,53 +194,31 @@ function dedupItems(items) {
   });
 }
 
-// ── Claude Haiku 4.5 scorer (pattern happi_brain #4) ─────────────────────────
+// ── Keyword scorer — gratuit, 0 API ──────────────────────────────────────────
+
+const KEYWORDS = [
+  'microsoft', 'dynamics', 'copilot', 'azure', 'business central',
+  'ai agent', 'cloud erp', 'm365', 'teams', 'security', 'rgpd',
+  'nis2', 'entra', 'power platform', 'copilot studio', 'erp', 'crm',
+];
 
 function keywordScore(item) {
   const text = (item.title + ' ' + item.excerpt).toLowerCase();
-  const kw = ['microsoft', 'dynamics', 'copilot', 'azure', 'business central',
-               'ai agent', 'cloud erp', 'm365', 'teams', 'security', 'rgpd',
-               'nis2', 'entra', 'power platform', 'copilot studio'];
-  return Math.min(10, Math.max(1, kw.filter(k => text.includes(k)).length * 2));
+  return Math.min(10, Math.max(1, KEYWORDS.filter(k => text.includes(k)).length * 2));
 }
 
-async function scoreItems(items, domainLabel) {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.log('   No ANTHROPIC_API_KEY → keyword scorer fallback');
-    return items.map(item => ({ ...item, score: keywordScore(item) }));
-  }
-
-  const client = getAnthropicClient();
-  const newsText = items.map((n, i) => `[${i}] ${n.title}`).join('\n');
-
-  try {
-    const msg = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 300,
-      messages: [{
-        role: 'user',
-        content: `Score each article 1-10 for relevance to "${domainLabel}" sales for B2B Microsoft Account Managers in France.
-10 = directly actionable for a Microsoft seller, 1 = irrelevant.
-Return ONLY a JSON array of integers, one per article, no explanation.
-
-${newsText}`,
-      }],
-    });
-
-    const raw = msg.content[0]?.text || '[]';
-    const match = raw.match(/\[\s*[\d\s,]+\]/);
-    const scores = match ? JSON.parse(match[0]) : [];
-    return items.map((item, i) => ({ ...item, score: typeof scores[i] === 'number' ? scores[i] : keywordScore(item) }));
-  } catch (e) {
-    console.warn('   Haiku scorer error:', e.message, '→ keyword fallback');
-    return items.map(item => ({ ...item, score: keywordScore(item) }));
-  }
+function scoreItems(items) {
+  return items
+    .map(item => ({ ...item, score: keywordScore(item) }))
+    .filter(item => item.score >= 4)
+    .sort((a, b) => b.score - a.score);
 }
 
-// ── Claude Sonnet 4.6 — générateur d'articles bilingues ──────────────────────
+// ── GPT-4o-mini — générateur article bilingue ─────────────────────────────────
 
 async function generateArticle(newsItems, config) {
-  const client = getAnthropicClient();
+  const { OpenAI } = require('openai');
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   const today  = new Date().toISOString().split('T')[0];
   const month  = today.slice(0, 7);
 
@@ -257,12 +227,13 @@ async function generateArticle(newsItems, config) {
     .map((n, i) => `${i + 1}. [score:${n.score}] [${n.date.slice(0, 10)}] ${n.title}\n   ${n.excerpt}`)
     .join('\n\n');
 
-  const msg = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 3500,
-    system: `You are a Microsoft expert content writer for a B2B sales enablement platform used by Microsoft Account Managers in France. Write authoritative articles for IT decision-makers (DSI, RSSI, CTO) and Microsoft partners.
-Your articles: synthesize recent news into actionable sales insights, highlight business impact, give concrete recommendations for Microsoft sellers, are bilingual FR (primary) + EN. Never include specific prices.`,
+  const completion = await openai.chat.completions.create({
+    model: 'gpt-4o-mini',
     messages: [
+      {
+        role: 'system',
+        content: `You are a Microsoft expert content writer for a B2B sales enablement platform used by Microsoft Account Managers in France. Write authoritative articles for IT decision-makers (DSI, RSSI, CTO) and Microsoft partners. Bilingual FR (primary) + EN. Never include specific prices.`,
+      },
       {
         role: 'user',
         content: `Based on these recent ${config.domainLabel} news (sorted by relevance), write ONE expert blog article.
@@ -270,7 +241,7 @@ Your articles: synthesize recent news into actionable sales insights, highlight 
 RECENT NEWS:
 ${newsText}
 
-Return ONLY valid JSON (no markdown, no code blocks):
+Return ONLY valid JSON (no markdown):
 {
   "slug": "descriptive-kebab-slug-${month}",
   "category": "${config.category}",
@@ -310,25 +281,22 @@ Return ONLY valid JSON (no markdown, no code blocks):
 }
 Rules: slug = topic + month (e.g. "dynamics-copilot-agents-june-2026"), 6-8 sections, NO prices.`,
       },
-      { role: 'assistant', content: '{' },
     ],
+    response_format: { type: 'json_object' },
+    temperature: 0.4,
+    max_tokens: 3000,
   });
 
-  const raw = '{' + (msg.content[0]?.text || '');
-  try {
-    return JSON.parse(raw);
-  } catch {
-    // Extract JSON if Claude added trailing text
-    const match = raw.match(/\{[\s\S]*\}/);
-    if (match) return JSON.parse(match[0]);
-    throw new Error('Claude Sonnet returned invalid JSON for article');
-  }
+  const raw = completion.choices[0]?.message?.content;
+  if (!raw) throw new Error('GPT-4o-mini returned empty response');
+  return JSON.parse(raw);
 }
 
-// ── Claude Sonnet 4.6 — mise à jour KB ───────────────────────────────────────
+// ── GPT-4o-mini — mise à jour KB ──────────────────────────────────────────────
 
 async function generateKbUpdate(newsItems, config) {
-  const client = getAnthropicClient();
+  const { OpenAI } = require('openai');
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   const today  = new Date().toISOString().split('T')[0];
 
   const newsText = newsItems
@@ -336,50 +304,43 @@ async function generateKbUpdate(newsItems, config) {
     .map((n, i) => `${i + 1}. [${n.date.slice(0, 10)}] ${n.title}\n   ${n.excerpt}`)
     .join('\n\n');
 
-  const msg = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 2000,
-    system: `Tu es un expert Microsoft qui crée des mises à jour de base de connaissances pour les Account Managers Microsoft en France. Ton contenu est utilisé directement par des outils IA (Account Intel, Email Generator) pour préparer des rendez-vous clients. Format : markdown structuré, factuel, actionnable.`,
-    messages: [{
-      role: 'user',
-      content: `Basé sur ces actualités ${config.domainLabel}, crée une mise à jour KB pour les Account Managers.
+  const completion = await openai.chat.completions.create({
+    model: 'gpt-4o-mini',
+    messages: [
+      {
+        role: 'system',
+        content: `Tu es un expert Microsoft qui crée des mises à jour de base de connaissances pour les Account Managers en France. Format : markdown structuré, factuel, actionnable.`,
+      },
+      {
+        role: 'user',
+        content: `Basé sur ces actualités ${config.domainLabel} (${today}), crée une mise à jour KB.
 
-ACTUALITÉS (${today}) :
+ACTUALITÉS :
 ${newsText}
-
-Génère un document markdown avec ces sections EXACTES :
 
 # ${config.domainLabel} : Mise à jour KB (${today})
 
 ## Dernières annonces
-(bullet points : feature → impact business concis)
-
 ## Ce qui change pour vos clients
-(impact pratique DSI, RSSI, CTO)
-
 ## Arguments de vente clés
-(3-5 points percutants)
-
 ## Profil client cible
-(secteur, taille, rôle à contacter)
-
 ## Questions clients fréquentes
-(2-3 Q&A sur les nouveautés)
-
 ## Angle concurrentiel
-(différenciation vs AWS, Salesforce, Google...)
 
 Rédige en français, termes techniques en anglais.`,
-    }],
+      },
+    ],
+    temperature: 0.3,
+    max_tokens: 2000,
   });
 
-  return msg.content[0]?.text || '';
+  return completion.choices[0]?.message?.content || '';
 }
 
-// ── Persistence KB ────────────────────────────────────────────────────────────
+// ── Persistence ───────────────────────────────────────────────────────────────
 
 function saveKbFile(category, content) {
-  const filename = KB_FILENAME[category] || KB_FILENAME[category === 'm365' ? 'modern-work' : category];
+  const filename = KB_FILENAME[category];
   if (!filename || !content) return;
   const kbPath = path.join(KB_DIR, filename);
   if (fs.existsSync(KB_DIR)) {
@@ -387,8 +348,6 @@ function saveKbFile(category, content) {
     console.log(`📚 KB updated: ${filename}`);
   }
 }
-
-// ── Persistence article ───────────────────────────────────────────────────────
 
 function saveArticle(article) {
   const articles = JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
@@ -412,41 +371,40 @@ async function runAgent(config) {
 
   loadEnv();
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.error('❌ ANTHROPIC_API_KEY not set — abort');
+  if (!process.env.OPENAI_API_KEY) {
+    console.error('❌ OPENAI_API_KEY not set — abort');
     process.exit(1);
   }
 
-  // 1. Sources RSS en parallèle
+  // 1. RSS en parallèle
   console.log('📡 Fetching RSS feeds...');
   const rssItems = await fetchMultipleRSS(config.rssUrls);
   console.log(`   ${rssItems.length} items from ${config.rssUrls.length} RSS feeds`);
 
-  // 2. Chaîne Exa → Jina → Tavily
+  // 2. Exa → Jina → Tavily
   console.log('🔍 Search chain: Exa → Jina → Tavily...');
   const searchItems = await fetchSearch(config.searchQuery);
   console.log(`   ${searchItems.length} items from search (${searchItems[0]?.source || 'none'})`);
 
-  // 3. Merge + dedup URL hash
-  const raw = dedupItems([...rssItems, ...searchItems]);
-  const allItems = raw.sort((a, b) => new Date(b.date) - new Date(a.date));
-  console.log(`   ${allItems.length} unique items after URL dedup`);
+  // 3. Merge + dedup URL hash (gratuit)
+  const allItems = dedupItems([...rssItems, ...searchItems])
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+  console.log(`   ${allItems.length} unique items after dedup`);
 
   if (allItems.length === 0) {
     console.warn('⚠️  No items found — skipping');
     return;
   }
 
-  // 4. Scorer Claude Haiku 4.5
-  console.log('🎯 Scoring with Claude Haiku 4.5...');
-  const scored = await scoreItems(allItems, config.domainLabel);
-  const relevant = scored.filter(i => i.score >= 6).sort((a, b) => b.score - a.score);
-  console.log(`   ${relevant.length}/${scored.length} items score ≥ 6`);
+  // 4. Keyword scorer — gratuit, 0 API
+  console.log('🎯 Keyword scoring (free)...');
+  const scored = scoreItems(allItems);
+  console.log(`   ${scored.length} relevant items (score ≥ 4)`);
 
-  const toGenerate = relevant.length >= 3 ? relevant : scored.sort((a, b) => b.score - a.score).slice(0, 8);
+  const toGenerate = scored.length >= 3 ? scored : allItems.slice(0, 8);
 
-  // 5. Claude Sonnet 4.6 — article + KB en parallèle
-  console.log(`\n✍️  Generating article + KB with Claude Sonnet 4.6 (${toGenerate.length} items)...`);
+  // 5. GPT-4o-mini — article + KB en parallèle
+  console.log(`\n✍️  Generating with GPT-4o-mini (${toGenerate.length} items)...`);
   const [article, kbContent] = await Promise.all([
     generateArticle(toGenerate, config),
     generateKbUpdate(toGenerate, config),
