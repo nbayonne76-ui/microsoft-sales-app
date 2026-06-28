@@ -8,7 +8,8 @@ function findArticle(slug) {
 }
 
 export async function generateMetadata({ params }) {
-  const article = findArticle(params.slug);
+  const { slug } = await params;
+  const article = findArticle(slug);
   if (!article) return { title: 'Article introuvable' };
 
   const title   = article.fr?.title  || article.en?.title  || article.slug;
@@ -40,6 +41,7 @@ export function generateStaticParams() {
   return articlesData.map(a => ({ slug: a.slug }));
 }
 
-export default function ArticlePage({ params }) {
-  return <ArticleClient params={params} />;
+export default async function ArticlePage({ params }) {
+  const { slug } = await params;
+  return <ArticleClient slug={slug} />;
 }

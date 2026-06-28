@@ -17,25 +17,33 @@ function decodeEntities(str = '') {
 // ─────────────────────────────────────────────────────────────────────────────
 const RSS_FEEDS = [
   // ── Microsoft 365 ──────────────────────────────────────────────────────────
-  { url: 'https://www.microsoft.com/en-us/microsoft-365/blog/feed/',                                                               category: 'Microsoft 365',  source: 'microsoft.com/m365'    },
+  { url: 'https://www.microsoft.com/en-us/microsoft-365/blog/feed/',                                                               category: 'Microsoft 365',  source: 'microsoft.com/m365'          },
   { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=microsoft365blog',                        category: 'Microsoft 365',  source: 'techcommunity.microsoft.com' },
   { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftTeamsBlog',                      category: 'Microsoft 365',  source: 'techcommunity.microsoft.com' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=ExchangeTeamBlog',                        category: 'Microsoft 365',  source: 'techcommunity.microsoft.com' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=SharePointBlog',                          category: 'Microsoft 365',  source: 'techcommunity.microsoft.com' },
+  { url: 'https://blogs.microsoft.com/feed/',                                                                                       category: 'Microsoft 365',  source: 'blogs.microsoft.com'         },
 
   // ── Azure & Cloud ──────────────────────────────────────────────────────────
-  { url: 'https://azure.microsoft.com/en-us/blog/feed/',                                                                           category: 'Azure & Cloud',  source: 'azure.microsoft.com'   },
+  { url: 'https://azure.microsoft.com/en-us/blog/feed/',                                                                           category: 'Azure & Cloud',  source: 'azure.microsoft.com'         },
   { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=AzureInfrastructureblog',                 category: 'Azure & Cloud',  source: 'techcommunity.microsoft.com' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=AzureDevCommunityBlog',                   category: 'Azure & Cloud',  source: 'techcommunity.microsoft.com' },
 
   // ── Dynamics 365 ──────────────────────────────────────────────────────────
-  { url: 'https://cloudblogs.microsoft.com/dynamics365/feed/',                                                                     category: 'Dynamics 365',   source: 'cloudblogs.microsoft.com' },
+  { url: 'https://cloudblogs.microsoft.com/dynamics365/feed/',                                                                     category: 'Dynamics 365',   source: 'cloudblogs.microsoft.com'    },
   { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=DynamicsSmallAndMediumBusiness',          category: 'Dynamics 365',   source: 'techcommunity.microsoft.com' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=DynamicsCRMCustomerEngagement',           category: 'Dynamics 365',   source: 'techcommunity.microsoft.com' },
+  { url: 'https://dynamics360.net/feed/',                                                                                           category: 'Dynamics 365',   source: 'dynamics360.net'             },
 
   // ── Sécurité ───────────────────────────────────────────────────────────────
   { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftSecurityandCompliance',          category: 'Sécurité',       source: 'techcommunity.microsoft.com' },
-  { url: 'https://cloudblogs.microsoft.com/microsoftsecure/feed/',                                                                 category: 'Sécurité',       source: 'cloudblogs.microsoft.com' },
+  { url: 'https://www.microsoft.com/en-us/security/blog/feed/',                                                                    category: 'Sécurité',       source: 'microsoft.com/security'      },
   { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftDefenderATP',                   category: 'Sécurité',       source: 'techcommunity.microsoft.com' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftPurviewBlog',                   category: 'Sécurité',       source: 'techcommunity.microsoft.com' },
 
   // ── Copilot & IA ───────────────────────────────────────────────────────────
   { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=Microsoft365CopilotBlog',                category: 'Copilot & IA',   source: 'techcommunity.microsoft.com' },
+  { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=AzureAIServicesBlog',                    category: 'Copilot & IA',   source: 'techcommunity.microsoft.com' },
   { url: 'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftCopilot',                       category: 'Copilot & IA',   source: 'techcommunity.microsoft.com' },
 ];
 

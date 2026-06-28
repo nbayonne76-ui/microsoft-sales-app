@@ -74,10 +74,10 @@ function renderSection(section, i, isFr) {
   }
 }
 
-export default function ArticlePage({ params }) {
+export default function ArticlePage({ slug }) {
   const { lang } = useLang();
   const router = useRouter();
-  const article = getArticle(params.slug);
+  const article = getArticle(slug);
   const isFr = lang === 'fr';
 
   const [progress, setProgress]     = useState(0);
