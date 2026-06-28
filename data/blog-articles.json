@@ -1,5 +1,118 @@
 [
   {
+    "slug": "dynamics-copilot-agents-june-2026",
+    "category": "dynamics",
+    "date": "2026-06-28",
+    "readTime": "6 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "L'impact de Copilot sur Dynamics 365 Business Central",
+      "excerpt": "Découvrez comment Microsoft Copilot transforme Dynamics 365 Business Central en un assistant intelligent, améliorant l'efficacité et la productivité des équipes.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Dans un monde où l'efficacité opérationnelle est cruciale, Microsoft Copilot s'impose comme un atout majeur pour les utilisateurs de Dynamics 365 Business Central."
+        },
+        {
+          "type": "h2",
+          "text": "Qu'est-ce que Microsoft Copilot ?"
+        },
+        {
+          "type": "p",
+          "text": "Microsoft Copilot est une solution d'intelligence artificielle intégrée qui aide les utilisateurs de Dynamics 365 à automatiser des tâches répétitives, à générer du contenu et à améliorer la prise de décision."
+        },
+        {
+          "type": "h2",
+          "text": "Fonctionnalités clés de Copilot dans Business Central"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Automatisation des processus de création de contenu produit",
+            "Réconciliation financière simplifiée",
+            "Assistance contextuelle pour des décisions éclairées"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Les avantages de l'intégration de l'IA"
+        },
+        {
+          "type": "p",
+          "text": "L'intégration de l'IA dans Business Central permet non seulement de gagner du temps, mais aussi de réduire les erreurs humaines, ce qui se traduit par une meilleure qualité de service."
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "L'adoption de Microsoft Copilot peut transformer la manière dont vos clients gèrent leurs opérations, rendant leurs processus plus agiles et réactifs aux besoins du marché."
+        },
+        {
+          "type": "cta",
+          "text": "Vous souhaitez en savoir plus ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "The Impact of Copilot on Dynamics 365 Business Central",
+      "excerpt": "Discover how Microsoft Copilot transforms Dynamics 365 Business Central into an intelligent assistant, enhancing team efficiency and productivity.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "In a world where operational efficiency is crucial, Microsoft Copilot stands out as a significant asset for Dynamics 365 Business Central users."
+        },
+        {
+          "type": "h2",
+          "text": "What is Microsoft Copilot?"
+        },
+        {
+          "type": "p",
+          "text": "Microsoft Copilot is an integrated AI solution that helps Dynamics 365 users automate repetitive tasks, generate content, and enhance decision-making."
+        },
+        {
+          "type": "h2",
+          "text": "Key Features of Copilot in Business Central"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Automating product content creation processes",
+            "Simplified financial reconciliation",
+            "Contextual assistance for informed decisions"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Benefits of AI Integration"
+        },
+        {
+          "type": "p",
+          "text": "Integrating AI into Business Central not only saves time but also reduces human errors, resulting in improved service quality."
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "Adopting Microsoft Copilot can transform how your customers manage their operations, making their processes more agile and responsive to market needs."
+        },
+        {
+          "type": "cta",
+          "text": "Want to learn more?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
     "slug": "dynamics-365-ai-driven-customer-experience-june-2026",
     "category": "dynamics",
     "date": "2026-06-28",
