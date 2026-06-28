@@ -58,13 +58,13 @@ export async function POST(request) {
 
 // GET : status + available topics (no auth required)
 export async function GET() {
-  const configured = !!process.env.REFRESH_SECRET && !!process.env.OPENAI_API_KEY;
+  const configured = !!process.env.REFRESH_SECRET && !!process.env.ANTHROPIC_API_KEY;
   return NextResponse.json({
     status: configured ? 'ready' : 'misconfigured',
     topics: VALID_TOPICS,
-    requiredEnv: ['OPENAI_API_KEY', 'REFRESH_SECRET'],
+    requiredEnv: ['ANTHROPIC_API_KEY', 'REFRESH_SECRET'],
     missingEnv: [
-      !process.env.OPENAI_API_KEY && 'OPENAI_API_KEY',
+      !process.env.ANTHROPIC_API_KEY && 'ANTHROPIC_API_KEY',
       !process.env.REFRESH_SECRET && 'REFRESH_SECRET',
     ].filter(Boolean),
   });

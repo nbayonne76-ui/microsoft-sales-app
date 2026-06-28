@@ -15,7 +15,7 @@ runAgent({
     'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=AzureInfrastructureblog',
     'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=AzureDevCommunityBlog',
   ],
-  tavilyQuery: 'Microsoft Azure new features cloud services announcement 2026',
+  searchQuery: 'Microsoft Azure new features AI cloud services announcement 2026',
 }).catch(err => {
   console.error('❌ Agent failed:', err.message);
   process.exit(1);

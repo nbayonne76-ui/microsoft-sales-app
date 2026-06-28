@@ -16,7 +16,7 @@ runAgent({
     'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=MicrosoftTeamsBlog',
     'https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/boardmessages?board.id=Microsoft365CopilotBlog',
   ],
-  tavilyQuery: 'Microsoft 365 Teams Copilot modern work productivity announcement 2026',
+  searchQuery: 'Microsoft 365 Teams Copilot modern work productivity announcement 2026',
 }).catch(err => {
   console.error('❌ Agent failed:', err.message);
   process.exit(1);

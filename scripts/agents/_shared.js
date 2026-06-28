@@ -1,23 +1,38 @@
 /**
  * Shared utilities for Microsoft blog agents.
- * CommonJS : runs as standalone Node.js scripts.
+ * Pipeline (happi_brain pattern v2) :
+ *   RSS + Exa → Jina fallback → Tavily fallback
+ *   → URL hash dedup
+ *   → Claude Haiku 4.5 scorer (keep ≥ 6)
+ *   → Claude Sonnet 4.6 generator (article bilingue JSON + KB update)
+ *   → blog-articles.json
+ *
+ * CommonJS : runs as standalone Node.js scripts (GitHub Actions).
  */
 
-const fs   = require('fs');
-const path = require('path');
+const fs     = require('fs');
+const path   = require('path');
+const crypto = require('crypto');
 
 const DATA_PATH = path.join(__dirname, '../../data/blog-articles.json');
+const KB_DIR    = path.join(__dirname, '../../templates/knowledge-base');
 
-// ── Env loader (.env.local) ───────────────────────────────────────────────────
+const KB_FILENAME = {
+  azure:         'azure-recent-updates.md',
+  dynamics:      'dynamics-recent-updates.md',
+  'modern-work': 'm365-recent-updates.md',
+  copilot:       'copilot-recent-updates.md',
+  securite:      'securite-recent-updates.md',
+};
+
+// ── Env loader (.env.local / .env) ────────────────────────────────────────────
 
 function loadEnv() {
-  const candidates = ['.env.local', '.env'];
-  const envPath = candidates
+  const envPath = ['.env.local', '.env']
     .map(f => path.join(__dirname, '../../', f))
     .find(p => fs.existsSync(p));
   if (!envPath) return;
-  const lines = fs.readFileSync(envPath, 'utf-8').split('\n');
-  for (const line of lines) {
+  for (const line of fs.readFileSync(envPath, 'utf-8').split('\n')) {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith('#')) continue;
     const eq = trimmed.indexOf('=');
@@ -26,6 +41,14 @@ function loadEnv() {
     const val = trimmed.slice(eq + 1).trim().replace(/^["']|["']$/g, '');
     if (!process.env[key]) process.env[key] = val;
   }
+}
+
+// ── Anthropic client ──────────────────────────────────────────────────────────
+
+function getAnthropicClient() {
+  const pkg = require('@anthropic-ai/sdk');
+  const Anthropic = pkg.default ?? pkg.Anthropic ?? pkg;
+  return new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 }
 
 // ── RSS fetcher ───────────────────────────────────────────────────────────────
@@ -40,24 +63,22 @@ function decodeEntities(str = '') {
 
 function parseRSS(xml) {
   const items = [];
-  const blocks = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)];
-  for (const block of blocks.slice(0, 8)) {
+  for (const block of [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, 10)) {
     const raw = block[1];
-    const getField = (tag) => {
-      const cdata = raw.match(new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]>`, 'i'));
-      if (cdata) return cdata[1].trim();
-      const plain = raw.match(new RegExp(`<${tag}[^>]*>([^<]*)<\\/${tag}>`, 'i'));
-      return plain ? plain[1].trim() : '';
+    const get = tag => {
+      const cd = raw.match(new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]>`, 'i'));
+      if (cd) return cd[1].trim();
+      const pl = raw.match(new RegExp(`<${tag}[^>]*>([^<]*)<\\/${tag}>`, 'i'));
+      return pl ? pl[1].trim() : '';
     };
-    const title   = decodeEntities(getField('title')).slice(0, 200);
-    const link    = getField('link') || getField('guid');
-    const rawDesc = decodeEntities(getField('description'));
-    const excerpt = rawDesc.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 400);
-    const pubDate = getField('pubDate');
+    const title   = decodeEntities(get('title')).slice(0, 200);
+    const link    = get('link') || get('guid');
+    const excerpt = decodeEntities(get('description')).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 400);
+    const pubDate = get('pubDate');
     if (!title || !link) continue;
     let date = new Date(pubDate);
     if (isNaN(date.getTime())) date = new Date();
-    items.push({ title, excerpt, url: link, date: date.toISOString() });
+    items.push({ title, excerpt, url: link, date: date.toISOString(), source: 'RSS' });
   }
   return items;
 }
@@ -78,7 +99,55 @@ async function fetchMultipleRSS(urls) {
   return results.flatMap(r => r.status === 'fulfilled' ? r.value : []);
 }
 
-// ── Tavily search ─────────────────────────────────────────────────────────────
+// ── Exa neural search ─────────────────────────────────────────────────────────
+
+async function fetchExa(query) {
+  const key = process.env.EXA_API_KEY;
+  if (!key) return [];
+  try {
+    const res = await fetch('https://api.exa.ai/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': key },
+      body: JSON.stringify({ query, numResults: 6, type: 'neural', contents: { text: { maxCharacters: 400 } } }),
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.results || []).map(r => ({
+      title:   (r.title || '').slice(0, 200),
+      excerpt: (r.text || r.snippet || '').slice(0, 400),
+      url:     r.url || '',
+      date:    r.publishedDate ? new Date(r.publishedDate).toISOString() : new Date().toISOString(),
+      source:  'Exa',
+    }));
+  } catch { return []; }
+}
+
+// ── Jina search — gratuit, sans clé (fallback Exa) ────────────────────────────
+
+async function fetchJina(query) {
+  try {
+    const res = await fetch(`https://s.jina.ai/${encodeURIComponent(query)}`, {
+      headers: {
+        'Accept': 'application/json',
+        'X-Return-Format': 'json',
+        'User-Agent': 'MicrosoftSalesApp/BlogAgent',
+      },
+      signal: AbortSignal.timeout(12000),
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.data || []).slice(0, 5).map(r => ({
+      title:   (r.title || '').slice(0, 200),
+      excerpt: (r.content || r.description || '').replace(/<[^>]+>/g, ' ').trim().slice(0, 400),
+      url:     r.url || '',
+      date:    new Date().toISOString(),
+      source:  'Jina',
+    }));
+  } catch { return []; }
+}
+
+// ── Tavily search — fallback (1000/mois gratuit) ──────────────────────────────
 
 async function fetchTavily(query) {
   const key = process.env.TAVILY_API_KEY;
@@ -92,44 +161,118 @@ async function fetchTavily(query) {
     });
     const data = await res.json();
     return (data.results || []).map(r => ({
-      title:   r.title?.slice(0, 200) || '',
+      title:   (r.title || '').slice(0, 200),
       excerpt: (r.content || '').slice(0, 400),
-      url:     r.url,
+      url:     r.url || '',
       date:    r.published_date ? new Date(r.published_date).toISOString() : new Date().toISOString(),
+      source:  'Tavily',
     }));
   } catch { return []; }
 }
 
-// ── GPT-4o article generator ──────────────────────────────────────────────────
+// ── Chaîne de recherche : Exa → Jina → Tavily (pattern happi_brain) ──────────
+
+async function fetchSearch(query) {
+  let items = await fetchExa(query);
+  if (items.length === 0) {
+    console.log('   Exa empty → trying Jina (free)...');
+    items = await fetchJina(query);
+  }
+  if (items.length === 0) {
+    console.log('   Jina empty → trying Tavily...');
+    items = await fetchTavily(query);
+  }
+  return items;
+}
+
+// ── URL hash dedup (pattern happi_brain #5) ───────────────────────────────────
+
+function urlHash(url, title) {
+  const raw = url ? url.trim() : title.trim().toLowerCase().slice(0, 120);
+  return crypto.createHash('md5').update(raw).digest('hex');
+}
+
+function dedupItems(items) {
+  const seen = new Set();
+  return items.filter(item => {
+    const h = urlHash(item.url, item.title);
+    if (seen.has(h)) return false;
+    seen.add(h);
+    return true;
+  });
+}
+
+// ── Claude Haiku 4.5 scorer (pattern happi_brain #4) ─────────────────────────
+
+function keywordScore(item) {
+  const text = (item.title + ' ' + item.excerpt).toLowerCase();
+  const kw = ['microsoft', 'dynamics', 'copilot', 'azure', 'business central',
+               'ai agent', 'cloud erp', 'm365', 'teams', 'security', 'rgpd',
+               'nis2', 'entra', 'power platform', 'copilot studio'];
+  return Math.min(10, Math.max(1, kw.filter(k => text.includes(k)).length * 2));
+}
+
+async function scoreItems(items, domainLabel) {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.log('   No ANTHROPIC_API_KEY → keyword scorer fallback');
+    return items.map(item => ({ ...item, score: keywordScore(item) }));
+  }
+
+  const client = getAnthropicClient();
+  const newsText = items.map((n, i) => `[${i}] ${n.title}`).join('\n');
+
+  try {
+    const msg = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 300,
+      messages: [{
+        role: 'user',
+        content: `Score each article 1-10 for relevance to "${domainLabel}" sales for B2B Microsoft Account Managers in France.
+10 = directly actionable for a Microsoft seller, 1 = irrelevant.
+Return ONLY a JSON array of integers, one per article, no explanation.
+
+${newsText}`,
+      }],
+    });
+
+    const raw = msg.content[0]?.text || '[]';
+    const match = raw.match(/\[\s*[\d\s,]+\]/);
+    const scores = match ? JSON.parse(match[0]) : [];
+    return items.map((item, i) => ({ ...item, score: typeof scores[i] === 'number' ? scores[i] : keywordScore(item) }));
+  } catch (e) {
+    console.warn('   Haiku scorer error:', e.message, '→ keyword fallback');
+    return items.map(item => ({ ...item, score: keywordScore(item) }));
+  }
+}
+
+// ── Claude Sonnet 4.6 — générateur d'articles bilingues ──────────────────────
 
 async function generateArticle(newsItems, config) {
-  const { OpenAI } = require('openai');
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  const client = getAnthropicClient();
+  const today  = new Date().toISOString().split('T')[0];
+  const month  = today.slice(0, 7);
 
-  const today = new Date().toISOString().split('T')[0];
   const newsText = newsItems
-    .slice(0, 12)
-    .map((n, i) => `${i + 1}. [${n.date.slice(0, 10)}] ${n.title}\n   ${n.excerpt}`)
+    .slice(0, 10)
+    .map((n, i) => `${i + 1}. [score:${n.score}] [${n.date.slice(0, 10)}] ${n.title}\n   ${n.excerpt}`)
     .join('\n\n');
 
-  const systemPrompt = `You are a Microsoft expert content writer for a B2B sales enablement platform used by Microsoft Account Managers in France. You write authoritative, insightful articles targeted at IT decision-makers (DSI, RSSI, CTO) and Microsoft partners.
-
-Your articles:
-- Synthesize recent news into actionable sales insights
-- Highlight what changed and why it matters for enterprise customers
-- Provide concrete recommendations for Microsoft sellers
-- Are written in both French (primary) and English
-- Never include specific prices (they change often)
-- Focus on value, capabilities, and business impact`;
-
-  const userPrompt = `Based on these recent ${config.domainLabel} news and announcements, write ONE comprehensive expert blog article.
+  const msg = await client.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 3500,
+    system: `You are a Microsoft expert content writer for a B2B sales enablement platform used by Microsoft Account Managers in France. Write authoritative articles for IT decision-makers (DSI, RSSI, CTO) and Microsoft partners.
+Your articles: synthesize recent news into actionable sales insights, highlight business impact, give concrete recommendations for Microsoft sellers, are bilingual FR (primary) + EN. Never include specific prices.`,
+    messages: [
+      {
+        role: 'user',
+        content: `Based on these recent ${config.domainLabel} news (sorted by relevance), write ONE expert blog article.
 
 RECENT NEWS:
 ${newsText}
 
-Return ONLY valid JSON matching this EXACT structure (no markdown, no code blocks):
+Return ONLY valid JSON (no markdown, no code blocks):
 {
-  "slug": "kebab-case-unique-slug-based-on-main-topic-${today.slice(0, 7)}",
+  "slug": "descriptive-kebab-slug-${month}",
   "category": "${config.category}",
   "date": "${today}",
   "readTime": "X min",
@@ -137,185 +280,184 @@ Return ONLY valid JSON matching this EXACT structure (no markdown, no code block
   "authorRole": "Microsoft Partner Account Manager",
   "featured": false,
   "fr": {
-    "title": "Titre accrocheur en français (max 80 chars)",
-    "excerpt": "Résumé de 2-3 phrases en français captant l'essentiel (max 220 chars)",
+    "title": "Titre accrocheur FR (max 80 chars)",
+    "excerpt": "Résumé 2-3 phrases FR (max 220 chars)",
     "sections": [
-      { "type": "intro", "text": "Paragraphe d'introduction engageant (2-3 phrases)" },
-      { "type": "h2", "text": "Titre de section 1" },
-      { "type": "p", "text": "Paragraphe explicatif" },
-      { "type": "h2", "text": "Titre de section 2" },
-      { "type": "list", "items": ["Point 1", "Point 2", "Point 3"] },
+      { "type": "intro", "text": "..." },
+      { "type": "h2", "text": "..." },
+      { "type": "p", "text": "..." },
+      { "type": "h2", "text": "..." },
+      { "type": "list", "items": ["...", "...", "..."] },
       { "type": "h2", "text": "Ce que ça signifie pour vos clients" },
-      { "type": "p", "text": "Analyse commerciale et recommandations" },
-      { "type": "cta", "text": "Question d'appel à l'action", "action": "Analyser un compte", "href": "/account" }
+      { "type": "p", "text": "..." },
+      { "type": "cta", "text": "Question CTA", "action": "Analyser un compte", "href": "/account" }
     ]
   },
   "en": {
-    "title": "Catchy title in English (max 80 chars)",
-    "excerpt": "2-3 sentence summary in English (max 220 chars)",
+    "title": "Catchy EN title (max 80 chars)",
+    "excerpt": "2-3 sentence EN summary (max 220 chars)",
     "sections": [
-      { "type": "intro", "text": "Engaging introduction (2-3 sentences)" },
-      { "type": "h2", "text": "Section heading 1" },
-      { "type": "p", "text": "Explanatory paragraph" },
-      { "type": "h2", "text": "Section heading 2" },
-      { "type": "list", "items": ["Point 1", "Point 2", "Point 3"] },
+      { "type": "intro", "text": "..." },
+      { "type": "h2", "text": "..." },
+      { "type": "p", "text": "..." },
+      { "type": "h2", "text": "..." },
+      { "type": "list", "items": ["...", "...", "..."] },
       { "type": "h2", "text": "What This Means for Your Customers" },
-      { "type": "p", "text": "Commercial analysis and recommendations" },
-      { "type": "cta", "text": "Call to action question", "action": "Analyze an account", "href": "/account" }
+      { "type": "p", "text": "..." },
+      { "type": "cta", "text": "CTA question", "action": "Analyze an account", "href": "/account" }
     ]
   }
 }
-
-Rules:
-- slug must be unique and descriptive (use main topic + month like "azure-ai-agent-june-2026")
-- readTime: calculate based on word count (avg 200 words/min, typically "5 min" to "8 min")
-- sections: 6-8 sections for a rich article
-- NO prices or specific dollar amounts
-- Focus on capabilities, business value, and sales angles`;
-
-  const completion = await openai.chat.completions.create({
-    model: 'gpt-4o',
-    messages: [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userPrompt },
+Rules: slug = topic + month (e.g. "dynamics-copilot-agents-june-2026"), 6-8 sections, NO prices.`,
+      },
+      { role: 'assistant', content: '{' },
     ],
-    response_format: { type: 'json_object' },
-    temperature: 0.4,
-    max_tokens: 3000,
   });
 
-  const raw = completion.choices[0]?.message?.content;
-  if (!raw) throw new Error('GPT-4o returned empty response');
-  return JSON.parse(raw);
+  const raw = '{' + (msg.content[0]?.text || '');
+  try {
+    return JSON.parse(raw);
+  } catch {
+    // Extract JSON if Claude added trailing text
+    const match = raw.match(/\{[\s\S]*\}/);
+    if (match) return JSON.parse(match[0]);
+    throw new Error('Claude Sonnet returned invalid JSON for article');
+  }
 }
 
-// ── KB update generator ───────────────────────────────────────────────────────
-
-const KB_DIR  = path.join(__dirname, '../../templates/knowledge-base');
-const KB_FILENAME = {
-  azure:          'azure-recent-updates.md',
-  dynamics:       'dynamics-recent-updates.md',
-  'modern-work':  'm365-recent-updates.md',
-};
+// ── Claude Sonnet 4.6 — mise à jour KB ───────────────────────────────────────
 
 async function generateKbUpdate(newsItems, config) {
-  const { OpenAI } = require('openai');
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  const client = getAnthropicClient();
   const today  = new Date().toISOString().split('T')[0];
 
   const newsText = newsItems
-    .slice(0, 12)
+    .slice(0, 10)
     .map((n, i) => `${i + 1}. [${n.date.slice(0, 10)}] ${n.title}\n   ${n.excerpt}`)
     .join('\n\n');
 
-  const completion = await openai.chat.completions.create({
-    model: 'gpt-4o',
-    messages: [
-      {
-        role: 'system',
-        content: `Tu es un expert Microsoft qui crée des mises à jour de base de connaissances pour les Account Managers Microsoft en France. Ton contenu est utilisé directement par des outils IA (Account Intel, Email Generator, Agent IA) pour aider les commerciaux à préparer leurs rendez-vous clients. Format : markdown structuré, factuel, actionnable.`,
-      },
-      {
-        role: 'user',
-        content: `En te basant sur ces dernières actualités ${config.domainLabel}, crée une mise à jour structurée de la base de connaissances.
+  const msg = await client.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 2000,
+    system: `Tu es un expert Microsoft qui crée des mises à jour de base de connaissances pour les Account Managers Microsoft en France. Ton contenu est utilisé directement par des outils IA (Account Intel, Email Generator) pour préparer des rendez-vous clients. Format : markdown structuré, factuel, actionnable.`,
+    messages: [{
+      role: 'user',
+      content: `Basé sur ces actualités ${config.domainLabel}, crée une mise à jour KB pour les Account Managers.
 
-ACTUALITÉS RÉCENTES :
+ACTUALITÉS (${today}) :
 ${newsText}
 
-Génère un document markdown avec ces sections :
+Génère un document markdown avec ces sections EXACTES :
 
 # ${config.domainLabel} : Mise à jour KB (${today})
 
 ## Dernières annonces
-(bullet points : nom de la feature → impact business concis)
+(bullet points : feature → impact business concis)
 
 ## Ce qui change pour vos clients
-(impact pratique pour les DSI, RSSI, CTO)
+(impact pratique DSI, RSSI, CTO)
 
 ## Arguments de vente clés
-(3-5 points percutants pour les Account Managers)
+(3-5 points percutants)
 
 ## Profil client cible
-(qui contacter suite à ces annonces : secteur, taille, rôle)
+(secteur, taille, rôle à contacter)
 
 ## Questions clients fréquentes
 (2-3 Q&A sur les nouveautés)
 
 ## Angle concurrentiel
-(comment Microsoft se différencie vs AWS, Salesforce, Google...)
+(différenciation vs AWS, Salesforce, Google...)
 
-Rédige en français avec les termes techniques en anglais quand c'est l'usage standard.`,
-      },
-    ],
-    temperature: 0.3,
-    max_tokens: 2000,
+Rédige en français, termes techniques en anglais.`,
+    }],
   });
 
-  return completion.choices[0]?.message?.content || '';
+  return msg.content[0]?.text || '';
 }
 
-function saveKbFile(topic, content) {
-  const filename = KB_FILENAME[topic];
+// ── Persistence KB ────────────────────────────────────────────────────────────
+
+function saveKbFile(category, content) {
+  const filename = KB_FILENAME[category] || KB_FILENAME[category === 'm365' ? 'modern-work' : category];
   if (!filename || !content) return;
-  fs.writeFileSync(path.join(KB_DIR, filename), content, 'utf-8');
-  console.log(`📚 KB updated: ${filename}`);
+  const kbPath = path.join(KB_DIR, filename);
+  if (fs.existsSync(KB_DIR)) {
+    fs.writeFileSync(kbPath, content, 'utf-8');
+    console.log(`📚 KB updated: ${filename}`);
+  }
 }
 
-// ── Article persistence ───────────────────────────────────────────────────────
+// ── Persistence article ───────────────────────────────────────────────────────
 
 function saveArticle(article) {
   const articles = JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
   const idx = articles.findIndex(a => a.slug === article.slug);
   if (idx >= 0) {
     articles[idx] = article;
-    console.log(`✏️  Updated existing article: ${article.slug}`);
+    console.log(`✏️  Updated: ${article.slug}`);
   } else {
     articles.unshift(article);
-    console.log(`✅ Added new article: ${article.slug}`);
+    console.log(`✅ Added: ${article.slug}`);
   }
   fs.writeFileSync(DATA_PATH, JSON.stringify(articles, null, 2), 'utf-8');
-  console.log(`📦 blog-articles.json now has ${articles.length} articles`);
+  console.log(`📦 blog-articles.json → ${articles.length} articles`);
 }
 
 // ── Main runner ───────────────────────────────────────────────────────────────
 
 async function runAgent(config) {
-  console.log(`\n🤖 ${config.domainLabel} Agent : ${new Date().toISOString()}`);
-  console.log('─'.repeat(50));
+  console.log(`\n🤖 ${config.domainLabel} Agent — ${new Date().toISOString()}`);
+  console.log('─'.repeat(55));
 
   loadEnv();
 
-  if (!process.env.OPENAI_API_KEY) {
-    console.error('❌ OPENAI_API_KEY not set : abort');
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.error('❌ ANTHROPIC_API_KEY not set — abort');
     process.exit(1);
   }
 
+  // 1. Sources RSS en parallèle
   console.log('📡 Fetching RSS feeds...');
   const rssItems = await fetchMultipleRSS(config.rssUrls);
-  console.log(`   ${rssItems.length} items from RSS`);
+  console.log(`   ${rssItems.length} items from ${config.rssUrls.length} RSS feeds`);
 
-  console.log('🔍 Fetching Tavily search...');
-  const tavilyItems = await fetchTavily(config.tavilyQuery);
-  console.log(`   ${tavilyItems.length} items from Tavily`);
+  // 2. Chaîne Exa → Jina → Tavily
+  console.log('🔍 Search chain: Exa → Jina → Tavily...');
+  const searchItems = await fetchSearch(config.searchQuery);
+  console.log(`   ${searchItems.length} items from search (${searchItems[0]?.source || 'none'})`);
 
-  const allItems = [...rssItems, ...tavilyItems]
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 12);
+  // 3. Merge + dedup URL hash
+  const raw = dedupItems([...rssItems, ...searchItems]);
+  const allItems = raw.sort((a, b) => new Date(b.date) - new Date(a.date));
+  console.log(`   ${allItems.length} unique items after URL dedup`);
 
   if (allItems.length === 0) {
-    console.warn('⚠️  No news items found : skipping article generation');
+    console.warn('⚠️  No items found — skipping');
     return;
   }
 
-  console.log(`\n✍️  Generating article + KB update with GPT-4o (${allItems.length} news items)...`);
+  // 4. Scorer Claude Haiku 4.5
+  console.log('🎯 Scoring with Claude Haiku 4.5...');
+  const scored = await scoreItems(allItems, config.domainLabel);
+  const relevant = scored.filter(i => i.score >= 6).sort((a, b) => b.score - a.score);
+  console.log(`   ${relevant.length}/${scored.length} items score ≥ 6`);
+
+  const toGenerate = relevant.length >= 3 ? relevant : scored.sort((a, b) => b.score - a.score).slice(0, 8);
+
+  // 5. Claude Sonnet 4.6 — article + KB en parallèle
+  console.log(`\n✍️  Generating article + KB with Claude Sonnet 4.6 (${toGenerate.length} items)...`);
   const [article, kbContent] = await Promise.all([
-    generateArticle(allItems, config),
-    generateKbUpdate(allItems, config),
+    generateArticle(toGenerate, config),
+    generateKbUpdate(toGenerate, config),
   ]);
 
-  console.log(`\n📄 Article generated: "${article.fr?.title}"`);
+  console.log(`\n📄 Article: "${article.fr?.title}"`);
+  console.log(`   Slug: ${article.slug}`);
+
+  // 6. Save
   saveArticle(article);
-  saveKbFile(config.category === 'm365' ? 'modern-work' : config.category, kbContent);
+  saveKbFile(config.category, kbContent);
   console.log('\n✅ Done!\n');
 }
 
