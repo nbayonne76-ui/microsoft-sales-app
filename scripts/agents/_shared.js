@@ -75,19 +75,31 @@ function parseRSS(xml) {
   return items;
 }
 
-async function fetchRSS(url) {
+async function fetchRSS(url, retry = true) {
   try {
     const res = await fetch(url, {
       headers: { 'User-Agent': 'Mozilla/5.0 MicrosoftSalesApp/BlogAgent' },
       signal: AbortSignal.timeout(8000),
     });
-    if (!res.ok) return [];
-    return parseRSS((await res.text()).slice(0, 400 * 1024));
-  } catch { return []; }
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const items = parseRSS((await res.text()).slice(0, 400 * 1024));
+    // Smart retry — source vide → 1 retry après 5s backoff
+    if (items.length === 0 && retry) {
+      await new Promise(r => setTimeout(r, 5000));
+      return fetchRSS(url, false);
+    }
+    return items;
+  } catch {
+    if (retry) {
+      await new Promise(r => setTimeout(r, 5000));
+      return fetchRSS(url, false);
+    }
+    return [];
+  }
 }
 
 async function fetchMultipleRSS(urls) {
-  const results = await Promise.allSettled(urls.map(fetchRSS));
+  const results = await Promise.allSettled(urls.map(u => fetchRSS(u)));
   return results.flatMap(r => r.status === 'fulfilled' ? r.value : []);
 }
 
@@ -139,6 +151,30 @@ async function fetchJina(query) {
   } catch { return []; }
 }
 
+// ── Linkup deep research — fallback (linkup.so) ───────────────────────────────
+
+async function fetchLinkup(query) {
+  const key = process.env.LINKUP_API_KEY;
+  if (!key) return [];
+  try {
+    const res = await fetch('https://api.linkup.so/v1/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+      body: JSON.stringify({ q: query, depth: 'standard', outputType: 'sourcedAnswer', includeImages: false }),
+      signal: AbortSignal.timeout(12000),
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.sources || []).slice(0, 5).map(r => ({
+      title:   (r.name || r.title || '').slice(0, 200),
+      excerpt: (r.snippet || r.content || '').slice(0, 400),
+      url:     r.url || '',
+      date:    new Date().toISOString(),
+      source:  'Linkup',
+    }));
+  } catch { return []; }
+}
+
 // ── Tavily search — fallback (1000/mois gratuit) ──────────────────────────────
 
 async function fetchTavily(query) {
@@ -162,7 +198,7 @@ async function fetchTavily(query) {
   } catch { return []; }
 }
 
-// ── Chaîne : Exa → Jina → Tavily ─────────────────────────────────────────────
+// ── Chaîne : Exa → Jina → Linkup → Tavily ───────────────────────────────────
 
 async function fetchSearch(query) {
   let items = await fetchExa(query);
@@ -170,8 +206,12 @@ async function fetchSearch(query) {
     console.log('   Exa empty → trying Jina (free)...');
     items = await fetchJina(query);
   }
+  if (items.length === 0 && process.env.LINKUP_API_KEY) {
+    console.log('   Jina empty → trying Linkup...');
+    items = await fetchLinkup(query);
+  }
   if (items.length === 0) {
-    console.log('   Jina empty → trying Tavily...');
+    console.log('   → trying Tavily...');
     items = await fetchTavily(query);
   }
   return items;
@@ -337,6 +377,28 @@ Rédige en français, termes techniques en anglais.`,
   return completion.choices[0]?.message?.content || '';
 }
 
+// ── Webhook alert (Slack / Make.com / n8n) ────────────────────────────────────
+
+async function sendWebhook(article) {
+  const url = process.env.WEBHOOK_URL;
+  if (!url) return;
+  try {
+    await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text: `📰 Nouvel article blog généré`,
+        title: article.fr?.title,
+        slug: article.slug,
+        category: article.category,
+        date: article.date,
+        url: `https://microsoft-sales-app.vercel.app/blog/${article.slug}`,
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+  } catch { /* webhook non critique */ }
+}
+
 // ── Persistence ───────────────────────────────────────────────────────────────
 
 function saveKbFile(category, content) {
@@ -413,9 +475,10 @@ async function runAgent(config) {
   console.log(`\n📄 Article: "${article.fr?.title}"`);
   console.log(`   Slug: ${article.slug}`);
 
-  // 6. Save
+  // 6. Save + webhook
   saveArticle(article);
   saveKbFile(config.category, kbContent);
+  await sendWebhook(article);
   console.log('\n✅ Done!\n');
 }
 
