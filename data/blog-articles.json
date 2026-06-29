@@ -1,5 +1,602 @@
 [
   {
+    "slug": "microsoft-defender-advancements-june-2026",
+    "category": "securite",
+    "date": "2026-06-29",
+    "readTime": "5 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Nouveautés de Microsoft Defender : Sécurité renforcée en 2026",
+      "excerpt": "Découvrez les dernières avancées de Microsoft Defender, y compris les analyses antivirus programmées sur Linux et la collecte de données personnalisée.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Dans un paysage de menaces en constante évolution, Microsoft continue d'améliorer ses solutions de sécurité pour répondre aux besoins des entreprises."
+        },
+        {
+          "type": "h2",
+          "text": "Analyses antivirus programmées sur Linux"
+        },
+        {
+          "type": "p",
+          "text": "L'introduction des analyses antivirus programmées sur Microsoft Defender pour Linux marque une avancée significative. Les équipes de sécurité peuvent désormais gérer ces analyses de manière centralisée, garantissant une couverture cohérente et facilitant la conformité."
+        },
+        {
+          "type": "h2",
+          "text": "Collecte de données personnalisée"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Optimisation de la collecte de données dans le portail Defender",
+            "Réduction de la dépendance à des solutions fragmentées",
+            "Réponse plus rapide aux besoins spécifiques des équipes de sécurité"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Leadership dans la gestion des points de terminaison"
+        },
+        {
+          "type": "p",
+          "text": "Microsoft a été reconnu comme leader dans le rapport Forrester Wave™ pour les plateformes de gestion des points de terminaison, soulignant son engagement envers l'innovation et la sécurité."
+        },
+        {
+          "type": "h2",
+          "text": "Implications pour la gestion des risques dans le cloud"
+        },
+        {
+          "type": "p",
+          "text": "Avec l'évolution des plateformes CNAPP, Microsoft s'aligne sur les meilleures pratiques pour aider les organisations à prioriser les risques exploitables et à sécuriser l'ensemble du cycle de vie des applications."
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "Ces avancées permettent aux entreprises de renforcer leur posture de sécurité, d'améliorer leur conformité et de répondre plus efficacement aux menaces émergentes."
+        },
+        {
+          "type": "cta",
+          "text": "Comment ces améliorations peuvent-elles bénéficier à votre entreprise ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Microsoft Defender Updates: Enhanced Security in 2026",
+      "excerpt": "Explore the latest advancements in Microsoft Defender, including scheduled antivirus scans on Linux and custom data collection.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "In an ever-evolving threat landscape, Microsoft continues to enhance its security solutions to meet business needs."
+        },
+        {
+          "type": "h2",
+          "text": "Scheduled Antivirus Scans on Linux"
+        },
+        {
+          "type": "p",
+          "text": "The introduction of scheduled antivirus scans in Microsoft Defender for Linux marks a significant advancement. Security teams can now manage these scans centrally, ensuring consistent coverage and facilitating compliance."
+        },
+        {
+          "type": "h2",
+          "text": "Custom Data Collection"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Optimizing data collection within the Defender portal",
+            "Reducing reliance on fragmented solutions",
+            "Faster response to specific security team needs"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Leadership in Endpoint Management"
+        },
+        {
+          "type": "p",
+          "text": "Microsoft has been recognized as a leader in the Forrester Wave™ for Endpoint Management Platforms, highlighting its commitment to innovation and security."
+        },
+        {
+          "type": "h2",
+          "text": "Implications for Cloud Risk Management"
+        },
+        {
+          "type": "p",
+          "text": "With the evolution of CNAPP platforms, Microsoft aligns with best practices to help organizations prioritize exploitable risks and secure the entire application lifecycle."
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "These advancements enable businesses to strengthen their security posture, enhance compliance, and respond more effectively to emerging threats."
+        },
+        {
+          "type": "cta",
+          "text": "How can these improvements benefit your business?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "dynamics-copilot-productivity-june-2026",
+    "category": "copilot",
+    "date": "2026-06-29",
+    "readTime": "5 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Améliorez la productivité de D365 avec Copilot",
+      "excerpt": "Découvrez comment Copilot peut réduire la dette technique et augmenter la productivité dans Dynamics 365. Une approche proactive est essentielle pour l'avenir.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Dans le monde dynamique des affaires d'aujourd'hui, la productivité est essentielle. Cependant, de nombreuses entreprises rencontrent des défis liés à la dette technique dans leurs systèmes ERP, notamment Dynamics 365."
+        },
+        {
+          "type": "h2",
+          "text": "Comprendre la Dette Technique"
+        },
+        {
+          "type": "p",
+          "text": "La dette technique se réfère aux compromis faits lors du développement logiciel qui peuvent entraîner des coûts supplémentaires à long terme. Dans le contexte de D365, cela peut signifier des mises à jour lentes, des personnalisations difficiles à gérer et des problèmes de sécurité."
+        },
+        {
+          "type": "h2",
+          "text": "Comment Copilot Peut Aider"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Automatisation des flux de travail",
+            "Amélioration de la prise de décision grâce à des analyses avancées",
+            "Réduction des coûts liés à la gestion des personnalisations"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Les Fonctionnalités Cachées de Copilot"
+        },
+        {
+          "type": "p",
+          "text": "Copilot offre des fonctionnalités qui peuvent transformer la façon dont les utilisateurs interagissent avec D365. Par exemple, l'automatisation des tâches répétitives permet aux employés de se concentrer sur des activités à plus forte valeur ajoutée."
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "En intégrant Copilot, vos clients peuvent non seulement réduire leur dette technique, mais aussi optimiser leur productivité, ce qui leur donne un avantage concurrentiel significatif."
+        },
+        {
+          "type": "cta",
+          "text": "Prêt à transformer votre approche D365 ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Boost D365 Productivity with Copilot",
+      "excerpt": "Explore how Copilot can reduce technical debt and enhance productivity in Dynamics 365. A proactive approach is crucial for the future.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "In today's fast-paced business world, productivity is paramount. However, many organizations face challenges related to technical debt in their ERP systems, particularly Dynamics 365."
+        },
+        {
+          "type": "h2",
+          "text": "Understanding Technical Debt"
+        },
+        {
+          "type": "p",
+          "text": "Technical debt refers to the trade-offs made during software development that can lead to increased costs over time. In the context of D365, this can mean slow upgrades, difficult-to-manage customizations, and security issues."
+        },
+        {
+          "type": "h2",
+          "text": "How Copilot Can Help"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Workflow automation",
+            "Enhanced decision-making through advanced analytics",
+            "Reduced costs associated with managing customizations"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Hidden Features of Copilot"
+        },
+        {
+          "type": "p",
+          "text": "Copilot offers features that can transform how users interact with D365. For instance, automating repetitive tasks allows employees to focus on higher-value activities."
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "By integrating Copilot, your customers can not only reduce their technical debt but also optimize their productivity, giving them a significant competitive edge."
+        },
+        {
+          "type": "cta",
+          "text": "Ready to transform your D365 approach?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "teams-phone-agent-copilot-june-2026",
+    "category": "m365",
+    "date": "2026-06-29",
+    "readTime": "5 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Améliorez le service client avec Teams Phone Agent",
+      "excerpt": "Découvrez comment Teams Phone Agent et les agents vocaux personnalisés révolutionnent le service client, en offrant des solutions innovantes pour gérer les pics d'appels.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Avec l'essor du travail moderne, les entreprises doivent s'adapter à des volumes d'appels fluctuants. Microsoft Teams Phone Agent, associé à l'IA vocale, offre une solution efficace pour améliorer l'expérience client."
+        },
+        {
+          "type": "h2",
+          "text": "Qu'est-ce que Teams Phone Agent ?"
+        },
+        {
+          "type": "p",
+          "text": "Teams Phone Agent est une fonctionnalité de Microsoft Teams qui permet aux entreprises de gérer les appels entrants de manière plus efficace. Grâce à l'intégration de l'IA vocale, les entreprises peuvent automatiser les réponses aux questions fréquentes et faciliter les transactions."
+        },
+        {
+          "type": "h2",
+          "text": "Les avantages de l'IA vocale pour le service client"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Réduction des temps d'attente pour les clients.",
+            "Disponibilité 24/7 pour répondre aux demandes.",
+            "Capacité à traiter plusieurs appels simultanément."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Améliorations récentes dans Copilot Studio"
+        },
+        {
+          "type": "p",
+          "text": "Les dernières mises à jour de Copilot Studio, y compris les agents utilisant des ordinateurs et les flux de travail intelligents, permettent une personnalisation accrue et une meilleure gouvernance des agents."
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "L'intégration de Teams Phone Agent et des agents vocaux personnalisés permet à vos clients d'améliorer leur service client tout en réduisant les coûts opérationnels. Cela crée également une expérience client plus fluide et réactive."
+        },
+        {
+          "type": "cta",
+          "text": "Comment Teams Phone Agent peut-il transformer votre service client ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Enhance Customer Service with Teams Phone Agent",
+      "excerpt": "Explore how Teams Phone Agent and custom voice agents are revolutionizing customer service, providing innovative solutions to manage call surges.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "With the rise of modern work, businesses must adapt to fluctuating call volumes. Microsoft Teams Phone Agent, combined with voice AI, offers an effective solution to enhance customer experience."
+        },
+        {
+          "type": "h2",
+          "text": "What is Teams Phone Agent?"
+        },
+        {
+          "type": "p",
+          "text": "Teams Phone Agent is a feature of Microsoft Teams that allows businesses to handle incoming calls more efficiently. With the integration of voice AI, companies can automate responses to common inquiries and facilitate transactions."
+        },
+        {
+          "type": "h2",
+          "text": "Benefits of Voice AI for Customer Service"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Reduced wait times for customers.",
+            "24/7 availability to handle requests.",
+            "Ability to process multiple calls simultaneously."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Recent Enhancements in Copilot Studio"
+        },
+        {
+          "type": "p",
+          "text": "The latest updates in Copilot Studio, including computer-using agents and intelligent workflows, allow for greater customization and improved governance over agents."
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "The integration of Teams Phone Agent and custom voice agents enables your customers to enhance their customer service while reducing operational costs. This also creates a smoother and more responsive customer experience."
+        },
+        {
+          "type": "cta",
+          "text": "How can Teams Phone Agent transform your customer service?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "dynamics-copilot-business-central-june-2026",
+    "category": "dynamics",
+    "date": "2026-06-29",
+    "readTime": "5 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Optimisez votre ERP avec Copilot dans Business Central",
+      "excerpt": "Découvrez comment Microsoft Copilot révolutionne l'utilisation de Dynamics 365 Business Central, en automatisant les tâches et en améliorant la productivité des équipes.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Dans un monde où l'efficacité opérationnelle est cruciale, Microsoft Copilot s'impose comme un atout majeur pour les utilisateurs de Dynamics 365 Business Central."
+        },
+        {
+          "type": "h2",
+          "text": "Qu'est-ce que Microsoft Copilot?"
+        },
+        {
+          "type": "p",
+          "text": "Microsoft Copilot est une solution d'intelligence artificielle intégrée qui aide les utilisateurs à automatiser des tâches répétitives, à générer du contenu et à améliorer la prise de décision grâce à des analyses contextuelles."
+        },
+        {
+          "type": "h2",
+          "text": "Fonctionnalités clés de Copilot dans Business Central"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Automatisation de la création de contenu produit",
+            "Réconciliation financière simplifiée",
+            "Assistance contextuelle pour la prise de décision"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Comment activer Copilot dans Business Central?"
+        },
+        {
+          "type": "p",
+          "text": "Pour activer Copilot, suivez ces étapes simples : connectez-vous à votre instance de Business Central, accédez aux paramètres, et activez l'option Copilot. Une fois activé, vous pourrez commencer à bénéficier de ses fonctionnalités immédiatement."
+        },
+        {
+          "type": "h2",
+          "text": "Les avantages de l'intégration de l'IA"
+        },
+        {
+          "type": "p",
+          "text": "L'intégration de l'IA dans Business Central permet non seulement d'éliminer les tâches fastidieuses, mais aussi d'améliorer la précision des données et d'accélérer les processus métier."
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "En adoptant Microsoft Copilot, vos clients peuvent s'attendre à une augmentation significative de leur productivité et une réduction des erreurs humaines, ce qui se traduit par une meilleure satisfaction client et une rentabilité accrue."
+        },
+        {
+          "type": "cta",
+          "text": "Vous souhaitez en savoir plus?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Optimize Your ERP with Copilot in Business Central",
+      "excerpt": "Discover how Microsoft Copilot is revolutionizing the use of Dynamics 365 Business Central by automating tasks and enhancing team productivity.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "In a world where operational efficiency is crucial, Microsoft Copilot emerges as a key asset for users of Dynamics 365 Business Central."
+        },
+        {
+          "type": "h2",
+          "text": "What is Microsoft Copilot?"
+        },
+        {
+          "type": "p",
+          "text": "Microsoft Copilot is an integrated AI solution that helps users automate repetitive tasks, generate content, and improve decision-making through contextual analytics."
+        },
+        {
+          "type": "h2",
+          "text": "Key Features of Copilot in Business Central"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Automated product content creation",
+            "Simplified financial reconciliation",
+            "Contextual assistance for decision-making"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "How to Enable Copilot in Business Central?"
+        },
+        {
+          "type": "p",
+          "text": "To enable Copilot, follow these simple steps: log into your Business Central instance, navigate to settings, and activate the Copilot option. Once activated, you can start benefiting from its features immediately."
+        },
+        {
+          "type": "h2",
+          "text": "The Advantages of AI Integration"
+        },
+        {
+          "type": "p",
+          "text": "Integrating AI into Business Central not only eliminates tedious tasks but also improves data accuracy and accelerates business processes."
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "By adopting Microsoft Copilot, your customers can expect a significant increase in productivity and a reduction in human errors, leading to improved customer satisfaction and enhanced profitability."
+        },
+        {
+          "type": "cta",
+          "text": "Want to learn more?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "azure-cloud-security-june-2026",
+    "category": "azure",
+    "date": "2026-06-29",
+    "readTime": "5 min",
+    "author": "Nicolas BAYONNE",
+    "authorRole": "Microsoft Partner Account Manager",
+    "featured": false,
+    "fr": {
+      "title": "Sécuriser le Cloud : Innovations Azure pour 2026",
+      "excerpt": "Découvrez comment Azure renforce la sécurité des données et des infrastructures cloud avec des innovations clés en 2026.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "La sécurisation des infrastructures cloud est plus cruciale que jamais. Avec l'augmentation des menaces, Microsoft Azure se positionne comme un leader en matière de sécurité des données grâce à des innovations récentes."
+        },
+        {
+          "type": "h2",
+          "text": "Protection avancée contre les vulnérabilités mémoire"
+        },
+        {
+          "type": "p",
+          "text": "Avec le lancement d'Azure Cobalt 200, Microsoft introduit une nouvelle approche pour sécuriser la mémoire des infrastructures cloud. Cette seconde génération de processeurs Arm intègre des défenses avancées contre les attaques mémoire, en combinant matériel et logiciel."
+        },
+        {
+          "type": "h2",
+          "text": "Modernisation des migrations de données"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Planification stratégique pour une migration réussie",
+            "Maintien de la continuité des affaires",
+            "Optimisation des performances et gestion des coûts"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Optimisation des bases de données sur Azure"
+        },
+        {
+          "type": "p",
+          "text": "La performance des bases de données est essentielle pour éviter des impacts négatifs sur les opérations. Azure facilite l'optimisation de PostgreSQL directement dans Visual Studio Code, permettant ainsi aux équipes de développement de gagner en efficacité."
+        },
+        {
+          "type": "h2",
+          "text": "Ce que ça signifie pour vos clients"
+        },
+        {
+          "type": "p",
+          "text": "Les entreprises peuvent désormais migrer vers le cloud en toute confiance, sachant qu'Azure offre des solutions robustes pour protéger leurs données et optimiser leurs opérations. Cela se traduit par une meilleure satisfaction client et une réduction des risques."
+        },
+        {
+          "type": "cta",
+          "text": "Comment votre entreprise se prépare-t-elle à ces changements ?",
+          "action": "Analyser un compte",
+          "href": "/account"
+        }
+      ]
+    },
+    "en": {
+      "title": "Securing the Cloud: Azure Innovations for 2026",
+      "excerpt": "Explore how Azure is enhancing data and cloud infrastructure security with key innovations in 2026.",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Securing cloud infrastructures is more critical than ever. With the rise of threats, Microsoft Azure positions itself as a leader in data security through recent innovations."
+        },
+        {
+          "type": "h2",
+          "text": "Advanced Protection Against Memory Vulnerabilities"
+        },
+        {
+          "type": "p",
+          "text": "With the launch of Azure Cobalt 200, Microsoft introduces a new approach to secure memory in cloud infrastructures. This second generation of Arm processors incorporates advanced defenses against memory attacks, leveraging hardware-software co-design."
+        },
+        {
+          "type": "h2",
+          "text": "Modernizing Data Migrations"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Strategic planning for successful migration",
+            "Ensuring business continuity",
+            "Performance optimization and cost management"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Optimizing Databases on Azure"
+        },
+        {
+          "type": "p",
+          "text": "Database performance is essential to avoid negative impacts on operations. Azure facilitates the optimization of PostgreSQL directly in Visual Studio Code, allowing development teams to increase efficiency."
+        },
+        {
+          "type": "h2",
+          "text": "What This Means for Your Customers"
+        },
+        {
+          "type": "p",
+          "text": "Businesses can now migrate to the cloud with confidence, knowing that Azure offers robust solutions to protect their data and optimize their operations. This translates to better customer satisfaction and reduced risks."
+        },
+        {
+          "type": "cta",
+          "text": "How is your business preparing for these changes?",
+          "action": "Analyze an account",
+          "href": "/account"
+        }
+      ]
+    }
+  },
+  {
     "slug": "dynamics-copilot-agents-june-2026",
     "category": "dynamics",
     "date": "2026-06-28",
