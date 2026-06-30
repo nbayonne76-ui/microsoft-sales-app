@@ -1,48 +1,56 @@
-# Microsoft Copilot & IA : Mise à jour KB (2026-06-29)
+# Microsoft Copilot & IA : Mise à jour KB (2026-06-30)
 
 ## Dernières annonces
-1. **Technical Debt et D365** : Le 5 décembre 2025, un article a été publié sur l'impact de la technical debt sur la productivité des systèmes ERP comme Microsoft Dynamics 365 (D365) et comment Copilot peut aider à atténuer ces problèmes.
-   
-2. **Fonctionnalités cachées de Copilot** : Le 4 décembre 2025, un article a révélé 7 fonctionnalités puissantes de Copilot dans Dynamics 365 Business Central, permettant d'améliorer la productivité et d'automatiser les workflows.
+1. **Technical Debt et D365**  
+   Le 5 décembre 2025, un article a été publié sur la manière dont Microsoft Copilot peut aider à surmonter la dette technique dans les systèmes ERP comme Microsoft Dynamics 365 (D365). La complexité de ces systèmes peut entraîner des coûts accrus et des mises à jour lentes. Copilot offre des solutions pour améliorer la productivité et réduire les coûts.
 
-3. **AI ERP pour les PME** : Le 1er décembre 2025, une publication a discuté de la manière dont les PME peuvent tirer parti de l'AI ERP en 2026 pour améliorer leur efficacité et leur compétitivité.
+2. **Trucs cachés de Copilot**  
+   Le 4 décembre 2025, un article a révélé 7 fonctionnalités puissantes de Copilot dans Dynamics 365 Business Central. Ces fonctionnalités visent à automatiser les workflows et à améliorer la prise de décision, rendant ainsi le travail quotidien jusqu'à 10 fois plus facile.
 
-4. **Disponibilité de l'Employee Self-Service Agent** : Le 18 juin 2026, une annonce a été faite concernant la disponibilité générale de l'Employee Self-Service Agent dans Microsoft 365 Copilot.
+3. **AI ERP pour les PME en 2026**  
+   Le 1er décembre 2025, une publication a discuté de la manière dont les PME peuvent tirer parti des systèmes AI ERP en 2026 pour améliorer leur efficacité et obtenir un avantage concurrentiel avec Business Central.
 
-5. **GPT-5.5 Instant** : Le 26 juin 2026, il a été annoncé que la fonctionnalité GPT-5.5 Instant est désormais disponible dans Microsoft 365 Copilot.
+4. **Agent de Self-Service Employé**  
+   Le 18 juin 2026, il a été annoncé la disponibilité générale de l'Agent de Self-Service Employé dans Microsoft 365 Copilot, facilitant ainsi l'accès aux informations pour les employés.
 
-6. **Nouveautés dans Notebooks** : Le 24 juin 2026, des informations ont été partagées sur la disponibilité de Copilot Notebooks pour les utilisateurs licenciés de Copilot Chat, en plus des utilisateurs avec une licence Microsoft 365 Copilot.
+5. **GPT-5.5 Instant**  
+   Le 26 juin 2026, Microsoft a annoncé la disponibilité de GPT-5.5 Instant dans Microsoft 365 Copilot, offrant des capacités d'IA améliorées.
 
-7. **Évaluation de la préparation à l'adoption de Copilot** : Le 23 juin 2026, une discussion a eu lieu sur l'accélération de l'adoption de Microsoft 365 Copilot via une évaluation automatisée de la préparation.
+6. **Nouveautés dans Notebooks**  
+   Le 24 juin 2026, il a été précisé que la fonctionnalité Copilot Notebooks est désormais accessible aux utilisateurs licenciés de Copilot Chat, bien que certaines capacités restent réservées aux détenteurs de la licence add-on Copilot.
+
+7. **Évaluation de la préparation à l'adoption de Copilot**  
+   Le 23 juin 2026, une discussion a eu lieu sur l'accélération de l'adoption de Microsoft 365 Copilot via une évaluation automatisée de la préparation.
+
+8. **Coûts de Copilot**  
+   À partir du 1er juillet 2026, l'utilisation de Copilot cowork sera facturée séparément, en plus du coût de la licence M365 Copilot, ce qui pourrait influencer les décisions d'achat des clients.
 
 ## Ce qui change pour vos clients
-- **Amélioration de la productivité** : Les nouvelles fonctionnalités de Copilot permettent une automatisation accrue des workflows, réduisant ainsi la technical debt et améliorant l'efficacité opérationnelle.
-- **Accès élargi** : Les utilisateurs de Copilot Chat peuvent désormais accéder à des fonctionnalités qui étaient auparavant réservées aux utilisateurs de Microsoft 365 Copilot, ce qui élargit l'accès aux outils d'IA.
-- **Optimisation des coûts** : Les entreprises peuvent mieux gérer leurs coûts liés à D365 grâce à des outils d'analyse et de reporting améliorés.
+- **Amélioration de la productivité** : Grâce à Copilot, les clients peuvent réduire leur dette technique et améliorer leur efficacité opérationnelle.
+- **Accès facilité aux outils** : Les nouvelles fonctionnalités de Copilot, comme l'Agent de Self-Service Employé, permettent aux employés d'accéder plus facilement aux informations nécessaires.
+- **Avantage concurrentiel** : Les PME peuvent tirer parti des solutions AI ERP pour automatiser leurs workflows et se démarquer sur le marché.
 
 ## Arguments de vente clés
-- **Réduction de la technical debt** : Mettez en avant comment Copilot peut aider les entreprises à gérer et réduire leur technical debt, ce qui se traduit par des économies de temps et d'argent.
-- **Automatisation et efficacité** : Soulignez les fonctionnalités d'automatisation qui permettent aux utilisateurs de gagner en productivité et de se concentrer sur des tâches à plus forte valeur ajoutée.
-- **Compétitivité accrue** : Expliquez comment l'adoption de l'AI ERP peut donner aux PME un avantage concurrentiel significatif.
+- **Réduction des coûts** : Copilot aide à minimiser les coûts liés à la gestion de la dette technique dans D365.
+- **Automatisation des processus** : Les fonctionnalités de Copilot permettent d'automatiser les tâches répétitives, libérant ainsi du temps pour des activités à plus forte valeur ajoutée.
+- **Facilité d'utilisation** : Les outils intuitifs de Copilot améliorent l'expérience utilisateur et facilitent l'adoption par les employés.
 
 ## Profil client cible
-- **PME** : Celles qui cherchent à améliorer leur efficacité opérationnelle et à réduire leurs coûts.
-- **Entreprises utilisant D365** : Celles qui rencontrent des problèmes de technical debt et qui cherchent des solutions pour optimiser leur utilisation de l'ERP.
-- **Utilisateurs de Microsoft 365** : Ceux qui souhaitent tirer parti des nouvelles fonctionnalités de Copilot pour améliorer leur productivité.
+- **PME** : Recherchant des solutions pour automatiser leurs processus et améliorer leur efficacité.
+- **Organisations utilisant D365** : Souffrant de problèmes de dette technique et cherchant à optimiser leurs systèmes ERP.
+- **Employés** : Ayant besoin d'un accès rapide et facile à des informations pertinentes pour leur travail quotidien.
 
 ## Questions clients fréquentes
-1. **Comment Copilot peut-il m'aider à gérer la technical debt ?**
-   - Copilot offre des outils d'analyse et des recommandations pour optimiser les personnalisations et améliorer la gouvernance.
+1. **Comment Copilot peut-il réduire ma dette technique dans D365 ?**
+   - Copilot offre des outils et des fonctionnalités qui simplifient la gestion des personnalisations et améliorent la sécurité, réduisant ainsi les coûts liés à la dette technique.
 
 2. **Quelles sont les nouvelles fonctionnalités de Copilot que je devrais connaître ?**
-   - Les 7 fonctionnalités cachées récemment révélées peuvent considérablement améliorer votre flux de travail et votre prise de décision.
+   - Les 7 fonctionnalités présentées récemment dans Business Central peuvent considérablement améliorer votre productivité et automatiser des workflows.
 
-3. **Quelles sont les implications de l'adoption de GPT-5.5 Instant ?**
-   - Cette mise à jour améliore les capacités d'IA de Copilot, offrant des réponses plus rapides et plus précises.
+3. **Quels sont les coûts associés à l'utilisation de Copilot après le 1er juillet 2026 ?**
+   - À partir de cette date, des frais supplémentaires s'appliqueront pour l'utilisation de Copilot cowork, en plus des coûts de la licence M365 Copilot.
 
 ## Angle concurrentiel
-- **Avantage technologique** : Microsoft Copilot se distingue par ses capacités d'IA avancées et son intégration fluide avec les outils Microsoft, offrant une solution complète pour les entreprises.
-- **Support et communauté** : Microsoft offre un support robuste et une communauté active pour aider les utilisateurs à tirer le meilleur parti de Copilot.
-- **Écosystème intégré** : L'intégration de Copilot avec d'autres produits Microsoft crée un écosystème cohérent qui facilite la collaboration et l'efficacité.
-
-Cette mise à jour vise à fournir aux Account Managers les informations nécessaires pour mieux comprendre et communiquer les avantages de Microsoft Copilot et de l'IA à leurs clients.
+- **Avantage technologique** : Microsoft Copilot intègre des capacités d'IA avancées, comme GPT-5.5, offrant ainsi un avantage concurrentiel par rapport aux autres solutions ERP.
+- **Intégration fluide** : Les solutions Microsoft sont conçues pour s'intégrer facilement avec d'autres outils Microsoft, ce qui facilite l'adoption par les entreprises déjà investies dans l'écosystème Microsoft.
+- **Support et formation** : Microsoft offre un soutien et des ressources de formation pour aider les entreprises à tirer le meilleur parti de leurs investissements dans Copilot et D365.
