@@ -44,6 +44,7 @@ export const t = {
       analytics: 'Analytics',
       sequences: 'Sequences',
       leadBuilder: 'Lead Builder',
+      prospector: 'Lead Prospector',
       blog: 'Blog',
       groups: {
         overview: 'Overview',
@@ -223,6 +224,7 @@ export const t = {
       analytics: 'Analytique',
       sequences: 'Séquences',
       leadBuilder: 'Importer Leads',
+      prospector: 'Lead Prospector',
       blog: 'Blog',
       groups: {
         overview: 'Vue d\'ensemble',

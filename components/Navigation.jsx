@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import {
   Home, Mail, BookOpen, Sparkles, Globe,
   MessageSquare, Zap, Newspaper, LayoutGrid,
-  ChevronLeft, ChevronRight, Bot, X
+  ChevronLeft, ChevronRight, Bot, X, Users
 } from 'lucide-react';
 import { useLang, t } from '@/contexts/LanguageContext';
 
@@ -33,6 +33,7 @@ export default function Navigation({
       label: tr.groups.aiTools,
       items: [
         { href: '/account',         label: tr.accountIntel,   icon: Sparkles,     highlight: true },
+        { href: '/prospector',      label: tr.prospector,     icon: Users,        highlight: true },
         { href: '/email-generator', label: tr.emailGenerator, icon: Mail          },
         { href: '/ai-agent',        label: tr.aiAgent,        icon: MessageSquare },
         { href: '/sequences',       label: tr.sequences,      icon: Zap           },
